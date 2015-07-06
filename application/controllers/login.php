@@ -74,7 +74,7 @@ class Login extends CI_Controller {
 		$this->session->set_userdata('token',$token);
 		return $token;
 	}
-
+	
 	public function logout()
 	{
 		$this->session->set_flashdata('warning', 'Cierre de sesión');

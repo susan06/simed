@@ -95,7 +95,7 @@
 					  <div class="register-box-body">
 						<p class="login-box-msg">Registro de Usuario.</p>
 	
-						<form action="<?php echo base_url();?>index.php/cuenta/guardar_usuario" method="POST" id="form_usuario" novalidate>
+						<form action="<?php echo base_url();?>index.php/cuenta/guardar_usuario" method="POST" id="form_usuario" onsubmit="return checkSubmit()" novalidate>
 						  
 						  <div class="row">
 						  
@@ -109,9 +109,10 @@
 						  </div>
 						  </div>
 						  <div class="row">						 
-						  <div class="form-group has-feedback col-xs-12">
+						  <div class="form-group has-feedback col-xs-12" id="fromUsuario">
 						  <label>Usuario</label>
-							<input type="text" name="nick" class="form-control" placeholder="Nombre de Usuario">							
+							<input type="text" name="nick" class="form-control" placeholder="Nombre de Usuario" id="usuario" onBlur="validar_usuario(this.value)">	
+							<span id="mnj_nick"></span>							
 						  </div>
 						  </div>
 						  <div class="row">
@@ -130,7 +131,7 @@
 						  <div class="form-group has-feedback col-xs-12">
 							<label>Pregunta de seguridad</label>	
 								<select class="form-control" name="pregunta_secreta" required>
-								  <option value=" ">Seleccione una pregunta</option>
+								  <option value="">Seleccione una pregunta</option>
 								  <option value="1">¿Libro favorito?</option>
 								  <option value="2">¿Película favorita?</option>
 								  <option value="3">¿Comida favorita?</option>
@@ -156,8 +157,8 @@
 						 <div class="row">
 						  <div class="form-group has-feedback col-xs-12">
 							<label>Rol</label>	
-								<select class="form-control" name="rol" required>
-								  <option value=" ">Seleccione su rol</option>
+								<select class="form-control" name="rol" required >
+								  <option value="">Seleccione su rol</option>
 								  <option value="2">Enfermera</option>
 								  <option value="3">Doctor</option>
 								  <option value="4">Terapista</option>
@@ -168,7 +169,7 @@
 						  
 						  <div class="row">
 							<div class="pull-right col-xs-4">
-							  <button type="submit" class="btn btn-success btn-block btn-flat">Registrarse</button>
+							  <button type="submit" class="btn btn-success btn-block btn-flat" id="boton_submit">Registrarse</button>
 							</div><!-- /.col -->
 						  </div>
 						  
@@ -211,6 +212,37 @@
     <script src='<?=base_url()?>assets/plugins/fastclick/fastclick.min.js'></script>
     <!-- all -->
     <script src="<?=base_url()?>assets/js/scripts.js" type="text/javascript"></script>
+
+	 <script type="text/javascript">
+	 
+	function validar_usuario(nick){ 
+				$.ajax({ 
+						url:'<?php echo base_url(); ?>index.php/cuenta/validar_usuario',
+						type:'POST',
+						data:'nick='+nick,
+						success: function(mnj){
+							if(mnj==true){
+							
+							$('#fromUsuario').removeClass('has-success').addClass('has-error');							
+							$('#mnj_nick').html("Usuario no disponible").removeClass('text-green').addClass('text-red');	
+							document.getElementById("boton_submit").disabled = true;
+							
+							}else{
+								
+							$('#fromUsuario').removeClass('has-error').addClass('has-success');	
+							$('#mnj_nick').html("Usuario válido").removeClass('text-red').addClass('text-green');	
+							document.getElementById("boton_submit").disabled = false;
+							}
+							if(nick==""){
+							$('#mnj_nick').html("");
+							$('#fromUsuario').removeClass('has-success').addClass('has-error');	
+							document.getElementById("boton_submit").disabled = false;
+							}
+						}
+				   })
+			 } 	
+
+	</script>
 	
   </body>
 </html>

@@ -87,17 +87,28 @@ class Cuenta extends CI_Controller {
 	
 	public function contrasena(){
 		
-		$data['page_title'] = 'Usuarios';
-        $data['page_name'] = 'usuarios/contrasena';
-		$data['system_title'] = 'Crear';	
-		$data['page_header'] = 'header-usuarios';	
-		$data['page_menu'] = '';
-		$data['mod'] = 'usuarios';
-		$data['form'] = 'validar';
-		$data['js'] = 'form_js_key';
+		$data['page_title'] = 'Contraseña';
+		$data['system_title'] = 'Restablecer';		
 
-		$this->load->view('index', $data);	
+		$this->load->view('usuarios/reset_password', $data);
+	
 	}
 
+		public function forgot_pass(){	
+		
+		$email= $this->input->post('email');		
+		$rs= random_string('alnum', 12);
+		
+		$data = array( 'rs' => $rs);
+		
+		$this->db->where('email', $email);
+		$this->db->update('usuarios', $data);
+	
+		$config['protocol'] = 'smtp';
+        $config['smtp_host'] = 'ssl://smtp.googlemail.com';
+        $config['smtp_port'] = 465;
+        $config['smtp_user'] = 'ikz.php@gmail.com';
+        $config['smtp_pass'] = '********';
+	}
 	
 }
