@@ -38,17 +38,17 @@
                   <!-- Menu Footer-->
                   <li class="user-footer">
                     <div class="pull-left">
-                      <a href="<?=base_url()?>index.php/usuarios/perfil" class="btn btn-default btn-flat">Perfil</a>
+                      <a href="<?=base_url()?>usuarios/perfil" class="btn btn-default btn-flat">Perfil</a>
                     </div>
                     <div class="pull-right">
-                      <a href="<?=base_url()?>index.php/login/logout" class="btn btn-default btn-flat">Salir</a>
+                      <a href="<?=base_url()?>login/logout" class="btn btn-default btn-flat">Salir</a>
                     </div>
                   </li>
                 </ul>
               </li>
               <!-- Control Sidebar Toggle Button -->
               <li>
-                <a href="<?=base_url()?>index.php/login/logout" title="Salir"><i class="glyphicon glyphicon-share"></i></a>
+                <a href="<?=base_url()?>login/logout" title="Salir"><i class="glyphicon glyphicon-share"></i></a>
               </li>
             </ul>
           </div>

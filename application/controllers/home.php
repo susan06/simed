@@ -76,7 +76,7 @@ class Home extends CI_Controller {
 	}
 }
 
-/* file home_admin.php 
+/* file home.php 
  * Location: ./application/controllers/home.php 
  * @author susan medina
  * @version 1.0 */

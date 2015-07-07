@@ -14,7 +14,8 @@ class Usuarios_model extends CI_Model {
 	function get_lista_usuarios(){	
 		$this->db->select("*");
 		$this->db->order_by("pnombre"); 
-		$this->db->from('usuarios');			
+		$this->db->from('usuarios');
+		$this->db->where_not_in('roles_id', 1);		
 		$query = $this->db->get();		
 		return $query->result_array();			
 	}
@@ -108,6 +109,23 @@ class Usuarios_model extends CI_Model {
 			echo true;
 		}else{
 			echo false;
+		}
+		
+	}
+
+	function cambiar_rol($id, $rol){
+	
+		$rol = array('roles_id' => $rol);
+		
+		$this->db->where('id', $id);
+        $updateSQL=$this->db->update('usuarios', $rol);	
+		
+		if($updateSQL) {
+			$this->session->set_flashdata('info', 'Se realizó el cambio de rol con éxito');
+			redirect(base_url() . 'usuarios/roles', 'refresh');	
+		}else{
+			$this->session->set_flashdata('info', 'Intente cambiar el rol de nuevo');
+			redirect(base_url() . 'usuarios/roles', 'refresh');	
 		}
 		
 	}

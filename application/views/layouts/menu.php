@@ -19,16 +19,20 @@
             <li class="header">PANEL</li>
 			
 			 <li class="treeview">
-              <a href="#">
-                <i class="fa fa-dashboard"></i> <span>Home</span> <i class="fa fa-angle-left pull-right"></i>
+              <a href="<?= base_url();?>home">
+                <i class="fa fa-home"></i> <span>Home</span>
               </a>
             </li>
 			
 			<?Php if($this->session->userdata('rol') == 1): ?>
             <li class="treeview">
-              <a href="<?= base_url();?>index.php/usuarios">
-                <i class="fa fa-dashboard"></i> <span>Usuarios</span> <i class="fa fa-angle-left pull-right"></i>
+              <a href="#">
+                <i class="fa fa-dashboard"></i> <span>Usuarios</span> 
               </a>
+			    <ul class="treeview-menu">
+                <li><a href="<?= base_url();?>usuarios"><i class="fa fa-group"></i>Ver</a></li>
+                <li><a href="<?= base_url();?>usuarios/roles"><i class="fa fa-user-plus"></i>Roles</a></li>
+              </ul>
             </li>
 			
 			
@@ -43,27 +47,37 @@
 			
             <li>
               <a href="../widgets.html">
-                <i class="fa fa-th"></i> <span>Pacientes</span>
+                <i class="fa fa-wheelchair"></i> <span>Pacientes</span>
               </a>
 			   <ul class="treeview-menu">
                 <li><a href="#"><i class="fa fa-circle-o"></i>Ver</a></li>
-                <li><a href="#"><i class="fa fa-circle-o"></i>Registrar</a></li>
+                <li><a href="#"><i class="fa fa-user-plus"></i>Registrar</a></li>
               </ul>
             </li> 
 			
 			<li>
               <a href="../widgets.html">
-                <i class="fa fa-th"></i> <span>Doctores</span>
+                <i class="fa fa-user-md"></i> <span>Doctores</span>
               </a>
 			   <ul class="treeview-menu">
                 <li><a href="#"><i class="fa fa-circle-o"></i>Ver</a></li>
-                <li><a href="#"><i class="fa fa-circle-o"></i>Registrar</a></li>
+                <li><a href="#"><i class="fa fa-user-plus"></i>Registrar</a></li>
               </ul>
             </li>   
 
 			<li>
               <a href="../widgets.html">
-                <i class="fa fa-th"></i> <span>Citas Médicas</span>
+                <i class="fa fa-calendar"></i> <span>Citas Médicas</span>
+              </a>
+			   <ul class="treeview-menu">
+                <li><a href="#"><i class="fa fa-circle-o"></i>Ver</a></li>
+                <li><a href="#"><i class="fa fa-plus-square"></i>Registrar</a></li>
+              </ul>
+            </li>
+
+			<li>
+              <a href="../widgets.html">
+                <i class="fa fa-group"></i> <span>Sala de Espera</span>
               </a>
 			   <ul class="treeview-menu">
                 <li><a href="#"><i class="fa fa-circle-o"></i>Ver</a></li>
@@ -73,7 +87,7 @@
 
 			<li>
               <a href="../widgets.html">
-                <i class="fa fa-th"></i> <span>Sala de Espera</span>
+                <i class="fa fa-stethoscope"></i> <span>Consulta Médica</span>
               </a>
 			   <ul class="treeview-menu">
                 <li><a href="#"><i class="fa fa-circle-o"></i>Ver</a></li>
@@ -83,7 +97,7 @@
 
 			<li>
               <a href="../widgets.html">
-                <i class="fa fa-th"></i> <span>Consulta Médica</span>
+                <i class="fa fa-folder-open-o"></i> <span>Expediente Médico</span>
               </a>
 			   <ul class="treeview-menu">
                 <li><a href="#"><i class="fa fa-circle-o"></i>Ver</a></li>
@@ -93,17 +107,7 @@
 
 			<li>
               <a href="../widgets.html">
-                <i class="fa fa-th"></i> <span>Expediente Médico</span>
-              </a>
-			   <ul class="treeview-menu">
-                <li><a href="#"><i class="fa fa-circle-o"></i>Ver</a></li>
-                <li><a href="#"><i class="fa fa-circle-o"></i>Registrar</a></li>
-              </ul>
-            </li>
-
-			<li>
-              <a href="../widgets.html">
-                <i class="fa fa-th"></i> <span>Terapias</span>
+                <i class="fa fa-medkit"></i> <span>Terapias</span>
               </a>
 			   <ul class="treeview-menu">
                 <li><a href="#"><i class="fa fa-circle-o"></i>Ver</a></li>

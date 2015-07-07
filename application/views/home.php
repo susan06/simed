@@ -27,10 +27,32 @@
 		  
 		  
         </section><!-- /.content -->
+		
+	 			
+            <div class="modal modal-warning" id="warning_modal" role="dialog">
+              <div class="modal-dialog"  role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Permisos</h4>
+                  </div>
+                  <div class="modal-body">
+                    <p><?php echo $this->session->flashdata('warning_modal'); ?></p>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-outline" data-dismiss="modal">Ok</button>
+                  </div>
+                </div><!-- /.modal-content -->
+              </div><!-- /.modal-dialog -->
+            </div><!-- /.modal -->
+
+		
       </div><!-- /.content-wrapper -->
 	  
 	  <?php $this->load->view('layouts/footer.php');	 ?>
- 
+	
+	 
+	 
     </div><!-- ./wrapper -->
 
    <!-- jQuery -->
@@ -46,8 +68,22 @@
     <!-- AdminLTE App -->
     <script src="<?=base_url()?>assets/dist/js/app.min.js" type="text/javascript"></script>
 
-    <!-- Demo -->
-    <script src="<?=base_url()?>assets/dist/js/demo.js" type="text/javascript"></script>
+
+	<script>
+
+	  <?php if($this->session->flashdata('warning_modal') != ''): ?>	
+
+				window.onload = function() {
+
+                $('#warning_modal').modal('show');
+				
+                };
+
+
+     <?php endif;?>
+
+
+</script>
 
   </body>
 </html>

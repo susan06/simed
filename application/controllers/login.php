@@ -85,4 +85,8 @@ class Login extends CI_Controller {
 	
 	
 }
+/* file login.php 
+ * Location: ./application/controllers/login.php 
+ * @author susan medina
+ * @version 1.0 */
 

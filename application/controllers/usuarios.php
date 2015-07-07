@@ -59,8 +59,8 @@ class Usuarios extends CI_Controller {
 			
 		}else{	
 		
-			$this->session->set_flashdata('warning', 'No tiene permiso para acceder al módulo de usuarios');
-			redirect(base_url() . 'index.php/home', 'refresh');
+			$this->session->set_flashdata('warning_modal', 'No tiene permiso para ver los usuarios registrados');
+			redirect(base_url() . 'home', 'refresh');
 			
 		}
 	}
@@ -74,31 +74,32 @@ class Usuarios extends CI_Controller {
 	}	
 	
 
-	public function registrar()
+	public function roles()
 	{	
 		
 		$crear = $this->crud_model->get_id_permiso("Crear");
 		
-		$this->session->set_flashdata('key', 'key');
-		
 		$data['page_title'] = 'Usuarios';
-        $data['page_name'] = 'usuarios/registrar';
-		$data['system_title'] = 'Crear';	
-		$data['page_header'] = 'header';	
-		$data['page_menu'] = '';
-		$data['mod'] = 'usuarios';
-		$data['form'] = 'validar';
-		$data['admin']= $this->session->userdata('rol');
-		$data['js'] = 'form_js_usuario';
+		$data['system_title'] = 'Ver';		
+		$data['borrar'] = $this->crud_model->get_id_permiso("Borrar");
+		$data['permisos'] = $this->permisos();
+		
+		$usuarios = $this->usuarios_model->get_lista_usuarios();
+
+		if($usuarios){
+			$data['usuarios'] =  $usuarios;
+		}else{
+			$data['usuarios'] =  NULL;
+		}
 		
 		if (in_array($crear, $this->permisos())){
 		
-			$this->load->view('index', $data);
+			$this->load->view('usuarios/roles', $data);
 			
 		}else{	
 		
-			$this->session->set_flashdata('flash_message', '<p class="font1 rojo"> No tiene permiso para crear usuarios </p>');
-			redirect(base_url() . 'index.php/usuarios', 'refresh');
+			$this->session->set_flashdata('warning_modal', 'No tiene permiso para ver roles');
+			redirect(base_url() . 'home', 'refresh');
 			
 		}
 	}
@@ -106,6 +107,12 @@ class Usuarios extends CI_Controller {
 	public function status(){	
 		$id = $this->input->post('id');
 		$this->usuarios_model->cambiar_status($id);
+	}
+	
+	public function cambiar_rol(){	
+		$id = $this->input->post('id');
+		$rol = $this->input->post('rol');
+		$this->usuarios_model->cambiar_rol($id,$rol);
 	}
 	
 	public function guardar(){	

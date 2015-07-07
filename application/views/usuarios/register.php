@@ -17,7 +17,7 @@
          folder instead of downloading all of them to reduce the load. -->
     <link href="<?=base_url()?>assets/dist/css/skins/skin-green-light.min.css" rel="stylesheet" type="text/css" />
 
-	<link rel="icon" type="image/ico" href="<?=base_url()?>assets/dist/img/centro_medico.ico">
+		<link href="<?=base_url()?>favicon.ico" rel="shortcut icon" type="image/ico" /> 
   <style>
 	
 		.colum_izq {
@@ -212,8 +212,8 @@
 	<!-- FastClick -->
     <script src='<?=base_url()?>assets/plugins/fastclick/fastclick.min.js'></script>
     <!-- all -->
-    <script src="<?=base_url()?>assets/js/scripts.js" type="text/javascript"></script>
-
+	<script src="<?=base_url()?>assets/js/scripts_form.js" type="text/javascript"></script>
+	<script src="<?=base_url()?>assets/js/scripts.js" type="text/javascript"></script>
 	 <script type="text/javascript">
 	 
 	function validar_usuario(nick){ 
