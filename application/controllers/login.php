@@ -51,7 +51,7 @@ class Login extends CI_Controller {
 		
 		if($check_user == TRUE)
 							{
-								redirect(base_url() . 'index.php/home', 'refresh');
+								redirect(base_url() . 'home', 'refresh');
 								
 							}else{	
 							

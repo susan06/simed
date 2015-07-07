@@ -180,5 +180,6 @@
     <script src='<?=base_url()?>assets/plugins/fastclick/fastclick.min.js'></script>
     <!-- all -->
     <script src="<?=base_url()?>assets/js/scripts.js" type="text/javascript"></script>
+	<script src="<?=base_url()?>assets/js/scripts_form.js" type="text/javascript"></script>
   </body>
 </html>

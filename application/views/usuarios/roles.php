@@ -125,16 +125,16 @@
     <script src='<?=base_url()?>assets/plugins/fastclick/fastclick.min.js'></script>
     <!-- AdminLTE App -->
     <script src="<?=base_url()?>assets/dist/js/app.min.js" type="text/javascript"></script>
+    <!-- all -->
+    <script src="<?=base_url()?>assets/js/scripts.js" type="text/javascript"></script>
 
 	<!-- page script -->
     <script type="text/javascript">
 	
-      $(function () {
+      $(document).ready(function () {
+		  
         $("#usuarios_table").dataTable();
-		
-		setTimeout(function() {
-        $(".alert").fadeOut(1000);
-		},3000);
+
       });	
 	  
 	  	function rol(rol,id){ 

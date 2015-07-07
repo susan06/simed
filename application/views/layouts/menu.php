@@ -38,7 +38,7 @@
 			
             <li class="treeview">
               <a href="#">
-                <i class="fa fa-files-o"></i>
+                <i class="fa fa-hospital-o"></i>
                 <span>Centro Médico</span>
               </a>
             </li>
