@@ -57,12 +57,12 @@ class Login extends CI_Controller {
 							
 								$this->session->set_flashdata('error', 'E-mail o Contraseña incorrecta');
 								$this->session->set_flashdata('nick', $username);
-								redirect(base_url() . 'index.php/login', 'refresh');
+								redirect(base_url() . 'login', 'refresh');
 							}	
 		}else{
 				$this->session->set_flashdata('error', 'E-mail o Contraseña incorrecta');
 				$this->session->set_flashdata('nick', $username);
-				redirect(base_url() . 'index.php/login/', 'refresh');
+				redirect(base_url() . 'login', 'refresh');
 				return FALSE;
 			}	
 	}
@@ -80,7 +80,7 @@ class Login extends CI_Controller {
 		$this->session->set_flashdata('warning', 'Cierre de sesión');
 		$this->session->unset_userdata();
         $this->session->sess_destroy();
-        redirect(base_url() . 'index.php/login', 'refresh');
+        redirect(base_url() . 'login', 'refresh');
 	}	
 	
 	

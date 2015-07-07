@@ -121,7 +121,7 @@
 					  <div class="register-box-body">
 						<p class="login-box-msg">Sistema de gestión de información médica.</p>
 	
-						<form action="<?php echo base_url();?>index.php/login/process" method="POST" id="form_login" novalidate>
+						<form action="<?php echo base_url();?>login/process" method="POST" id="form_login" novalidate>
 						<input type="hidden" name="token" value="<?php echo $token; ?>">
 						 
 						  <div class="form-group has-feedback">						
@@ -139,8 +139,8 @@
 						  </div>
 						  
 						</form>  
-						<a class="text-green" href="<?php echo base_url();?>index.php/cuenta/crear_usuario">Crear una cuenta de usuario</a>
-						<br><a href="<?php echo base_url();?>index.php/cuenta/contrasena">¿Olvido su contraseña?</a>						
+						<a class="text-green" href="<?php echo base_url();?>cuenta/crear_usuario">Crear una cuenta de usuario</a>
+						<br><a href="<?php echo base_url();?>cuenta/contrasena">¿Olvido su contraseña?</a>						
 					  </div><!-- /.form-box -->
 					</div><!-- /.register-box -->
 

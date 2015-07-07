@@ -95,7 +95,7 @@
 					  <div class="register-box-body">
 						<p class="login-box-msg">Registro de Usuario.</p>
 	
-						<form action="<?php echo base_url();?>index.php/cuenta/guardar_usuario" method="POST" id="form_usuario" onsubmit="return checkSubmit()" novalidate>
+						<form action="<?php echo base_url();?>cuenta/guardar_usuario" method="POST" id="form_usuario" onsubmit="return checkSubmit()" novalidate>
 						  
 						  <div class="row">
 						  
@@ -149,9 +149,10 @@
 						  </div>
 						  </div>
 						  <div class="row">
-						  <div class="form-group has-feedback col-xs-12">
+						  <div class="form-group has-feedback col-xs-12" id="fromEmail">
 							<label>Email</label>	
-							<input type="email" name="email" class="form-control" placeholder="Email">							
+							<input type="email" name="email" class="form-control" placeholder="Email" onBlur="validar_email(this.value)">
+							<span id="mnj_email"></span>								
 						  </div>
 						  </div>
 						 <div class="row">
@@ -175,7 +176,7 @@
 						  
 						</form>  
 						
-						<a href="<?php echo base_url();?>index.php/login">Regresar a login</a>						
+						<a href="<?php echo base_url();?>login">Regresar a login</a>						
 					  </div><!-- /.form-box -->
 					</div><!-- /.register-box -->
 
@@ -217,7 +218,7 @@
 	 
 	function validar_usuario(nick){ 
 				$.ajax({ 
-						url:'<?php echo base_url(); ?>index.php/cuenta/validar_usuario',
+						url:'<?php echo base_url(); ?>cuenta/validar_usuario',
 						type:'POST',
 						data:'nick='+nick,
 						success: function(mnj){
@@ -242,6 +243,32 @@
 				   })
 			 } 	
 
+		function validar_email(email){ 
+				$.ajax({ 
+						url:'<?php echo base_url(); ?>cuenta/validar_email',
+						type:'POST',
+						data:'email='+email,
+						success: function(mnj){
+							if(mnj==true){
+							
+							$('#fromEmail').removeClass('has-success').addClass('has-error');							
+							$('#mnj_email').html("Este Email ya es de otro usuario").removeClass('text-green').addClass('text-red');	
+							document.getElementById("boton_submit").disabled = true;
+							
+							}else{
+								
+							$('#fromEmail').removeClass('has-error').addClass('has-success');	
+							$('#mnj_email').html("Email válido").removeClass('text-red').addClass('text-green');	
+							document.getElementById("boton_submit").disabled = false;
+							}
+							if(nick==""){
+							$('#mnj_email').html("");
+							$('#fromEmail').removeClass('has-success').addClass('has-error');	
+							document.getElementById("boton_submit").disabled = false;
+							}
+						}
+				   })
+			 } 	
 	</script>
 	
   </body>

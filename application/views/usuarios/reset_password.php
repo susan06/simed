@@ -75,7 +75,7 @@
 							<span id="mnj_rs"></span>
 						</div>	
 						
-						 <form method="post" name="form_pass" id="form_pass" action="<?php echo base_url(); ?>index.php/cuenta/guardar_contrasena" novalidate> 
+						 <form method="post" name="form_pass" id="form_pass" action="<?php echo base_url(); ?>cuenta/guardar_contrasena" novalidate> 
 						 
 						  <div class="form-group">
 							<label>Contraseña</label>						  
@@ -99,7 +99,7 @@
 						 
 						   </form>
 						   
-						<a href="<?php echo base_url();?>index.php/login">Regresar a login</a>	
+						<a href="<?php echo base_url();?>login">Regresar a login</a>	
 						
 					  </div><!-- /.form-box -->
 					</div><!-- /.register-box -->
@@ -148,7 +148,7 @@
 				$('#mnj_email').html(" ").removeClass('text-red').addClass('text-green');	
 
 				$.ajax({ 
-						url:'<?= base_url() ?>index.php/cuenta/validar_email',
+						url:'<?= base_url() ?>cuenta/validar_email',
 						type:'POST',
 						data:'email='+email,
 						success: function(mnj){
@@ -190,7 +190,7 @@
 				$.ajax({ 						
 						type:'post',
 						data:'email='+email,
-						url:'<?php echo base_url(); ?>index.php/cuenta/pregunta',
+						url:'<?php echo base_url(); ?>cuenta/pregunta',
 						success: function(mnj){
 							$('#pregunta').html(mnj);													
 						}
@@ -201,7 +201,7 @@
 				$.ajax({ 						
 						type:'post',
 						data:'email='+email,
-						url:'<?php echo base_url(); ?>index.php/cuenta/usuario',
+						url:'<?php echo base_url(); ?>cuenta/usuario',
 						success: function(data){
 							$('#usuario').val(data);														
 						}
@@ -216,7 +216,7 @@
 			$('#mnj_rs').html(" ").removeClass('text-red').addClass('text-green');	
 			
 				$.ajax({ 
-						url:'<?php echo base_url(); ?>index.php/cuenta/validar_respuesta',
+						url:'<?php echo base_url(); ?>cuenta/validar_respuesta',
 						type:'POST',
 						data:{rsp: rsp, email: email},
 						success: function(mnj){

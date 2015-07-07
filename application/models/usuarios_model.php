@@ -156,19 +156,10 @@ class Usuarios_model extends CI_Model {
 	}
 
     function guardar_contrasena($data,$id)
-	{	
-	
-	$this->db->where('id', $id);
-    $updateSQL=$this->db->update('usuarios', $data);	
-		
-		if($updateSQL) {
-					$this->session->set_flashdata('flash_message', '<p class="font-16"> ¡Se cambio su contraseña!</p>');
-					redirect(base_url() . 'index.php/login', 'refresh');		 
-				}else{
-					$this->session->set_flashdata('flash_message', '<p class="font-16 rojo"> ¡Error al tratar de cambiar contraseña! </p>');
-					redirect(base_url() . 'index.php/usuarios', 'refresh');	
-		}
-		
+	{		
+		$this->db->where('id', $id);
+		return $this->db->update('usuarios', $data);	
+			
 	}
 
 	function actualizar_clinica($nombre,$rif,$tlf,$ciudad,$estado,$postal,$direccion,$lema){

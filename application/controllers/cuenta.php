@@ -47,6 +47,7 @@ class Cuenta extends CI_Controller {
 		 $data['pregunta_s']= $this->input->post('pregunta_secreta'); 
 		 $data['respuesta_s']= $this->bcrypt->hash_password($this->input->post('respuesta_secreta')); 
 		 $data['status_id']= 0;
+		 $data['created_at']= date('Y-m-d');
 		  
 		$this->cuenta_model->guardar_usuario($data);	
 	}
@@ -78,23 +79,25 @@ class Cuenta extends CI_Controller {
 	}
 	
 	public function guardar_contrasena(){	
-		 
-		 $data['clave']= $this->input->post('clave');	
-		 
-		 $id= $this->input->post('id');	
-		 $password = $this->bcrypt->hash_password($data['clave']);
-		 
-		 $this->db->where('id', $id);
-		 $update= $this->db->update('usuarios', array( 'clave' => $password ));
+		
+		//$data = array(	'is_logued_in' 	=> 	TRUE);	
+									
+		//$this->session->set_userdata($data);
+	
+		 $data['clave'] = $this->bcrypt->hash_password($this->input->post('clave'));
+		 $this->db->set('id', $this->input->post('id'));
+		 $update	= $this->db->update('usuarios', $data);
 					
 		if($update) {
 					$this->session->set_flashdata('info', '¡Se cambio su contraseña!');
-					redirect(base_url() . 'index.php/login', 'refresh');		 
+					redirect(base_url() . 'login', 'refresh');		 
 				}else{
 					$this->session->set_flashdata('error', '¡Error al tratar de cambiar contraseña!');
-					redirect(base_url() . 'index.php/usuarios', 'refresh');	
+					redirect(base_url() . 'login', 'refresh');	
 		}		
-
+		
+		//$this->session->unset_userdata();
+        //$this->session->sess_destroy();
 		//$this->cuenta_model->guardar_contrasena($id,$data);	
 	}
 	
