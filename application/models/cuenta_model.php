@@ -95,12 +95,14 @@ class Cuenta_model extends CI_Model {
 	{	
 	
 	$this->db->where('id', $id);
-		
-		if($this->db->update('usuarios', $data)) {
-					$this->session->set_flashdata('flash_message', '<p class="font-16"> ¡Se cambio su contraseña!</p>');
+	$update= $this->db->update('usuarios', $data);	
+
+  
+		if($update) {
+					$this->session->set_flashdata('info', '¡Se cambio su contraseña!');
 					redirect(base_url() . 'index.php/login', 'refresh');		 
 				}else{
-					$this->session->set_flashdata('flash_message', '<p class="font-16 rojo"> ¡Error al tratar de cambiar contraseña! </p>');
+					$this->session->set_flashdata('error', '¡Error al tratar de cambiar contraseña!');
 					redirect(base_url() . 'index.php/usuarios', 'refresh');	
 		}
 		

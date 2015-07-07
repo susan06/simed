@@ -73,8 +73,10 @@
 							<label>Pregunta secreta: <span id="pregunta" class="text-info"></span> </label>	
 							<input type="text" name="rs_secreta" class="form-control" placeholder="Respuesta secreta" id="rs_secreta" onkeyup="validar_respuesta()">	
 							<span id="mnj_rs"></span>
-						</div>						
-						  
+						</div>	
+						
+						 <form method="post" name="form_pass" id="form_pass" action="<?php echo base_url(); ?>index.php/cuenta/guardar_contrasena" novalidate> 
+						 
 						  <div class="form-group">
 							<label>Contraseña</label>						  
 							<input type="password" name="clave" id="clave" class="form-control" placeholder="Contraseña">
@@ -87,14 +89,16 @@
 						  
 						    <div class="row">							
 							<div class="pull-right col-xs-7">
-							  <button type="button" class="btn btn-success btn-block btn-flat" id="boton_submit">Restablecer Contraseña</button>
+							  <button type="submit" class="btn btn-success btn-block btn-flat" id="boton_submit">Restablecer Contraseña</button>
 							</div>							
 							</div>
 							
 							<input type="hidden" name="id" id="usuario">
 							
 						 </div>
-						  
+						 
+						   </form>
+						   
 						<a href="<?php echo base_url();?>index.php/login">Regresar a login</a>	
 						
 					  </div><!-- /.form-box -->

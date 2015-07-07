@@ -93,7 +93,7 @@
 				<?php if($this->session->flashdata('warning') != ''): ?>
 					  <div class="alert alert-warning alert-dismissable">
 							<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-							<h4><i class="icon fa fa-ban"></i> Advertencia!</h4>
+							<h4><i class="icon fa fa-warning"></i> Advertencia!</h4>
 							<?php echo $this->session->flashdata('warning'); ?>
 					  </div>
 				<?php endif;?>
@@ -109,7 +109,7 @@
 				<?php if($this->session->flashdata('info') != ''): ?>
 					  <div class="alert alert-info alert-dismissable">
 							<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-							<h4><i class="icon fa fa-ban"></i> Información!</h4>
+							<h4><i class="icon fa fa-info"></i> Información!</h4>
 							<?php echo $this->session->flashdata('info'); ?>
 					  </div>
 				<?php endif;?>

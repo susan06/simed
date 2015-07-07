@@ -79,10 +79,23 @@ class Cuenta extends CI_Controller {
 	
 	public function guardar_contrasena(){	
 		 
-		 $data['clave']= $this->bcrypt->hash_password($this->input->post('clave'));		   
+		 $data['clave']= $this->input->post('clave');	
+		 
 		 $id= $this->input->post('id');	
+		 $password = $this->bcrypt->hash_password($data['clave']);
+		 
+		 $this->db->where('id', $id);
+		 $update= $this->db->update('usuarios', array( 'clave' => $password ));
+					
+		if($update) {
+					$this->session->set_flashdata('info', '¡Se cambio su contraseña!');
+					redirect(base_url() . 'index.php/login', 'refresh');		 
+				}else{
+					$this->session->set_flashdata('error', '¡Error al tratar de cambiar contraseña!');
+					redirect(base_url() . 'index.php/usuarios', 'refresh');	
+		}		
 
-		$this->cuenta_model->guardar_contrasena($id,$data);	
+		//$this->cuenta_model->guardar_contrasena($id,$data);	
 	}
 	
 	public function contrasena(){
@@ -94,21 +107,6 @@ class Cuenta extends CI_Controller {
 	
 	}
 
-		public function forgot_pass(){	
-		
-		$email= $this->input->post('email');		
-		$rs= random_string('alnum', 12);
-		
-		$data = array( 'rs' => $rs);
-		
-		$this->db->where('email', $email);
-		$this->db->update('usuarios', $data);
-	
-		$config['protocol'] = 'smtp';
-        $config['smtp_host'] = 'ssl://smtp.googlemail.com';
-        $config['smtp_port'] = 465;
-        $config['smtp_user'] = 'ikz.php@gmail.com';
-        $config['smtp_pass'] = '********';
-	}
+
 	
 }

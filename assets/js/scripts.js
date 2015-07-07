@@ -43,6 +43,43 @@
 				}
                 
             });
+
+		$("#form_pass").validate({
+                // Rules for form validation
+                rules: {
+                    clave: {
+                        required: true,
+						minlength: 5,
+                        maxlength: 20
+                    },
+					clave2: {
+                        required: true,
+                        minlength: 5,
+                        maxlength: 20,
+                        equalTo: '#clave'
+                    },
+                },
+
+                // Messages for form validation
+                messages: {
+					clave: {
+                        required: 'Por favor, ingrese su contraseña',
+						minlength: 'La logitud mínima es de 5 carácteres'
+                    },
+					 clave2: {
+                        required: 'Ingrese su contraseña una vez más',
+                        equalTo: 'Introduzca la misma contraseña que la anterior',
+						minlength: 'La logitud mínima es de 5 carácteres'
+                    },
+                },
+				highlight: function (element) {
+					$(element).closest('.form-group').removeClass('has-success').addClass('has-error');
+				},
+				success: function (element) {
+					element.closest('.form-group').removeClass('has-error').addClass('has-success');
+				}
+                
+            });
 			
       $("#form_usuario").validate({
                 // Rules for form validation
