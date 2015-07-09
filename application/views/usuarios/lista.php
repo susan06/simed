@@ -47,6 +47,7 @@
 			  <div class="box">
                 <div class="box-header">
                   <h3 class="box-title">Usuarios registrados</h3>
+				  <input type="text" id="buscar_table" class="form-control input-sm pull-right" style="width: 150px;" placeholder="Search">
                 </div><!-- /.box-header -->
                 <div class="box-body">
                   <table id="usuarios_table" class="table table-bordered table-striped">
@@ -174,9 +175,16 @@
 	
       $(document).ready(function () {
 		  
-        $("#usuarios_table").dataTable();
+        $("#usuarios_table").dataTable({
+	
+			});
 
+		 oTable = $('#usuarios_table').dataTable();
+		 
+		 $('#buscar_table').keyup(function(){ oTable.fnFilter( $(this).val() )});
+		 
       });	
+	 
 	  
 	  	function activar(id){ 
 

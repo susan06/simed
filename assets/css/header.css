@@ -1,3 +1,8 @@
+
+.dataTables_filter {
+display: none; 
+}
+
 .col-centered{
 float: none;
 margin: 0 auto;

@@ -73,7 +73,14 @@ class Usuarios extends CI_Controller {
 		return $permisos;
 	}	
 	
-
+	public function permisos_rol() 
+	{	
+		$data['page_title'] = 'Usuarios';
+		$data['system_title'] = 'Permisos';
+		
+		$this->load->view('usuarios/permisos', $data);
+	}	
+	
 	public function roles()
 	{	
 		

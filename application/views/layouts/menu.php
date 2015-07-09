@@ -27,11 +27,12 @@
 			<?Php if($this->session->userdata('rol') == 1): ?>
             <li class="treeview">
               <a href="#">
-                <i class="fa fa-dashboard"></i> <span>Usuarios</span> 
+                <i class="fa fa-group"></i> <span>Usuarios</span> 
               </a>
 			    <ul class="treeview-menu">
                 <li><a href="<?= base_url();?>usuarios"><i class="fa fa-group"></i>Ver</a></li>
                 <li><a href="<?= base_url();?>usuarios/roles"><i class="fa fa-user-plus"></i>Roles</a></li>
+				<li><a href="<?= base_url();?>usuarios/permisos_rol"><i class="fa fa-user-plus"></i>Permisos</a></li>
               </ul>
             </li>
 			
