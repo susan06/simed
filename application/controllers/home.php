@@ -13,17 +13,23 @@ class Home extends CI_Controller {
 				parent::__construct();
 
 				$this->load->library(array('session'));
+				$this->load->library( 'session_php' );
 				$this->load->helper(array('url','form','html','date')); 								
 				$this->load->database('default');
 				$this->load->model('crud_model');	 				
 				$this->removeCache();
+	
+				$nick = $this->session_php->get();
+				$rol = $this->session_php->get_rol();
+				$url = current_url();
 				
-				if($this->session->userdata('is_logued_in')==FALSE)
-				{	
-					$this->session->set_flashdata('warning', 'Tiempo expirado, acceda de nuevo al sistema');
-					redirect(base_url() . 'index.php/login', 'refresh');
-				};
-
+				if($this->session->userdata('is_logued_in') == FALSE)
+				{
+					$this->session->set_flashdata('nick', $nick );
+					$this->session->set_flashdata('rol',  $rol);
+					$this->session->set_flashdata('url_actual', $url );
+					redirect(base_url() . 'login/lock_screen', 'refresh' );
+				}
 	}
 	
 	

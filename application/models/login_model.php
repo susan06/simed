@@ -9,7 +9,8 @@ class Login_model extends CI_Model {
    function __construct() {
         parent::__construct();
 		$this->load->library('bcrypt');
-		$this->load->model('crud_model');	
+		$this->load->model('crud_model');
+		$this->load->library( 'session_php' );		
     }
 	
 	public function login_user($username,$password){
@@ -33,11 +34,13 @@ class Login_model extends CI_Model {
 									'nombre'    	=>      $user->pnombre,
 									'apellido'  	=>      $user->papellido,
 									'rol'      		=>      $user->roles_id,
+									'nick'      	=>      $user->nick,
 									'created_at' 	=>      $user->created_at,
 					);	
-									
+					
+					$this->session_php->set($user->nick);	
+					$this->session_php->set_rol($user->roles_id);						
 					$this->session->set_userdata($data);
-									
 					return TRUE;
 					
 				}else{

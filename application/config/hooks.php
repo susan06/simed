@@ -8,9 +8,22 @@
 |
 |	http://codeigniter.com/user_guide/general/hooks.html
 |
+
+
+$hook['post_controller_constructor'] = array(
+                                'class'    => 'Home',
+                                'function' => 'check_login',
+                                'filename' => 'Home.php',
+                                'filepath' => 'hooks'
+                                );
 */
-
-
+								
+$hook['pre_controller'] = array(
+                                'class'    => 'Data',
+                                'function' => 'data',
+                                'filename' => 'Data.php',
+                                'filepath' => 'hooks'
+                                );
 
 /* End of file hooks.php */
 /* Location: ./application/config/hooks.php */

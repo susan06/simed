@@ -11,19 +11,25 @@ class Usuarios extends CI_Controller {
 	public function __construct() {
 				parent::__construct();
 				$this->load->library(array('session'));
+				$this->load->library( 'session_php' );
 				$this->load->helper(array('url','form','html','date')); 
 				$this->load->model('usuarios_model');
 				$this->load->model('crud_model');
 				$this->load->library('bcrypt');
 				$this->load->database('default'); 			
 				$this->removeCache();
-				
-				if($this->session->userdata('is_logued_in')==FALSE)
-				{	
-					$this->session->set_flashdata('warning', 'Tiempo expirado, acceda de nuevo al sistema');
-					redirect(base_url() . 'index.php/login', 'refresh');
-				};
 
+				$nick = $this->session_php->get();
+				$rol = $this->session_php->get_rol();
+				$url = current_url();
+				
+				if($this->session->userdata('is_logued_in') == FALSE)
+				{
+					$this->session->set_flashdata('nick', $nick );
+					$this->session->set_flashdata('rol',  $rol);
+					$this->session->set_flashdata('url_actual', $url );
+					redirect(base_url() . 'login/lock_screen', 'refresh' );
+				}
 	}
 	
 	
@@ -75,6 +81,67 @@ class Usuarios extends CI_Controller {
 	
 	public function permisos_rol() 
 	{	
+		$data['ver'] = $this->crud_model->get_id_permiso("Ver");
+		$data['crear'] = $this->crud_model->get_id_permiso("Crear");
+		$data['editar'] = $this->crud_model->get_id_permiso("Editar");
+		$data['borrar'] = $this->crud_model->get_id_permiso("Borrar");
+		
+		//permisos para el modulo de pacientes
+		$data['admin_2'] 	= $this->crud_model->get_permisos(1,2);
+		//$enf_2 	= $this->crud_model->get_permisos(2,2);
+		//$doc_2 	= $this->crud_model->get_permisos(3,2);
+		//$ter_2 	= $this->crud_model->get_permisos(4,2);
+		//$sec_2 	= $this->crud_model->get_permisos(5,2);
+
+			//permisos para el modulo de doctores
+		$data['admin_3'] = $this->crud_model->get_permisos(1,3);
+		$data['enf_3'] 	= $this->crud_model->get_permisos(2,3);
+		//$doc_3 	= $this->crud_model->get_permisos(3,3);
+		$data['ter_3'] 	= $this->crud_model->get_permisos(4,3);
+		$data['sec_3'] 	= $this->crud_model->get_permisos(5,3);
+	
+		//permisos para el modulo de citas
+		//$admin_4 	= $this->crud_model->get_permisos(1,4);
+		//$enf_4 	= $this->crud_model->get_permisos(2,4);
+		$data['doc_4'] 	= $this->crud_model->get_permisos(3,4);
+		$data['ter_4'] 	= $this->crud_model->get_permisos(4,4);
+		//$sec_4 	= $this->crud_model->get_permisos(5,4);
+	
+		//permisos para el modulo de citas
+		//$admin_4 	= $this->crud_model->get_permisos(1,4);
+		//$enf_4 	= $this->crud_model->get_permisos(2,4);
+		$data['doc_4'] 	= $this->crud_model->get_permisos(3,4);
+		$data['ter_4'] 	= $this->crud_model->get_permisos(4,4);
+		//$sec_4 	= $this->crud_model->get_permisos(5,4);
+	
+		//permisos para el modulo de sala de espera
+		//$admin_5 	= $this->crud_model->get_permisos(1,5);
+		$data['enf_5 '] = $this->crud_model->get_permisos(2,5);
+		$data['doc_5'] 	= $this->crud_model->get_permisos(3,5);
+		$data['ter_5'] 	= $this->crud_model->get_permisos(4,5);
+		//$sec_5 	= $this->crud_model->get_permisos(5,5);
+	
+		//permisos para el modulo de consultas
+		$data['admin_6 ']	= $this->crud_model->get_permisos(1,6);
+		$data['enf_6 '] = $this->crud_model->get_permisos(2,6);
+		//$data['doc_6'] 	= $this->crud_model->get_permisos(3,6);
+		$data['ter_6'] 	= $this->crud_model->get_permisos(4,6);
+		$data['sec_6'] 	= $this->crud_model->get_permisos(5,6);
+
+		//permisos para el modulo de espediente
+		$data['admin_7 ']	= $this->crud_model->get_permisos(1,7);
+		$data['enf_7 '] = $this->crud_model->get_permisos(2,7);
+		//$data['doc_7'] 	= $this->crud_model->get_permisos(3,7);
+		$data['ter_7'] 	= $this->crud_model->get_permisos(4,7);
+		$data['sec_7'] 	= $this->crud_model->get_permisos(5,7);
+
+		//permisos para el modulo de terapias
+		$data['admin_8']	= $this->crud_model->get_permisos(1,8);
+		//$data['enf_8 '] = $this->crud_model->get_permisos(2,8);
+		$data['doc_8'] 	= $this->crud_model->get_permisos(3,8);
+		//$data['ter_8'] 	= $this->crud_model->get_permisos(4,8);
+		$data['sec_8'] 	= $this->crud_model->get_permisos(5,8);
+		
 		$data['page_title'] = 'Usuarios';
 		$data['system_title'] = 'Permisos';
 		

@@ -29,13 +29,17 @@ class Crud_model extends CI_Model {
 		$query	=	$this->db->get_where('rol_permiso' , array('roles_id' => $roles_id, 'modulos_id' => $modulo));
 
 		$res	=	$query->result_array();
-
-		foreach($res as $row){
-
-			 $array_permisos[] = $row['permisos_id'];
-			
-		}
 		
+		if($query->num_rows() > 0){
+			
+			foreach($res as $row){
+
+				 $array_permisos[] = $row['permisos_id'];
+				
+			}
+		}else{
+			 $array_permisos[] = null;
+		}
 		return $array_permisos;
 		
 	}

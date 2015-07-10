@@ -29,7 +29,7 @@ class Login extends CI_Controller {
 	
 	public function index(){
 	
-		$data['page_title'] = 'SIGSAM';
+		$data['page_title'] = 'siMED';
         $data['page_name'] = 'login';
 		$data['system_title'] = 'Login';	
 		
@@ -39,19 +39,40 @@ class Login extends CI_Controller {
 
 	}	
 	
+	public function lock_screen(){
+	
+		$data['page_title'] = 'siMED';
+        $data['page_name'] = 'login';
+		$data['system_title'] = 'Login';	
+		$data['token'] =  $this->token();
+		
+		$this->load->view('lock_login', $data);
+
+	}	
+	
 	public function process(){	
 	
 		if($this->input->post('token') && $this->input->post('token') == $this->session->userdata('token'))
 		{
+			
+			if($this->input->post('nick')){
+				$username = $this->input->post('nick');
+			}else{
+				$username = null;
+			}
 		
-		$username = $this->input->post('nick');
         $password = $this->input->post('clave'); 
+		$url = $this->input->post('url_actual');
 		
 		$check_user = $this->login_model->login_user($username,$password);
 		
 		if($check_user == TRUE)
 							{
-								redirect(base_url() . 'home', 'refresh');
+								if($url){
+									redirect($url, 'refresh');
+								}else{
+									redirect(base_url() . 'home', 'refresh');
+								}
 								
 							}else{	
 							
@@ -67,7 +88,6 @@ class Login extends CI_Controller {
 			}	
 	}
 
-	
 	public function token()
 	{
 		$token = $this->bcrypt->hash_password(uniqid(rand(),true));
@@ -80,6 +100,7 @@ class Login extends CI_Controller {
 		$this->session->set_flashdata('warning', 'Cierre de sesión');
 		$this->session->unset_userdata();
         $this->session->sess_destroy();
+		session_start();
         redirect(base_url() . 'login', 'refresh');
 	}	
 	

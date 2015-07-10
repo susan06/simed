@@ -72,23 +72,48 @@
                     </tr>
 					<tr>
                       <td>Doctores</td>
-					   <td> &nbsp;<input type="checkbox"/>Ver	&nbsp; <input type="checkbox"/>Crear	&nbsp; <input type="checkbox"/>Editar	&nbsp; <input type="checkbox"/>Eliminar</td>
+					   <td>
+					   &nbsp;<?Php if (in_array( 1, $ter_3 )){ echo '<input type="checkbox" checked/><span class="text-green" id="ter_3_1">Ver</span>'; }else{ echo '<input type="checkbox"/><input type="checkbox" checked/><span id="ter_3_1">Ver</span>'; } ?>
+					   &nbsp;<?Php if (in_array( 4, $ter_3 )){ echo '<input type="checkbox" checked/><span class="text-green" id="ter_3_4">Crear</span>'; }else{ echo '<input type="checkbox"/><span id="ter_3_4">Crear</span>'; } ?>
+					   &nbsp;<?Php if (in_array( 2, $ter_3 )){ echo '<input type="checkbox" checked/><span class="text-green" id="ter_3_2">Editar</span>'; }else{ echo '<input type="checkbox"/><span id="ter_3_2">Editar</span>'; } ?>
+					   &nbsp;<?Php if (in_array( 3, $ter_3 )){ echo '<input type="checkbox" checked/><span class="text-green" id="ter_3_3">Eliminar</span>'; }else{ echo '<input type="checkbox"/><span id="ter_3_3">Eliminar</span>'; } ?>
+					   </td>
                     </tr>
 					<tr>
                       <td>Citas médicas</td>
-					   <td> &nbsp;<input type="checkbox"/>Ver	&nbsp; <input type="checkbox"/>Crear	&nbsp; <input type="checkbox"/>Editar	&nbsp; <input type="checkbox"/>Eliminar</td>
+					   <td>
+					   &nbsp;<?Php if (in_array( 1, $ter_4 )){ echo '<input type="checkbox" checked/><span class="text-green" id="ter_4_1">Ver</span>'; }else{ echo '<input type="checkbox"/><span id="ter_4_1">Ver</span>'; } ?>
+					   &nbsp;<?Php if (in_array( 4, $ter_4 )){ echo '<input type="checkbox" checked/><span class="text-green" id="ter_4_4">Crear</span>'; }else{ echo '<input type="checkbox"/><span id="ter_4_4">Crear</span>'; } ?>
+					   &nbsp;<?Php if (in_array( 2, $ter_4 )){ echo '<input type="checkbox" checked/><span class="text-green" id="ter_4_2">Editar</span>'; }else{ echo '<input type="checkbox"/><span id="ter_4_2">Editar</span>'; } ?>
+					   &nbsp;<?Php if (in_array( 3, $ter_4 )){ echo '<input type="checkbox" checked/><span class="text-green" id="ter_4_3">Eliminar</span>'; }else{ echo '<input type="checkbox"/><span id="ter_4_3">Eliminar</span>'; } ?>
+					   </td>
                     </tr>
 					<tr>
                       <td>Sala de espera</td>
-					   <td> &nbsp;<input type="checkbox"/>Ver	&nbsp; <input type="checkbox"/>Crear	&nbsp; <input type="checkbox"/>Editar	&nbsp; <input type="checkbox"/>Eliminar</td>
+					   <td>
+					   &nbsp;<?Php if (in_array( 1, $ter_5 )){ echo '<input type="checkbox" checked/><span class="text-green" id="ter_5_1">Ver</span>'; }else{ echo '<input type="checkbox"/><span id="ter_5_1">Ver</span>'; } ?>
+					   &nbsp;<?Php if (in_array( 4, $ter_5 )){ echo '<input type="checkbox" checked/><span class="text-green" id="ter_5_4">Crear</span>'; }else{ echo '<input type="checkbox"/><span id="ter_5_4">Crear</span>'; } ?>
+					   &nbsp;<?Php if (in_array( 2, $ter_5 )){ echo '<input type="checkbox" checked/><span class="text-green" id="ter_5_2">Editar</span>'; }else{ echo '<input type="checkbox"/><span id="ter_5_2">Editar</span>'; } ?>
+					   &nbsp;<?Php if (in_array( 3, $ter_5 )){ echo '<input type="checkbox" checked/><span class="text-green" id="ter_5_3">Eliminar</span>'; }else{ echo '<input type="checkbox"/><span id="ter_5_3">Eliminar</span>'; } ?>
+					   </td>
                     </tr>
 					<tr>
                       <td>Consulta médica</td>
-					   <td> &nbsp;<input type="checkbox"/>Ver	&nbsp; <input type="checkbox"/>Crear	&nbsp; <input type="checkbox"/>Editar	&nbsp; <input type="checkbox"/>Eliminar</td>
+					   <td>
+					   &nbsp;<?Php if (in_array( 1, $ter_6 )){ echo '<input type="checkbox" checked/><span class="text-green" id="ter_6_1">Ver</span>'; }else{ echo '<input type="checkbox"/><span id="ter_6_1">Ver</span>'; } ?>
+					   &nbsp;<?Php if (in_array( 4, $ter_6 )){ echo '<input type="checkbox" checked/><span class="text-green" id="ter_6_2">Crear</span>'; }else{ echo '<input type="checkbox"/><span id="ter_6_2">Crear</span>'; } ?>
+					   &nbsp;<?Php if (in_array( 2, $ter_6 )){ echo '<input type="checkbox" checked/><span class="text-green" id="ter_6_2">Editar</span>'; }else{ echo '<input type="checkbox"/><span id="ter_6_2">Editar</span>'; } ?>
+					   &nbsp;<?Php if (in_array( 3, $ter_6 )){ echo '<input type="checkbox" checked/><span class="text-green" id="ter_6_3">Eliminar</span>'; }else{ echo '<input type="checkbox"/><span id="ter_6_3">Eliminar</span>'; } ?>
+					   </td>
                     </tr>
 					<tr>
                       <td>Expediente médico</td>
-					   <td> &nbsp;<input type="checkbox"/>Ver	&nbsp; <input type="checkbox"/>Crear	&nbsp; <input type="checkbox"/>Editar	&nbsp; <input type="checkbox"/>Eliminar</td>
+					   <td>
+					   &nbsp;<?Php if (in_array( 1, $ter_7 )){ echo '<input type="checkbox" checked/><span class="text-green" id="ter_7_1">Ver</span>'; }else{ echo '<input type="checkbox"/><span id="ter_7_1">Ver</span>'; } ?>
+					   &nbsp;<?Php if (in_array( 4, $ter_7 )){ echo '<input type="checkbox" checked/><span class="text-green" id="ter_7_4">Crear</span>'; }else{ echo '<input type="checkbox"/><span id="ter_7_4">Crear</span>'; } ?>
+					   &nbsp;<?Php if (in_array( 2, $ter_7 )){ echo '<input type="checkbox" checked/><span class="text-green" id="ter_7_2">Editar</span>'; }else{ echo '<input type="checkbox"/><span id="ter_7_2">Editar</span>'; } ?>
+					   &nbsp;<?Php if (in_array( 3, $ter_7 )){ echo '<input type="checkbox" checked/><span class="text-green" id="ter_7_3">Eliminar</span>'; }else{ echo '<input type="checkbox"/><span id="ter_7_3">Eliminar</span>'; } ?>
+						</td>
                     </tr>					
                   </table>
                 </div><!-- /.box-body -->
