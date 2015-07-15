@@ -1,25 +1,28 @@
-<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-
-/* file login.php 
+<?php 
+/* file usuarios.php 
  * Location: ./application/controllers/login.php 
  * @author susan medina
  * @version 1.0 */
  
+if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+
 class Login extends CI_Controller {
 
 	public function __construct() {
 				parent::__construct();
-
+				
 				$this->load->library(array('session'));
-				$this->load->helper(array('url','form','html')); 								
-				$this->load->database('default');  				
-				$this->load->library('bcrypt');	
-				$this->load->model('login_model');	     
+				$this->load->library( 'session_php' );
+				$this->load->helper(array('url')); 
+				$this->load->model('crud_model');
+				$this->load->model('login_model');
+				$this->load->library('bcrypt');
+				$this->load->database('default'); 			
 				$this->removeCache();
-		
 	}
 	
-	public function removeCache()
+	
+		public function removeCache()
 	{
 		$this->output->set_header('Last-Modified:'.gmdate('D, d M Y H:i:s').'GMT');
 		$this->output->set_header('Cache-Control: no-store, no-cache, must-revalidate');
@@ -110,4 +113,3 @@ class Login extends CI_Controller {
  * Location: ./application/controllers/login.php 
  * @author susan medina
  * @version 1.0 */
-

@@ -34,12 +34,13 @@ class Crud_model extends CI_Model {
 			
 			foreach($res as $row){
 
-				 $array_permisos[] = $row['permisos_id'];
+				 $array_permisos[ $row['permisos_id'] ] = array('id' =>$row['id'], 'status' =>$row['status']);
 				
 			}
 		}else{
 			 $array_permisos[] = null;
 		}
+		
 		return $array_permisos;
 		
 	}

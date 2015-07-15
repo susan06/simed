@@ -42,134 +42,26 @@
 					  </div>
 				<?php endif;?>
 		
-		 <div class="row"><!-- row -->
+		 <div class="row">
+						  <div class="form-group has-feedback col-xs-4">
+							<label>Seleccione Usuario</label>	
+								<select class="form-control">
+								  <option value="1">Administrador</option>
+								  <option value="2">Enfermera</option>
+								  <option value="3">Doctor</option>
+								  <option value="4">Terapista</option>
+								  <option value="5">Secretaria</option>
+								</select>
+							</div>
+	   </div>
+						  
+		 <div class="row" id="permisos_rol"><!-- row -->
 		
-		<div class="col-md-6">	
+		<form action="<?php echo base_url();?>usuarios/permisos_admin" method="POST">
 		
-         <div class="box">
-                <div class="box-header">
-                  <h3 class="box-title">Terapista</h3>
-                </div><!-- /.box-header -->
-                <div class="box-body no-padding">
-                  <table class="table table-striped">
-                    <tr>
-                      <th>Módulo</th>
-                      <th>Permisos</th>
-                    </tr>
-					<tr>
-                      <td>Terapias <span class="badge bg-green">100%</span></td>
-					   <td> 
-					   <div class="progress progress-xs progress-striped active">
-                          <div class="progress-bar progress-bar-success" style="width: 100%"></div>
-                        </div>						
-						</td>
-                    </tr>
-					  <tr>
-                      <td>Pacientes <span class="badge bg-green">100%</span></td>
-					   <td><div class="progress progress-xs progress-striped active">
-                          <div class="progress-bar progress-bar-success" style="width: 100%"></div>
-                        </div></td>
-                    </tr>
-					<tr>
-                      <td>Doctores</td>
-					   <td>
-					   &nbsp;<?Php if (in_array( 1, $ter_3 )){ echo '<input type="checkbox" checked/><span class="text-green" id="ter_3_1">Ver</span>'; }else{ echo '<input type="checkbox"/><input type="checkbox" checked/><span id="ter_3_1">Ver</span>'; } ?>
-					   &nbsp;<?Php if (in_array( 4, $ter_3 )){ echo '<input type="checkbox" checked/><span class="text-green" id="ter_3_4">Crear</span>'; }else{ echo '<input type="checkbox"/><span id="ter_3_4">Crear</span>'; } ?>
-					   &nbsp;<?Php if (in_array( 2, $ter_3 )){ echo '<input type="checkbox" checked/><span class="text-green" id="ter_3_2">Editar</span>'; }else{ echo '<input type="checkbox"/><span id="ter_3_2">Editar</span>'; } ?>
-					   &nbsp;<?Php if (in_array( 3, $ter_3 )){ echo '<input type="checkbox" checked/><span class="text-green" id="ter_3_3">Eliminar</span>'; }else{ echo '<input type="checkbox"/><span id="ter_3_3">Eliminar</span>'; } ?>
-					   </td>
-                    </tr>
-					<tr>
-                      <td>Citas médicas</td>
-					   <td>
-					   &nbsp;<?Php if (in_array( 1, $ter_4 )){ echo '<input type="checkbox" checked/><span class="text-green" id="ter_4_1">Ver</span>'; }else{ echo '<input type="checkbox"/><span id="ter_4_1">Ver</span>'; } ?>
-					   &nbsp;<?Php if (in_array( 4, $ter_4 )){ echo '<input type="checkbox" checked/><span class="text-green" id="ter_4_4">Crear</span>'; }else{ echo '<input type="checkbox"/><span id="ter_4_4">Crear</span>'; } ?>
-					   &nbsp;<?Php if (in_array( 2, $ter_4 )){ echo '<input type="checkbox" checked/><span class="text-green" id="ter_4_2">Editar</span>'; }else{ echo '<input type="checkbox"/><span id="ter_4_2">Editar</span>'; } ?>
-					   &nbsp;<?Php if (in_array( 3, $ter_4 )){ echo '<input type="checkbox" checked/><span class="text-green" id="ter_4_3">Eliminar</span>'; }else{ echo '<input type="checkbox"/><span id="ter_4_3">Eliminar</span>'; } ?>
-					   </td>
-                    </tr>
-					<tr>
-                      <td>Sala de espera</td>
-					   <td>
-					   &nbsp;<?Php if (in_array( 1, $ter_5 )){ echo '<input type="checkbox" checked/><span class="text-green" id="ter_5_1">Ver</span>'; }else{ echo '<input type="checkbox"/><span id="ter_5_1">Ver</span>'; } ?>
-					   &nbsp;<?Php if (in_array( 4, $ter_5 )){ echo '<input type="checkbox" checked/><span class="text-green" id="ter_5_4">Crear</span>'; }else{ echo '<input type="checkbox"/><span id="ter_5_4">Crear</span>'; } ?>
-					   &nbsp;<?Php if (in_array( 2, $ter_5 )){ echo '<input type="checkbox" checked/><span class="text-green" id="ter_5_2">Editar</span>'; }else{ echo '<input type="checkbox"/><span id="ter_5_2">Editar</span>'; } ?>
-					   &nbsp;<?Php if (in_array( 3, $ter_5 )){ echo '<input type="checkbox" checked/><span class="text-green" id="ter_5_3">Eliminar</span>'; }else{ echo '<input type="checkbox"/><span id="ter_5_3">Eliminar</span>'; } ?>
-					   </td>
-                    </tr>
-					<tr>
-                      <td>Consulta médica</td>
-					   <td>
-					   &nbsp;<?Php if (in_array( 1, $ter_6 )){ echo '<input type="checkbox" checked/><span class="text-green" id="ter_6_1">Ver</span>'; }else{ echo '<input type="checkbox"/><span id="ter_6_1">Ver</span>'; } ?>
-					   &nbsp;<?Php if (in_array( 4, $ter_6 )){ echo '<input type="checkbox" checked/><span class="text-green" id="ter_6_2">Crear</span>'; }else{ echo '<input type="checkbox"/><span id="ter_6_2">Crear</span>'; } ?>
-					   &nbsp;<?Php if (in_array( 2, $ter_6 )){ echo '<input type="checkbox" checked/><span class="text-green" id="ter_6_2">Editar</span>'; }else{ echo '<input type="checkbox"/><span id="ter_6_2">Editar</span>'; } ?>
-					   &nbsp;<?Php if (in_array( 3, $ter_6 )){ echo '<input type="checkbox" checked/><span class="text-green" id="ter_6_3">Eliminar</span>'; }else{ echo '<input type="checkbox"/><span id="ter_6_3">Eliminar</span>'; } ?>
-					   </td>
-                    </tr>
-					<tr>
-                      <td>Expediente médico</td>
-					   <td>
-					   &nbsp;<?Php if (in_array( 1, $ter_7 )){ echo '<input type="checkbox" checked/><span class="text-green" id="ter_7_1">Ver</span>'; }else{ echo '<input type="checkbox"/><span id="ter_7_1">Ver</span>'; } ?>
-					   &nbsp;<?Php if (in_array( 4, $ter_7 )){ echo '<input type="checkbox" checked/><span class="text-green" id="ter_7_4">Crear</span>'; }else{ echo '<input type="checkbox"/><span id="ter_7_4">Crear</span>'; } ?>
-					   &nbsp;<?Php if (in_array( 2, $ter_7 )){ echo '<input type="checkbox" checked/><span class="text-green" id="ter_7_2">Editar</span>'; }else{ echo '<input type="checkbox"/><span id="ter_7_2">Editar</span>'; } ?>
-					   &nbsp;<?Php if (in_array( 3, $ter_7 )){ echo '<input type="checkbox" checked/><span class="text-green" id="ter_7_3">Eliminar</span>'; }else{ echo '<input type="checkbox"/><span id="ter_7_3">Eliminar</span>'; } ?>
-						</td>
-                    </tr>					
-                  </table>
-                </div><!-- /.box-body -->
-              </div><!-- /.box -->
-	
-			<div class="box">
-                <div class="box-header">
-                  <h3 class="box-title">Enfermera</h3>
-                </div><!-- /.box-header -->
-                <div class="box-body no-padding">
-                  <table class="table table-striped">
-                    <tr>
-                      <th>Módulo</th>
-                      <th>Permisos</th>
-                    </tr>					 
-					<tr>
-                      <td>Doctores</td>
-					   <td> &nbsp;<input type="checkbox"/>Ver	&nbsp; <input type="checkbox"/>Crear	&nbsp; <input type="checkbox"/>Editar	&nbsp; <input type="checkbox"/>Eliminar</td>
-                    </tr>
-					 <tr>
-                      <td>Pacientes <span class="badge bg-green">100%</span></td>
-					   <td><div class="progress progress-xs progress-striped active">
-                          <div class="progress-bar progress-bar-success" style="width: 100%"></div>
-                        </div></td>
-                    </tr>
-					<tr>
-                      <td>Citas médicas <span class="badge bg-green">100%</span></td>
-					   <td>
-					   <div class="progress progress-xs progress-striped active">
-                          <div class="progress-bar progress-bar-success" style="width: 100%"></div>
-                        </div>
-						</td>
-                    </tr>
-					<tr>
-                      <td>Sala de espera</td>
-					   <td> &nbsp;<input type="checkbox"/>Ver	&nbsp; <input type="checkbox"/>Crear	&nbsp; <input type="checkbox"/>Editar	&nbsp; <input type="checkbox"/>Eliminar</td>
-                    </tr>
-					<tr>
-                      <td>Consulta médica</td>
-					   <td> &nbsp;<input type="checkbox"/>Ver	&nbsp; <input type="checkbox"/>Crear	&nbsp; <input type="checkbox"/>Editar	&nbsp; <input type="checkbox"/>Eliminar</td>
-                    </tr>
-					<tr>
-                      <td>Expediente médico</td>
-					   <td> &nbsp;<input type="checkbox"/>Ver	&nbsp; <input type="checkbox"/>Crear	&nbsp; <input type="checkbox"/>Editar	&nbsp; <input type="checkbox"/>Eliminar</td>
-                    </tr>
-					<tr>
-                      <td>Terapias <span class="badge bg-green">100%</span></td>
-					   <td><div class="progress progress-xs progress-striped active">
-                          <div class="progress-bar progress-bar-success" style="width: 100%"></div>
-                        </div></td>
-                    </tr>					
-                  </table>
-                </div><!-- /.box-body -->
-              </div><!-- /.box -->	
-
-			  		<div class="box">
+		<div class="col-md-6">
+		
+			  	<div class="box">
                 <div class="box-header">
                   <h3 class="box-title">Administrador</h3>
                 </div><!-- /.box-header -->
@@ -188,8 +80,39 @@
 					  </td>
                     </tr>					
 					<tr>
-                      <td>Doctores</td>
-					   <td> &nbsp;<input type="checkbox"/>Ver	&nbsp; <input type="checkbox"/>Crear	&nbsp; <input type="checkbox"/>Editar	&nbsp; <input type="checkbox"/>Eliminar</td>
+                      <td>Doctores <span class="badge bg-green">50%</span></td>
+					   <td> 
+					   &nbsp;<input type="checkbox" checked disabled><span class="text-green">Ver</span>
+					   &nbsp;<input type="checkbox" checked disabled><span class="text-green">Crear</span>
+					  <?Php 
+					   if($admin_3[2]['status']==1){ ?>
+						  
+						  &nbsp;<input type="checkbox" id="check<?= $admin_3[2]['id'] ?>" onclick="check(<?= $admin_3[2]['id'] ?>)" checked><span class="text-green">Editar</span>
+						  <input type="hidden" name="doctores[2]" value="<?= $admin_3[2]['id'] ?>" >
+						  <input type="hidden" name="status_doc[2]" value="<?= $admin_3[2]['status'] ?>" id="<?= $admin_3[2]['id'] ?>" >
+						  
+					  <?Php  }else{  ?>
+					   
+					   &nbsp;<input type="checkbox" id="check<?= $admin_3[2]['id'] ?>" onclick="check(<?= $admin_3[2]['id'] ?>)"><span>Editar</span>
+						  <input type="hidden" name="doctores[2]" value="<?= $admin_3[2]['id'] ?>">
+						 <input type="hidden" name="status_doc[2]" value="<?= $admin_3[2]['status'] ?>" id="<?= $admin_3[2]['id'] ?>" >
+					  <?Php } ?>
+					  
+					  <?Php 
+					   if($admin_3[3]['status']==1){ ?>
+						  
+						  &nbsp;<input type="checkbox" id="check<?= $admin_3[3]['id'] ?>" onclick="check(<?= $admin_3[3]['id'] ?>)" checked><span class="text-green">Eliminar</span>
+						  <input type="hidden" name="doctores[3]" value="<?= $admin_3[3]['id'] ?>" id="<?= $admin_3[3]['id'] ?>" >
+						   <input type="hidden" name="status_doc[3]" value="<?= $admin_3[3]['status'] ?>" id="<?= $admin_3[3]['id'] ?>" >
+						   
+					  <?Php  }else{  ?>
+					   
+					   &nbsp;<input type="checkbox" id="check<?= $admin_3[3]['id'] ?>" onclick="check(<?= $admin_3[3]['id'] ?>)"><span>Eliminar</span>
+						  <input type="hidden" name="doctores[3]" value="<?= $admin_3[3]['id'] ?>" >
+					     <input type="hidden" name="status_doc[3]" value="<?= $admin_3[3]['status'] ?>" id="<?= $admin_3[3]['id'] ?>" >
+					  <?Php } ?> 
+
+					   </td>
                     </tr>
 					 <tr>
                       <td>Pacientes <span class="badge bg-green">100%</span></td>
@@ -211,132 +134,92 @@
                     </tr>
 					<tr>
                       <td>Consulta médica</td>
-					   <td> &nbsp;<input type="checkbox"/>Ver	&nbsp; <input type="checkbox"/>Crear	&nbsp; <input type="checkbox"/>Editar	&nbsp; <input type="checkbox"/>Eliminar</td>
+					   <td> &nbsp;<input type="checkbox" disabled>Ver	&nbsp; <input type="checkbox" disabled>Crear	&nbsp; <input type="checkbox" disabled>Editar	&nbsp; <input type="checkbox" disabled>Eliminar</td>
                     </tr>
 					<tr>
                       <td>Expediente médico</td>
-					   <td> &nbsp;<input type="checkbox"/>Ver	&nbsp; <input type="checkbox"/>Crear	&nbsp; <input type="checkbox"/>Editar	&nbsp; <input type="checkbox"/>Eliminar</td>
+					   <td> &nbsp;<input type="checkbox" disabled>Ver	&nbsp; <input type="checkbox" disabled>Crear	&nbsp; <input type="checkbox" disabled>Editar	&nbsp; <input type="checkbox" disabled>Eliminar</td>
                     </tr>
 					<tr>
                       <td>Terapias</td>
-					   <td> &nbsp;<input type="checkbox"/>Ver	&nbsp; <input type="checkbox"/>Crear	&nbsp; <input type="checkbox"/>Editar	&nbsp; <input type="checkbox"/>Eliminar</td>
-                    </tr>					
-                  </table>
-                </div><!-- /.box-body -->
-              </div><!-- /.box -->	
-
-
-			  
-		  </div><!-- /.col-md-6 -->	  
-
-
-		<div class="col-md-6">	
-		
-        		<div class="box">
-                <div class="box-header">
-                  <h3 class="box-title">Doctor</h3>
-                </div><!-- /.box-header -->
-                <div class="box-body no-padding">
-                  <table class="table table-striped">
-                    <tr>
-                      <th>Módulo</th>
-                      <th>Permisos</th>
-                    </tr>					 
-					<tr>
-                      <td>Doctores <span class="badge bg-green">100%</span></td>
 					   <td>
-					   <div class="progress progress-xs progress-striped active">
-                          <div class="progress-bar progress-bar-success" style="width: 100%"></div>
-                        </div>
-					  </td>
-                    </tr>
-					 <tr>
-                      <td>Pacientes <span class="badge bg-green">100%</span></td>
-					   <td> <div class="progress progress-xs progress-striped active">
-                          <div class="progress-bar progress-bar-success" style="width: 100%"></div>
-                        </div></td>
-                    </tr>
-					<tr>
-                      <td>Citas médicas</td>
-					   <td> &nbsp;<input type="checkbox"/>Ver	&nbsp; <input type="checkbox"/>Crear	&nbsp; <input type="checkbox"/>Editar	&nbsp; <input type="checkbox"/>Eliminar</td>
-                    </tr>
-					<tr>
-                      <td>Sala de espera</td>
-					   <td> &nbsp;<input type="checkbox"/>Ver	&nbsp; <input type="checkbox"/>Crear	&nbsp; <input type="checkbox"/>Editar	&nbsp; <input type="checkbox"/>Eliminar</td>
-                    </tr>
-					<tr>
-                      <td>Consulta médica <span class="badge bg-green">100%</span></td>
-					   <td><div class="progress progress-xs progress-striped active">
-                          <div class="progress-bar progress-bar-success" style="width: 100%"></div>
-                        </div></td>
-                    </tr>
-					<tr>
-                      <td>Expediente médico <span class="badge bg-green">100%</span></td>
-					   <td><div class="progress progress-xs progress-striped active">
-                          <div class="progress-bar progress-bar-success" style="width: 100%"></div>
-                        </div></td>
-                    </tr>
-					<tr>
-                      <td>Terapias</td>
-					   <td> &nbsp;<input type="checkbox"/>Ver	&nbsp; <input type="checkbox"/>Crear	&nbsp; <input type="checkbox"/>Editar	&nbsp; <input type="checkbox"/>Eliminar</td>
+					     <?Php 
+					   if($admin_8[1]['status']==1){ ?>
+						  
+						  &nbsp;<input type="checkbox" id="check<?= $admin_8[1]['id'] ?>" onclick="check(<?= $admin_8[1]['id'] ?>)" checked><span class="text-green">Ver</span>
+						  <input type="hidden" name="terapias[1]" value="<?= $admin_8[1]['id'] ?>" >
+						  <input type="hidden" name="status_ter[1]" value="<?= $admin_8[1]['status'] ?>" id="<?= $admin_8[1]['id'] ?>" >
+						  
+					  <?Php  }else{  ?>
+					   
+					   &nbsp;<input type="checkbox" id="check<?= $admin_8[1]['id'] ?>" onclick="check(<?= $admin_8[1]['id'] ?>)"><span>Ver</span>
+						  <input type="hidden" name="terapias[1]" value="<?= $admin_8[1]['id'] ?>">
+						 <input type="hidden" name="status_ter[1]" value="<?= $admin_8[1]['status'] ?>" id="<?= $admin_8[1]['id'] ?>" >
+					  <?Php } ?>
+
+					   <?Php 
+					   if($admin_8[2]['status']==1){ ?>
+						  
+						  &nbsp;<input type="checkbox" id="check<?= $admin_8[2]['id'] ?>" onclick="check(<?= $admin_8[2]['id'] ?>)" checked><span class="text-green">Editar</span>
+						  <input type="hidden" name="terapias[2]" value="<?= $admin_8[2]['id'] ?>" >
+						  <input type="hidden" name="status_ter[2]" value="<?= $admin_8[2]['status'] ?>" id="<?= $admin_8[2]['id'] ?>" >
+						  
+					  <?Php  }else{  ?>
+					   
+					   &nbsp;<input type="checkbox" id="check<?= $admin_8[2]['id'] ?>" onclick="check(<?= $admin_8[2]['id'] ?>)"><span>Editar</span>
+						  <input type="hidden" name="terapias[2]" value="<?= $admin_8[2]['id'] ?>">
+						 <input type="hidden" name="status_ter[2]" value="<?= $admin_8[2]['status'] ?>" id="<?= $admin_8[2]['id'] ?>" >
+					  <?Php } ?>
+					  
+					  <?Php 
+					   if($admin_8[3]['status']==1){ ?>
+						  
+						  &nbsp;<input type="checkbox" id="check<?= $admin_8[3]['id'] ?>" onclick="check(<?= $admin_8[3]['id'] ?>)" checked><span class="text-green">Eliminar</span>
+						  <input type="hidden" name="terapias[3]" value="<?= $admin_3[3]['id'] ?>" id="<?= $admin_8[3]['id'] ?>" >
+						   <input type="hidden" name="status_ter[3]" value="<?= $admin_8[3]['status'] ?>" id="<?= $admin_8[3]['id'] ?>" >
+						   
+					  <?Php  }else{  ?>
+					   
+					   &nbsp;<input type="checkbox" id="check<?= $admin_8[3]['id'] ?>" onclick="check(<?= $admin_8[3]['id'] ?>)"><span>Eliminar</span>
+						  <input type="hidden" name="terapias[3]" value="<?= $admin_8[3]['id'] ?>" >
+					     <input type="hidden" name="status_ter[3]" value="<?= $admin_8[3]['status'] ?>" id="<?= $admin_8[3]['id'] ?>" >
+					  <?Php } ?> 
+					  
+					  <?Php 
+					   if($admin_8[4]['status']==1){ ?>
+						  
+						  &nbsp;<input type="checkbox" id="check<?= $admin_8[4]['id'] ?>" onclick="check(<?= $admin_8[4]['id'] ?>)" checked><span class="text-green">Crear</span>
+						  <input type="hidden" name="terapias[4]" value="<?= $admin_3[4]['id'] ?>" id="<?= $admin_8[3]['id'] ?>" >
+						   <input type="hidden" name="status_ter[4]" value="<?= $admin_8[4]['status'] ?>" id="<?= $admin_8[3]['id'] ?>" >
+						   
+					  <?Php  }else{  ?>
+					   
+					   &nbsp;<input type="checkbox" id="check<?= $admin_8[4]['id'] ?>" onclick="check(<?= $admin_8[4]['id'] ?>)"><span>Crear</span>
+						  <input type="hidden" name="terapias[4]" value="<?= $admin_8[4]['id'] ?>" >
+					     <input type="hidden" name="status_ter[4]" value="<?= $admin_8[4]['status'] ?>" id="<?= $admin_8[4]['id'] ?>" >
+					  <?Php } ?> 
+					   </td>
+					   
                     </tr>					
                   </table>
                 </div><!-- /.box-body -->
               </div><!-- /.box -->	
+			
+			<div class="row">
+			
+			<input type="hidden" name="rol_id" value="1">
 
-     		<div class="box">
-                <div class="box-header">
-                  <h3 class="box-title">Secretaria</h3>
-                </div><!-- /.box-header -->
-                <div class="box-body no-padding">
-                  <table class="table table-striped">
-                    <tr>
-                      <th>Módulo</th>
-                      <th>Permisos</th>
-                    </tr>					 
-					<tr>
-                      <td>Doctores</td>
-					   <td> &nbsp;<input type="checkbox"/>Ver	&nbsp; <input type="checkbox"/>Crear	&nbsp; <input type="checkbox"/>Editar	&nbsp; <input type="checkbox"/>Eliminar</td>
-                    </tr>
-					 <tr>
-                      <td>Pacientes <span class="badge bg-green">100%</span></td>
-					   <td> <div class="progress progress-xs progress-striped active">
-                          <div class="progress-bar progress-bar-success" style="width: 100%"></div>
-                        </div></td>
-                    </tr>
-					<tr>
-                      <td>Citas médicas <span class="badge bg-green">100%</span></td>
-					   <td><div class="progress progress-xs progress-striped active">
-                          <div class="progress-bar progress-bar-success" style="width: 100%"></div>
-                        </div></td>
-                    </tr>
-					<tr>
-                      <td>Sala de espera <span class="badge bg-green">100%</span></td>
-					   <td><div class="progress progress-xs progress-striped active">
-                          <div class="progress-bar progress-bar-success" style="width: 100%"></div>
-                        </div></td>
-                    </tr>
-					<tr>
-                      <td>Consulta médica</td>
-					   <td> &nbsp;<input type="checkbox"/>Ver	&nbsp; <input type="checkbox"/>Crear	&nbsp; <input type="checkbox"/>Editar	&nbsp; <input type="checkbox"/>Eliminar</td>
-                    </tr>
-					<tr>
-                      <td>Expediente médico</td>
-					   <td> &nbsp;<input type="checkbox"/>Ver	&nbsp; <input type="checkbox"/>Crear	&nbsp; <input type="checkbox"/>Editar	&nbsp; <input type="checkbox"/>Eliminar</td>
-                    </tr>
-					<tr>
-                      <td>Terapias</td>
-					   <td> &nbsp;<input type="checkbox"/>Ver	&nbsp; <input type="checkbox"/>Crear	&nbsp; <input type="checkbox"/>Editar	&nbsp; <input type="checkbox"/>Eliminar</td>
-                    </tr>					
-                  </table>
-                </div><!-- /.box-body -->
-              </div><!-- /.box -->	
+							<div class="pull-right col-xs-4">
+							  <button type="submit" class="btn btn-success btn-block btn-flat" id="boton_submit">Guardar cambios</button>
+							</div><!-- /.col -->
+			</div>
+			
+			</div><!-- /.col-md-6 -->	
 			  
-		  </div><!-- /.col-md-6 -->	  
-			  
+		</form>  
+						
+		</div><!-- /.row -->	  
 
-          </div><!-- /.row -->
-		  
 			
         </section><!-- /.content -->
       </div><!-- /.content-wrapper -->
@@ -364,11 +247,14 @@
 
 	<!-- page script -->
     <script type="text/javascript">
-	
-      $(document).ready(function () {
-		 
-      });	
 
+	<!--check NO estan en la BD-->
+	function check(id) 
+	{ 
+	if (document.getElementById('check'+id).checked==true){document.getElementById(id).value=1} 
+	if (document.getElementById('check'+id).checked==false){document.getElementById(id).value=0} 
+	}
+	
     </script>
 	
   </body>

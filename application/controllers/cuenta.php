@@ -1,8 +1,4 @@
-﻿<?php 
-/* file cuenta.php 
- * Location: ./application/controllers/cuenta.php 
- * @author susan medina
- * @version 1.0 */
+<?php 
  
 if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
@@ -10,14 +6,17 @@ class Cuenta extends CI_Controller {
 
 	public function __construct() {
 				parent::__construct();
+				
 				$this->load->library(array('session'));
-				$this->load->helper(array('url','form','html','date')); 
-				$this->load->model('usuarios_model');
+				$this->load->library( 'session_php' );
+				$this->load->helper(array('url')); 
+				$this->load->model('crud_model');
 				$this->load->model('cuenta_model');
 				$this->load->library('bcrypt');
-				$this->load->database('default'); 
-
-			}
+				$this->load->database('default'); 			
+				$this->removeCache();
+	}
+	
 	
 	public function removeCache()
 	{
@@ -113,3 +112,7 @@ class Cuenta extends CI_Controller {
 
 	
 }
+/* file cuenta.php 
+ * Location: ./application/controllers/cuenta.php 
+ * @author susan medina
+ * @version 1.0 */

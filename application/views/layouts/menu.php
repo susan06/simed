@@ -30,9 +30,9 @@
                 <i class="fa fa-group"></i> <span>Usuarios</span> 
               </a>
 			    <ul class="treeview-menu">
-                <li><a href="<?= base_url();?>usuarios"><i class="fa fa-group"></i>Ver</a></li>
-                <li><a href="<?= base_url();?>usuarios/roles"><i class="fa fa-user-plus"></i>Roles</a></li>
-				<li><a href="<?= base_url();?>usuarios/permisos_rol"><i class="fa fa-user-plus"></i>Permisos</a></li>
+                <li><a href="<?= base_url();?>usuarios"><i class="fa fa-reorder"></i>Ver</a></li>
+                <li><a href="<?= base_url();?>usuarios/roles"><i class="fa fa-plus-square"></i>Roles</a></li>
+				<li><a href="<?= base_url();?>usuarios/permisos_rol"><i class="fa  fa-exclamation-circle"></i>Permisos</a></li>
               </ul>
             </li>
 			
@@ -51,7 +51,7 @@
                 <i class="fa fa-wheelchair"></i> <span>Pacientes</span>
               </a>
 			   <ul class="treeview-menu">
-                <li><a href="#"><i class="fa fa-circle-o"></i>Ver</a></li>
+                <li><a href="#"><i class="fa fa-reorder"></i>Ver</a></li>
                 <li><a href="#"><i class="fa fa-user-plus"></i>Registrar</a></li>
               </ul>
             </li> 
