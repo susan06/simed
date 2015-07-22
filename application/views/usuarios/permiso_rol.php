@@ -287,6 +287,69 @@
 					 </td>
                     </tr>
 					<tr>
+                      <td>Especialidades</td>
+					   <td>
+					  <?php 							   
+							   if($mod_10[1]['status']==1){ ?>
+								  
+								  &nbsp;<input type="checkbox" id="check<?= $mod_10[1]['id'] ?>" onclick="check(<?= $mod_10[1]['id'] ?>)" checked><span class="text-green">Ver</span>
+								  <input type="hidden" name="especialidades[1]" value="<?= $mod_10[1]['id'] ?>" >
+								  <input type="hidden" name="status_espec[1]" value="<?= $mod_10[1]['status'] ?>" id="<?= $mod_10[1]['id'] ?>" >
+								  
+							  <?Php  }else{  ?>
+							   
+							   &nbsp;<input type="checkbox" id="check<?= $mod_10[1]['id'] ?>" onclick="check(<?= $mod_10[1]['id'] ?>)"><span>Ver</span>
+								  <input type="hidden" name="especialidades[1]" value="<?= $mod_10[1]['id'] ?>">
+								 <input type="hidden" name="status_espec[1]" value="<?= $mod_10[1]['status'] ?>" id="<?= $mod_10[1]['id'] ?>" >
+								<?Php
+								} ?> 	
+
+									   <?Php 
+							   if($mod_10[2]['status']==1){ ?>
+								  
+								  &nbsp;<input type="checkbox" id="check<?= $mod_10[2]['id'] ?>" onclick="check(<?= $mod_10[2]['id'] ?>)" checked><span class="text-green">Editar</span>
+								  <input type="hidden" name="especialidades[2]" value="<?= $mod_10[2]['id'] ?>" >
+								  <input type="hidden" name="status_espec[2]" value="<?= $mod_10[2]['status'] ?>" id="<?= $mod_10[2]['id'] ?>" >
+								  
+							  <?Php  }else{  ?>
+							   
+							   &nbsp;<input type="checkbox" id="check<?= $mod_10[2]['id'] ?>" onclick="check(<?= $mod_10[2]['id'] ?>)"><span>Editar</span>
+								  <input type="hidden" name="especialidades[2]" value="<?= $mod_10[2]['id'] ?>">
+								 <input type="hidden" name="status_espec[2]" value="<?= $mod_10[2]['status'] ?>" id="<?= $mod_10[2]['id'] ?>" >
+							  <?Php } ?>
+							  
+							  <?Php 
+							   if($mod_10[3]['status']==1){ ?>
+								  
+								  &nbsp;<input type="checkbox" id="check<?= $mod_10[3]['id'] ?>" onclick="check(<?= $mod_10[3]['id'] ?>)" checked><span class="text-green">Eliminar</span>
+								  <input type="hidden" name="especialidades[3]" value="<?= $mod_10[3]['id'] ?>" >
+								   <input type="hidden" name="status_espec[3]" value="<?= $mod_10[3]['status'] ?>" id="<?= $mod_10[3]['id'] ?>" >
+								   
+							  <?Php  }else{  ?>
+							   
+							   &nbsp;<input type="checkbox" id="check<?= $mod_10[3]['id'] ?>" onclick="check(<?= $mod_10[3]['id'] ?>)"><span>Eliminar</span>
+								  <input type="hidden" name="especialidades[3]" value="<?= $mod_10[3]['id'] ?>" >
+								 <input type="hidden" name="status_espec[3]" value="<?= $mod_10[3]['status'] ?>" id="<?= $mod_10[3]['id'] ?>" >
+							  <?Php } ?> 
+							  
+							  <?Php 
+							   if($mod_10[4]['status']==1){ ?>
+								  
+								  &nbsp;<input type="checkbox" id="check<?= $mod_10[4]['id'] ?>" onclick="check(<?= $mod_10[4]['id'] ?>)" checked><span class="text-green">Crear</span>
+								  <input type="hidden" name="especialidades[4]" value="<?= $mod_5[4]['id'] ?>" >
+								   <input type="hidden" name="status_espec[4]" value="<?= $mod_5[4]['status'] ?>" id="<?= $mod_10[4]['id'] ?>" >
+								   
+							  <?Php  }else{  ?>
+							   
+							   &nbsp;<input type="checkbox" id="check<?= $mod_10[4]['id'] ?>" onclick="check(<?= $mod_10[4]['id'] ?>)"><span>Crear</span>
+								  <input type="hidden" name="especialidades[4]" value="<?= $mod_10[4]['id'] ?>" >
+								 <input type="hidden" name="status_espec[4]" value="<?= $mod_10[4]['status'] ?>" id="<?= $mod_10[4]['id'] ?>" >
+							  <?Php } 	 ?>
+						
+						
+					 </td>
+                    </tr>					
+					<tr>
                       <td>Consulta médica <?php if($rol == 3){echo '<span class="badge bg-green">100%</span>';} ?></td>
 						   <td> 
 						  <?php if($rol == 3 ){echo '<div class="progress progress-xs progress-striped active"><div class="progress-bar progress-bar-success" style="width: 100%"></div></div>	';} 

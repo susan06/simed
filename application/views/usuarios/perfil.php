@@ -1,6 +1,5 @@
 ﻿	<?php $this->load->view('layouts/doctype.php');	 ?>	
-	
-  <body class="skin-green-light sidebar-mini">
+
     <div class="wrapper">
 	
 	<?php $this->load->view('layouts/header.php');	 ?>	
@@ -42,10 +41,11 @@
                   <h3 class="box-title">Informaci&oacute;n del Usuario</h3>
                 </div><!-- /.box-header -->
                 <!-- form start -->
-                 <form method="post" name="form_usu" id="form_usuario" onsubmit="return checkSubmit()" action="<?php echo base_url(); ?>index.php/usuarios/actualizar">  
+                 <form method="post" name="form_usu" id="form_usuario" onsubmit="return checkSubmit()" action="<?php echo base_url(); ?>usuarios/actualizar">  
 				 
 				<?php if(is_array($usuario_editar) && count($usuario_editar) ) {
-						foreach($usuario_editar as $row){ ?>	
+						foreach($usuario_editar as $row){ ?>
+						
                   <div class="box-body">
                     <div class="form-group">
                       <label>Nombre</label>

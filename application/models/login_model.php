@@ -37,7 +37,7 @@ class Login_model extends CI_Model {
 									'rol'      		=>      $user->roles_id,
 									'nick'      	=>      $user->nick,
 									'sexo'      	=>      $user->sexo,
-									'created_at' 	=>      $user->created_at,
+									'created_at' 	=>      $user->created_at
 					);	
 					
 					$this->session_php->set($user->nick);	

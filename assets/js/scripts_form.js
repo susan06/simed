@@ -180,7 +180,66 @@
                 
             });
 	
-		
+ $("#form_clinica").validate({
+                // Rules for form validation
+                rules: {
+                    nombre: {
+                        required: true
+                    },
+					tlf: {
+                        required: true
+                    },
+					rif: {
+                        required: true
+                    },
+					estado: {
+                        required: true
+                    },
+					ciudad: {
+                        required: true
+                    },
+					direccion: {
+                        required: true
+                    },
+					postal: {
+                        required: true,
+						number:true
+                    }
+                },
+
+                // Messages for form validation
+                messages: {
+					nombre: {
+                        required: 'Por favor, razón social'
+                    },
+                    tlf: {
+                        required: 'Por favor, ingrese télefono'
+                    },
+                    rif: {
+                        required: 'Por favor, ingrese RIF'
+                    },
+                    estado: {
+                        required: 'Por favor, ingrese estado'
+                    },
+					ciudad: {
+                        required: 'Por favor, ingrese ciudad'
+                    },
+                    direccion: {
+                        required: 'Por favor, ingrese dirección'
+                    },
+                    postal: {
+                        required: 'Por favor, ingrese zona postal',
+						numbre:	  'Pro favor, solo ingrese números'
+                    }
+                },
+				highlight: function (element) {
+					$(element).closest('.form-group').removeClass('has-success').addClass('has-error');
+				},
+				success: function (element) {
+					element.closest('.form-group').removeClass('has-error').addClass('has-success');
+				}
+                
+            });		
 
 
 });

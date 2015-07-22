@@ -1,4 +1,6 @@
-      <!-- Left side column. contains the sidebar -->
+      <?php $permisos_espec = $this->crud_model->get_permisos($this->session->userdata('rol'),10); ?>
+	  
+	  <!-- Left side column. contains the sidebar -->
       <aside class="main-sidebar">
         <!-- sidebar: style can be found in sidebar.less -->
         <section class="sidebar">
@@ -58,16 +60,33 @@
 				<li><a href="<?= base_url();?>usuarios/permisos_rol"><i class="fa  fa-exclamation-circle"></i>Permisos</a></li>
               </ul>
             </li>
-			
+			<?Php endif ?>
 			
             <li class="treeview">
-              <a href="#">
+              <a href="<?= base_url();?>centro_medico">
                 <i class="fa fa-hospital-o"></i>
                 <span>Centro Médico</span>
               </a>
             </li>
+	
 			
-			<?php endif;?>
+			<?php	if($permisos_espec[1]['status'] == 1 || $permisos_espec[4]['status'] == 1 ){ ?>
+			
+            <li class="treeview">
+               <a href="#">
+                <i class="fa fa-certificate"></i> <span>Especialidades</span> 
+              </a>
+			    <ul class="treeview-menu">
+				<?php	if ($permisos_espec[1]['status'] == 1 ){ ?>
+                <li><a href="<?= base_url();?>especialidades"><i class="fa fa-reorder"></i>Ver</a></li>
+				<?php } ?>
+				<?php	if ($permisos_espec[4]['status'] == 1 ){ ?>
+                <li><a href="<?= base_url();?>especialidades/crear"><i class="fa fa-plus-square"></i>Crear</a></li>
+				<?php } ?>
+              </ul>
+            </li>
+			
+			<?php } ?>
 			
             <li>
               <a href="../widgets.html">

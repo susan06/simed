@@ -148,6 +148,7 @@ class Usuarios extends CI_Controller {
 			$data['mod_6'] = $this->crud_model->get_permisos(2,6);
 			$data['mod_7'] = $this->crud_model->get_permisos(2,7);
 			$data['mod_8'] = $this->crud_model->get_permisos(2,8);
+			$data['mod_10'] = $this->crud_model->get_permisos(2,10);
 		}
 		if($rol == 3){
 			$data['rol_name']='Doctor';
@@ -159,17 +160,19 @@ class Usuarios extends CI_Controller {
 			$data['mod_6'] = $this->crud_model->get_permisos(3,6);
 			$data['mod_7'] = $this->crud_model->get_permisos(3,7);
 			$data['mod_8'] = $this->crud_model->get_permisos(3,8);
+			$data['mod_10'] = $this->crud_model->get_permisos(3,10);
 		}
 		if($rol == 4){
 			$data['rol_name']='Terapista';
 			$data['rol']=4;
-			$data['mod_2'] = $this->crud_model->get_permisos(3,2);
-			$data['mod_3'] = $this->crud_model->get_permisos(3,3);
-			$data['mod_4'] = $this->crud_model->get_permisos(3,4);
-			$data['mod_5'] = $this->crud_model->get_permisos(3,5);
-			$data['mod_6'] = $this->crud_model->get_permisos(3,6);
-			$data['mod_7'] = $this->crud_model->get_permisos(3,7);
-			$data['mod_8'] = $this->crud_model->get_permisos(3,8);
+			$data['mod_2'] = $this->crud_model->get_permisos(4,2);
+			$data['mod_3'] = $this->crud_model->get_permisos(4,3);
+			$data['mod_4'] = $this->crud_model->get_permisos(4,4);
+			$data['mod_5'] = $this->crud_model->get_permisos(4,5);
+			$data['mod_6'] = $this->crud_model->get_permisos(4,6);
+			$data['mod_7'] = $this->crud_model->get_permisos(4,7);
+			$data['mod_8'] = $this->crud_model->get_permisos(4,8);
+			$data['mod_10'] = $this->crud_model->get_permisos(4,10);
 		}
 		if($rol == 5){
 			$data['rol_name']='Secretaria';
@@ -181,6 +184,7 @@ class Usuarios extends CI_Controller {
 			$data['mod_6'] = $this->crud_model->get_permisos(5,6);
 			$data['mod_7'] = $this->crud_model->get_permisos(5,7);
 			$data['mod_8'] = $this->crud_model->get_permisos(5,8);
+			$data['mod_10'] = $this->crud_model->get_permisos(5,10);
 		}
 		
 		return $this->load->view('usuarios/permiso_rol', $data);	
@@ -197,6 +201,14 @@ class Usuarios extends CI_Controller {
 			for ($i = 1; $i <= 4; $i++) {
 					$this->db->where('id', $terapias[$i] );
 					$this->db->update('rol_permiso', array('status'=> $status_ter[$i] ));			
+			}
+			
+			$especialidades= $this->input->post('especialidades'); 
+			$status_espec= $this->input->post('status_espec');
+			
+			for ($i = 1; $i <= 4; $i++) {
+					$this->db->where('id', $especialidades[$i] );
+					$this->db->update('rol_permiso', array('status'=> $status_espec[$i] ));			
 			}
 
 		$this->session->set_flashdata('info', 'Cambios realizados con éxito');
@@ -239,11 +251,36 @@ class Usuarios extends CI_Controller {
 					$this->db->update('rol_permiso', array('status'=> $status_esp[$i] ));			
 			}
 			
+			$especialidades= $this->input->post('especialidades'); 
+			$status_espec= $this->input->post('status_espec');
+			
+			for ($i = 1; $i <= 4; $i++) {
+					$this->db->where('id', $especialidades[$i] );
+					$this->db->update('rol_permiso', array('status'=> $status_espec[$i] ));			
+			}
+			
 		$this->session->set_flashdata('info', 'Cambios realizados con éxito');
 		$this->session->set_flashdata('rol_load', $rol);
 		redirect(base_url() . 'usuarios/permisos_rol', 'refresh');	
 		
 		}
+	
+		if($rol == 4){			
+			
+			$especialidades= $this->input->post('especialidades'); 
+			$status_espec= $this->input->post('status_espec');
+			
+			for ($i = 1; $i <= 4; $i++) {
+					$this->db->where('id', $especialidades[$i] );
+					$this->db->update('rol_permiso', array('status'=> $status_espec[$i] ));			
+			}
+
+		$this->session->set_flashdata('info', 'Cambios realizados con éxito');
+		$this->session->set_flashdata('rol_load', $rol);
+		redirect(base_url() . 'usuarios/permisos_rol', 'refresh');	
+		
+		}
+		
 	if($rol == 5){			
 			
 			$pacientes= $this->input->post('pacientes'); 
@@ -257,11 +294,19 @@ class Usuarios extends CI_Controller {
 			$terapias= $this->input->post('terapias'); 
 			$status_ter= $this->input->post('status_ter');
 			
+			
 			for ($i = 1; $i <= 4; $i++) {
 					$this->db->where('id', $terapias[$i] );
 					$this->db->update('rol_permiso', array('status'=> $status_ter[$i] ));			
 			}
 			
+			$especialidades= $this->input->post('especialidades'); 
+			$status_espec= $this->input->post('status_espec');
+			
+			for ($i = 1; $i <= 4; $i++) {
+					$this->db->where('id', $especialidades[$i] );
+					$this->db->update('rol_permiso', array('status'=> $status_espec[$i] ));			
+			}
 			
 		$this->session->set_flashdata('info', 'Cambios realizados con éxito');
 		$this->session->set_flashdata('rol_load', $rol);

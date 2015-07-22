@@ -1,6 +1,5 @@
 	<?php $this->load->view('layouts/doctype.php');	 ?>	
-	
-  <body class="skin-green-light sidebar-mini">
+
     <div class="wrapper">
 	
 	<?php $this->load->view('layouts/header.php');	 ?>	
@@ -81,6 +80,12 @@
                     </tr>					
 					 <tr>
                       <td>Pacientes <span class="badge bg-green">100%</span></td>
+					   <td><div class="progress progress-xs progress-striped active">
+                          <div class="progress-bar progress-bar-success" style="width: 100%"></div>
+                        </div></td>
+                    </tr>
+					 <tr>
+                      <td>Especialidades <span class="badge bg-green">100%</span></td>
 					   <td><div class="progress progress-xs progress-striped active">
                           <div class="progress-bar progress-bar-success" style="width: 100%"></div>
                         </div></td>
