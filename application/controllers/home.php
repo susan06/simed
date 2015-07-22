@@ -21,12 +21,14 @@ class Home extends CI_Controller {
 	
 				$nick = $this->session_php->get();
 				$rol = $this->session_php->get_rol();
+				$rol = $this->session_php->get_sexo();
 				$url = current_url();
 				
 				if($this->session->userdata('is_logued_in') == FALSE)
 				{
 					$this->session->set_flashdata('nick', $nick );
 					$this->session->set_flashdata('rol',  $rol);
+					$this->session->set_flashdata('sexo',  $sexo);
 					$this->session->set_flashdata('url_actual', $url );
 					redirect(base_url() . 'login/lock_screen', 'refresh' );
 				}

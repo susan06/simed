@@ -17,7 +17,7 @@
 
         <!-- Main content -->
         <section class="content">
-		
+			
 			<?php if($this->session->flashdata('warning') != ''): ?>
 					  <div class="alert alert-warning alert-dismissable">
 							<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
@@ -45,12 +45,12 @@
 		 <div class="row">
 						  <div class="form-group has-feedback col-xs-4">
 							<label>Seleccione Usuario</label>	
-								<select class="form-control">
-								  <option value="1">Administrador</option>
-								  <option value="2">Enfermera</option>
-								  <option value="3">Doctor</option>
-								  <option value="4">Terapista</option>
-								  <option value="5">Secretaria</option>
+								<select class="form-control" onchange="get_permisos(this.value)">
+								  <option value="1" <?php if($this->session->flashdata('rol_load') == 1){ echo 'selected';} ?>>Administrador</option>
+								 <option value="2"   <?php if($this->session->flashdata('rol_load') == 2){ echo 'selected';} ?>>Enfermera</option>
+								  <option value="3"  <?php if($this->session->flashdata('rol_load') == 3){ echo 'selected';} ?>>Doctor</option>
+								  <option value="4"  <?php if($this->session->flashdata('rol_load') == 4){ echo 'selected';} ?> >Terapista</option>
+								  <option value="5" <?php if($this->session->flashdata('rol_load') == 5){ echo 'selected';} ?>>Secretaria</option>
 								</select>
 							</div>
 	   </div>
@@ -79,41 +79,6 @@
                         </div>
 					  </td>
                     </tr>					
-					<tr>
-                      <td>Doctores <span class="badge bg-green">50%</span></td>
-					   <td> 
-					   &nbsp;<input type="checkbox" checked disabled><span class="text-green">Ver</span>
-					   &nbsp;<input type="checkbox" checked disabled><span class="text-green">Crear</span>
-					  <?Php 
-					   if($admin_3[2]['status']==1){ ?>
-						  
-						  &nbsp;<input type="checkbox" id="check<?= $admin_3[2]['id'] ?>" onclick="check(<?= $admin_3[2]['id'] ?>)" checked><span class="text-green">Editar</span>
-						  <input type="hidden" name="doctores[2]" value="<?= $admin_3[2]['id'] ?>" >
-						  <input type="hidden" name="status_doc[2]" value="<?= $admin_3[2]['status'] ?>" id="<?= $admin_3[2]['id'] ?>" >
-						  
-					  <?Php  }else{  ?>
-					   
-					   &nbsp;<input type="checkbox" id="check<?= $admin_3[2]['id'] ?>" onclick="check(<?= $admin_3[2]['id'] ?>)"><span>Editar</span>
-						  <input type="hidden" name="doctores[2]" value="<?= $admin_3[2]['id'] ?>">
-						 <input type="hidden" name="status_doc[2]" value="<?= $admin_3[2]['status'] ?>" id="<?= $admin_3[2]['id'] ?>" >
-					  <?Php } ?>
-					  
-					  <?Php 
-					   if($admin_3[3]['status']==1){ ?>
-						  
-						  &nbsp;<input type="checkbox" id="check<?= $admin_3[3]['id'] ?>" onclick="check(<?= $admin_3[3]['id'] ?>)" checked><span class="text-green">Eliminar</span>
-						  <input type="hidden" name="doctores[3]" value="<?= $admin_3[3]['id'] ?>" id="<?= $admin_3[3]['id'] ?>" >
-						   <input type="hidden" name="status_doc[3]" value="<?= $admin_3[3]['status'] ?>" id="<?= $admin_3[3]['id'] ?>" >
-						   
-					  <?Php  }else{  ?>
-					   
-					   &nbsp;<input type="checkbox" id="check<?= $admin_3[3]['id'] ?>" onclick="check(<?= $admin_3[3]['id'] ?>)"><span>Eliminar</span>
-						  <input type="hidden" name="doctores[3]" value="<?= $admin_3[3]['id'] ?>" >
-					     <input type="hidden" name="status_doc[3]" value="<?= $admin_3[3]['status'] ?>" id="<?= $admin_3[3]['id'] ?>" >
-					  <?Php } ?> 
-
-					   </td>
-                    </tr>
 					 <tr>
                       <td>Pacientes <span class="badge bg-green">100%</span></td>
 					   <td><div class="progress progress-xs progress-striped active">
@@ -131,6 +96,41 @@
 					   <td><div class="progress progress-xs progress-striped active">
                           <div class="progress-bar progress-bar-success" style="width: 100%"></div>
                         </div></td>
+                    </tr>
+										<tr>
+                      <td>Doctores <span class="badge bg-green">50%</span></td>
+					   <td> 
+					   &nbsp;<input type="checkbox" checked disabled><span class="text-green">Ver</span>
+					   &nbsp;<input type="checkbox" checked disabled><span class="text-green">Eliminar</span>
+					  <?Php 
+					   if($admin_3[2]['status']==1){ ?>
+						  
+						  &nbsp;<input type="checkbox" id="check<?= $admin_3[2]['id'] ?>" onclick="check(<?= $admin_3[2]['id'] ?>)" checked><span class="text-green">Editar</span>
+						  <input type="hidden" name="doctores[2]" value="<?= $admin_3[2]['id'] ?>" >
+						  <input type="hidden" name="status_doc[2]" value="<?= $admin_3[2]['status'] ?>" id="<?= $admin_3[2]['id'] ?>" >
+						  
+					  <?Php  }else{  ?>
+					   
+					   &nbsp;<input type="checkbox" id="check<?= $admin_3[2]['id'] ?>" onclick="check(<?= $admin_3[2]['id'] ?>)"><span>Editar</span>
+						  <input type="hidden" name="doctores[2]" value="<?= $admin_3[2]['id'] ?>">
+						 <input type="hidden" name="status_doc[2]" value="<?= $admin_3[2]['status'] ?>" id="<?= $admin_3[2]['id'] ?>" >
+					  <?Php } ?>
+					  
+					  <?Php 
+					   if($admin_3[4]['status']==1){ ?>
+						  
+						  &nbsp;<input type="checkbox" id="check<?= $admin_3[4]['id'] ?>" onclick="check(<?= $admin_3[4]['id'] ?>)" checked><span class="text-green">Editar</span>
+						  <input type="hidden" name="doctores[4]" value="<?= $admin_3[4]['id'] ?>" >
+						   <input type="hidden" name="status_doc[4]" value="<?= $admin_3[4]['status'] ?>" id="<?= $admin_3[4]['id'] ?>" >
+						   
+					  <?Php  }else{  ?>
+					   
+					   &nbsp;<input type="checkbox" id="check<?= $admin_3[4]['id'] ?>" onclick="check(<?= $admin_3[4]['id'] ?>)"><span>Editar</span>
+						  <input type="hidden" name="doctores[4]" value="<?= $admin_3[4]['id'] ?>" >
+					     <input type="hidden" name="status_doc[4]" value="<?= $admin_3[4]['status'] ?>" id="<?= $admin_3[4]['id'] ?>" >
+					  <?Php } ?> 
+
+					   </td>
                     </tr>
 					<tr>
                       <td>Consulta médica</td>
@@ -175,7 +175,7 @@
 					   if($admin_8[3]['status']==1){ ?>
 						  
 						  &nbsp;<input type="checkbox" id="check<?= $admin_8[3]['id'] ?>" onclick="check(<?= $admin_8[3]['id'] ?>)" checked><span class="text-green">Eliminar</span>
-						  <input type="hidden" name="terapias[3]" value="<?= $admin_3[3]['id'] ?>" id="<?= $admin_8[3]['id'] ?>" >
+						  <input type="hidden" name="terapias[3]" value="<?= $admin_3[3]['id'] ?>" >
 						   <input type="hidden" name="status_ter[3]" value="<?= $admin_8[3]['status'] ?>" id="<?= $admin_8[3]['id'] ?>" >
 						   
 					  <?Php  }else{  ?>
@@ -189,7 +189,7 @@
 					   if($admin_8[4]['status']==1){ ?>
 						  
 						  &nbsp;<input type="checkbox" id="check<?= $admin_8[4]['id'] ?>" onclick="check(<?= $admin_8[4]['id'] ?>)" checked><span class="text-green">Crear</span>
-						  <input type="hidden" name="terapias[4]" value="<?= $admin_3[4]['id'] ?>" id="<?= $admin_8[3]['id'] ?>" >
+						  <input type="hidden" name="terapias[4]" value="<?= $admin_3[4]['id'] ?>" >
 						   <input type="hidden" name="status_ter[4]" value="<?= $admin_8[4]['status'] ?>" id="<?= $admin_8[3]['id'] ?>" >
 						   
 					  <?Php  }else{  ?>
@@ -248,11 +248,33 @@
 	<!-- page script -->
     <script type="text/javascript">
 
+	  <?php if($this->session->flashdata('rol_load') != ''): ?>
+	  
+				rol = <?php echo $this->session->flashdata('rol_load') ?>;
+				
+				window.onload = function() {
+
+                $('#permisos_rol').load('<?= base_url() ?>usuarios/get_permisos_rol/'+rol);
+				
+                };
+
+
+     <?php endif;?>
+	 
 	<!--check NO estan en la BD-->
 	function check(id) 
 	{ 
 	if (document.getElementById('check'+id).checked==true){document.getElementById(id).value=1} 
 	if (document.getElementById('check'+id).checked==false){document.getElementById(id).value=0} 
+	}
+	
+	function get_permisos(rol) 
+	{ 
+		if(rol == 1){
+			location.reload();
+		}else{
+		$('#permisos_rol').load('<?= base_url() ?>usuarios/get_permisos_rol/'+rol);
+		}
 	}
 	
     </script>

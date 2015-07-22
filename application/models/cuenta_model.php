@@ -76,6 +76,18 @@ class Cuenta_model extends CI_Model {
 			echo false;
 	}
 	
+	function get_email2($email,$email2){
+		
+		$this->db->select('email');
+		$this->db->where('email',$email);
+		$this->db->where_not_in('email',$email2);
+		$query = $this->db->get("usuarios");			
+		
+		if($query->num_rows > 0){
+			echo true;
+			}
+			echo false;
+	}	
 	
     function guardar_usuario($data){
   

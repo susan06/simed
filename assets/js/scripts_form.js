@@ -107,6 +107,19 @@
 					rol: {
                         required: true,
                     },
+					sexo: {
+                        required: true,
+                    },
+					cedula:{
+                        required: true,
+						number:true
+                    },
+					rif: {
+                        required: true
+                    },
+					mpps: {
+                        required: true
+                    }
                 },
 
                 // Messages for form validation
@@ -132,6 +145,9 @@
                     rol: {
                         required: 'Por favor, seleccione un rol'
                     },
+					sexo: {
+                        required: 'Por favor, seleccione su sexo'
+                    },
                     email: {
                         required: 'Por favor, ingrese su email'
                     },
@@ -144,6 +160,16 @@
                         equalTo: 'Introduzca la misma contraseña que la anterior',
 						minlength: 'La logitud mínima es de 5 carácteres'
                     },
+					cedula: {
+                        required: 'Por favor, ingrese su cédula',
+						number: 'Por favor, ingrese solo números'
+                    },
+					rif: {
+                        required: 'Por favor, ingrese su rif'
+                    },
+					mpps: {
+                        required: 'Por favor, ingrese su mpps'
+                    }
                 },
 				highlight: function (element) {
 					$(element).closest('.form-group').removeClass('has-success').addClass('has-error');

@@ -88,7 +88,7 @@
 						 </td>
 						  <td>
 							<?php									
-							if (in_array($borrar, $permisos )){ 
+							if ($permisos[$borrar]['status'] == 1 ){ 
 							?>
 							
 							<i title="Eliminar" style="cursor:pointer" class="fa fa-trash-o" onclick="eliminar(<?= $row['id'];?>, '<?= base_url(); ?>usuarios/eliminar')"></i>

@@ -43,11 +43,23 @@ class Cuenta extends CI_Controller {
 		 $data['clave']= $this->bcrypt->hash_password($this->input->post('clave'));
 		 $data['email']= $this->input->post('email');
 		 $data['roles_id']= $this->input->post('rol'); 
+		 $data['sexo']= $this->input->post('sexo');
 		 $data['pregunta_s']= $this->input->post('pregunta_secreta'); 
 		 $data['respuesta_s']= $this->bcrypt->hash_password($this->input->post('respuesta_secreta')); 
 		 $data['status_id']= 0;
 		 $data['created_at']= date('Y-m-d');
-		  
+
+		
+		if($data['roles_id'] == 3){
+		 $doctor['pnombre']= ucwords($this->input->post('pnombre'));
+		 $doctor['papellido']= ucwords($this->input->post('papellido'));
+		 $doctor['cedula']= $this->input->post('cedula'); 
+		 $doctor['rif']= $this->input->post('rif'); 
+		 $doctor['mpps']= $this->input->post('mpps'); 
+
+		$this->db->insert('doctores', $doctor);
+		}
+		
 		$this->cuenta_model->guardar_usuario($data);	
 	}
 	
@@ -61,6 +73,11 @@ class Cuenta extends CI_Controller {
 		$this->cuenta_model->get_email($email);
 	}
 	
+	public function validar_email2(){	
+		$email = $this->input->post('email');
+		$email2 = $this->input->post('email2');
+		$this->cuenta_model->get_email2($email,$email2);
+	}
 	public function pregunta(){	
 		$email = $this->input->post('email');
 		$this->cuenta_model->get_pregunta($email);

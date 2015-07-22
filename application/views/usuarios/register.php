@@ -48,7 +48,7 @@
 			clear:both;
 		}	
 		#img1, #img2, #img3, #img4, #img5, #img6 {
-		height:22%;
+		height:18%;
 		width:98%;
 		margin-bottom:60%;
 		}
@@ -88,7 +88,7 @@
         <!-- Main content -->
         <section class="colum_central">
 		
-					 <div class="register-box">
+					 <div class="register-box" style="width:80%">
 						 <div class="register-logo">
 						<a href="#"><b>Si</b>MED</a>
 						</div>
@@ -99,36 +99,35 @@
 						  
 						  <div class="row">
 						  
-						  <div class="form-group has-feedback col-xs-6">						
+						  <div class="form-group has-feedback col-xs-4">						
 							<label>Nombre</label>
 							<input type="text" name="pnombre" class="form-control" placeholder="Nombre">
 						  </div>
-						  <div class="form-group has-feedback col-xs-6">
+						  <div class="form-group has-feedback col-xs-4">
 							<label>Apellido</label>
 							<input type="text" name="papellido" class="form-control" placeholder="Apellido">							
 						  </div>
-						  </div>
-						  <div class="row">						 
-						  <div class="form-group has-feedback col-xs-12" id="fromUsuario">
+						   <div class="form-group has-feedback col-xs-4" id="fromUsuario">
 						  <label>Usuario</label>
 							<input type="text" name="nick" class="form-control" placeholder="Nombre de Usuario" id="usuario" onBlur="validar_usuario(this.value)">	
 							<span id="mnj_nick"></span>							
 						  </div>
 						  </div>
+						  
 						  <div class="row">
-						  <div class="form-group has-feedback col-xs-12">
+						  <div class="form-group has-feedback col-xs-6">
 							<label>Contraseña</label>						  
 							<input type="password" name="clave" id="clave" class="form-control" placeholder="Contraseña">
 						  </div>
-						  </div>
-						  <div class="row">
-						  <div class="form-group has-feedback col-xs-12">
+
+						  <div class="form-group has-feedback col-xs-6">
 							<label>Confirmar Contraseña</label>	
 							<input type="password" name="clave2" class="form-control" placeholder="Confirmar contraseña">							
 						  </div>
 						  </div>
+						  
 						  <div class="row">
-						  <div class="form-group has-feedback col-xs-12">
+						  <div class="form-group has-feedback col-xs-6">
 							<label>Pregunta de seguridad</label>	
 								<select class="form-control" name="pregunta_secreta" required>
 								  <option value="">Seleccione una pregunta</option>
@@ -141,30 +140,49 @@
 								  <option value="7">¿Personaje de pelicula?</option>
 								</select>
 							</div>
-						  </div>
-						   <div class="row">
-						  <div class="form-group has-feedback col-xs-12">
+
+						  <div class="form-group has-feedback col-xs-6">
 							<label>Respuesta de Seguridad</label>	
 							<input type="text" name="respuesta_secreta" class="form-control" placeholder="Respuesta de seguridad">							
 						  </div>
 						  </div>
 						  <div class="row">
-						  <div class="form-group has-feedback col-xs-12" id="fromEmail">
+						  <div class="form-group has-feedback col-xs-4" id="fromEmail">
 							<label>Email</label>	
 							<input type="email" name="email" class="form-control" placeholder="Email" onBlur="validar_email(this.value)">
 							<span id="mnj_email"></span>								
 						  </div>
-						  </div>
-						 <div class="row">
-						  <div class="form-group has-feedback col-xs-12">
+						<div class="form-group has-feedback col-xs-4">
 							<label>Rol</label>	
-								<select class="form-control" name="rol" required >
+								<select class="form-control" name="sexo" required>
+								  <option value="">Seleccione sexo</option>
+								  <option value="F">Femenino</option>
+								  <option value="M">Masculino</option>
+								</select>
+							</div>
+						  <div class="form-group has-feedback col-xs-4">
+							<label>Rol</label>	
+								<select class="form-control" name="rol" required onchange="usuario_doctor(this.value)">
 								  <option value="">Seleccione su rol</option>
 								  <option value="2">Enfermera</option>
 								  <option value="3">Doctor</option>
 								  <option value="4">Terapista</option>
 								  <option value="5">Secretaria</option>
 								</select>
+							</div>
+						  </div>
+						   <div class="row" id="showDoctor" style="display:none">
+						  <div class="form-group has-feedback col-xs-4">
+							<label>Cédula - Doctor</label>	
+							<input type="text" name="cedula" class="form-control" placeholder="Cédula de Doctor">
+							</div>
+							<div class="form-group has-feedback col-xs-4">
+							<label>RIF - Doctor</label>	
+								<input type="text" name="rif" class="form-control" placeholder="RIF de Doctor">
+							</div>
+							<div class="form-group has-feedback col-xs-4">
+							<label>MPPS - Doctor</label>	
+								<input type="text" name="mpps" class="form-control" placeholder="MPPS de Doctor">
 							</div>
 						  </div>
 						  
@@ -269,6 +287,12 @@
 						}
 				   })
 			 } 	
+		
+		function usuario_doctor(rol){
+			if(rol == 3){
+			document.getElementById("showDoctor").style.display="block";
+			}
+		}	
 	</script>
 	
   </body>

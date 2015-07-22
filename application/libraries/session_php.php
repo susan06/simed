@@ -18,6 +18,11 @@ class Session_php
         $_SESSION['rol'] = $rol;
     }
 	
+	public function set_sexo( $sexo)
+    {
+        $_SESSION['sexo'] = $sexo;
+    }
+	
     public function get()
     {
         return isset( $_SESSION['nick'] ) ? $_SESSION['nick'] : null;
@@ -27,9 +32,16 @@ class Session_php
     {
         return isset( $_SESSION['rol'] ) ? $_SESSION['rol'] : null;
     }
-
+	
+	public function get_sexo()
+    {
+        return isset( $_SESSION['sexo'] ) ? $_SESSION['sexo'] : null;
+    }
+	
     public function delete( )
     {
         unset( $_SESSION['nick'] );
+		unset( $_SESSION['rol'] );
+		unset( $_SESSION['sexo'] );
     }
 }

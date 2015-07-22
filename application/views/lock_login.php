@@ -59,7 +59,30 @@
       <div class="lockscreen-item">
         <!-- lockscreen image -->
         <div class="lockscreen-image">
-          <img src="<?=base_url()?>assets/dist/img/user1-128x128.jpg" alt="user image"/>
+                <?php if($this->session->flashdata('rol') == 1 ){ ?>
+                  <img src="<?=base_url()?>assets/dist/img/admin.jpg" alt="User Image"/>
+				<?php } ?>  
+				<?php if($this->session->flashdata('rol') == 2 && $this->session->flashdata('sexo') == "F"){ ?>
+                  <img src="<?=base_url()?>assets/dist/img/enfermera.jpg" alt="User Image"/>
+				<?php } ?> 
+				<?php if($this->session->flashdata('rol') == 2 && $this->session->flashdata('sexo') == "M"){ ?>
+                  <img src="<?=base_url()?>assets/dist/img/enfermero.jpg" alt="User Image"/>
+				<?php } ?> 
+				<?php if($this->session->flashdata('rol') == 3 && $this->session->flashdata('sexo') == "F"){ ?>
+                  <img src="<?=base_url()?>assets/dist/img/doctora.jpg"  alt="User Image"/>
+				<?php } ?> 
+				<?php if($this->session->flashdata('rol') == 3 && $this->session->flashdata('sexo') == "M"){ ?>
+                  <img src="<?=base_url()?>assets/dist/img/doctor.jpg" alt="User Image"/>
+				<?php } ?> 
+				<?php if($this->session->flashdata('rol') == 4 && $this->session->flashdata('sexo') == "F"){ ?>
+                  <img src="<?=base_url()?>assets/dist/img/terapista.jpg" alt="User Image"/>
+				<?php } ?> 
+				<?php if($this->session->flashdata('rol') == 4 && $this->session->flashdata('sexo') == "M"){ ?>
+                  <img src="<?=base_url()?>assets/dist/img/terapeuta.jpg"  alt="User Image"/>
+				<?php } ?> 
+				<?php if($this->session->flashdata('rol') == 5 ){ ?>
+                  <img src="<?=base_url()?>assets/dist/img/secretaria.jpg" alt="User Image"/>
+				<?php } ?> 
         </div>
         <!-- /.lockscreen-image -->
 

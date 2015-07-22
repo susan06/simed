@@ -164,11 +164,31 @@ class Usuarios_model extends CI_Model {
     $updateSQL=$this->db->update('usuarios', $data);	
 		
 		if($updateSQL) {
-					$this->session->set_flashdata('flash_message', '<p class="font-16"> ¡Datos actualizados con éxito!</p>');
-					redirect(base_url() . 'index.php/usuarios', 'refresh');		 
-				}else{
-					$this->session->set_flashdata('flash_message', '<p class="font-16 rojo"> ¡Error al editar usuario! </p>');
-					redirect(base_url() . 'index.php/usuarios', 'refresh');	
+			$this->db->where('id',$data['id']); 
+			$query = $this->db->get('usuarios');
+			$user = $query->row();
+			
+			$data = array(
+									'is_logued_in' 	=> 		TRUE,
+									'id'    		=>      $user->id,
+									'nombre'    	=>      $user->pnombre,
+									'apellido'  	=>      $user->papellido,
+									'rol'      		=>      $user->roles_id,
+									'nick'      	=>      $user->nick,
+									'sexo'      	=>      $user->sexo,
+									'created_at' 	=>      $user->created_at,
+					);	
+					
+					$this->session_php->set($user->nick);	
+					$this->session_php->set_rol($user->roles_id);	
+					$this->session_php->set_sexo($user->sexo);						
+					$this->session->set_userdata($data);
+					
+			$this->session->set_flashdata('info', 'Se realizaron los cambios con éxito');
+			redirect(base_url() . 'usuarios/perfil/'.$data['id'], 'refresh');	
+		}else{
+			$this->session->set_flashdata('error', 'Intente actualizar los datos de nuevo');
+			redirect(base_url() . 'usuarios/perfil/'.$data['id'], 'refresh');	
 		}
 		
 	}

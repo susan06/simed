@@ -21,12 +21,14 @@ class Usuarios extends CI_Controller {
 
 				$nick = $this->session_php->get();
 				$rol = $this->session_php->get_rol();
+				$rol = $this->session_php->get_sexo();
 				$url = current_url();
 				
 				if($this->session->userdata('is_logued_in') == FALSE)
 				{
 					$this->session->set_flashdata('nick', $nick );
 					$this->session->set_flashdata('rol',  $rol);
+					$this->session->set_flashdata('sexo',  $sexo);
 					$this->session->set_flashdata('url_actual', $url );
 					redirect(base_url() . 'login/lock_screen', 'refresh' );
 				}
@@ -44,12 +46,13 @@ class Usuarios extends CI_Controller {
 		
 	public function index(){	
 		
-		$ver = $this->crud_model->get_id_permiso("Ver");
+		$ver = 1;
 		
 		$data['page_title'] = 'Usuarios';
 		$data['system_title'] = 'Ver';		
-		$data['borrar'] = $this->crud_model->get_id_permiso("Borrar");
+		$data['borrar'] = 3;
 		$data['permisos'] = $this->permisos();
+		$permisos = $this->permisos();
 		
 		$usuarios = $this->usuarios_model->get_lista_usuarios();
 
@@ -59,7 +62,8 @@ class Usuarios extends CI_Controller {
 			$data['usuarios'] =  NULL;
 		}
 		
-		if (in_array($ver, $this->permisos())){
+
+		if ( $permisos[$ver]['status'] == 1 ){
 			
 			$this->load->view('usuarios/lista', $data);
 			
@@ -81,7 +85,9 @@ class Usuarios extends CI_Controller {
 	
 	public function permisos_rol() 
 	{	
-
+		$ver = 1;
+		$permisos = $this->permisos();
+		//por defecto el administrador
 		//permisos para el modulo de doctores
 		$data['admin_3'] = $this->crud_model->get_permisos(1,3);
 		
@@ -89,9 +95,18 @@ class Usuarios extends CI_Controller {
 		$data['admin_8']	= $this->crud_model->get_permisos(1,8);
 		
 		$data['page_title'] = 'Usuarios';
-		$data['system_title'] = 'Permisos';
+		$data['system_title'] = 'Permisos';			
 		
-		$this->load->view('usuarios/permisos', $data);
+		if ( $permisos[$ver]['status'] == 1 ){
+			
+			$this->load->view('usuarios/permisos', $data);
+			
+		}else{	
+		
+			$this->session->set_flashdata('warning_modal', 'No tiene permiso para ver los permisos de los usuarios');
+			redirect(base_url() . 'home', 'refresh');
+			
+		}
 	}	
 	
 	public function permisos_admin(){	
@@ -101,10 +116,12 @@ class Usuarios extends CI_Controller {
 		$status_doc= $this->input->post('status_doc'); 
 		$rol= $this->input->post('rol_id'); 
 		
-		for ($i = 2; $i <= 3; $i++) {
-				$this->db->where('id', $doctores[$i] );
-				$this->db->update('rol_permiso', array('status'=> $status_doc[$i] ));			
-		}
+	
+		$this->db->where('id', $doctores[2] );
+		$this->db->update('rol_permiso', array('status'=> $status_doc[2] ));			
+		
+		$this->db->where('id', $doctores[4] );
+		$this->db->update('rol_permiso', array('status'=> $status_doc[4] ));
 		
 		$terapias= $this->input->post('terapias'); 
 		$status_ter= $this->input->post('status_ter');
@@ -119,73 +136,148 @@ class Usuarios extends CI_Controller {
 
 	}
 	
-	public function permisos_rol22() 
-	{	
-		$data['d'] = $this->crud_model->get_id_permiso("Ver");
-		$data['crear'] = $this->crud_model->get_id_permiso("Crear");
-		$data['editar'] = $this->crud_model->get_id_permiso("Editar");
-		$data['borrar'] = $this->crud_model->get_id_permiso("Borrar");
+	public function get_permisos_rol($rol){	
+		 
+		if($rol == 2){
+			$data['rol_name']='Enfermera';
+			$data['rol']=2;
+			$data['mod_2'] = $this->crud_model->get_permisos(2,2);
+			$data['mod_3'] = $this->crud_model->get_permisos(2,3);
+			$data['mod_4'] = $this->crud_model->get_permisos(2,4);
+			$data['mod_5'] = $this->crud_model->get_permisos(2,5);
+			$data['mod_6'] = $this->crud_model->get_permisos(2,6);
+			$data['mod_7'] = $this->crud_model->get_permisos(2,7);
+			$data['mod_8'] = $this->crud_model->get_permisos(2,8);
+		}
+		if($rol == 3){
+			$data['rol_name']='Doctor';
+			$data['rol']=3;
+			$data['mod_2'] = $this->crud_model->get_permisos(3,2);
+			$data['mod_3'] = $this->crud_model->get_permisos(3,3);
+			$data['mod_4'] = $this->crud_model->get_permisos(3,4);
+			$data['mod_5'] = $this->crud_model->get_permisos(3,5);
+			$data['mod_6'] = $this->crud_model->get_permisos(3,6);
+			$data['mod_7'] = $this->crud_model->get_permisos(3,7);
+			$data['mod_8'] = $this->crud_model->get_permisos(3,8);
+		}
+		if($rol == 4){
+			$data['rol_name']='Terapista';
+			$data['rol']=4;
+			$data['mod_2'] = $this->crud_model->get_permisos(3,2);
+			$data['mod_3'] = $this->crud_model->get_permisos(3,3);
+			$data['mod_4'] = $this->crud_model->get_permisos(3,4);
+			$data['mod_5'] = $this->crud_model->get_permisos(3,5);
+			$data['mod_6'] = $this->crud_model->get_permisos(3,6);
+			$data['mod_7'] = $this->crud_model->get_permisos(3,7);
+			$data['mod_8'] = $this->crud_model->get_permisos(3,8);
+		}
+		if($rol == 5){
+			$data['rol_name']='Secretaria';
+			$data['rol']=5;
+			$data['mod_2'] = $this->crud_model->get_permisos(5,2);
+			$data['mod_3'] = $this->crud_model->get_permisos(5,3);
+			$data['mod_4'] = $this->crud_model->get_permisos(5,4);
+			$data['mod_5'] = $this->crud_model->get_permisos(5,5);
+			$data['mod_6'] = $this->crud_model->get_permisos(5,6);
+			$data['mod_7'] = $this->crud_model->get_permisos(5,7);
+			$data['mod_8'] = $this->crud_model->get_permisos(5,8);
+		}
 		
-
-			//permisos para el modulo de doctores
-		$data['admin_3'] = $this->crud_model->get_permisos(1,3);
-	
-		//permisos para el modulo de citas
-		//$admin_4 	= $this->crud_model->get_permisos(1,4);
-		//$enf_4 	= $this->crud_model->get_permisos(2,4);
-		$data['doc_4'] 	= $this->crud_model->get_permisos(3,4);
-		$data['ter_4'] 	= $this->crud_model->get_permisos(4,4);
-		//$sec_4 	= $this->crud_model->get_permisos(5,4);
-	
-		//permisos para el modulo de citas
-		//$admin_4 	= $this->crud_model->get_permisos(1,4);
-		//$enf_4 	= $this->crud_model->get_permisos(2,4);
-		$data['doc_4'] 	= $this->crud_model->get_permisos(3,4);
-		$data['ter_4'] 	= $this->crud_model->get_permisos(4,4);
-		//$sec_4 	= $this->crud_model->get_permisos(5,4);
-	
-		//permisos para el modulo de sala de espera
-		//$admin_5 	= $this->crud_model->get_permisos(1,5);
-		$data['enf_5 '] = $this->crud_model->get_permisos(2,5);
-		$data['doc_5'] 	= $this->crud_model->get_permisos(3,5);
-		$data['ter_5'] 	= $this->crud_model->get_permisos(4,5);
-		//$sec_5 	= $this->crud_model->get_permisos(5,5);
-	
-		//permisos para el modulo de consultas
-		//$data['admin_6 ']	= $this->crud_model->get_permisos(1,6);
-		//$data['enf_6 '] = $this->crud_model->get_permisos(2,6);
-		//$data['doc_6'] 	= $this->crud_model->get_permisos(3,6);
-		//$data['ter_6'] 	= $this->crud_model->get_permisos(4,6);
-		//$data['sec_6'] 	= $this->crud_model->get_permisos(5,6);
-
-		//permisos para el modulo de expediente
-		$data['admin_7 ']	= $this->crud_model->get_permisos(1,7);
-		$data['enf_7 '] = $this->crud_model->get_permisos(2,7);
-		//$data['doc_7'] 	= $this->crud_model->get_permisos(3,7);
-		$data['ter_7'] 	= $this->crud_model->get_permisos(4,7);
-		$data['sec_7'] 	= $this->crud_model->get_permisos(5,7);
-
-		//permisos para el modulo de terapias
-		$data['admin_8']	= $this->crud_model->get_permisos(1,8);
-		//$data['enf_8 '] = $this->crud_model->get_permisos(2,8);
-		$data['doc_8'] 	= $this->crud_model->get_permisos(3,8);
-		//$data['ter_8'] 	= $this->crud_model->get_permisos(4,8);
-		$data['sec_8'] 	= $this->crud_model->get_permisos(5,8);
-		
-		$data['page_title'] = 'Usuarios';
-		$data['system_title'] = 'Permisos';
-		
-		$this->load->view('usuarios/permisos', $data);
+		return $this->load->view('usuarios/permiso_rol', $data);	
 	}
+	
+	public function permisos_guardar(){	
+		
+		$rol =$this->input->post('rol_id');
+		 
+		if($rol == 2){			
+			$terapias= $this->input->post('terapias'); 
+			$status_ter= $this->input->post('status_ter');
+			
+			for ($i = 1; $i <= 4; $i++) {
+					$this->db->where('id', $terapias[$i] );
+					$this->db->update('rol_permiso', array('status'=> $status_ter[$i] ));			
+			}
+
+		$this->session->set_flashdata('info', 'Cambios realizados con éxito');
+		$this->session->set_flashdata('rol_load', $rol);
+		redirect(base_url() . 'usuarios/permisos_rol', 'refresh');	
+		
+		}
+	
+	if($rol == 3){			
+			
+			$pacientes= $this->input->post('pacientes'); 
+			$status_pac= $this->input->post('status_pac');
+			
+			for ($i = 1; $i <= 4; $i++) {
+					$this->db->where('id', $pacientes[$i] );
+					$this->db->update('rol_permiso', array('status'=> $status_pac[$i] ));			
+			}
+			
+			$terapias= $this->input->post('terapias'); 
+			$status_ter= $this->input->post('status_ter');
+			
+			for ($i = 1; $i <= 4; $i++) {
+					$this->db->where('id', $terapias[$i] );
+					$this->db->update('rol_permiso', array('status'=> $status_ter[$i] ));			
+			}
+			
+			$citas= $this->input->post('citas'); 
+			$status_cit= $this->input->post('status_cit');
+			
+			for ($i = 1; $i <= 4; $i++) {
+					$this->db->where('id', $citas[$i] );
+					$this->db->update('rol_permiso', array('status'=> $status_cit[$i] ));			
+			}
+			
+			$espera= $this->input->post('espera'); 
+			$status_esp= $this->input->post('status_esp');
+			
+			for ($i = 1; $i <= 4; $i++) {
+					$this->db->where('id', $espera[$i] );
+					$this->db->update('rol_permiso', array('status'=> $status_esp[$i] ));			
+			}
+			
+		$this->session->set_flashdata('info', 'Cambios realizados con éxito');
+		$this->session->set_flashdata('rol_load', $rol);
+		redirect(base_url() . 'usuarios/permisos_rol', 'refresh');	
+		
+		}
+	if($rol == 5){			
+			
+			$pacientes= $this->input->post('pacientes'); 
+			$status_pac= $this->input->post('status_pac');
+			
+			for ($i = 1; $i <= 4; $i++) {
+					$this->db->where('id', $pacientes[$i] );
+					$this->db->update('rol_permiso', array('status'=> $status_pac[$i] ));			
+			}
+			
+			$terapias= $this->input->post('terapias'); 
+			$status_ter= $this->input->post('status_ter');
+			
+			for ($i = 1; $i <= 4; $i++) {
+					$this->db->where('id', $terapias[$i] );
+					$this->db->update('rol_permiso', array('status'=> $status_ter[$i] ));			
+			}
+			
+			
+		$this->session->set_flashdata('info', 'Cambios realizados con éxito');
+		$this->session->set_flashdata('rol_load', $rol);
+		redirect(base_url() . 'usuarios/permisos_rol', 'refresh');	
+		
+		}		
+	}
+	
 	
 	public function roles()
 	{	
-		
-		$crear = $this->crud_model->get_id_permiso("Crear");
+		$ver =1;
+		$permisos = $this->permisos();
 		
 		$data['page_title'] = 'Usuarios';
-		$data['system_title'] = 'Ver';		
-		$data['borrar'] = $this->crud_model->get_id_permiso("Borrar");
+		$data['system_title'] = 'Ver';				
 		$data['permisos'] = $this->permisos();
 		
 		$usuarios = $this->usuarios_model->get_lista_usuarios();
@@ -195,8 +287,8 @@ class Usuarios extends CI_Controller {
 		}else{
 			$data['usuarios'] =  NULL;
 		}
-		
-		if (in_array($crear, $this->permisos())){
+
+		if ($permisos[$ver]['status'] == 1){
 		
 			$this->load->view('usuarios/roles', $data);
 			
@@ -243,9 +335,7 @@ class Usuarios extends CI_Controller {
 		$this->usuarios_model->guardar($data,$admin);	
 	}
 	
-	public function editar($id){	 
-		
-		$editar = $this->crud_model->get_id_permiso("Editar");
+	public function perfil($id){	
 		
 		$query = $this->usuarios_model->get_datos_usuario($id);	
 		
@@ -253,32 +343,17 @@ class Usuarios extends CI_Controller {
 			$data['usuario_editar'] =  $query;
 		}		
 		
-		$data['page_title'] = 'Usuarios';
-        $data['page_name'] = 'usuarios/editar';
+		$data['page_title'] = 'Usuario';
 		$data['system_title'] = 'Editar';	
-		$data['page_header'] = 'header';	
-		$data['page_menu'] = '';
-		$data['mod'] = 'usuarios';
-		$data['form'] = 'validar';
-		
-		
-		if (in_array($editar, $this->permisos())){
-		
-			$this->load->view('index', $data);
+
+		$this->load->view('usuarios/perfil', $data);
 			
-		}else{	
-		
-			$this->session->set_flashdata('flash_message', '<p class="font1 rojo"> No tiene permiso para editar usuarios </p>');
-			redirect(base_url() . 'index.php/usuarios', 'refresh');
-			
-		}
-	}
+	}	
 	
 	public function actualizar(){
 		
 		 $data['pnombre']= ucwords($this->input->post('pnombre'));
 		 $data['papellido']= ucwords($this->input->post('papellido'));
-		 $data['nick']= $this->input->post('nick'); 
 		 $data['email']= $this->input->post('email');
 		 $data['id']= $this->input->post('id');
 		 

@@ -5,7 +5,30 @@
           <!-- Sidebar user panel -->
           <div class="user-panel">
             <div class="pull-left image">
-              <img src="<?=base_url()?>assets/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image" />
+                 <?php if($this->session->userdata('rol') == 1 ){ ?>
+                  <img src="<?=base_url()?>assets/dist/img/admin.jpg" class="img-circle" alt="User Image"/>
+				<?php } ?>  
+				<?php if($this->session->userdata('rol') == 2 && $this->session->userdata('sexo') == "F"){ ?>
+                  <img src="<?=base_url()?>assets/dist/img/enfermera.jpg" class="img-circle" alt="User Image"/>
+				<?php } ?> 
+				<?php if($this->session->userdata('rol') == 2 && $this->session->userdata('sexo') == "M"){ ?>
+                  <img src="<?=base_url()?>assets/dist/img/enfermero.jpg" class="img-circle" alt="User Image"/>
+				<?php } ?> 
+				<?php if($this->session->userdata('rol') == 3 && $this->session->userdata('sexo') == "F"){ ?>
+                  <img src="<?=base_url()?>assets/dist/img/doctora.jpg" class="img-circle" alt="User Image"/>
+				<?php } ?> 
+				<?php if($this->session->userdata('rol') == 3 && $this->session->userdata('sexo') == "M"){ ?>
+                  <img src="<?=base_url()?>assets/dist/img/doctor.jpg" class="img-circle" alt="User Image"/>
+				<?php } ?> 
+				<?php if($this->session->userdata('rol') == 4 && $this->session->userdata('sexo') == "F"){ ?>
+                  <img src="<?=base_url()?>assets/dist/img/terapista.jpg" class="img-circle" alt="User Image"/>
+				<?php } ?> 
+				<?php if($this->session->userdata('rol') == 4 && $this->session->userdata('sexo') == "M"){ ?>
+                  <img src="<?=base_url()?>assets/dist/img/terapeuta.jpg" class="img-circle" alt="User Image"/>
+				<?php } ?> 
+				<?php if($this->session->userdata('rol') == 5 ){ ?>
+                  <img src="<?=base_url()?>assets/dist/img/secretaria.jpg" class="img-circle" alt="User Image"/>
+				<?php } ?> 
             </div>
             <div class="pull-left info">
               <p><?php echo $this->session->userdata('nombre'); ?> <?php echo  $this->session->userdata('apellido'); ?></p>
