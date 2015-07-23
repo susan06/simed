@@ -1,4 +1,4 @@
-﻿	<?php $this->load->view('layouts/doctype.php');	 ?>	
+	<?php $this->load->view('layouts/doctype.php');	 ?>	
 
     <div class="wrapper">
 	
@@ -113,7 +113,9 @@
     <script src="<?=base_url()?>assets/plugins/slimScroll/jquery.slimscroll.min.js" type="text/javascript"></script>
     <!-- FastClick -->
     <script src='<?=base_url()?>assets/plugins/fastclick/fastclick.min.js'></script>
-    
+        <!-- AdminLTE App -->
+    <script src="<?=base_url()?>assets/dist/js/app.min.js" type="text/javascript"></script>
+	
 	<script src="<?=base_url()?>assets/js/scripts.js" type="text/javascript"></script>
 	<script src="<?=base_url()?>assets/js/scripts_form.js" type="text/javascript"></script>
 	

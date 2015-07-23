@@ -1,10 +1,9 @@
-﻿	<?php $this->load->view('layouts/doctype.php');	 ?>	
-	
+<?php $this->load->view('layouts/doctype.php');	 ?>	
 
     <div class="wrapper">
 	
-	<?php $this->load->view('layouts/header.php');	 ?>	
-	<?php $this->load->view('layouts/menu.php');	 ?>	
+<?php $this->load->view('layouts/header.php');	 ?>	
+<?php $this->load->view('layouts/menu.php');	 ?>	
   
       <!-- Content Wrapper. Contains page content -->
       <div class="content-wrapper">
@@ -132,10 +131,8 @@
 		
       </div><!-- /.content-wrapper -->
 	  
-	  <?php $this->load->view('layouts/footer.php');	 ?>
-	
-	 
-	 
+<?php $this->load->view('layouts/footer.php');	 ?>
+
     </div><!-- ./wrapper -->
 
    <!-- jQuery -->
