@@ -19,12 +19,7 @@ class Usuarios_model extends CI_Model {
 		$query = $this->db->get();		
 		return $query->result_array();			
 	}
-	function get_clinica(){	
-		$this->db->select("*");
-		$this->db->from('centro_medico');			
-		$query = $this->db->get();		
-		return $query->result_array();			
-	}	
+
     function get_datos_usuario($id){	
 		$this->db->select('*');
 		$this->db->from('usuarios');
@@ -130,32 +125,6 @@ class Usuarios_model extends CI_Model {
 		
 	}
 	
-    function guardar($data,$admin){
-  
-		$insertSQL= $this->db->insert('usuarios', $data);
-		
-		if($admin == 1){
-				
-				if($insertSQL) {
-					$this->session->set_flashdata('flash_message', '<p class="font-16"> ¡Usuario registrado con éxito!</p>');
-					redirect(base_url() . 'index.php/usuarios', 'refresh');		 
-				}else{
-					$this->session->set_flashdata('error_message', '<p class="font-16 rojo"> ¡Error al registrar usuario! </p>');
-					redirect(base_url() . 'index.php/usuarios', 'refresh');	
-				}
-		
-		}else{
-				if($insertSQL) {
-							$this->session->set_flashdata('flash_message', '<p class="font-16"> ¡Usuario registrado con éxito! Contacte al administrador para ser activado el usuario </p>');
-							redirect(base_url() . 'index.php/login', 'refresh');		 
-				}else{
-							$this->session->set_flashdata('flash_message', '<p class="font-16 rojo"> ¡Error al registrar usuario! </p>');
-							redirect(base_url() . 'index.php/login', 'refresh');	
-				}
-		}
-						
-	}
-	
 	
     function actualizar($data)
 	{	
@@ -198,37 +167,6 @@ class Usuarios_model extends CI_Model {
 		$this->db->where('id', $id);
 		return $this->db->update('usuarios', $data);	
 			
-	}
-
-	function actualizar_clinica($nombre,$rif,$tlf,$ciudad,$estado,$postal,$direccion,$lema){
-
-		$datos_clinica = array(
-			'rif_cm' => $rif,
-			'tlf_cm' => $tlf,
-			'ciudad_cm' => $ciudad,
-			'estado_cm' => $estado,
-			'zona_postal_cm' => $postal,
-			'direccion_cm' => $direccion,
-			'lema_cm' => $lema
-		);
-		
-		$this->db->where('nombre_cm', $nombre);
-        $updateSQL=$this->db->update('centro_medico', $datos_clinica);	
-		
-		if($updateSQL) {
-				 ?> 
-							<script language="javascript"> 
-							alert("Registro de datos exitoso"); 
-							location.href = '<?php echo base_url(); ?>index.php/home_admin';
-							</script> 
-				<?php				 
-        }else{
-				    ?> 
-							<script language="javascript"> 
-							alert("Ha ocurrido un error y no se registraron los datos."); 
-							</script> 
-					<?php 		
-        }
 	}
 	
 	function eliminar($id_usuario){

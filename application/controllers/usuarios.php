@@ -149,6 +149,7 @@ class Usuarios extends CI_Controller {
 			$data['mod_7'] = $this->crud_model->get_permisos(2,7);
 			$data['mod_8'] = $this->crud_model->get_permisos(2,8);
 			$data['mod_10'] = $this->crud_model->get_permisos(2,10);
+			$data['mod_11'] = $this->crud_model->get_permisos(2,11);
 		}
 		if($rol == 3){
 			$data['rol_name']='Doctor';
@@ -161,6 +162,7 @@ class Usuarios extends CI_Controller {
 			$data['mod_7'] = $this->crud_model->get_permisos(3,7);
 			$data['mod_8'] = $this->crud_model->get_permisos(3,8);
 			$data['mod_10'] = $this->crud_model->get_permisos(3,10);
+			$data['mod_11'] = $this->crud_model->get_permisos(3,11);
 		}
 		if($rol == 4){
 			$data['rol_name']='Terapista';
@@ -173,6 +175,7 @@ class Usuarios extends CI_Controller {
 			$data['mod_7'] = $this->crud_model->get_permisos(4,7);
 			$data['mod_8'] = $this->crud_model->get_permisos(4,8);
 			$data['mod_10'] = $this->crud_model->get_permisos(4,10);
+			$data['mod_11'] = $this->crud_model->get_permisos(4,11);
 		}
 		if($rol == 5){
 			$data['rol_name']='Secretaria';
@@ -185,6 +188,7 @@ class Usuarios extends CI_Controller {
 			$data['mod_7'] = $this->crud_model->get_permisos(5,7);
 			$data['mod_8'] = $this->crud_model->get_permisos(5,8);
 			$data['mod_10'] = $this->crud_model->get_permisos(5,10);
+			$data['mod_11'] = $this->crud_model->get_permisos(5,11);
 		}
 		
 		return $this->load->view('usuarios/permiso_rol', $data);	
@@ -211,6 +215,14 @@ class Usuarios extends CI_Controller {
 					$this->db->update('rol_permiso', array('status'=> $status_espec[$i] ));			
 			}
 
+			$clinica= $this->input->post('clinica'); 
+			$status_cli= $this->input->post('status_cli');
+			
+			for ($i = 2; $i <= 2; $i++) {
+					$this->db->where('id', $clinica[$i] );
+					$this->db->update('rol_permiso', array('status'=> $status_cli[$i] ));			
+			}
+			
 		$this->session->set_flashdata('info', 'Cambios realizados con éxito');
 		$this->session->set_flashdata('rol_load', $rol);
 		redirect(base_url() . 'usuarios/permisos_rol', 'refresh');	
@@ -259,6 +271,14 @@ class Usuarios extends CI_Controller {
 					$this->db->update('rol_permiso', array('status'=> $status_espec[$i] ));			
 			}
 			
+			$clinica= $this->input->post('clinica'); 
+			$status_cli= $this->input->post('status_cli');
+			
+			for ($i = 2; $i <= 2; $i++) {
+					$this->db->where('id', $clinica[$i] );
+					$this->db->update('rol_permiso', array('status'=> $status_cli[$i] ));			
+			}
+			
 		$this->session->set_flashdata('info', 'Cambios realizados con éxito');
 		$this->session->set_flashdata('rol_load', $rol);
 		redirect(base_url() . 'usuarios/permisos_rol', 'refresh');	
@@ -275,6 +295,14 @@ class Usuarios extends CI_Controller {
 					$this->db->update('rol_permiso', array('status'=> $status_espec[$i] ));			
 			}
 
+			$clinica= $this->input->post('clinica'); 
+			$status_cli= $this->input->post('status_cli');
+			
+			for ($i = 2; $i <= 2; $i++) {
+					$this->db->where('id', $clinica[$i] );
+					$this->db->update('rol_permiso', array('status'=> $status_cli[$i] ));			
+			}
+			
 		$this->session->set_flashdata('info', 'Cambios realizados con éxito');
 		$this->session->set_flashdata('rol_load', $rol);
 		redirect(base_url() . 'usuarios/permisos_rol', 'refresh');	
@@ -306,6 +334,14 @@ class Usuarios extends CI_Controller {
 			for ($i = 1; $i <= 4; $i++) {
 					$this->db->where('id', $especialidades[$i] );
 					$this->db->update('rol_permiso', array('status'=> $status_espec[$i] ));			
+			}
+			
+			$clinica= $this->input->post('clinica'); 
+			$status_cli= $this->input->post('status_cli');
+			
+			for ($i = 2; $i <= 2; $i++) {
+					$this->db->where('id', $clinica[$i] );
+					$this->db->update('rol_permiso', array('status'=> $status_cli[$i] ));			
 			}
 			
 		$this->session->set_flashdata('info', 'Cambios realizados con éxito');
@@ -354,31 +390,7 @@ class Usuarios extends CI_Controller {
 		$id = $this->input->post('id');
 		$rol = $this->input->post('rol');
 		$this->usuarios_model->cambiar_rol($id,$rol);
-	}
-	
-	public function guardar(){	
-		 
-		 $data['pnombre']= ucwords($this->input->post('pnombre'));
-		 $data['papellido']= ucwords($this->input->post('papellido'));
-		 $data['nick']= $this->input->post('nick'); 
-		 $data['clave']= $this->bcrypt->hash_password($this->input->post('clave'));
-		 $data['email']= $this->input->post('email');
-		 $data['roles_id']= $this->input->post('rol'); 
-		 $data['pregunta_s']= $this->input->post('pregunta_secreta'); 
-		 $data['respuesta_s']= $this->bcrypt->hash_password($this->input->post('respuesta_secreta')); 
-		   
-		 $admin = 0;
-		 
-		 if($this->input->post('admin'))
-			$admin= $this->input->post('admin');
-		
-		 $data['status_id']= 0;
-		 
-		 if($admin == 1)
-			  $data['status_id']= 1;
-		  
-		$this->usuarios_model->guardar($data,$admin);	
-	}
+	}	
 	
 	public function perfil($id){	
 		

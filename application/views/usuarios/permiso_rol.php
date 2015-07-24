@@ -353,7 +353,7 @@
                       <td>Consulta médica <?php if($rol == 3){echo '<span class="badge bg-green">100%</span>';} ?></td>
 						   <td> 
 						  <?php if($rol == 3 ){echo '<div class="progress progress-xs progress-striped active"><div class="progress-bar progress-bar-success" style="width: 100%"></div></div>	';} 
-					   else{ echo '&nbsp;<input type="checkbox" disabled>Ver	&nbsp; <input type="checkbox" disabled>Crear	&nbsp; <input type="checkbox" disabled>Editar	&nbsp; <input type="checkbox" disabled>Eliminar</td>';}
+					   else{ echo '&nbsp;<input type="checkbox" disabled>Ver	&nbsp; <input type="checkbox" disabled>Crear	&nbsp; <input type="checkbox" disabled>Editar	&nbsp; <input type="checkbox" disabled>Eliminar';}
 					   ?>
 						  </td>
                     </tr>
@@ -361,8 +361,26 @@
                       <td>Expediente médico <?php if($rol == 3 || $rol == 2){echo '<span class="badge bg-green">100%</span>';} ?></td>
 					   <td>
 					     <?php if($rol == 3 || $rol == 2 ){echo '<div class="progress progress-xs progress-striped active"><div class="progress-bar progress-bar-success" style="width: 100%"></div></div>	';} 
-					   else{ echo '&nbsp;<input type="checkbox" disabled>Ver	&nbsp; <input type="checkbox" disabled>Crear	&nbsp; <input type="checkbox" disabled>Editar	&nbsp; <input type="checkbox" disabled>Eliminar</td>';}
+					   else{ echo '&nbsp;<input type="checkbox" disabled>Ver	&nbsp; <input type="checkbox" disabled>Crear	&nbsp; <input type="checkbox" disabled>Editar	&nbsp; <input type="checkbox" disabled>Eliminar';}
 					   ?>
+						</td>
+                    </tr>
+					<tr>
+                      <td>Clínica</td>
+					   <td>
+					    	<?Php 
+							   if($mod_11[2]['status']==1){ ?>
+								  
+								  &nbsp;<input type="checkbox" id="check<?= $mod_11[2]['id'] ?>" onclick="check(<?= $mod_11[2]['id'] ?>)" checked><span class="text-green">Editar</span>
+								  <input type="hidden" name="clinica[2]" value="<?= $mod_11[2]['id'] ?>" >
+								  <input type="hidden" name="status_cli[2]" value="<?= $mod_11[2]['status'] ?>" id="<?= $mod_11[2]['id'] ?>" >
+								  
+							  <?Php  }else{  ?>
+							   
+							   &nbsp;<input type="checkbox" id="check<?= $mod_11[2]['id'] ?>" onclick="check(<?= $mod_11[2]['id'] ?>)"><span>Editar</span>
+								  <input type="hidden" name="clinica[2]" value="<?= $mod_11[2]['id'] ?>">
+								 <input type="hidden" name="status_cli[2]" value="<?= $mod_11[2]['status'] ?>" id="<?= $mod_11[2]['id'] ?>" >
+							  <?Php } ?>
 						</td>
                     </tr>					
                   </table>

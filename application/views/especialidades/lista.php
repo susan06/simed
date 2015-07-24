@@ -10,7 +10,7 @@
         <!-- Content Header (Page header) -->
         <section class="content-header">
           <h1>
-           Usuarios<small></small>
+           Especialidades<small></small>
           </h1>
         </section>
 
@@ -45,52 +45,32 @@
             <div class='col-md-12'>
 			  <div class="box">
                 <div class="box-header">
-                  <h3 class="box-title">Usuarios registrados</h3>
+                  <h3 class="box-title">Especialidades registradas</h3>
 				  <input type="text" id="buscar_table" class="form-control input-sm pull-right" style="width: 200px;" placeholder="Buscar">
                 </div><!-- /.box-header -->
                 <div class="box-body">
-                  <table id="usuarios_table" class="table table-bordered table-striped">
+                  <table id="especialidades_table" class="table table-bordered table-striped">
                     <thead>
                       <tr>
 						<th>#</th>
-						<th>Usuario</th>
-						<th>Nombre</th>
-						<th>Email</th>
-						<th>Rol</th>
-						<th>Status</th>
+						<th>Especialidad</th>
 						<th width="10%">Opciones</th>
                       </tr>
                     </thead>
                     <tbody>
-					  <?php if(is_array($usuarios) && count($usuarios) ){
+					  <?php if(is_array($especialidades) && count($especialidades) ){
 						$numero=1;
-						foreach($usuarios as $row){ ?>
+						foreach($especialidades as $row){ ?>
 							<tr>
 		  
 						  <td><?=  $numero++ ?></td>
-						  <td><?=  $row['nick']; ?></td>
-						  <td><?=  $row['pnombre']; ?> <?php echo $row['papellido']; ?></td>
-						  <td><?=  $row['email']; ?></td>
-						  <td><?= $this->crud_model->get_name_rol($row['roles_id']); ?></td>
-						  <td>
-						  <span id="status<?= $row['id']; ?>" >
-								<?php if($row['status_id'] == 0){ ?>
-								 <select class="text-red form-control" onChange="activar(this.value)">
-									<option value="">Inactivo</option>
-									<option class="text-aqua" value="<?= $row['id']; ?>">Activo</option>			
-									<?php 
-									}else{ 
-										echo '<span class="text-green"> Activo </span>';
-									} ?>
-								  </select>   
-						 </span>
-						 </td>
+						  <td><?=  $row['nombre']; ?></td>
 						  <td>
 							<?php									
 							if ($permisos[$borrar]['status'] == 1 ){ 
 							?>
 							
-							<i title="Eliminar" style="cursor:pointer" class="fa fa-trash-o" onclick="eliminar(<?= $row['id'];?>, '<?= base_url(); ?>usuarios/eliminar')"></i>
+							<i title="Eliminar" style="cursor:pointer" class="fa fa-trash-o" onclick="eliminar(<?= $row['id'];?>, '<?= base_url(); ?>especialidades/eliminar')"></i>
 
 							<?php	
 								}else{
@@ -110,11 +90,7 @@
                     <tfoot>
                       <tr>
 						<th>#</th>
-						<th>Usuario</th>
-						<th>Nombre</th>
-						<th>Email</th>
-						<th>Rol</th>
-						<th>Status</th>
+						<th>Especialidad</th>
 						<th>Opciones</th>
                       </tr>
                     </tfoot>
@@ -133,7 +109,7 @@
                     <h4 class="modal-title">Permisos</h4>
                   </div>
                   <div class="modal-body">
-                    <p>No tiene permiso para eliminar usuarios</p>
+                    <p>No tiene permiso para eliminar especialidades</p>
                   </div>
                   <div class="modal-footer">
                     <button type="button" class="btn btn-outline" data-dismiss="modal">Ok</button>
@@ -174,30 +150,16 @@
 	
       $(document).ready(function () {
 		  
-        $("#usuarios_table").dataTable({
+        $("#especialidades_table").dataTable({
 	
 			});
 
-		 oTable = $('#usuarios_table').dataTable();
+		 oTable = $('#especialidades_table').dataTable();
 		 
 		 $('#buscar_table').keyup(function(){ oTable.fnFilter( $(this).val() )});
 		 
       });	
-	 
-	  
-	  	function activar(id){ 
-
-		   $.ajax({ 
-			   url:'<?php echo base_url() ?>usuarios/status',
-			   type: "POST",
-			   data: 'id='+id,		   
-			   success: function(response){ 
-					if(response == true){
-					 $("#status"+id).html("<span class='text-green'> Activo </span>");
-					 }	
-					} 
-				})
-		};
+	 	    
 
 		function eliminar_permiso(){ 			
 			$('#warning_modal').modal('show');			
