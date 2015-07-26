@@ -1,4 +1,12 @@
 
+.td_select {
+background-color: #E3F6CE;
+}
+
+.td_no_select {
+background-color: #FFFFFF;
+}
+
 .dataTables_filter {
 display: none; 
 }

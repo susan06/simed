@@ -241,5 +241,27 @@
                 
             });		
 
+			 $("#form_espec").validate({
+                // Rules for form validation
+                rules: {
+                    nombre: {
+                        required: true
+                    }
+                },
+
+                // Messages for form validation
+                messages: {
+					nombre: {
+                        required: 'Por favor, ingrese nombre de la especialidad'
+                    }
+                },
+				highlight: function (element) {
+					$(element).closest('.form-group').removeClass('has-success').addClass('has-error');
+				},
+				success: function (element) {
+					element.closest('.form-group').removeClass('has-error').addClass('has-success');
+				}
+                
+            });	
 
 });

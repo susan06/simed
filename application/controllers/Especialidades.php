@@ -45,6 +45,7 @@ class Especialidades extends CI_Controller {
 		$data['page_title'] = 'Especialidades';
 		$data['system_title'] = 'Ver';		
 		$data['borrar'] = 3;
+		$data['editar'] = 2;
 		$data['permisos'] = $this->permisos();
 		
 		$especialidades = $this->especialidades_model->get_especialidades();
@@ -67,6 +68,14 @@ class Especialidades extends CI_Controller {
 		return $permisos;
 	}	
 	
+	public function crear(){	
+		
+		$data['page_title'] = 'Especialidades';
+		$data['system_title'] = 'Crear';		
+					
+		$this->load->view('especialidades/crear', $data);
+			
+	}
 	
 	public function guardar(){	
 		 
@@ -91,7 +100,20 @@ class Especialidades extends CI_Controller {
 		 	
 	}	
 	
-
+    public function editar(){	
+		
+		 $id = $this->input->get('pk');
+		 $value = $this->input->get('value');
+		 
+		 $this->db->where('id', $id);
+		 $updateSQL=$this->db->update(	'especialidades', array('nombre' => $value) );	
+		 
+		if($updateSQL) 
+        echo json_encode(array('id'=>$id));
+		else 
+        echo json_encode(array('id'=>$id));	
+		 	
+	}	
 	
 	
 }

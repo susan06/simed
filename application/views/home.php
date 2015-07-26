@@ -1,4 +1,4 @@
-﻿	<?php $this->load->view('layouts/doctype.php');	 ?>	
+	<?php $this->load->view('layouts/doctype.php');	 ?>	
 	
   <body class="skin-green-light sidebar-mini">
     <div class="wrapper">

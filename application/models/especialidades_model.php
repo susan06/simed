@@ -23,7 +23,8 @@ class Especialidades_model extends CI_Model {
 		$insertSQL= $this->db->insert('especialidades', $data);
 
 		if($insertSQL) {
-					$this->session->set_flashdata('info', 'Se registraron los datos con éxito');
+					$this->session->set_flashdata('especialidad', $data['nombre']);
+					$this->session->set_flashdata('info', 'La especialidad '.$data['nombre'].' se guardo con éxito');
 					redirect(base_url() . 'especialidades', 'refresh');		 
 		}else{
 					$this->session->set_flashdata('error', 'Intente guardar los datos de nuevo');
@@ -32,21 +33,6 @@ class Especialidades_model extends CI_Model {
 						
 	}
 	
-    function actualizar($data)
-	{	
-	
-	$this->db->where('id', $data['id']);
-    $updateSQL=$this->db->update('especialidades', $data);	
-		
-		if($updateSQL) {
-			$this->session->set_flashdata('info', 'Se realizaron los cambios con éxito');
-			redirect(base_url() . 'especialidades', 'refresh');	
-		}else{
-			$this->session->set_flashdata('error', 'Intente actualizar los datos de nuevo');
-			redirect(base_url() . 'especialidades', 'refresh');	
-		}
-		
-	}
     
 	function eliminar($id){
 			

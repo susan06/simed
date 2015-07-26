@@ -13,6 +13,9 @@
     <!-- Theme style -->
     <link href="<?=base_url()?>assets/dist/css/AdminLTE.min.css" rel="stylesheet" type="text/css" />
     <link href="<?=base_url()?>assets/css/header.css" rel="stylesheet" type="text/css" />
+   
+   <link href="<?=base_url()?>assets/css/bootstrap-editable.css" rel="stylesheet">
+   
    <!-- AdminLTE Skins. Choose a skin from the css/skins 
          folder instead of downloading all of them to reduce the load. -->
     <link href="<?=base_url()?>assets/dist/css/skins/skin-green-light.css" rel="stylesheet" type="text/css" />
