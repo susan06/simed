@@ -1,5 +1,6 @@
       <?php $permisos_espec = $this->crud_model->get_permisos($this->session->userdata('rol'),10); ?>
-	  
+	  <?php $permisos_pac 	= $this->crud_model->get_permisos($this->session->userdata('rol'),2); ?>
+	   
 	  <!-- Left side column. contains the sidebar -->
       <aside class="main-sidebar">
         <!-- sidebar: style can be found in sidebar.less -->
@@ -88,15 +89,23 @@
 			
 			<?php } ?>
 			
+			<?php	if($permisos_pac[1]['status'] == 1 || $permisos_pac[4]['status'] == 1 ){ ?>
+			
             <li>
-              <a href="../widgets.html">
+              <a href="#">
                 <i class="fa fa-wheelchair"></i> <span>Pacientes</span>
               </a>
 			   <ul class="treeview-menu">
-                <li><a href="#"><i class="fa fa-reorder"></i>Ver</a></li>
-                <li><a href="#"><i class="fa fa-user-plus"></i>Registrar</a></li>
+			   <?php	if ($permisos_pac[1]['status'] == 1 ){ ?>
+                <li><a href="<?= base_url();?>pacientes"><i class="fa fa-reorder"></i>Ver</a></li>
+				<?php } ?>
+				<?php	if ($permisos_pac[4]['status'] == 1 ){ ?>
+                <li><a href="<?= base_url();?>pacientes/registrar"><i class="fa fa-user-plus"></i>Registrar</a></li>
+				<?php } ?>
               </ul>
             </li> 
+			
+			<?php } ?>
 			
 			<li>
               <a href="../widgets.html">

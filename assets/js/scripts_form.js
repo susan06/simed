@@ -264,4 +264,80 @@
                 
             });	
 
+			  $("#form_paciente").validate({
+                // Rules for form validation
+                rules: {
+					pnombre: {
+                        required: true
+                    },
+					papellido: {
+                        required: true
+                    },
+					fnacimiento: {
+                        required: true,
+                    },
+					edad: {
+                        required: true,
+						number:true
+                    },
+					email: {
+						email:true
+                    },
+					rol: {
+                        required: true,
+                    },
+					sexo: {
+                        required: true,
+                    },
+					cedula:{
+						number:true
+                    },
+					rlegal: {
+                        required: true
+                    },
+					p_rlegal: {
+                        required: true
+                    }
+                },
+
+                // Messages for form validation
+                messages: {
+                    pnombre: {
+                        required: 'Por favor, ingrese su nombre'
+                    },
+                    papellido: {
+                        required: 'Por favor, ingrese su apellido'
+                    },
+					fnacimiento: {
+                        required: 'Por favor, ingrese fecha de nacimiento'
+                    },
+                    edad: {
+                        required: 'Por favor, ingrese la edad',
+						number: 'Por favor, ingrese solo números'
+                    },
+					sexo: {
+                        required: 'Por favor, seleccione su sexo'
+                    },
+                    email: {
+                        email: 'Por favor, ingrese un email válido'
+                    },
+					cedula: {
+						number: 'Por favor, ingrese solo números'
+                    },
+                    rlegal: {
+                        required: 'Por favor, ingrese nombre de representante'
+                    },
+                    p_rlegal: {
+                        required: 'Por favor, ingrese parentesco del representante'
+                    }
+                },
+				highlight: function (element) {
+					$(element).closest('.form-group').removeClass('has-success').addClass('has-error');
+				},
+				success: function (element) {
+					element.closest('.form-group').removeClass('has-error').addClass('has-success');
+				}
+                
+            });
+			
 });

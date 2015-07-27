@@ -15,7 +15,10 @@
     <link href="<?=base_url()?>assets/css/header.css" rel="stylesheet" type="text/css" />
    
    <link href="<?=base_url()?>assets/css/bootstrap-editable.css" rel="stylesheet">
-   
+  
+  <!-- iCheck for checkboxes and radio inputs -->
+    <link href="<?=base_url()?>assets/plugins/iCheck/all.css" rel="stylesheet" type="text/css" />
+	
    <!-- AdminLTE Skins. Choose a skin from the css/skins 
          folder instead of downloading all of them to reduce the load. -->
     <link href="<?=base_url()?>assets/dist/css/skins/skin-green-light.css" rel="stylesheet" type="text/css" />

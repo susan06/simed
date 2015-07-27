@@ -232,6 +232,7 @@
     <!-- all -->
 	<script src="<?=base_url()?>assets/js/scripts_form.js" type="text/javascript"></script>
 	<script src="<?=base_url()?>assets/js/scripts.js" type="text/javascript"></script>
+	
 	 <script type="text/javascript">
 	 
 	function validar_usuario(nick){ 
