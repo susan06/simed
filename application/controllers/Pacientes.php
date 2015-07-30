@@ -44,21 +44,22 @@ class Pacientes extends CI_Controller {
 		
 		$ver = 1;
 		
-		$data['page_title'] = 'Usuarios';
+		$data['page_title'] = 'Pacientes';
 		$data['system_title'] = 'Ver';		
+		$data['editar'] = 2;
 		$data['borrar'] = 3;
 		$data['permisos'] = $this->permisos();
 		$permisos = $this->permisos();
 		
-		$usuarios = $this->usuarios_model->get_lista_usuarios();
+		$pacientes = $this->pacientes_model->get_lista_pacientes();
 
-		if($usuarios){
-			$data['usuarios'] =  $usuarios;
+		if($pacientes){
+			$data['pacientes'] =  $pacientes;
 		}else{
-			$data['usuarios'] =  NULL;
+			$data['pacientes'] =  NULL;
 		}
 			
-		$this->load->view('usuarios/lista', $data);
+		$this->load->view('pacientes/lista', $data);
 
 	}
 	
@@ -113,12 +114,23 @@ class Pacientes extends CI_Controller {
 	
     public function eliminar(){	
 		
-		 $id_usuario = $this->input->post('id');
-		 $this->usuarios_model->eliminar($id_usuario);
+		 $id_paciente = $this->input->post('id');
+		 $this->pacientes_model->eliminar($id_paciente);
 		 	
 	}	
 	
+	public function ver($id) 
+	{		
 
+		$paciente = $this->pacientes_model->get_datos_paciente($id);
+		if($paciente){
+			$data['paciente'] =  $paciente;
+		}else{
+			$data['paciente'] =  NULL;
+		}
+		
+		return $this->load->view('pacientes/ver', $data);		
+    }
 	
 	
 }

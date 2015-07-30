@@ -41,45 +41,18 @@ class Pacientes_model extends CI_Model {
 	}
 
 	
-    function actualizar($codigo,$cedula,$nombre1,$apellido1,$nombre2,$apellido2,$edad,$sexo,$nacimiento,$fecha_nac,$profesion,$estado_civil,$edad,$direccion,$email,$tlf,$representante,$parentesco_legal){	
-	
-		$datos_paciente = array(
-			'id_paciente' => $cedula,
-			'primer_nom_pac' => $nombre1,
-			'primer_apell_pac' => $apellido1,
-			'segundo_nom_pac' => $nombre2,
-			'segundo_apell_pac' => $apellido2,
-			'edad_pac' => $edad,
-			'sexo_pac' => $sexo,
-			'lugar_nacim_pac' => $nacimiento,
-			'fecha_nacim_pac' => $fecha_nac,
-			'profesion_pac' => $profesion,
-			'estado_civil_pac' => $estado_civil,
-			'edad_pac' => $edad,
-			'direccion_pac' => $direccion,
-			'email_pac' => $email,
-			'tlf_pac' => $tlf,
-			'nombre_rlegal' => $representante,
-			'parentesco_rlegal' => $parentesco_legal,
-		);
+    function actualizar($id,$data){	
+
+		$this->db->where('id', $data['id']);
+        $updateSQL=$this->db->update('pacientes', $data);	
 		
-		$this->db->where('num_pac', $codigo);
-        $updateSQL=$this->db->update('pacientes', $datos_paciente);	
-		
-		if($updateSQL) {
-				 ?> 
-							<script language="javascript"> 
-							alert("Datos actualizados exitosamente"); 
-							location.href = '<?php echo base_url(); ?>index.php/pacientes';
-							</script> 
-				<?php				 
-        }else{
-				    ?> 
-							<script language="javascript"> 
-							alert("Ha ocurrido un error y no se registraron los datos."); 
-							</script> 
-					<?php 		
-        }
+		if($updateSQL) {								
+			$this->session->set_flashdata('info', 'Se realizaron los cambios con éxito');
+			redirect(base_url() . 'pacientes/editar/'.$data['id'], 'refresh');	
+		}else{
+			$this->session->set_flashdata('error', 'Intente actualizar los datos de nuevo');
+			redirect(base_url() . 'pacientes/editar/'.$data['id'], 'refresh');	
+		}
 		
 	}
     

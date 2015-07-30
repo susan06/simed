@@ -120,7 +120,7 @@
                     <h4 class="modal-title">Permisos</h4>
                   </div>
                   <div class="modal-body">
-                    <p>No tiene permiso para editar los datos cel Centro Médico</p>
+                    <p>No tiene permiso para editar los datos del Centro Médico</p>
                   </div>
                   <div class="modal-footer">
                     <button type="button" class="btn btn-outline" data-dismiss="modal">Ok</button>
