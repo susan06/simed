@@ -41,7 +41,7 @@ class Pacientes_model extends CI_Model {
 	}
 
 	
-    function actualizar($id,$data){	
+    function actualizar($data){	
 
 		$this->db->where('id', $data['id']);
         $updateSQL=$this->db->update('pacientes', $data);	

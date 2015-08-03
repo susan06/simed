@@ -89,7 +89,7 @@ class Pacientes extends CI_Controller {
 		 $data['edad']= $this->input->post('edad');
 		 $data['sexo']= $this->input->post('sexo');
 		 $data['lnacimiento']= $this->input->post('lnacimiento');
-		 $data['fnacimiento']= date("Y-m-d",strtotime($this->input->post('fnacimiento')));;
+		 $data['fnacimiento']= date("Y-m-d",strtotime($this->input->post('fnacimiento')));
 		 $data['profesion']= ucwords($this->input->post('profesion'));
 		 $data['civil']= $this->input->post('civil');
 		 $data['edad']= $this->input->post('edad');
@@ -103,13 +103,27 @@ class Pacientes extends CI_Controller {
 	}
 	
 	public function actualizar(){
-		
+
+		 $data['cedula']= ($this->input->post('cedula'));
 		 $data['pnombre']= ucwords($this->input->post('pnombre'));
 		 $data['papellido']= ucwords($this->input->post('papellido'));
+		 $data['snombre']= ucwords($this->input->post('snombre'));
+		 $data['sapellido']= ucwords($this->input->post('sapellido'));
+		 $data['edad']= $this->input->post('edad');
+		 $data['sexo']= $this->input->post('sexo');
+		 $data['lnacimiento']= $this->input->post('lnacimiento');
+		 $data['fnacimiento']= date("Y-m-d",strtotime($this->input->post('fnacimiento')));
+		 $data['profesion']= ucwords($this->input->post('profesion'));
+		 $data['civil']= $this->input->post('civil');
+		 $data['edad']= $this->input->post('edad');
+		 $data['direccion']= $this->input->post('direccion');
 		 $data['email']= $this->input->post('email');
+		 $data['tlf']= $this->input->post('tlf');
+		 $data['rlegal']= ucwords($this->input->post('rlegal'));
+		 $data['p_rlegal']= ucwords($this->input->post('p_rlegal'));
 		 $data['id']= $this->input->post('id');
 		 
-		$this->usuarios_model->actualizar($data);		
+		$this->pacientes_model->actualizar($data);		
 	}
 	
     public function eliminar(){	
@@ -132,7 +146,21 @@ class Pacientes extends CI_Controller {
 		return $this->load->view('pacientes/ver', $data);		
     }
 	
-	
+		
+	public function editar($id) 
+	{		
+		$data['page_title'] = 'Pacientes';
+		$data['system_title'] = 'Editar';
+		
+		$paciente = $this->pacientes_model->get_datos_paciente($id);
+		if($paciente){
+			$data['paciente'] =  $paciente;
+		}else{
+			$data['paciente'] =  NULL;
+		}
+		
+		$this->load->view('pacientes/editar', $data);		
+    }
 }
 
 /* End of file usuarios.php */

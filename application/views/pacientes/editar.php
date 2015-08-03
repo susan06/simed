@@ -41,27 +41,30 @@
                   <h3 class="box-title">Informaci&oacute;n del Paciente</h3>
                 </div><!-- /.box-header -->
                 <!-- form start -->
-                 <form method="post" name="form_pac" id="form_paciente" onsubmit="return checkSubmit(form_paciente)" action="<?php echo base_url(); ?>pacientes/guardar">  
+                 <form method="post" name="form_pac" id="form_paciente" onsubmit="return checkSubmit(form_paciente)" action="<?php echo base_url(); ?>pacientes/actualizar">  
 						
                   <div class="box-body">
-				   
+				  
+ <?php if(is_array($paciente) && count($paciente) ){
+		foreach($paciente as $row){ ?>	
+		
 				   <div class="row">
 				   
 						<div class="form-group col-xs-3">
 						  <label>Primer Nombre</label>
-						  <input type="text" class="form-control" name="pnombre" placeholder="Primer Nombre">
+						  <input type="text" class="form-control" name="pnombre" value=" <?= $row['pnombre']; ?>" placeholder="Primer Nombre">
 						</div>
 						<div class="form-group col-xs-3">
 						  <label>Segundo Nombre</label>
-						  <input type="text" class="form-control" name="snombre" placeholder="Segundo Nombre">
+						  <input type="text" class="form-control" name="snombre" value="<?= $row['snombre']; ?>"  placeholder="Segundo Nombre">
 						</div>
 							<div class="form-group col-xs-3">
 						  <label>Primer Apellido</label>
-						  <input type="text" class="form-control" name="papellido" placeholder="Primer Apellido">
+						  <input type="text" class="form-control" name="papellido" value="<?= $row['papellido']; ?>"  placeholder="Primer Apellido">
 						</div>
 						<div class="form-group col-xs-3">
 						  <label>Segundo Apellido</label>
-						  <input type="text" class="form-control" name="sapellido" placeholder="Segundo Apellido">
+						  <input type="text" class="form-control" name="sapellido" value="<?= $row['sapellido']; ?>"  placeholder="Segundo Apellido">
 						</div>
 				 
 					</div>
@@ -70,19 +73,19 @@
 				   
 						<div class="form-group col-xs-3">
 						  <label>Cédula</label>
-						  <input type="text" class="form-control" name="cedula" placeholder="Cédula">
+						  <input type="text" class="form-control" name="cedula" value="<?= $row['cedula']; ?>" placeholder="Cédula">
 						</div>
 						<div class="form-group col-xs-3">
 						  <label>Fecha de Nacimiento</label>
-						  <input type="text" class="form-control" name="fnacimiento" placeholder="Fecha de nacimiento" onBlur="calcular_edad(this.value)" data-inputmask="'alias': 'dd-mm-yyyy'" data-mask>
+						  <input type="text" class="form-control" name="fnacimiento" placeholder="Fecha de nacimiento" value="<?= date_format(date_create($row['fnacimiento']), 'd-m-Y'); ?>" onBlur="calcular_edad(this.value)" data-inputmask="'alias': 'dd-mm-yyyy'" data-mask>
 						</div>
 						<div class="form-group col-xs-3">
 						  <label>Lugar de Nacimiento</label>
-						  <input type="text" class="form-control" name="lnacimiento" placeholder="Lugar de nacimiento">
-						</div>
+						  <input type="text" class="form-control" name="lnacimiento" value="<?=$row['lnacimiento']; ?>" placeholder="Lugar de nacimiento">
+						</div> 
 						<div class="form-group col-xs-3">
 						  <label>Edad</label>
-						  <input type="text" class="form-control" name="edad" id="edad" placeholder="Edad">
+						  <input type="text" class="form-control" name="edad" id="edad" value="<?php echo $row['edad']; ?>" placeholder="Edad">
 						</div>					
 				 
 					</div>					
@@ -92,24 +95,31 @@
 						<div class="form-group col-xs-3">
 						  <label>Sexo</label>
 						   		<select class="form-control" name="sexo" onChange="select_civil(this.value)" required>
-								  <option value="">Seleccione un sexo</option>
-								  <option value="F">Femenino</option>
-								  <option value="M">Masculino</option>
+								  <option value="<?= $row['sexo']; ?>"><?php if($row['sexo'] == "F"){ echo "Femenino"; }else{ echo "Masculino";} ?> </option>
+								  <?php if ($row['sexo'] != "F"){ echo'<option value="F">Femenino</option>';	  }?>
+								  <?php if ($row['sexo'] != "M"){ echo'<option value="M">Masculino</option>';	  }?>
 								</select>
 						</div>
 						<div class="form-group col-xs-3">
 						  <label>Estado Civil</label>
 						  <select class="form-control" id="civil" name="civil" required>
-								  <option value="">Seleccione primero el sexo</option>
+								  <option value="<?= $row['civil']; ?>"><?= $row['civil']; ?></option>
+								  <?Php if($row['sexo'] == "M"){ ?>
+								  <?php if ($row['civil'] != "Casado"){ echo '<option value="Casado">Casado</option>';}?>
+								  <?php if ($row['civil'] != "Soltero"){ echo '<option value="Soltero">Soltero</option>';} ?>
+								  <?Php }else{ ?>
+								  <?php if ($row['civil'] != "Casada"){ echo 'option value="Casada">Casada</option>';} ?>
+								  <?php if ($row['civil'] != "Soltera"){ echo '<option value="Soltera">Soltera</option>';} ?>
+								  <?Php } ?>
 								</select>
 						</div>
 						<div class="form-group col-xs-3">
 						  <label>Email</label>
-						  <input type="email" class="form-control" name="email" placeholder="Email">
+						  <input type="email" class="form-control" name="email" value="<?php echo $row['email']; ?>" placeholder="Email">
 						</div>
 						<div class="form-group col-xs-3">
 						  <label>Profesi&oacute;n</label>
-						  <input type="text" class="form-control" name="profesion" placeholder="Profesión">
+						  <input type="text" class="form-control" name="profesion" value="<?php echo $row['profesion']; ?>" placeholder="Profesión">
 						</div>
 						
 				 
@@ -118,13 +128,37 @@
 				<div class="row">
 						<div class="form-group col-xs-3">
 						  <label>T&eacute;lefono</label>
-						  <input type="text" class="form-control" name="tlf" placeholder="Télefono" data-inputmask='"mask": "(9999) 999.99.99"' data-mask>
+						  <input type="text" class="form-control" name="tlf" value="<?php echo $row['tlf']; ?>" placeholder="Télefono" data-inputmask='"mask": "(9999) 999.99.99"' data-mask>
 						</div>
 						<div class="form-group col-xs-4">
 						  <label>Direcci&oacute;n</label>
-						   <textarea name="direccion" class="form-control" placeholder="Dirección"></textarea>
+						   <textarea name="direccion" class="form-control" placeholder="Dirección"><?php echo $row['direccion']; ?></textarea>
 						</div>										 
 				</div>				
+				
+				<?php if($row['rlegal']){ ?>
+				
+				<div class="row" id="showRepresentante" style="display:block">
+				<br><br>
+				 <div class="col-md-5">
+						  <div class="box box-info">
+						  <div class="box-header">
+						  <h3 class="box-title">Representante Legal</h3>
+						  </div>
+						  <div class="box-body">
+						<div class="form-group col-xs-6">
+						  <label>Nombre</label>
+						  <input type="text" class="form-control" name="rlegal" value="<?php echo $row['rlegal']; ?>" placeholder="Nombre del representante">
+						</div>
+						<div class="form-group col-xs-6">
+						  <label>Parentesco</label>
+						  <input type="text" class="form-control" name="p_rlegal" value="<?php echo $row['p_rlegal']; ?>" placeholder="Parentesco">
+						</div>
+						</div></div>
+				 </div>
+					</div>
+			
+			<?php } ?>
 				
 				<div class="row" id="showRepresentante" style="display:none">
 				<br><br>
@@ -136,27 +170,31 @@
 						  <div class="box-body">
 						<div class="form-group col-xs-6">
 						  <label>Nombre</label>
-						  <input type="text" class="form-control" name="rlegal" placeholder="Nombre del representante">
+						  <input type="text" class="form-control" name="rlegal" value="<?php echo $row['rlegal']; ?>" placeholder="Nombre del representante">
 						</div>
 						<div class="form-group col-xs-6">
 						  <label>Parentesco</label>
-						  <input type="text" class="form-control" name="p_rlegal" placeholder="Parentesco">
+						  <input type="text" class="form-control" name="p_rlegal" value="<?php echo $row['p_rlegal']; ?>" placeholder="Parentesco">
 						</div>
 						</div></div>
 				 </div>
-					</div>						
+					</div>				
 				</div>		
+				 
+				 <input type="hidden" name="id" value="<?php echo $row['id']; ?>">
+				 
+				<?php }} ?>
+				
                   </div><!-- /.box-body -->
 
                   <div class="box-footer">
-                    <button type="submit" class="btn btn-success pull-right" id="boton_submit">Guardar</button>
+                    <button type="submit" class="btn btn-success pull-right" id="boton_submit">Guardar cambios</button>
                   </div>
 
 				</form>
 				
               </div><!-- /.box -->
           </div>
-		  
 		  
         </section><!-- /.content -->		
 
@@ -241,14 +279,7 @@ function calcular_edad(fecha) {
   }
 }	
 
-function select_civil(sexo){
 
-	if(sexo == "F"){
-		$('#civil').html("<option value=''>Seleccione estado civil</option><option value='Casada'>Casada</option><option value='Soltera'>Soltera</option>");
-	}else{
-		$('#civil').html("<option value=''>Seleccione estado civil</option><option value='Casado'>Casado</option><option value='Soltero'>Soltero</option>");
-	}
-}
  
 </script>		
 	 
