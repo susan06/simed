@@ -1,5 +1,6 @@
       <?php $permisos_espec = $this->crud_model->get_permisos($this->session->userdata('rol'),10); ?>
 	  <?php $permisos_pac 	= $this->crud_model->get_permisos($this->session->userdata('rol'),2); ?>
+	  <?php $permisos_doc 	= $this->crud_model->get_permisos($this->session->userdata('rol'),3); ?>
 	   
 	  <!-- Left side column. contains the sidebar -->
       <aside class="main-sidebar">
@@ -107,16 +108,25 @@
 			
 			<?php } ?>
 			
+			<?php	if($permisos_doc[1]['status'] == 1 ){ ?>
+			
 			<li>
               <a href="../widgets.html">
                 <i class="fa fa-user-md"></i> <span>Doctores</span>
               </a>
 			   <ul class="treeview-menu">
-                <li><a href="#"><i class="fa fa-circle-o"></i>Ver</a></li>
-                <li><a href="#"><i class="fa fa-user-plus"></i>Registrar</a></li>
+			   <?php	if ($permisos_doc[1]['status'] == 1 ){ ?>
+                <li><a href="#"><i class="fa fa-reorder"></i>Ver</a></li>
+				<?php } ?>	
+				<?Php if($this->session->userdata('rol') == 3): ?>
+                <li><a href="#"><i class="fa fa-certificate"></i>Especialidad</a></li>
+				<li><a href="#"><i class="fa fa-certificate"></i>Datos</a></li>
+				<?Php endif ?>
               </ul>
             </li>   
-
+			
+			<?php } ?>	
+			
 			<li>
               <a href="../widgets.html">
                 <i class="fa fa-calendar"></i> <span>Citas Médicas</span>
