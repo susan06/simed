@@ -339,5 +339,54 @@
 				}
                 
             });
-			
+	
+
+    $("#form_doctor").validate({
+                // Rules for form validation
+                rules: {
+					pnombre: {
+                        required: true
+                    },
+					papellido: {
+                        required: true
+                    },
+					cedula:{
+                        required: true,
+						number:true
+                    },
+					rif: {
+                        required: true
+                    },
+					mpps: {
+                        required: true
+                    }
+                },
+
+                // Messages for form validation
+                messages: {
+                    pnombre: {
+                        required: 'Por favor, ingrese su nombre'
+                    },
+                    papellido: {
+                        required: 'Por favor, ingrese su apellido'
+                    },
+					cedula: {
+                        required: 'Por favor, ingrese su cédula',
+						number: 'Por favor, ingrese solo números'
+                    },
+					rif: {
+                        required: 'Por favor, ingrese su rif'
+                    },
+					mpps: {
+                        required: 'Por favor, ingrese su mpps'
+                    }
+                },
+				highlight: function (element) {
+					$(element).closest('.form-group').removeClass('has-success').addClass('has-error');
+				},
+				success: function (element) {
+					element.closest('.form-group').removeClass('has-error').addClass('has-success');
+				}
+                
+            });	
 });

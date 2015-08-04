@@ -62,26 +62,26 @@
                 <?php if($this->session->flashdata('rol') == 1 ){ ?>
                   <img src="<?=base_url()?>assets/dist/img/admin.jpg" alt="User Image"/>
 				<?php } ?>  
-				<?php if($this->session->flashdata('rol') == 2 && $this->session->flashdata('sexo') == "F"){ ?>
-                  <img src="<?=base_url()?>assets/dist/img/enfermera.jpg" alt="User Image"/>
+				<?php if($this->session->userdata('rol') == 2 && $this->session->userdata('sexo') == "F"){ ?>
+                  <img src="<?=base_url()?>assets/dist/img/enfermera.png" class="img-circle" alt="User Image"/>
 				<?php } ?> 
-				<?php if($this->session->flashdata('rol') == 2 && $this->session->flashdata('sexo') == "M"){ ?>
-                  <img src="<?=base_url()?>assets/dist/img/enfermero.jpg" alt="User Image"/>
+				<?php if($this->session->userdata('rol') == 2 && $this->session->userdata('sexo') == "M"){ ?>
+                  <img src="<?=base_url()?>assets/dist/img/enfermero.png" class="img-circle" alt="User Image"/>
 				<?php } ?> 
-				<?php if($this->session->flashdata('rol') == 3 && $this->session->flashdata('sexo') == "F"){ ?>
-                  <img src="<?=base_url()?>assets/dist/img/doctora.jpg"  alt="User Image"/>
+				<?php if($this->session->userdata('rol') == 3 && $this->session->userdata('sexo') == "F"){ ?>
+                  <img src="<?=base_url()?>assets/dist/img/doctora.png" class="img-circle" alt="User Image"/>
 				<?php } ?> 
-				<?php if($this->session->flashdata('rol') == 3 && $this->session->flashdata('sexo') == "M"){ ?>
-                  <img src="<?=base_url()?>assets/dist/img/doctor.jpg" alt="User Image"/>
+				<?php if($this->session->userdata('rol') == 3 && $this->session->userdata('sexo') == "M"){ ?>
+                  <img src="<?=base_url()?>assets/dist/img/doctor.png" class="img-circle" alt="User Image"/>
 				<?php } ?> 
-				<?php if($this->session->flashdata('rol') == 4 && $this->session->flashdata('sexo') == "F"){ ?>
-                  <img src="<?=base_url()?>assets/dist/img/terapista.jpg" alt="User Image"/>
+				<?php if($this->session->userdata('rol') == 4 && $this->session->userdata('sexo') == "F"){ ?>
+                  <img src="<?=base_url()?>assets/dist/img/terapista.png" class="img-circle" alt="User Image"/>
 				<?php } ?> 
-				<?php if($this->session->flashdata('rol') == 4 && $this->session->flashdata('sexo') == "M"){ ?>
-                  <img src="<?=base_url()?>assets/dist/img/terapeuta.jpg"  alt="User Image"/>
+				<?php if($this->session->userdata('rol') == 4 && $this->session->userdata('sexo') == "M"){ ?>
+                  <img src="<?=base_url()?>assets/dist/img/terapeuta.png" class="img-circle" alt="User Image"/>
 				<?php } ?> 
-				<?php if($this->session->flashdata('rol') == 5 ){ ?>
-                  <img src="<?=base_url()?>assets/dist/img/secretaria.jpg" alt="User Image"/>
+				<?php if($this->session->userdata('rol') == 5 ){ ?>
+                  <img src="<?=base_url()?>assets/dist/img/secretaria.png" class="img-circle" alt="User Image"/>
 				<?php } ?> 
         </div>
         <!-- /.lockscreen-image -->

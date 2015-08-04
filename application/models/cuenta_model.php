@@ -89,20 +89,6 @@ class Cuenta_model extends CI_Model {
 			echo false;
 	}	
 	
-    function guardar_usuario($data){
-  
-		$insertSQL= $this->db->insert('usuarios', $data);
-
-		if($insertSQL) {
-			$this->session->set_flashdata('info', '¡Usuario registrado con éxito! Contacte al administrador para ser activado el usuario');
-			redirect(base_url() . 'login', 'refresh');		 
-		}else{
-			$this->session->set_flashdata('error', 'No se registro el usuario');
-			redirect(base_url() . 'login', 'refresh');	
-		}
-				
-	}
-
     function guardar_contrasena($id,$data)
 	{	
 

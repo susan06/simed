@@ -12,7 +12,8 @@ class Doctores_model extends CI_Model {
  
 	function get_lista_doctores(){	
 		$this->db->select("*");
-		$this->db->from('doctor');			
+		$this->db->order_by("pnombre"); 
+		$this->db->from('doctores');			
 		$query = $this->db->get();		
 		return $query->result_array();			
 	}	
@@ -47,39 +48,24 @@ class Doctores_model extends CI_Model {
 		
     function get_datos_doctor($doctorId){	
 		$this->db->select('*');
-		$this->db->from('doctor');
-		$this->db->where('id_doctor',$doctorId);
+		$this->db->from('doctores');
+		$this->db->where('usuarios_id',$doctorId);
 		$query = $this->db->get();		
 		return $query->result_array();		
 	}
 	
+    function actualizar($data){	
 
-    function actualizar($doctorId,$nombre,$apellido,$rif,$mpps){	
-	
-		$datos_doctor = array(
-			'nom_doc' => $nombre,
-			'apell_doc' => $apellido,
-			'rif_doc' => $rif,
-			'mpps_doc' => $mpps
-		);
+		$this->db->where('id', $data['id']);
+        $updateSQL=$this->db->update('doctores', $data);	
 		
-		$this->db->where('id_doctor', $doctorId);
-        $updateSQL=$this->db->update('doctor', $datos_doctor);	
-		
-		if($updateSQL) {
-				 ?> 
-							<script language="javascript"> 
-							alert("Datos actualizados exitosamente"); 
-							location.href = '<?php echo base_url(); ?>index.php/doctores';
-							</script> 
-				<?php				 
-        }else{
-				    ?> 
-							<script language="javascript"> 
-							alert("Ha ocurrido un error y no se registraron los datos."); 
-							</script> 
-					<?php 		
-        }
+		if($updateSQL) {								
+			$this->session->set_flashdata('info', 'Se realizaron los cambios con éxito');
+			redirect(base_url() . 'doctores/datos/'.$this->session->userdata('id'), 'refresh');	
+		}else{
+			$this->session->set_flashdata('error', 'Intente actualizar los datos de nuevo');
+			redirect(base_url() . 'doctores/datos/'.$this->session->userdata('id'), 'refresh');	
+		}
 		
 	}
 	
@@ -105,9 +91,10 @@ class Doctores_model extends CI_Model {
 		header("Location:especialidad");					
 	}
 	
-	function borrar_doctor($id_doctor){			
-		$this->db->where('id_doctor', $id_doctor);
-		$this->db->delete('doctor');	
+	function eliminar($id_doctor){
+			
+		$this->db->where('id', $id_doctor);
+		$this->db->delete('doctores');	
 	}
 	
 	function buscar_doctor($id_doctor){

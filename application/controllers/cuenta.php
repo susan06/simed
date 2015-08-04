@@ -48,9 +48,12 @@ class Cuenta extends CI_Controller {
 		 $data['respuesta_s']= $this->bcrypt->hash_password($this->input->post('respuesta_secreta')); 
 		 $data['status_id']= 0;
 		 $data['created_at']= date('Y-m-d');
-
 		
+		$insertSQL = $this->db->insert('usuarios', $data);		
+		$id_usuario = $this->db->insert_id();	
+	
 		if($data['roles_id'] == 3){
+		 $doctor['usuarios_id']= $id_usuario;
 		 $doctor['pnombre']= ucwords($this->input->post('pnombre'));
 		 $doctor['papellido']= ucwords($this->input->post('papellido'));
 		 $doctor['cedula']= $this->input->post('cedula'); 
@@ -59,8 +62,15 @@ class Cuenta extends CI_Controller {
 
 		$this->db->insert('doctores', $doctor);
 		}
-		
-		$this->cuenta_model->guardar_usuario($data);	
+
+		if($insertSQL) {			
+			$this->session->set_flashdata('info', '¡Usuario registrado con éxito! Contacte al administrador para ser activado el usuario');
+			redirect(base_url() . 'login', 'refresh');		 
+		}else{
+			$this->session->set_flashdata('error', 'No se registro el usuario');
+			redirect(base_url() . 'login', 'refresh');	
+		}		
+			
 	}
 	
 	public function validar_usuario(){	

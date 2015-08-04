@@ -13,25 +13,25 @@
                   <img src="<?=base_url()?>assets/dist/img/admin.jpg" class="img-circle" alt="User Image"/>
 				<?php } ?>  
 				<?php if($this->session->userdata('rol') == 2 && $this->session->userdata('sexo') == "F"){ ?>
-                  <img src="<?=base_url()?>assets/dist/img/enfermera.jpg" class="img-circle" alt="User Image"/>
+                  <img src="<?=base_url()?>assets/dist/img/enfermera.png" class="img-circle" alt="User Image"/>
 				<?php } ?> 
 				<?php if($this->session->userdata('rol') == 2 && $this->session->userdata('sexo') == "M"){ ?>
-                  <img src="<?=base_url()?>assets/dist/img/enfermero.jpg" class="img-circle" alt="User Image"/>
+                  <img src="<?=base_url()?>assets/dist/img/enfermero.png" class="img-circle" alt="User Image"/>
 				<?php } ?> 
 				<?php if($this->session->userdata('rol') == 3 && $this->session->userdata('sexo') == "F"){ ?>
-                  <img src="<?=base_url()?>assets/dist/img/doctora.jpg" class="img-circle" alt="User Image"/>
+                  <img src="<?=base_url()?>assets/dist/img/doctora.png" class="img-circle" alt="User Image"/>
 				<?php } ?> 
 				<?php if($this->session->userdata('rol') == 3 && $this->session->userdata('sexo') == "M"){ ?>
-                  <img src="<?=base_url()?>assets/dist/img/doctor.jpg" class="img-circle" alt="User Image"/>
+                  <img src="<?=base_url()?>assets/dist/img/doctor.png" class="img-circle" alt="User Image"/>
 				<?php } ?> 
 				<?php if($this->session->userdata('rol') == 4 && $this->session->userdata('sexo') == "F"){ ?>
-                  <img src="<?=base_url()?>assets/dist/img/terapista.jpg" class="img-circle" alt="User Image"/>
+                  <img src="<?=base_url()?>assets/dist/img/terapista.png" class="img-circle" alt="User Image"/>
 				<?php } ?> 
 				<?php if($this->session->userdata('rol') == 4 && $this->session->userdata('sexo') == "M"){ ?>
-                  <img src="<?=base_url()?>assets/dist/img/terapeuta.jpg" class="img-circle" alt="User Image"/>
+                  <img src="<?=base_url()?>assets/dist/img/terapeuta.png" class="img-circle" alt="User Image"/>
 				<?php } ?> 
 				<?php if($this->session->userdata('rol') == 5 ){ ?>
-                  <img src="<?=base_url()?>assets/dist/img/secretaria.jpg" class="img-circle" alt="User Image"/>
+                  <img src="<?=base_url()?>assets/dist/img/secretaria.png" class="img-circle" alt="User Image"/>
 				<?php } ?> 
             </div>
             <div class="pull-left info">
@@ -111,16 +111,16 @@
 			<?php	if($permisos_doc[1]['status'] == 1 ){ ?>
 			
 			<li>
-              <a href="../widgets.html">
+              <a href="#">
                 <i class="fa fa-user-md"></i> <span>Doctores</span>
               </a>
 			   <ul class="treeview-menu">
 			   <?php	if ($permisos_doc[1]['status'] == 1 ){ ?>
-                <li><a href="#"><i class="fa fa-reorder"></i>Ver</a></li>
+                <li><a href="<?= base_url();?>doctores"><i class="fa fa-reorder"></i>Ver</a></li>
 				<?php } ?>	
 				<?Php if($this->session->userdata('rol') == 3): ?>
-                <li><a href="#"><i class="fa fa-certificate"></i>Especialidad</a></li>
-				<li><a href="#"><i class="fa fa-certificate"></i>Datos</a></li>
+                <li><a href="<?= base_url();?>doctores/especialidades"><i class="fa fa-certificate"></i>Especialidad</a></li>
+				<li><a href="<?= base_url();?>doctores/datos/<?= $this->session->userdata('id'); ?> "><i class="fa fa-file-text"></i>Datos</a></li>
 				<?Php endif ?>
               </ul>
             </li>   
