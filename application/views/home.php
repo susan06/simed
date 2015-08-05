@@ -14,7 +14,9 @@
             Home <small>- Informes</small>
           </h1>
         </section>
-
+		
+		<span class="ir-arriba"><i class="fa fa-level-up"></i></span>
+		
         <!-- Main content -->
         <section class="content">
 
@@ -28,7 +30,7 @@
 		  
         </section><!-- /.content -->
 		
-	 			
+		
             <div class="modal modal-warning" id="warning_modal" role="dialog">
               <div class="modal-dialog"  role="document">
                 <div class="modal-content">
@@ -68,6 +70,7 @@
     <!-- AdminLTE App -->
     <script src="<?=base_url()?>assets/dist/js/app.min.js" type="text/javascript"></script>
 
+	<script src="<?=base_url()?>assets/js/scripts.js" type="text/javascript"></script>
 
 	<script>
 

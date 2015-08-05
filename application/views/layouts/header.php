@@ -19,6 +19,12 @@
           <div class="navbar-custom-menu">
             <ul class="nav navbar-nav">
 
+			<li class="dropdown messages-menu">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="toggle-fullscreen">
+                  <i class="fa fa-desktop" title="full pantalla" ></i>
+                </a>              
+              </li>				
+			
               <!-- User Account: style can be found in dropdown.less -->
               <li class="dropdown user user-menu">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">

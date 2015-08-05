@@ -1,4 +1,29 @@
-
+.ir-arriba {
+	display:none;
+	padding-left:15px;
+	padding-top:6px;
+	background: rgba(89,95,102,.7);
+	color: #eeeeee;
+	width: 40px;
+	height: 40px;
+	cursor:pointer;
+	position: fixed;
+	right: 40px;
+	bottom: 30px;
+	border-radius: 50%;
+	-webkit-transition: all 0.5s ease-in-out;
+	-moz-transition: all 0.5s ease-in-out;
+	-ms-transition: all 0.5s ease-in-out;
+	transition: all 0.5s ease-in-out;	
+}
+.ir-arriba i {
+	font-size: 18px;
+	line-height: 30px;
+}
+.ir-arriba:hover {
+	background: rgba(0,255,0,0.3);
+	box-shadow: 0 0 0 6px rgba(255,255,255,.7)
+}
 .td_select {
 background-color: #E3F6CE;
 }
@@ -112,3 +137,15 @@ margin: 0 auto;
         display: block;    
         z-index: 7;
       }
+	  
+html:-moz-full-screen {
+    background: red;
+}
+
+html:-webkit-full-screen {
+    background: red;
+}
+
+html:fullscreen {
+    background: red;
+}

@@ -27,7 +27,7 @@
  
 	  </head>
   
-  <body class="skin-green-light sidebar-mini"> 
+  <body class="skin-green-light sidebar-mini" id="body"> 
  
  <header>
 		<nav class="frame" role="navigation">

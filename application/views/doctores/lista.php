@@ -10,7 +10,7 @@
         <!-- Content Header (Page header) -->
         <section class="content-header">
           <h1>
-          Pacientes<small></small>
+          Doctores<small></small>
           </h1>
         </section>
 

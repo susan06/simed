@@ -21,7 +21,7 @@ class Home extends CI_Controller {
 	
 				$nick = $this->session_php->get();
 				$rol = $this->session_php->get_rol();
-				$rol = $this->session_php->get_sexo();
+				$sexo = $this->session_php->get_sexo();
 				$url = current_url();
 				
 				if($this->session->userdata('is_logued_in') == FALSE)
