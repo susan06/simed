@@ -87,28 +87,6 @@ class Doctores extends CI_Controller {
 			
 	}	
 	
-	public function guardar(){		
-		 $data['cedula']= ($this->input->post('cedula'));
-		 $data['pnombre']= ucwords($this->input->post('pnombre'));
-		 $data['papellido']= ucwords($this->input->post('papellido'));
-		 $data['snombre']= ucwords($this->input->post('snombre'));
-		 $data['sapellido']= ucwords($this->input->post('sapellido'));
-		 $data['edad']= $this->input->post('edad');
-		 $data['sexo']= $this->input->post('sexo');
-		 $data['lnacimiento']= $this->input->post('lnacimiento');
-		 $data['fnacimiento']= date("Y-m-d",strtotime($this->input->post('fnacimiento')));
-		 $data['profesion']= ucwords($this->input->post('profesion'));
-		 $data['civil']= $this->input->post('civil');
-		 $data['edad']= $this->input->post('edad');
-		 $data['direccion']= $this->input->post('direccion');
-		 $data['email']= $this->input->post('email');
-		 $data['tlf']= $this->input->post('tlf');
-		 $data['rlegal']= ucwords($this->input->post('rlegal'));
-		 $data['p_rlegal']= ucwords($this->input->post('p_rlegal'));
-		
-		$this->pacientes_model->guardar($data);
-	}
-	
 	public function actualizar(){
 
 		 $doctor['pnombre']= ucwords($this->input->post('pnombre'));
@@ -128,19 +106,32 @@ class Doctores extends CI_Controller {
 		 	
 	}	
 	
-	
-	public function editar($id) 
-	{		
-		$data['page_title'] = 'Pacientes';
-		$data['system_title'] = 'Editar';
+	public function especialidades($doctor_user){	
 		
-		$paciente = $this->pacientes_model->get_datos_paciente($id);
-		if($paciente){
-			$data['paciente'] =  $paciente;
+		$data['doctor'] = $this->doctores_model->get_datos_doctor($doctor_user);	
+		
+		$query_esp = $this->doctores_model->especialidades_doctor($data['doctor'][0]['id']);
+		
+		if($query_esp){
+			$data['espec_doctor'] =  $query_esp;
 		}else{
-			$data['paciente'] =  NULL;
-		}
+			$data['espec_doctor'] =  NULL;
+		}	
 		
-		$this->load->view('pacientes/editar', $data);		
-    }
+		$this->load->model('especialidades_model');
+		$query = $this->especialidades_model->get_especialidades();
+		
+		if($query){
+			$data['especialidades'] =  $query;
+		}else{
+			$data['especialidades'] =  NULL;
+		}		
+		
+		$data['page_title'] = 'Doctor';
+		$data['system_title'] = 'Especialidades';	
+
+		$this->load->view('doctores/especialidades', $data);
+			
+	}	
+	
 }

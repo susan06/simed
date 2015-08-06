@@ -13,6 +13,8 @@
             Perfil <small>- Doctor</small>
           </h1>
         </section>
+		
+<span class="ir-arriba"><i class="fa fa-level-up"></i></span>
 
         <!-- Main content -->
         <section class="content">

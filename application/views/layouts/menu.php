@@ -119,8 +119,8 @@
                 <li><a href="<?= base_url();?>doctores"><i class="fa fa-reorder"></i>Ver</a></li>
 				<?php } ?>	
 				<?Php if($this->session->userdata('rol') == 3): ?>
-                <li><a href="<?= base_url();?>doctores/especialidades"><i class="fa fa-certificate"></i>Especialidad</a></li>
-				<li><a href="<?= base_url();?>doctores/datos/<?= $this->session->userdata('id'); ?> "><i class="fa fa-file-text"></i>Datos</a></li>
+                <li><a href="<?= base_url();?>doctores/especialidades/<?= $this->session->userdata('id'); ?>"><i class="fa fa-certificate"></i>Especialidad</a></li>
+				<li><a href="<?= base_url();?>doctores/datos/<?= $this->session->userdata('id'); ?>"><i class="fa fa-file-text"></i>Datos</a></li>
 				<?Php endif ?>
               </ul>
             </li>   
