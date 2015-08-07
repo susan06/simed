@@ -10,7 +10,11 @@
     <link href="<?=base_url()?>assets/bootstrap/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
     <!-- Ionicons -->
     <link href="<?=base_url()?>assets/bootstrap/css/ionicons.min.css" rel="stylesheet" type="text/css" />
-    <!-- Theme style -->
+    <!-- fullCalendar 2.2.5-->
+    <link href="<?=base_url()?>assets/plugins/fullcalendar/fullcalendar.min.css" rel="stylesheet" type="text/css" />
+    <link href="<?=base_url()?>assets/plugins/fullcalendar/fullcalendar.print.css" rel="stylesheet" type="text/css" media='print' />    
+	
+	<!-- Theme style -->
     <link href="<?=base_url()?>assets/dist/css/AdminLTE.min.css" rel="stylesheet" type="text/css" />
     <link href="<?=base_url()?>assets/css/header.css" rel="stylesheet" type="text/css" />
    

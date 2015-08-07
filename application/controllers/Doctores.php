@@ -70,7 +70,9 @@ class Doctores extends CI_Controller {
 		return $permisos;
 	}	
 
-	public function datos($id){	
+	public function datos(){	
+		
+		$id= $this->session->userdata('id'); 
 		
 		$query = $this->doctores_model->get_datos_doctor($id);	
 		
@@ -106,7 +108,9 @@ class Doctores extends CI_Controller {
 		 	
 	}	
 	
-	public function especialidades($doctor_user){	
+	public function especialidades(){	
+	
+		$doctor_user= $this->session->userdata('id'); 
 		
 		$data['doctor'] = $this->doctores_model->get_datos_doctor($doctor_user);	
 		
@@ -142,5 +146,15 @@ class Doctores extends CI_Controller {
 	  
 		$this->doctores_model->guardar_espec($data,$doctor_user);	
 	}
+
+	public function calendario(){	
 		
+		$id= $this->session->userdata('id'); 
+		
+		$data['page_title'] = 'Doctor';
+		$data['system_title'] = 'Calendario';	
+
+		$this->load->view('doctores/calendario', $data);
+			
+	}		
 }
