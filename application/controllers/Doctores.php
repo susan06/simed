@@ -133,5 +133,14 @@ class Doctores extends CI_Controller {
 		$this->load->view('doctores/especialidades', $data);
 			
 	}	
-	
+
+	public function guardar_espec(){	
+		 
+		$data['especialidades_id']	= $this->input->post('especialidades_id');
+		$data['doctores_id']		= $this->input->post('doctores_id');
+		$doctor_user				= $this->input->post('doctor_user');
+	  
+		$this->doctores_model->guardar_espec($data,$doctor_user);	
+	}
+		
 }

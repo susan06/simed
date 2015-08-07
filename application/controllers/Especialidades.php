@@ -63,7 +63,7 @@ class Especialidades extends CI_Controller {
 	public function permisos() 
 	{
 		
-		$modulo = $this->crud_model->get_id_mod("usuarios"); 
+		$modulo = $this->crud_model->get_id_mod("especialidades"); 
 		$permisos = $this->crud_model->get_permisos($this->session->userdata('rol'),$modulo);
 		return $permisos;
 	}	

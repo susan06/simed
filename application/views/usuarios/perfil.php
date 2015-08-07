@@ -41,7 +41,7 @@
                   <h3 class="box-title">Informaci&oacute;n del Usuario</h3>
                 </div><!-- /.box-header -->
                 <!-- form start -->
-                 <form method="post" name="form_usu" id="form_usuario" onsubmit="return checkSubmit()" action="<?php echo base_url(); ?>usuarios/actualizar">  
+                 <form method="post" name="form_usu" id="form_usuario" onsubmit="return checkSubmit(form_usuario)" action="<?php echo base_url(); ?>usuarios/actualizar" novalidate>  
 				 
 				<?php if(is_array($usuario_editar) && count($usuario_editar) ) {
 						foreach($usuario_editar as $row){ ?>

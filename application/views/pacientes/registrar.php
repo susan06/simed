@@ -41,7 +41,7 @@
                   <h3 class="box-title">Informaci&oacute;n del Paciente</h3>
                 </div><!-- /.box-header -->
                 <!-- form start -->
-                 <form method="post" name="form_pac" id="form_paciente" onsubmit="return checkSubmit(form_paciente)" action="<?php echo base_url(); ?>pacientes/guardar">  
+                 <form method="post" name="form_pac" id="form_paciente" onsubmit="return checkSubmit(form_paciente)" action="<?php echo base_url(); ?>pacientes/guardar" novalidate>  
 						
                   <div class="box-body">
 				   

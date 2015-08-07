@@ -121,5 +121,18 @@ class Doctores_model extends CI_Model {
 	$this->db->delete('disponibilidad_doctor');
 
 	}
-	
+
+   function guardar_espec($data,$doctor_user){
+  
+		$insertSQL= $this->db->insert('doctor_especialidad', $data);
+
+		if($insertSQL) {
+					$this->session->set_flashdata('info', 'Se asoció la especialidad  con éxito');
+					redirect(base_url() . 'doctores/especialidades/'.$doctor_user, 'refresh');		 
+		}else{
+					$this->session->set_flashdata('error', 'Intente guardar los datos de nuevo');
+					redirect(base_url() . 'doctores/especialidades/'.$doctor_user, 'refresh');	
+		}
+						
+	}	
 }

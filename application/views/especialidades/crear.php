@@ -41,7 +41,7 @@
                   <h3 class="box-title">Especialidad</h3>
                 </div><!-- /.box-header -->
                 <!-- form start -->
-                 <form method="post" name="form_espec" id="form_espec" onsubmit="return checkSubmit()" action="<?php echo base_url(); ?>especialidades/guardar">  
+                 <form method="post" name="form_espec" id="form_espec" onsubmit="return checkSubmit(form_espec)" action="<?php echo base_url(); ?>especialidades/guardar" novalidate>  
 				 
                   <div class="box-body">
                     <div class="form-group">

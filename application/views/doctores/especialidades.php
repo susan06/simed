@@ -60,8 +60,9 @@
                   <h3 class="box-title">Asociar nueva especialidad</h3>
                 </div><!-- /.box-header -->
 				 <div class="box-body">
+				  <form method="post" name="form_espec" id="form_espec" onsubmit="return checkSubmit(form_espec)" action="<?= base_url(); ?>doctores/guardar_espec">  
 					<div class="form-group col-md-9">
-						  <select class="form-control" name="especialidades_id">
+						  <select class="form-control" name="especialidades_id" required>
 							<option value="">Seleccione especialidad</option>
 							 <?php if(is_array($especialidades) && count($especialidades) ){
 								foreach($especialidades as $row){
@@ -73,13 +74,17 @@
 					  </div>
 					</div>
 					<div class="form-group col-md-9">
-						<h6>Si no aparece su especialidad, puede agregarla a través del menú especialidades</h6>
+						<h5>Si no aparece su especialidad, darle click <a href="<?= base_url(); ?>especialidades/crear">Crear especialidad</a></h5>
 					</div>
 					 <div class="box-footer">
                     <button type="submit" class="btn btn-success pull-right">Asociar</button>
                   </div>
                 
-				  <input type="hidden" name="doctores_id" value="<?=  $doctor[0]['id'] ?>">  
+				  <input type="hidden" name="doctores_id" value="<?= $doctor[0]['id'] ?>">  
+				  <input type="hidden" name="doctor_user" value="<?= $doctor[0]['usuarios_id'] ?>">  
+				   
+				  </form>
+				  
 				</div><!-- /.box -->
 			 </div> 	
          </div><!-- ./row -->
@@ -127,9 +132,15 @@
     <script src='<?=base_url()?>assets/plugins/fastclick/fastclick.min.js'></script>
     <!-- AdminLTE App -->
     <script src="<?=base_url()?>assets/dist/js/app.min.js" type="text/javascript"></script>
-
+  
+  <!-- Form -->
+    <script src='<?=base_url()?>assets/plugins/jQuery_validate/lib/jquery.form.js'></script>
+	<script src='<?=base_url()?>assets/plugins/jQuery_validate/dist/jquery.validate.js'></script>
+	<script src='<?=base_url()?>assets/plugins/jQuery_validate/dist/additional-methods.js'></script>
+	<script src='<?=base_url()?>assets/plugins/jQuery_validate/dist/localization/messages_es.js'></script>
+	
 	<script src="<?=base_url()?>assets/js/scripts.js" type="text/javascript"></script>
-
+	<script src="<?=base_url()?>assets/js/scripts_form.js" type="text/javascript"></script>
 
   </body>
 </html>

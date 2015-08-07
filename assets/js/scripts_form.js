@@ -246,6 +246,9 @@
                 rules: {
                     nombre: {
                         required: true
+                    },
+					especialidades_id: {
+                        required: true
                     }
                 },
 
@@ -253,6 +256,9 @@
                 messages: {
 					nombre: {
                         required: 'Por favor, ingrese nombre de la especialidad'
+                    },
+					especialidades_id: {
+                        required: 'Por favor, seleccione especialidad'
                     }
                 },
 				highlight: function (element) {
@@ -389,4 +395,5 @@
 				}
                 
             });	
+			
 });
