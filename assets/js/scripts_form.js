@@ -395,5 +395,39 @@
 				}
                 
             });	
-			
+
+            $("#form_evento").validate({
+                // Rules for form validation
+                rules: {
+                    title: {
+                        required: true
+                    },
+					backgroundColor: {
+                        required: true
+                    },
+					fecha: {
+                        required: true
+                    },
+                },
+
+                // Messages for form validation
+                messages: {
+					title: {
+                        required: 'Por favor, especifique nombre del evento'
+                    },
+                    backgroundColor: {
+                        required: 'Por favor, seleccione un color'
+                    },
+                    fecha: {
+                        required: 'Por favor, seleccione un rango de fecha'
+                    }
+                },
+				highlight: function (element) {
+					$(element).closest('.form-group').removeClass('has-success').addClass('has-error');
+				},
+				success: function (element) {
+					element.closest('.form-group').removeClass('has-error').addClass('has-success');
+				}
+                
+            });			
 });

@@ -34,6 +34,48 @@ class Doctores_model extends CI_Model {
 		$query = $this->db->get();		
 		return $query->result_array();		
 	}
+
+    function get_eventos_doctor($doctorId){	
+		$this->db->select('*');
+		$this->db->from('eventos');
+		$this->db->where('usuarios_id',$doctorId);
+		$query 	= 	$this->db->get();
+		$res	=	$query->result_array();			
+
+		if($query->num_rows() > 0){
+			
+			foreach($res as $row){
+
+				$results[] = array('title' => $row['title'], 'start' => $row['start'], 'end' => $row['end'],'borderColor' => $row['borderColor'],'backgroundColor' => $row['backgroundColor']);
+				
+			}
+		}else{
+			 $results[] = null;
+		}
+		
+		return json_encode($results);	
+	}
+	
+    function get_eventos(){	
+		$this->db->select('*');
+		$this->db->from('eventos');
+		$this->db->join('usuarios','usuarios.id = eventos.usuarios_id');
+		$query 	= 	$this->db->get();
+		$res	=	$query->result_array();			
+
+		if($query->num_rows() > 0){
+			
+			foreach($res as $row){
+
+				$results[] = array('title' => $row['title'].' / DR. '.$row['pnombre'].' '.$row['papellido'], 'start' => $row['start'], 'end' => $row['end'],'borderColor' => $row['borderColor'],'backgroundColor' => $row['backgroundColor']);
+				
+			}
+		}else{
+			 $results[] = null;
+		}
+		
+		return json_encode($results);	
+	}
 	
     function actualizar($data){	
 
@@ -50,17 +92,6 @@ class Doctores_model extends CI_Model {
 		
 	}
 		
-	function asociar_especialidad($doctor,$especialidad){
-  
-		$asociar_especialidad = array(
-			'id_doctor'=> $doctor,
-			'cod_espec' => $especialidad
-		);
-		
-		$insertSQL= $this->db->insert('doctor_especialidad', $asociar_especialidad);
-		
-		header("Location:especialidad");					
-	}
 	
 	function eliminar($id_doctor){
 			
@@ -68,33 +99,7 @@ class Doctores_model extends CI_Model {
 		$this->db->delete('doctores');	
 	}
 	
-	function dias_no_disponibles($doctorId){
-	
-	$fechas=array();
-		
-		$this->db->select('id_doctor, fecha_no_disponible');
-		$this->db->where('id_doctor',$doctorId);
-		$query = $this->db->get('disponibilidad_doctor');	
-		
-		foreach($query->result_array() as $row){
-		$fechas[] = $row['fecha_no_disponible'];
-		}
-	
-	echo json_encode($fechas);
 
-	}
-	
-	function guardar_fecha($doctorId,$fecha){
-
-	$disponibilidad = array(
-			'id_doctor' => $doctorId,
-			'fecha_no_disponible' => $fecha,
-		);
-		
-	$this->db->insert('disponibilidad_doctor', $disponibilidad );
-		
-	}
-	
    function get_fechas($doctorId){
    
 		$this->db->select("*");
@@ -107,10 +112,6 @@ class Doctores_model extends CI_Model {
 		
 	}
 	
-	function borrar_fecha($fecha){
-		$this->db->where('cod_disponible', $fecha);
-		$this->db->delete('disponibilidad_doctor');
-	}
 	
 	function borrar_fechas_vencidas($doctor){
 	

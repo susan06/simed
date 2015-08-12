@@ -13,7 +13,10 @@
     <!-- fullCalendar 2.2.5-->
     <link href="<?=base_url()?>assets/plugins/fullcalendar/fullcalendar.min.css" rel="stylesheet" type="text/css" />
     <link href="<?=base_url()?>assets/plugins/fullcalendar/fullcalendar.print.css" rel="stylesheet" type="text/css" media='print' />    
-	
+    <!-- daterange picker -->
+    <link href="<?=base_url()?>assets/plugins/daterangepicker/daterangepicker-bs3.css" rel="stylesheet" type="text/css" />	
+	    <!-- Bootstrap Color Picker -->
+    <link href="<?=base_url()?>assets/plugins/colorpicker/bootstrap-colorpicker.min.css" rel="stylesheet"/>
 	<!-- Theme style -->
     <link href="<?=base_url()?>assets/dist/css/AdminLTE.min.css" rel="stylesheet" type="text/css" />
     <link href="<?=base_url()?>assets/css/header.css" rel="stylesheet" type="text/css" />

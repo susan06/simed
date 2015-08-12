@@ -147,14 +147,26 @@ class Doctores extends CI_Controller {
 		$this->doctores_model->guardar_espec($data,$doctor_user);	
 	}
 
-	public function calendario(){	
-		
-		$id= $this->session->userdata('id'); 
+	public function calendario(){			
 		
 		$data['page_title'] = 'Doctor';
 		$data['system_title'] = 'Calendario';	
-
+		
+		$doctor_user= $this->session->userdata('id');
+		$data['eventos_doc'] = $this->doctores_model->get_eventos_doctor($doctor_user);
+		
 		$this->load->view('doctores/calendario', $data);
 			
-	}		
+	}
+	
+	public function calendario_doctores(){			
+		
+		$data['page_title'] = 'Doctores';
+		$data['system_title'] = 'Calendario';	
+		
+		$data['eventos'] = $this->doctores_model->get_eventos();
+		
+		$this->load->view('doctores/calendario_doctores', $data);
+			
+	}	
 }
