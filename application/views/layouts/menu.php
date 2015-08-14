@@ -1,6 +1,7 @@
       <?php $permisos_espec = $this->crud_model->get_permisos($this->session->userdata('rol'),10); ?>
 	  <?php $permisos_pac 	= $this->crud_model->get_permisos($this->session->userdata('rol'),2); ?>
 	  <?php $permisos_doc 	= $this->crud_model->get_permisos($this->session->userdata('rol'),3); ?>
+	  <?php $permisos_cit 	= $this->crud_model->get_permisos($this->session->userdata('rol'),4); ?>
 	   
 	  <!-- Left side column. contains the sidebar -->
       <aside class="main-sidebar">
@@ -129,16 +130,22 @@
 			
 			<?php } ?>	
 			
+			<?php	if($permisos_cit[1]['status'] == 1 || $permisos_cit[4]['status'] == 1 ){ ?>
 			<li>
               <a href="../widgets.html">
                 <i class="fa fa-calendar"></i> <span>Citas Médicas</span>
               </a>
 			   <ul class="treeview-menu">
-                <li><a href="#"><i class="fa fa-circle-o"></i>Ver</a></li>
-                <li><a href="#"><i class="fa fa-plus-square"></i>Registrar</a></li>
-              </ul>
+			    <?php	if ($permisos_cit[1]['status'] == 1 ){ ?>
+                <li><a href="<?= base_url();?>citas/agenda"><i class="fa fa-calendar-o"></i>Agenda</a></li>
+                <?php } ?>
+				<?php	if ($permisos_cit[4]['status'] == 1 ){ ?>
+			   <li><a href="<?= base_url();?>citas/programar"><i class="fa fa-plus-square"></i>Programar</a></li>
+              <?php } ?>
+			  </ul>
             </li>
-
+			<?php } ?>	
+			
 			<li>
               <a href="../widgets.html">
                 <i class="fa fa-group"></i> <span>Sala de Espera</span>

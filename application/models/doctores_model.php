@@ -26,7 +26,29 @@ class Doctores_model extends CI_Model {
 		$query = $this->db->get();	
 		return $query->result_array();		
 	}
+	
+	function get_especialidades_doctor($doctor){	
+		$this->db->select('doctor_especialidad.especialidades_id as especialidades_id, especialidades.nombre as nombre ');
+		$this->db->from('doctor_especialidad');
+		$this->db->join('especialidades','especialidades.id = doctor_especialidad.especialidades_id');
+		$this->db->where('doctores_id',$doctor);
+		$query 	= 	$this->db->get();
+		$res	=	$query->result_array();			
+
+		if($query->num_rows() > 0){
+			
+			foreach($res as $row){
+
+				$results[] = array('id' => $row['especialidades_id'], 'name' => $row['nombre']);
+				
+			}
+		}else{
+			 $results[] = null;
+		}
 		
+		echo json_encode($results);	
+	}
+	
     function get_datos_doctor($doctorId){	
 		$this->db->select('*');
 		$this->db->from('doctores');

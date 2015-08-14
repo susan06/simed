@@ -62,6 +62,23 @@ class Pacientes_model extends CI_Model {
 		$this->db->delete('pacientes');	
 	}
 	
+	function autocomplete($paciente){
+		
+		$this->db->distinct();	
+		$this->db->select("*");
+		$this->db->like('pnombre',$paciente);
+		$this->db->or_like('papellido',$paciente);
+		$this->db->or_like('cedula',$paciente);
+		
+		$query = $this->db->get('pacientes',10);		
+		
+		if($query->num_rows > 0){			
+			foreach($query->result_array() as $row){
+			$resultado[] =  array('id'=>$row['id'],'label'=>$row['pnombre'].' '.$row['papellido'].' '.$row['snombre'].' '.$row['sapellido'], 'ci'=>$row['cedula']);
+			}
+		 echo json_encode($resultado);
+		}	
+	}	
 
 	
 }

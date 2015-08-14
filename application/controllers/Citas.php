@@ -2,15 +2,15 @@
 
 if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Doctores extends CI_Controller {
+class Citas extends CI_Controller {
 
 	public function __construct() {
 				parent::__construct();
 				$this->load->library(array('session'));
 				$this->load->library( 'session_php' );
-				$this->load->helper(array('url','form','html','date')); 
-				$this->load->model('doctores_model');
+				$this->load->helper(array('url','form','html','date')); 				
 				$this->load->model('crud_model');
+				$this->load->model('citas_model');
 				$this->load->library('bcrypt');
 				$this->load->database('default'); 			
 				$this->removeCache();
@@ -40,15 +40,12 @@ class Doctores extends CI_Controller {
 	}
 	
 		
-	public function index(){	
+	public function programar(){	
+
+		$data['page_title'] = 'Citas';
+		$data['system_title'] = 'Programar';		
 		
-		$ver = 1;
-		
-		$data['page_title'] = 'Doctores';
-		$data['system_title'] = 'Ver';		
-		$data['borrar'] = 3;
-		$data['permisos'] = $this->permisos();
-		$permisos = $this->permisos();
+		$this->load->model('doctores_model');
 		
 		$doctores = $this->doctores_model->get_lista_doctores();
 
@@ -57,19 +54,30 @@ class Doctores extends CI_Controller {
 		}else{
 			$data['doctores'] =  NULL;
 		}
-			
-		$this->load->view('doctores/lista', $data);
+		
+		$this->load->view('citas/programar', $data);
 
 	}
 	
 	public function permisos() 
 	{
 		
-		$modulo = $this->crud_model->get_id_mod("Doctores"); 
+		$modulo = $this->crud_model->get_id_mod("citas"); 
 		$permisos = $this->crud_model->get_permisos($this->session->userdata('rol'),$modulo);
 		return $permisos;
 	}	
 
+	public function horas(){
+				
+		$doctor = $this->input->get('doctor');
+		$turno = $this->input->get('turno');
+		$fecha = date("Y-m-d",strtotime($this->input->get('fecha')));	
+		$this->citas_model->horas_disponibles($doctor,$turno,$fecha);
+		
+	}	
+	
+	
+	
 	public function datos(){	
 		
 		$id= $this->session->userdata('id'); 
@@ -138,14 +146,6 @@ class Doctores extends CI_Controller {
 			
 	}	
 
-	public function get_especialidades(){	
-	
-		$id_doctor = $this->input->get('id');
-		
-		$this->doctores_model->get_especialidades_doctor($id_doctor);
-					
-	}
-	
 	public function guardar_espec(){	
 		 
 		$data['especialidades_id']	= $this->input->post('especialidades_id');

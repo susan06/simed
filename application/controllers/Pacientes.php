@@ -161,6 +161,13 @@ class Pacientes extends CI_Controller {
 		
 		$this->load->view('pacientes/editar', $data);		
     }
+	
+	public function autocomplete(){	
+		if(isset($_GET['term'])){	
+		 $paciente = strtolower($_GET['term']);
+		 $this->pacientes_model->autocomplete($paciente);
+		}
+	}
 }
 
 /* End of file usuarios.php */
