@@ -149,6 +149,7 @@
                   </div><!-- /.box-body -->
 
                   <div class="box-footer">
+				    <button type="reset" class="btn btn-warning pull-left">Borra datos</button>
                     <button type="submit" class="btn btn-success pull-right" id="boton_submit">Guardar</button>
                   </div>
 

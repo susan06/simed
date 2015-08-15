@@ -10,7 +10,7 @@
         <!-- Content Header (Page header) -->
         <section class="content-header">
           <h1>
-          Pacientes<small></small>
+         Citas médicas<small> - Paciente</small>
           </h1>
         </section>
 
@@ -45,7 +45,7 @@
             <div class='col-md-12'>
 			  <div class="box">
                 <div class="box-header">
-                  <h3 class="box-title">Pacientes registrados</h3>
+                  <h3 class="box-title">Paciente: <?= $citas[0]['pnombre'] ?> <?= $citas[0]['snombre'] ?> <?= $citas[0]['papellido'] ?> <?= $citas[0]['sapellido'] ?></h3>
 				  <input type="text" id="buscar_table" class="form-control input-sm pull-right" style="width: 200px;" placeholder="Buscar">
                 </div><!-- /.box-header -->
                 <div class="box-body">
@@ -53,33 +53,32 @@
                     <thead>
                       <tr>
 						<th>#</th>
-						<th>Paciente</th>
-						<th>Sexo</th>
-						<th>Edad</th>
+						<th width="15%">Fecha / Hora</th>
+						<th>Doctor</th>
+						<th>Especialidad</th>
 						<th width="15%">Opciones</th>
                       </tr>
                     </thead>
                     <tbody>
-					  <?php if(is_array($pacientes) && count($pacientes) ){
+					  <?php if(is_array($citas) && count($citas) ){
 						$numero=1;
-						foreach($pacientes as $row){ ?>
+						foreach($citas as $row){ ?>
 							<tr>
 		  
 						  <td><?=  $numero++ ?></td>
-						  <td><?=  $row['pnombre']; ?> <?php echo $row['papellido']; ?></td>
-						  <td><?=  $row['sexo']; ?></td>
-							<td><?=  $row['edad']; ?></td>
+						  <td> <?= date_format(date_create($row['fecha']), 'd/m/Y'); ?> - <?=  $row['hora_media']; ?> </td>
+						  <td><?=  $row['nombre_doc']; ?> <?=  $row['apellido_doc']; ?></td>
+						<td><?=  $row['nombre']; ?></td>
 						  <td>
 							
-							<i class="fa fa-info-circle" data-rel="tooltip" data-placement="top"  title="ver datos" style="cursor:pointer" onclick="ficha_paciente(<?= $row['id'];?>)"></i>
+							<i class="fa fa-info-circle" data-rel="tooltip" data-placement="top"  title="ver cita" style="cursor:pointer" onclick="cita_paciente(<?= $row['id'];?>)"></i>
 							&nbsp;
-							<i class="fa fa-calendar-o" title="ver citas" style="cursor:pointer" data-rel="tooltip" data-placement="top" onclick="document.location.href = '<?= base_url(); ?>citas/paciente/<?= $row['id'];?>' "></i>
-						  	&nbsp;
+
 							<?php									
 							if ($permisos[$editar]['status'] == 1 ){ 
 							?>
 							
-							<i title="Editar" data-rel="tooltip" data-placement="top"  style="cursor:pointer" class="fa fa-edit" data-rel="tooltip" data-placement="top"  onclick="location.href='<?= base_url(); ?>pacientes/editar/<?= $row['id'];?>'"></i>
+							<i title="Editar" data-rel="tooltip" data-placement="top"  style="cursor:pointer" class="fa fa-edit" data-rel="tooltip" data-placement="top"  onclick="location.href='<?= base_url(); ?>citas/editar/<?= $row['id'];?>'"></i>
 							&nbsp;
 							<?php	
 								}else{
@@ -95,7 +94,7 @@
 							if ($permisos[$borrar]['status'] == 1 ){ 
 							?>
 							
-							<i title="Eliminar" data-rel="tooltip" data-placement="top"  style="cursor:pointer" class="fa fa-trash-o" onclick="eliminar(<?= $row['id'];?>, '<?= base_url(); ?>pacientes/eliminar')"></i>
+							<i title="Eliminar" data-rel="tooltip" data-placement="top"  style="cursor:pointer" class="fa fa-trash-o" onclick="eliminar(<?= $row['id'];?>, '<?= base_url(); ?>citas/eliminar')"></i>
 
 							<?php	
 								}else{
@@ -115,9 +114,9 @@
                     <tfoot>
                       <tr>
 						<th>#</th>
-						<th>Paciente</th>
-						<th>Sexo</th>
-						<th>Edad</th>
+						<th>Fecha / Hora</th>
+						<th>Doctor</th>
+						<th>Especialidad</th>
 						<th>Opciones</th>
                       </tr>
                     </tfoot>
@@ -128,7 +127,7 @@
             </div><!-- /.col-->
           </div><!-- ./row -->
 		  
-	            <div class="modal modal-warning" id="warning_modal" role="dialog">
+	      <div class="modal modal-warning" id="warning_modal" role="dialog">
               <div class="modal-dialog"  role="document">
                 <div class="modal-content">
                   <div class="modal-header">
@@ -136,7 +135,7 @@
                     <h4 class="modal-title">Permisos</h4>
                   </div>
                   <div class="modal-body">
-                    <p>No tiene permiso para eliminar pacientes</p>
+                    <p>No tiene permiso para eliminar citas</p>
                   </div>
                   <div class="modal-footer">
                     <button type="button" class="btn btn-outline" data-dismiss="modal">Ok</button>
@@ -153,7 +152,7 @@
                     <h4 class="modal-title">Permisos</h4>
                   </div>
                   <div class="modal-body">
-                    <p>No tiene permiso para editar los datos del Paciente</p>
+                    <p>No tiene permiso para editar citas del paciente</p>
                   </div>
                   <div class="modal-footer">
                     <button type="button" class="btn btn-outline" data-dismiss="modal">Ok</button>
@@ -164,11 +163,16 @@
 	
 
 		<div class="modal" id="modalPacDialog" role="dialog">
-		  <div class="modal-dialog"  role="document" style="width: 65%;">
+		  <div class="modal-dialog"  role="document" style="width: 40%;">
 			<div class="modal-content">
 			  <div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-					<h4 class="modal-title">Datos del paciente</h4>
+					<h4 class="modal-title">Cita del paciente</h4>
+					<span id="mnj_cambio" class="text-green">
+					<?php if($this->session->flashdata('cita_modificada') != ''): ?>	
+					 &nbsp;Modificada con éxito 
+					<?php endif;?>
+					</span>
 				</div>
 						<div class="modal-body" id="pac-body">
 						</div>
@@ -214,7 +218,15 @@
     <script type="text/javascript">
 	
       $(document).ready(function () {
-		  
+		
+		<?php if($this->session->flashdata('cita_modificada') != ''): ?>		
+		window.onload = function() {
+			$( "#pac-body" ).load( "<?= base_url(); ?>citas/ver/<?= $this->session->flashdata('cita_modificada'); ?>" );
+			$('#modalPacDialog').modal();
+		};
+		<?php endif;?>
+	
+	
         $("#pacientes_table").dataTable({});
 
 		 oTable = $('#pacientes_table').dataTable();
@@ -231,9 +243,9 @@
       });	
 	 
 
-		function ficha_paciente(id){
-			
-			$( "#pac-body" ).load( "<?= base_url(); ?>pacientes/ver/"+id );
+		function cita_paciente(id){
+			$('#mnj_cambio').empty();
+			$( "#pac-body" ).load( "<?= base_url(); ?>citas/ver/"+id );
 			$('#modalPacDialog').modal();
 		}				
 

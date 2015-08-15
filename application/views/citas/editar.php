@@ -11,7 +11,7 @@
         <!-- Content Header (Page header) -->
         <section class="content-header">
           <h1>
-            Citas Médicas <small>- Programar cita</small>
+            Citas Médicas <small>- Editar cita</small>
           </h1>
         </section>
 		
@@ -42,30 +42,30 @@
               <!-- general form elements disabled -->
               <div class="box box-warning">
                 <div class="box-body">
-                  <form method="post" name="form_cita" id="form_cita" onsubmit="return checkSubmit(form_cita)" action="<?php echo base_url(); ?>citas/guardar" novalidate>  
-                    <!-- text input -->
+                  <form method="post" name="form_cita" id="form_cita" onsubmit="return checkSubmit(form_cita)" action="<?php echo base_url(); ?>citas/actualizar" novalidate>  
+                 
+				  
+			 <?php if(is_array($cita) && count($cita) ){
+					foreach($cita as $row){ ?>	
+					
+				 <!-- text input -->
                     <div class="form-group">
-                      <label>Paciente</label>
-                      <input type="text" class="form-control" id="pacientes" placeholder="Escriba aqui para buscar"/>
-					  <input type="hidden" class="form-control" name="pacientes_id" id="pacientes_id" required />
+                      <label>Paciente:</label>
+                       <?= $row['pnombre']; ?> <?= $row['snombre']; ?> <?= $row['papellido']; ?> <?= $row['sapellido']; ?>
+					   <input type="hidden" name="id" value="<?= $row['id']; ?>"/>
+					   <input type="hidden" name="url_cita" value="citas/paciente/<?= $row['paciente_id']; ?>"/>
                     </div>
-					 <div class="form-group">
-						<label>Cédula</label>
-						<div class="row">				 
-						<div class="col-xs-4">
-						  <input type="text" class="form-control" id="cedula" disabled />						  
-						</div> 
-						</div>
-					</div> 
 	                 <div class="form-group">
                       <label>Doctor</label>
 					  <div class="row">	
 					  <div class="col-xs-6">
 						<select class="form-control" name="doctores_id" id="doctor" required onChange="cargar_lista_especialidad(this.value); hora_cita($('#turno').val(), this.value, $('#fecha').val())">
-								  <option value="">Seleccione doctor</option>
+						<option value="<?=  $row['doctor_id']; ?>"> DR. <?=  $row['nombre_doc']; ?> <?=  $row['apellido_doc']; ?></option>
 						<?php if(is_array($doctores) && count($doctores) ){
-						foreach($doctores as $row){ ?>		  
-								  <option value="<?=  $row['id']; ?>">DR. <?=  $row['pnombre']; ?> <?= $row['papellido']; ?></option>
+						foreach($doctores as $row2){ ?>	
+									<?php if($row['doctor_id'] != $row2['id']){ ?>							
+										<option value="<?= $row2['id']; ?>">DR. <?=  $row2['pnombre']; ?> <?= $row2['papellido']; ?></option>
+								  <?php } ?>
 						<?php }}else{ ?>
 								<option value="">No hay registro</option>
 						<?php } ?>
@@ -78,7 +78,7 @@
                       <div class="row">	
 					  <div class="col-xs-7">
 						<select class="form-control" name="especialidades_id" required id="especialidades_id">
-							<option value="">Seleccione primero el doctor</option>
+							<option value="<?= $row['especialidad_id']; ?>"> <?= $row['nombre']; ?></option>
 						</select>
 						</div>
 						</div>
@@ -87,7 +87,7 @@
 						<label>Fecha</label>
 						<div class="row">				 
 						<div class="col-xs-4">
-						  <input type="text" name="fecha" class="form-control" id="fecha" onblur="hora_cita( $('#turno').val(), $('#doctor').val(), $('#fecha').val() )"/>
+						  <input type="text" value="<?= $row['fecha']; ?>" name="fecha" class="form-control" id="fecha" onblur="hora_cita( $('#turno').val(), $('#doctor').val(), $('#fecha').val() )"/>
 						</div> 
 						</div>
 					</div> 
@@ -96,9 +96,9 @@
                       	<div class="row">	
 							<div class="col-xs-4">
 							<select class="form-control" name="turno" required id="turno" onChange="hora_cita(this.value, $('#doctor').val(), $('#fecha').val())">
-								<option value="">Seleccione turno</option>
-								<option value="1">Mañana</option>
-								<option value="2">Tarde</option>
+								<option value="<?= $row['turno']; ?>"><?Php if($row['turno']== 1){ echo 'Mañana'; }else{ echo 'Tarde';} ?></option>
+								<?php if($row['turno'] != 1){ echo	'<option value="1">Mañana</option>'; }?>
+								<?php if($row['turno'] != 2){ echo	'<option value="2">Tarde</option>';	 }?>
 							</select>
 							</div>
 						</div>
@@ -108,15 +108,15 @@
                      	<div class="row">	
 							<div class="col-xs-8">
 							<select class="form-control" name="hora_id" required id="hora_id">
-								<option value="">Seleccione primero el turno</option>
+								<option value="<?= $row['hora_id']; ?>"><?=  $row['hora_media']; ?></option>
 							</select>
 							</div>
 						</div>
                     </div> 
+					<?php }} ?>
 				</div><!-- /.box-body -->
 				   <div class="box-footer">
-                    <button type="submit" class="btn btn-success pull-right">Guardar cita</button>
-					<button type="reset" class="btn btn-warning pull-left">Borra datos</button>
+                    <button type="submit" class="btn btn-success pull-right">Guardar cambios</button>
                   </div>
 				  </form>
               </div><!-- /.box -->
@@ -128,27 +128,6 @@
 		  
         </section><!-- /.content -->
 		
-		<div class="modal" id="modalPacDialog" role="dialog">
-		  <div class="modal-dialog"  role="document" style="width: 40%;">
-			<div class="modal-content">
-			  <div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-					<h4 class="modal-title">Resumen de cita creada</h4>
-				</div>
-						<div class="modal-body" id="pac-body">
-						</div>
-			 <div class="modal-footer">
-			 <?php if($this->session->flashdata('cita_paciente') != ''): ?>	
-				<button type="button" class="btn btn-default pull-left" onclick="location.href='<?= base_url(); ?>citas/paciente/<?= $this->session->flashdata('cita_paciente'); ?>'">Ver todas las citas</button>
-			<?php endif;?>
-				<button type="button" class="btn btn-default" data-dismiss="modal">Ok</button>
-			  </div>
-			</div>
-			<!-- /.modal-content --> 
-		  </div>
-		  <!-- /.modal-dialog --> 
-		</div>	
-
 		
       </div><!-- /.content-wrapper -->
 	  
@@ -185,38 +164,35 @@
 	<script src="<?=base_url()?>assets/js/scripts_form.js" type="text/javascript"></script>
 	
 		<script type="text/javascript">	
-		
-		$(document).ready(function(){					
-		
-		<?php if($this->session->flashdata('cita_creada') != ''): ?>		
-		window.onload = function() {
-			$( "#pac-body" ).load( "<?= base_url(); ?>citas/ver/<?= $this->session->flashdata('cita_creada'); ?>" );
-			$('#modalPacDialog').modal();
-		};
-		<?php endif;?>
-	
-			$("#pacientes").autocomplete({
-					source: '<?= base_url(); ?>pacientes/autocomplete',
-					minlength:2,
-					html:true,
-					select: function(event, ui) {								
-								event.preventDefault();
-								$(this).val(ui.item.label);
-								$("#pacientes_id").val(ui.item.id);
-								$("#cedula").val(ui.item.ci);
-							}
-			});			
 			
-		});			
+			window.onload = function() {
+
+				$.get("<?= base_url(); ?>doctores/get_especialidades",
+					{ id: $('#doctor').val()},
+					function(data) {
+						$.each(data, function(i) {
+							if(data[i].id != $('#especialidades_id').val()){
+							$('#especialidades_id').append("<option value='" + data[i].id + "'>" + data[i].name + "</option>");
+							}
+						});
+				}, "json");
+				
+				$.get("<?= base_url(); ?>citas/horas",
+					{ turno:$('#turno').val(), doctor:$('#doctor').val(), fecha:$('#fecha').val() },
+					function(data) {
+						$.each(data, function(i) {							
+							$('#hora_id').append("<option value='" + data[i].id + "'>" + data[i].hora + "</option>");							
+						});
+				}, "json");
+				
+			};	
+			
 		<!--Funcion que llena un select dependiente (especialidad)-->
 			function cargar_lista_especialidad(doctor){ 
 				
 				$.get("<?= base_url(); ?>doctores/get_especialidades",
 					{ id: doctor },
 					function(data) {
-						$('#especialidades_id').empty();
-						$('#especialidades_id').append($('<option></option>').text('Seleccione Especialidad').val(''));
-						
 						$.each(data, function(i) {
 							$('#especialidades_id').append("<option value='" + data[i].id + "'>" + data[i].name + "</option>");
 						});

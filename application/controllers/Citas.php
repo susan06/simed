@@ -62,7 +62,7 @@ class Citas extends CI_Controller {
 	public function permisos() 
 	{
 		
-		$modulo = $this->crud_model->get_id_mod("citas"); 
+		$modulo = $this->crud_model->get_id_mod("Citas"); 
 		$permisos = $this->crud_model->get_permisos($this->session->userdata('rol'),$modulo);
 		return $permisos;
 	}	
@@ -76,105 +76,98 @@ class Citas extends CI_Controller {
 		
 	}	
 	
-	
-	
-	public function datos(){	
-		
-		$id= $this->session->userdata('id'); 
-		
-		$query = $this->doctores_model->get_datos_doctor($id);	
-		
-		if($query){
-			$data['doctor_editar'] =  $query;
-		}else{
-			$data['doctor_editar'] =  NULL;
-		}		
-		
-		$data['page_title'] = 'Doctor';
-		$data['system_title'] = 'Perfil';	
+	//citas de pacientes	
+	public function paciente($paciente){	
 
-		$this->load->view('doctores/perfil', $data);
-			
+		$data['page_title'] = 'Citas';
+		$data['system_title'] = 'Paciente';		
+		$data['permisos'] = $this->permisos();
+		$data['editar'] = 2;
+		$data['borrar'] = 3;
+		
+		$citas = $this->citas_model->get_citas_pac($paciente);
+
+		if($citas){
+			$data['citas'] =  $citas;
+		}else{
+			$data['citas'] =  NULL;
+		}
+		
+		$this->load->view('citas/citas_paciente', $data);
+
 	}	
+	
+	//ver cita en modal
+	public function ver($id) 
+	{		
+
+		$cita = $this->citas_model->get_datos_cita($id);
+		if($cita){
+			$data['cita'] =  $cita;
+		}else{
+			$data['cita'] =  NULL;
+		}
+		
+		return $this->load->view('citas/ver', $data);		
+    }
+	
+	public function guardar(){		
+
+		 $data['pacientes_id']= $this->input->post('pacientes_id');
+		 $data['fecha']= date("Y-m-d",strtotime($this->input->post('fecha')));
+		 $data['turno']= $this->input->post('turno');
+		 $data['status']= 1;
+		 $data['doctores_id']= $this->input->post('doctores_id');
+		 $data['especialidades_id']= $this->input->post('especialidades_id');
+		 $data['hora_id']= $this->input->post('hora_id');
+		 	
+		$this->citas_model->guardar($data);
+	}
+	
+	public function editar($id) 
+	{		
+		$data['page_title'] = 'Citas';
+		$data['system_title'] = 'Editar';
+		
+		$cita = $this->citas_model->get_datos_cita($id);
+		if($cita){
+			$data['cita'] =  $cita;
+		}else{
+			$data['cita'] =  NULL;
+		}
+		
+		$this->load->model('doctores_model');
+		$doctores = $this->doctores_model->get_lista_doctores();
+
+		if($doctores){
+			$data['doctores'] =  $doctores;
+		}else{
+			$data['doctores'] =  NULL;
+		}
+		
+		$this->load->view('citas/editar', $data);		
+    }	
 	
 	public function actualizar(){
 
-		 $doctor['pnombre']= ucwords($this->input->post('pnombre'));
-		 $doctor['papellido']= ucwords($this->input->post('papellido'));
-		 $doctor['cedula']= $this->input->post('cedula'); 
-		 $doctor['rif']= $this->input->post('rif'); 
-		 $doctor['mpps']= $this->input->post('mpps'); 
-		 $doctor['id']= $this->input->post('id');
+		 $data['fecha']= date("Y-m-d",strtotime($this->input->post('fecha')));
+		 $data['turno']= $this->input->post('turno');
+		 $data['doctores_id']= $this->input->post('doctores_id');
+		 $data['especialidades_id']= $this->input->post('especialidades_id');
+		 $data['hora_id']= $this->input->post('hora_id');
+		 $data['id']= $this->input->post('id');
+		 $url= $this->input->post('url_cita');
 		 
-		$this->doctores_model->actualizar($doctor);		
+		$this->citas_model->actualizar($data,$url);		
 	}
 	
     public function eliminar(){	
 		
-		 $id_doctor = $this->input->post('id');
-		 $this->doctores_model->eliminar($id_doctor);
+		 $id_cita = $this->input->post('id');
+		 $this->citas_model->eliminar($id_cita);
 		 	
 	}	
 	
-	public function especialidades(){	
+
 	
-		$doctor_user= $this->session->userdata('id'); 
-		
-		$data['doctor'] = $this->doctores_model->get_datos_doctor($doctor_user);	
-		
-		$query_esp = $this->doctores_model->especialidades_doctor($data['doctor'][0]['id']);
-		
-		if($query_esp){
-			$data['espec_doctor'] =  $query_esp;
-		}else{
-			$data['espec_doctor'] =  NULL;
-		}	
-		
-		$this->load->model('especialidades_model');
-		$query = $this->especialidades_model->get_especialidades();
-		
-		if($query){
-			$data['especialidades'] =  $query;
-		}else{
-			$data['especialidades'] =  NULL;
-		}		
-		
-		$data['page_title'] = 'Doctor';
-		$data['system_title'] = 'Especialidades';	
-
-		$this->load->view('doctores/especialidades', $data);
-			
-	}	
-
-	public function guardar_espec(){	
-		 
-		$data['especialidades_id']	= $this->input->post('especialidades_id');
-		$data['doctores_id']		= $this->input->post('doctores_id');
-		$doctor_user				= $this->input->post('doctor_user');
-	  
-		$this->doctores_model->guardar_espec($data,$doctor_user);	
-	}
-
-	public function calendario(){			
-		
-		$data['page_title'] = 'Doctor';
-		$data['system_title'] = 'Calendario';	
-		
-		$doctor_user= $this->session->userdata('id');
-		$data['eventos_doc'] = $this->doctores_model->get_eventos_doctor($doctor_user);
-		
-		$this->load->view('doctores/calendario', $data);
-			
-	}
-	
-	public function calendario_doctores(){			
-		
-		$data['page_title'] = 'Doctores';
-		$data['system_title'] = 'Calendario';	
-		
-		$data['eventos'] = $this->doctores_model->get_eventos();
-		
-		$this->load->view('doctores/calendario_doctores', $data);
-			
-	}	
 }

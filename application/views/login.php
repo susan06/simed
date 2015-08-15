@@ -123,7 +123,7 @@
 					  <div class="register-box-body">
 						<p class="login-box-msg">Sistema de gestión de información médica.</p>
 	
-						<form action="<?php echo base_url();?>login/process" method="POST" id="form_login" novalidate>
+						<form action="<?php echo base_url();?>login/process" method="POST" id="form_login">
 						<input type="hidden" name="token" value="<?php echo $token; ?>">
 						 
 						  <div class="form-group has-feedback">						

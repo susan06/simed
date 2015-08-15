@@ -429,5 +429,59 @@
 					element.closest('.form-group').removeClass('has-error').addClass('has-success');
 				}
                 
-            });			
+            });	
+
+		$("#form_cita").validate({
+                // Rules for form validation
+				ignore:'',
+                rules: {
+					pacientes_id: {
+                        required: true
+                    },
+					doctores_id: {
+                        required: true
+                    },
+					especialidades_id:{
+                        required: true
+                    },
+					fecha: {
+                        required: true
+                    },
+					turno: {
+                        required: true
+                    },
+					hora_id: {
+                        required: true
+                    }
+                },
+
+                // Messages for form validation
+                messages: {
+                    pacientes_id: {
+                        required: 'Seleccione un paciente registrado en el sistema'
+                    },
+                    doctores_id: {
+                        required: 'Seleccione un doctor'
+                    },
+					especialidades_id: {
+                        required: 'Seleccione una especialidad del doctor'
+                    },
+					fecha: {
+                        required: 'Seleccione una fecha'
+                    },
+					turno: {
+                        required: 'Seleccione un turno'
+                    },
+					hora_id:{
+						required: 'Seleccione hora de la cita'
+					}
+                },
+				highlight: function (element) {
+					$(element).closest('.form-group').removeClass('has-success').addClass('has-error');
+				},
+				success: function (element) {
+					element.closest('.form-group').removeClass('has-error').addClass('has-success');
+				}
+                
+            });				
 });
