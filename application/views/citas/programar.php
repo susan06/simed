@@ -42,7 +42,7 @@
               <!-- general form elements disabled -->
               <div class="box box-warning">
                 <div class="box-body">
-                  <form method="post" name="form_cita" id="form_cita" onsubmit="return checkSubmit(form_cita)" action="<?php echo base_url(); ?>citas/guardar" novalidate>  
+                  <form method="post" name="form_cita" id="form_cita" action="<?php echo base_url(); ?>citas/guardar">  
                     <!-- text input -->
                     <div class="form-group">
                       <label>Paciente</label>
@@ -188,9 +188,9 @@
 		
 		$(document).ready(function(){					
 		
-		<?php if($this->session->flashdata('cita_creada') != ''): ?>		
+		<?php if($this->session->flashdata('resumen') != ''): ?>		
 		window.onload = function() {
-			$( "#pac-body" ).load( "<?= base_url(); ?>citas/ver/<?= $this->session->flashdata('cita_creada'); ?>" );
+			$( "#pac-body" ).load("<?= base_url(); ?>citas/ver/<?= $this->session->flashdata('resumen'); ?>" );
 			$('#modalPacDialog').modal();
 		};
 		<?php endif;?>

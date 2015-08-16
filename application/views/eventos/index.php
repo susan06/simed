@@ -28,7 +28,7 @@
 						  <h3 class="box-title">Crear evento</h3>
 						</div>
 						<div class="box-body">
-						      <form method="post" id="form_evento" action="<?php echo base_url(); ?>eventos/guardar" novalidate>  
+						      <form method="post" id="form_evento" action="<?php echo base_url(); ?>eventos/guardar">  
 						  <!-- Date and time range -->
 						  <div class="form-group">
 							<label>Nombre:</label>

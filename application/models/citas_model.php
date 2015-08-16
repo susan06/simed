@@ -80,16 +80,47 @@ class Citas_model extends CI_Model {
 		$query = $this->db->get();	
 		return $query->result_array();							
 	}		
-	
 
+	function get_citas_doc($doctor){
+		
+		date_default_timezone_set('America/Caracas');
+		
+		$this->db->select("*,doctores.pnombre as nombre_doc, doctores.papellido as apellido_doc, cita_medica.id as id");
+		$this->db->from('cita_medica');
+		$this->db->join('doctores','cita_medica.doctores_id=doctores.id','left');
+		$this->db->join('especialidades','cita_medica.especialidades_id=especialidades.id','left');
+		$this->db->join('pacientes','cita_medica.pacientes_id=pacientes.id','left');
+		$this->db->join('hora_consulta','cita_medica.hora_id=hora_consulta.id','left');
+		$this->db->where('cita_medica.doctores_id',$doctor);
+		$this->db->where('cita_medica.fecha',date('Y-m-d'));		
+		$this->db->order_by('cita_medica.id', 'ASC');			
+		$query = $this->db->get();	
+		return $query->result_array();							
+	}		
+
+	function citas_doc($doctor,$fecha){
+		
+		$this->db->select("*,doctores.pnombre as nombre_doc, doctores.papellido as apellido_doc, cita_medica.id as id");
+		$this->db->from('cita_medica');
+		$this->db->join('doctores','cita_medica.doctores_id=doctores.id','left');
+		$this->db->join('especialidades','cita_medica.especialidades_id=especialidades.id','left');
+		$this->db->join('pacientes','cita_medica.pacientes_id=pacientes.id','left');
+		$this->db->join('hora_consulta','cita_medica.hora_id=hora_consulta.id','left');
+		$this->db->where('cita_medica.doctores_id',$doctor);
+		$this->db->where('cita_medica.fecha',$fecha);		
+		$this->db->order_by('cita_medica.id', 'ASC');			
+		$query = $this->db->get();	
+		return $query->result_array();							
+	}	
+	
    function guardar($data){
   
 		$insertSQL= $this->db->insert('cita_medica', $data);
 		
-		$cita =$this->db->insert_id();
+		$cita = $this->db->insert_id();
 		
 		if($insertSQL) {
-					$this->session->set_flashdata('cita_creada', $cita);
+					$this->session->set_flashdata('resumen', $cita);
 					$this->session->set_flashdata('cita_paciente', $data['pacientes_id']);
 					redirect(base_url() . 'citas/programar', 'refresh');		 
 		}else{

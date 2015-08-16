@@ -1,4 +1,4 @@
-      <?php $permisos_espec = $this->crud_model->get_permisos($this->session->userdata('rol'),10); ?>
+	  <?php $permisos_espec = $this->crud_model->get_permisos($this->session->userdata('rol'),10); ?>
 	  <?php $permisos_pac 	= $this->crud_model->get_permisos($this->session->userdata('rol'),2); ?>
 	  <?php $permisos_doc 	= $this->crud_model->get_permisos($this->session->userdata('rol'),3); ?>
 	  <?php $permisos_cit 	= $this->crud_model->get_permisos($this->session->userdata('rol'),4); ?>
@@ -133,11 +133,11 @@
 			<?php	if($permisos_cit[1]['status'] == 1 || $permisos_cit[4]['status'] == 1 ){ ?>
 			<li>
               <a href="../widgets.html">
-                <i class="fa fa-calendar"></i> <span>Citas Médicas</span>
+                <i class="fa fa-calendar"></i><span>Citas Médicas</span>
               </a>
 			   <ul class="treeview-menu">
 			    <?php	if ($permisos_cit[1]['status'] == 1 ){ ?>
-                <li><a href="<?= base_url();?>citas/agenda"><i class="fa fa-calendar-o"></i>Agenda</a></li>
+                <li><a href="#" onclick="seleccionar_doctores()"><i class="fa fa-calendar-o"></i>Agenda</a></li>
                 <?php } ?>
 				<?php	if ($permisos_cit[4]['status'] == 1 ){ ?>
 			   <li><a href="<?= base_url();?>citas/programar"><i class="fa fa-plus-square"></i>Programar</a></li>
@@ -190,5 +190,32 @@
         </section>
         <!-- /.sidebar -->
       </aside>
+	  
+		<div class="modal" id="modalDocDialog" role="dialog">
+		  <div class="modal-dialog"  role="document" style="width: 40%;">
+			<div class="modal-content">
+			  <div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title">Seleccione al Doctor para ver su agenda</h4>
+				</div>
+						<div class="modal-body" id="doc-body">
+						</div>
+			 <div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+			  </div>
+			</div>
+			<!-- /.modal-content --> 
+		  </div>
+		  <!-- /.modal-dialog --> 
+		</div>	
+			  
+   <script type="text/javascript">
+   
+	function seleccionar_doctores(){
 
+			$( "#doc-body" ).load( "<?= base_url(); ?>doctores/ver");
+			$('#modalDocDialog').modal();
+	}    
+	
+	</script>	
       <!-- =============================================== -->

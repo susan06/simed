@@ -42,7 +42,7 @@
               <!-- general form elements disabled -->
               <div class="box box-warning">
                 <div class="box-body">
-                  <form method="post" name="form_cita" id="form_cita" onsubmit="return checkSubmit(form_cita)" action="<?php echo base_url(); ?>citas/actualizar" novalidate>  
+                  <form method="post" name="form_cita" id="form_cita" onsubmit="return checkSubmit(form_cita)" action="<?php echo base_url(); ?>citas/actualizar">  
                  
 				  
 			 <?php if(is_array($cita) && count($cita) ){
@@ -52,13 +52,15 @@
                     <div class="form-group">
                       <label>Paciente:</label>
                        <?= $row['pnombre']; ?> <?= $row['snombre']; ?> <?= $row['papellido']; ?> <?= $row['sapellido']; ?>
-					   <input type="hidden" name="id" value="<?= $row['id']; ?>"/>
-					   <input type="hidden" name="url_cita" value="citas/paciente/<?= $row['paciente_id']; ?>"/>
+					   <input type="hidden" name="id" value="<?= $row['id']; ?>"/>					   
+					   <?Php if($type == 1){ $url2=$url.'/'.$row['paciente_id']; }else{ $url2=$url.'/'.$row['doctor_id']; }; ?>
+					   <input type="hidden" name="url_cita" value="<?= $url2; ?>"/>
                     </div>
 	                 <div class="form-group">
                       <label>Doctor</label>
 					  <div class="row">	
 					  <div class="col-xs-6">
+					  <?Php if($type == 1){ ?>
 						<select class="form-control" name="doctores_id" id="doctor" required onChange="cargar_lista_especialidad(this.value); hora_cita($('#turno').val(), this.value, $('#fecha').val())">
 						<option value="<?=  $row['doctor_id']; ?>"> DR. <?=  $row['nombre_doc']; ?> <?=  $row['apellido_doc']; ?></option>
 						<?php if(is_array($doctores) && count($doctores) ){
@@ -68,6 +70,12 @@
 								  <?php } ?>
 						<?php }}else{ ?>
 								<option value="">No hay registro</option>
+						<?php } ?>
+						</select>
+						<?php }else{ ?>
+						<select class="form-control" name="doctores_id" id="doctor">
+						<option value="<?=  $row['doctor_id']; ?>"> DR. <?=  $row['nombre_doc']; ?> <?=  $row['apellido_doc']; ?></option>
+						</select>
 						<?php } ?>
 						</select>
 						</div>
@@ -116,6 +124,7 @@
 					<?php }} ?>
 				</div><!-- /.box-body -->
 				   <div class="box-footer">
+				   <button type="button" class="btn btn-info pull-left" onclick="location.href='<?= base_url(); ?><?= $url2; ?>'">Regresar a citas</button>
                     <button type="submit" class="btn btn-success pull-right">Guardar cambios</button>
                   </div>
 				  </form>

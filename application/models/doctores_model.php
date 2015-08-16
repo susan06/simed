@@ -58,6 +58,14 @@ class Doctores_model extends CI_Model {
 	}
 
     function get_eventos_doctor($doctorId){	
+	
+	date_default_timezone_set('America/Caracas');
+	
+	$mes_pasado=date('m', strtotime('now - 2 month'));
+	
+	$this->db->where("DATE_FORMAT(start, '%m')",$mes_pasado);
+	$this->db->delete('eventos');
+	
 		$this->db->select('*');
 		$this->db->from('eventos');
 		$this->db->where('usuarios_id',$doctorId);
@@ -79,6 +87,12 @@ class Doctores_model extends CI_Model {
 	}
 	
     function get_eventos(){	
+	
+		$mes_pasado=date('m', strtotime('now - 2 month'));
+	
+		$this->db->where("DATE_FORMAT(start, '%m') = $mes_pasado");
+		$this->db->delete('eventos');
+	
 		$this->db->select('*');
 		$this->db->from('eventos');
 		$this->db->join('usuarios','usuarios.id = eventos.usuarios_id');

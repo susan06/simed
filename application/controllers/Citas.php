@@ -59,6 +59,44 @@ class Citas extends CI_Controller {
 
 	}
 	
+	public function agenda($doctor){	
+
+		$data['page_title'] = 'Agenda';
+		$data['system_title'] = 'Doctor';		
+		$data['permisos'] = $this->permisos();
+		$data['borrar'] = 3;
+		$data['editar'] = 2;
+		
+		$citas = $this->citas_model->get_citas_doc($doctor);
+
+		if($citas){
+			$data['citas'] =  $citas;
+		}else{
+			$data['citas'] =  NULL;
+		}
+		
+		$this->load->view('citas/citas_doctor', $data);
+
+	}
+
+	public function citas_doctor(){	
+	
+		$doctor= ($this->input->post('doctor'));
+		$fecha= date("Y-m-d",strtotime($this->input->post('fecha')));
+		
+		$query=$this->citas_model->citas_doc($doctor, $fecha);		
+		if($query){
+			$data['citas'] =  $query;
+		}else{
+			$data['citas'] =  NULL;
+		}
+		$data['permisos'] = $this->permisos();
+		$data['borrar'] = 3;
+		$data['editar'] = 2;
+		
+       return $this->load->view('citas/load_citas_doctor', $data);	
+	}	
+	
 	public function permisos() 
 	{
 		
@@ -124,7 +162,7 @@ class Citas extends CI_Controller {
 		$this->citas_model->guardar($data);
 	}
 	
-	public function editar($id) 
+	public function editar($id,$type='') 
 	{		
 		$data['page_title'] = 'Citas';
 		$data['system_title'] = 'Editar';
@@ -136,6 +174,13 @@ class Citas extends CI_Controller {
 			$data['cita'] =  NULL;
 		}
 		
+		$data['type'] = 0;	
+		if($type == 1){
+		$data['url'] = 'citas/paciente';
+		$data['type'] = 1;
+		}else{
+		$data['url'] = 'citas/agenda';	
+		}
 		$this->load->model('doctores_model');
 		$doctores = $this->doctores_model->get_lista_doctores();
 

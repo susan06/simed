@@ -10,7 +10,7 @@
         <!-- Content Header (Page header) -->
         <section class="content-header">
           <h1>
-         Citas médicas<small> - Paciente</small>
+         Agenda de citas médicas<small> - Doctor</small>
           </h1>
         </section>
 
@@ -45,17 +45,25 @@
             <div class='col-md-12'>
 			  <div class="box">
                 <div class="box-header">
-                  <h3 class="box-title">Paciente: <?= $citas[0]['pnombre'] ?> <?= $citas[0]['snombre'] ?> <?= $citas[0]['papellido'] ?> <?= $citas[0]['sapellido'] ?></h3>
-				  <input type="text" id="buscar_table" class="form-control input-sm pull-right" style="width: 200px;" placeholder="Buscar">
-                </div><!-- /.box-header -->
-                <div class="box-body">
-                  <table id="pacientes_table" class="table table-bordered table-striped">
+                  <h3 class="box-title">Agenda del doctor: <?=  $citas[0]['nombre_doc']; ?> <?=  $citas[0]['apellido_doc']; ?></h3>				 
+				<input type="text" id="buscar_table" class="form-control input-sm pull-right" style="width: 200px;" placeholder="Buscar">
+				</div><!-- /.box-header -->
+				
+				 <div class="box-header">
+                  <h3 class="box-title"><input type="text" class="form-control" name="fecha" id="fecha" value="<?= date('d-m-Y'); ?>"/></h3>				 
+				 <button type="button" class="btn btn-success" onclick="agenda_cita( $('#fecha').val(), <?= $citas[0]['doctores_id']; ?> )">Buscar citas</button>
+				</div>
+
+                <div class="box-body" id="citas_load">
+
+                  <table id="citas_table" class="table table-bordered table-striped">
                     <thead>
                       <tr>
 						<th>#</th>
 						<th width="15%">Fecha / Hora</th>
-						<th>Doctor</th>
+						<th>Paciente</th>
 						<th>Especialidad</th>
+						<th>Status</th>
 						<th width="15%">Opciones</th>
                       </tr>
                     </thead>
@@ -67,8 +75,9 @@
 		  
 						  <td><?=  $numero++ ?></td>
 						  <td> <?= date_format(date_create($row['fecha']), 'd/m/Y'); ?> - <?=  $row['hora_media']; ?> </td>
-						  <td><?=  $row['nombre_doc']; ?> <?=  $row['apellido_doc']; ?></td>
-						<td><?=  $row['nombre']; ?></td>
+						  <td><?= $row['pnombre'] ?> <?= $row['snombre'] ?> <?= $row['papellido'] ?> <?= $row['sapellido'] ?></td>
+						  <td><?=  $row['nombre']; ?></td>
+						  <td><?Php if($row['status'] == 1){ echo 'Pendiente'; }else{ echo 'Atendido'; } ?></td>
 						  <td>
 							
 							<i class="fa fa-info-circle" data-rel="tooltip" data-placement="top"  title="ver cita" style="cursor:pointer" onclick="cita_paciente(<?= $row['id'];?>)"></i>
@@ -78,7 +87,7 @@
 							if ($permisos[$editar]['status'] == 1 ){ 
 							?>
 							
-							<i title="Editar" data-rel="tooltip" data-placement="top"  style="cursor:pointer" class="fa fa-edit" data-rel="tooltip" data-placement="top"  onclick="location.href='<?= base_url(); ?>citas/editar/<?= $row['id'];?>/1'"></i>
+							<i title="Editar" data-rel="tooltip" data-placement="top"  style="cursor:pointer" class="fa fa-edit" data-rel="tooltip" data-placement="top"  onclick="editar_cita(<?= $row['id'];?>)"></i>
 							&nbsp;
 							<?php	
 								}else{
@@ -117,6 +126,7 @@
 						<th>Fecha / Hora</th>
 						<th>Doctor</th>
 						<th>Especialidad</th>
+						<th>Status</th>
 						<th>Opciones</th>
                       </tr>
                     </tfoot>
@@ -210,7 +220,9 @@
     <script src='<?=base_url()?>assets/plugins/fastclick/fastclick.min.js'></script>
     <!-- AdminLTE App -->
     <script src="<?=base_url()?>assets/dist/js/app.min.js" type="text/javascript"></script>
-
+	
+	<script src="<?=base_url()?>assets/js/datepicker-es.js" type="text/javascript"></script>
+	
 	  <!-- all -->
     <script src="<?=base_url()?>assets/js/scripts.js" type="text/javascript"></script>
 
@@ -223,13 +235,13 @@
 		window.onload = function() {
 			$( "#pac-body" ).load( "<?= base_url(); ?>citas/ver/<?= $this->session->flashdata('cita_modificada'); ?>" );
 			$('#modalPacDialog').modal();
+			
 		};
 		<?php endif;?>
-	
-	
-        $("#pacientes_table").dataTable({});
+	 
+        $("#citas_table").dataTable({});
 
-		 oTable = $('#pacientes_table').dataTable();
+		 oTable = $('#citas_table').dataTable();
 		 
 		 $('#buscar_table').keyup(function(){ oTable.fnFilter( $(this).val() )});
 
@@ -272,6 +284,30 @@
 			}); 
 		}
 		
+		function editar_cita(cita){ 
+
+		location.href='<?= base_url(); ?>citas/editar/'+cita;
+		
+		}
+		
+		<!--Funcion que buscar citas por fecha y doctor-->
+		function agenda_cita(fecha, doctor){ 
+				
+					var parametros = {
+							"doctor" : doctor,
+							"fecha" : fecha
+						};
+							
+							$.ajax({
+									data: parametros,
+									url:   '<?= base_url(); ?>citas/citas_doctor',
+									type:  'post',
+									success:  function (response) {
+											$("#citas_load").html(response);
+									}
+							});
+   
+			 } 		
     </script>
 	
   </body>

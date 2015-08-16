@@ -177,4 +177,19 @@ class Doctores extends CI_Controller {
 		$this->load->view('doctores/calendario_doctores', $data);
 			
 	}	
+	
+	//ver doctores en modal
+	public function ver() 
+	{		
+
+		$doctores = $this->doctores_model->get_lista_doctores();
+
+		if($doctores){
+			$data['doctores'] =  $doctores;
+		}else{
+			$data['doctores'] =  NULL;
+		}
+		
+		return $this->load->view('doctores/ver', $data);		
+    }
 }
