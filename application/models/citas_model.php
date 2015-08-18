@@ -55,6 +55,24 @@ class Citas_model extends CI_Model {
 			
 	}		
 	
+	function get_citas(){
+		
+		date_default_timezone_set('America/Caracas');
+		
+		$this->db->select("*,doctores.pnombre as nombre_doc, doctores.papellido as apellido_doc, cita_medica.id as id");
+		$this->db->from('cita_medica');
+		$this->db->join('doctores','cita_medica.doctores_id=doctores.id','left');
+		$this->db->join('especialidades','cita_medica.especialidades_id=especialidades.id','left');
+		$this->db->join('pacientes','cita_medica.pacientes_id=pacientes.id','left');
+		$this->db->join('hora_consulta','cita_medica.hora_id=hora_consulta.id','left');
+		$this->db->where('cita_medica.fecha',date('Y-m-d'));
+		$this->db->where('cita_medica.id NOT IN (SELECT espera_consulta.citas_id FROM espera_consulta)', NULL, FALSE);	
+		$this->db->where('cita_medica.status',1);		
+		$this->db->order_by('cita_medica.turno','ASC');			
+		$query = $this->db->get();	
+		return $query->result_array();		
+	}
+	
 	function get_citas_pac($paciente){	
 		$this->db->select("*,doctores.pnombre as nombre_doc, doctores.papellido as apellido_doc, cita_medica.id as id");
 		$this->db->from('cita_medica');
@@ -126,6 +144,28 @@ class Citas_model extends CI_Model {
 		}else{
 					$this->session->set_flashdata('error', 'Intente guardar los datos de nuevo');
 					redirect(base_url() . 'citas/programar', 'refresh');	
+		}
+						
+	}
+
+   function guardar_cita($data,$espera){
+  
+		$insertSQL= $this->db->insert('cita_medica', $data);
+		
+		$cita = $this->db->insert_id();
+		
+		$espera['citas_id']= $cita;
+		$espera['estado']=1;
+		
+		$insertSQL2= $this->db->insert('espera_consulta', $espera);
+		
+		if($insertSQL && $insertSQL2 ) {
+
+					$this->session->set_flashdata('info', 'El paciente fue agregado a la lista de espera con éxito');
+					redirect(base_url() . 'sala_espera/consultas', 'refresh');		 
+		}else{
+					$this->session->set_flashdata('error', 'Intente guardar los datos de nuevo');
+					redirect(base_url() . 'sala_espera/consultas', 'refresh');	
 		}
 						
 	}

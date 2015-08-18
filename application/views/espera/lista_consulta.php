@@ -10,14 +10,17 @@
         <!-- Content Header (Page header) -->
         <section class="content-header">
           <h1>
-         Agenda de citas médicas<small> - Doctor</small>
+          Sala de espera<small> - Consulta</small>
           </h1>
         </section>
 
         <!-- Main content -->
-        <section class="content">
-		
-			<?php if($this->session->flashdata('warning') != ''): ?>
+        <section class="content">		
+			  
+          <div class='row'>
+            <div class='col-md-12'>
+			
+						<?php if($this->session->flashdata('warning') != ''): ?>
 					  <div class="alert alert-warning alert-dismissable">
 							<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
 							<h4><i class="icon fa fa-warning"></i> Advertencia!</h4>
@@ -40,70 +43,60 @@
 							<?php echo $this->session->flashdata('info'); ?>
 					  </div>
 				<?php endif;?>
-				
-          <div class='row'>
-            <div class='col-md-12'>
+		
+		
 			  <div class="box">
                 <div class="box-header">
-                  <h3 class="box-title">Agenda del doctor: <?=  $doctor[0]['pnombre']; ?> <?=  $doctor[0]['papellido']; ?></h3>				 
-				<input type="text" id="buscar_table" class="form-control input-sm pull-right" style="width: 200px;" placeholder="Buscar">
-				</div><!-- /.box-header -->
-				
-				 <div class="box-header">
-                  <h3 class="box-title"><input type="text" class="form-control" name="fecha" id="fecha" value="<?= date('d-m-Y'); ?>"/></h3>				 
-				 <button type="button" class="btn btn-success" onclick="agenda_cita( $('#fecha').val(), <?= $doctor[0]['id']; ?> )">Buscar citas</button>
+                  <h3 class="box-title">Pacientes para consulta - hoy: <?= date('d-m-Y') ?> </h3>
+				  <input type="text" id="buscar_table" class="form-control input-sm pull-right" style="width: 200px;" placeholder="Buscar">
+                </div><!-- /.box-header -->
+              
+				<div class="box-header">
+						<button type="button" class="btn btn-sm btn-success" onClick="buscar_citas()">Buscar citas para hoy</button>
+						<button type="button" class="btn btn-sm btn-info" onclick="location.href='<?= base_url(); ?>citas/programar_cita'">Paciente sin cita</button>
+						<button type="button" class="btn btn-sm btn-warning pull-right" onclick="location.href='<?= base_url(); ?>sala_espera/borrar_lista_consultas'">Borrar lista de espera</button>
 				</div>
-
-                <div class="box-body" id="citas_load">
-
-                  <table id="citas_table" class="table table-bordered table-striped">
+				
+				<div class="box-body">			
+		
+                  <table id="pacientes_table" class="table table-bordered table-striped">
                     <thead>
                       <tr>
 						<th>#</th>
-						<th width="15%">Fecha / Hora</th>
+						<th>Hora llegada</th>
 						<th>Paciente</th>
+						<th>Doctor</th>
 						<th>Especialidad</th>
-						<th>Status</th>
+						<th>Estado</th>
 						<th width="15%">Opciones</th>
                       </tr>
                     </thead>
                     <tbody>
-					  <?php if(is_array($citas) && count($citas) ){
+					  <?php if(is_array($pac_consultas) && count($pac_consultas) ){
 						$numero=1;
-						foreach($citas as $row){ ?>
+						foreach($pac_consultas as $row){ ?>
 							<tr>
 		  
 						  <td><?=  $numero++ ?></td>
-						  <td> <?= date_format(date_create($row['fecha']), 'd/m/Y'); ?> - <?=  $row['hora_media']; ?> </td>
-						  <td><?= $row['pnombre'] ?> <?= $row['snombre'] ?> <?= $row['papellido'] ?> <?= $row['sapellido'] ?></td>
-						  <td><?=  $row['nombre']; ?></td>
-						  <td><?Php if($row['status'] == 1){ echo 'Pendiente'; }else{ echo 'Atendido'; } ?></td>
+						  <td><?= $row['hora_llegada']; ?></td>
+						  <td><?= $row['pnombre'] ?> <?= $row['papellido'] ?> <?Php if($row['cedula']){ echo 'C.I. '.$row['cedula']; }  ?></td>
+						  <td><?=  $row['nombre_doc']; ?> <?=  $row['apellido_doc']; ?></td>
+						  <td><?= $row['nombre'] ?></td>
+						  <td>
+						  <span id="label_status<?= $row['id'];?>">
+						  <?Php if($row['estado'] == 1){ echo '<span class="text-red">En espera</span>'; }else{ echo '<span class="text-green">Atendido</span>';} ?>
+						  </span>
+						  <input type="hidden" value="<?= $row['estado'] ?>" id="value_status<?= $row['id'];?>">
+						  </td>
 						  <td>
 							
-							<i class="fa fa-info-circle" data-rel="tooltip" data-placement="top"  title="ver cita" style="cursor:pointer" onclick="cita_paciente(<?= $row['id'];?>)"></i>
+							<i class="fa fa-user-md"  title="Cambiar status" style="cursor:pointer" data-rel="tooltip" data-placement="top" onclick="cambiar_status(<?= $row['id'];?>)"></i>
 							&nbsp;
-
-							<?php									
-							if ($permisos[$editar]['status'] == 1 ){ 
-							?>
-							
-							<i title="Editar" data-rel="tooltip" data-placement="top"  style="cursor:pointer" class="fa fa-edit" data-rel="tooltip" data-placement="top"  onclick="editar_cita(<?= $row['id'];?>)"></i>
-							&nbsp;
-							<?php	
-								}else{
-							?>
-							
-							<i class="fa fa-edit" title="editar "data-rel="tooltip" data-placement="top"  onclick="editar_permiso()"></i>
-							&nbsp;
-							<?php	
-								}
-							?>			
-							
 							<?php									
 							if ($permisos[$borrar]['status'] == 1 ){ 
 							?>
 							
-							<i title="Eliminar" data-rel="tooltip" data-placement="top"  style="cursor:pointer" class="fa fa-trash-o" onclick="eliminar(<?= $row['id'];?>, '<?= base_url(); ?>citas/eliminar')"></i>
+							<i title="Eliminar" data-rel="tooltip" data-placement="top"  style="cursor:pointer" class="fa fa-trash-o" onclick="eliminar(<?= $row['id'];?>, '<?= base_url(); ?>sala_espera/eliminar_consulta')"></i>
 
 							<?php	
 								}else{
@@ -113,7 +106,8 @@
 
 							<?php	
 								}
-							?>			
+							?>				
+		
 						   </td>			
 
 						 </tr>
@@ -123,10 +117,11 @@
                     <tfoot>
                       <tr>
 						<th>#</th>
-						<th>Fecha / Hora</th>
+						<th>Hora llegada</th>
+						<th>Paciente</th>
 						<th>Doctor</th>
 						<th>Especialidad</th>
-						<th>Status</th>
+						<th>Estado</th>
 						<th>Opciones</th>
                       </tr>
                     </tfoot>
@@ -137,65 +132,41 @@
             </div><!-- /.col-->
           </div><!-- ./row -->
 		  
-	      <div class="modal modal-warning" id="warning_modal" role="dialog">
-              <div class="modal-dialog"  role="document">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title">Permisos</h4>
-                  </div>
-                  <div class="modal-body">
-                    <p>No tiene permiso para eliminar citas</p>
-                  </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-outline" data-dismiss="modal">Ok</button>
-                  </div>
-                </div><!-- /.modal-content -->
-              </div><!-- /.modal-dialog -->
-            </div><!-- /.modal -->
-
-     <div class="modal modal-warning" id="warning_edit_modal" role="dialog">
-              <div class="modal-dialog"  role="document">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title">Permisos</h4>
-                  </div>
-                  <div class="modal-body">
-                    <p>No tiene permiso para editar citas del paciente</p>
-                  </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-outline" data-dismiss="modal">Ok</button>
-                  </div>
-                </div><!-- /.modal-content -->
-              </div><!-- /.modal-dialog -->
-            </div><!-- /.modal -->
-	
-
-		<div class="modal" id="modalPacDialog" role="dialog">
-		  <div class="modal-dialog"  role="document" style="width: 40%;">
+		<div class="modal" id="modalEsperaDialog" role="dialog">
+		  <div class="modal-dialog"  role="document" style="width: 70%;">
 			<div class="modal-content">
 			  <div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-					<h4 class="modal-title">Cita del paciente</h4>
-					<span id="mnj_cambio" class="text-green">
-					<?php if($this->session->flashdata('cita_modificada') != ''): ?>	
-					 &nbsp;Modificada con éxito 
-					<?php endif;?>
-					</span>
+					<h4 class="modal-title">Citas médicas para hoy</h4>
 				</div>
-						<div class="modal-body" id="pac-body">
+						<div class="modal-body" id="citas-body">
 						</div>
 			 <div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal">Ok</button>
+				<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
 			  </div>
 			</div>
 			<!-- /.modal-content --> 
 		  </div>
 		  <!-- /.modal-dialog --> 
-		</div>	
-		
-	
+		</div>		        
+			
+			<div class="modal modal-warning" id="warning_modal" role="dialog">
+              <div class="modal-dialog"  role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Permisos</h4>
+                  </div>
+                  <div class="modal-body">
+                    <p>No tiene permiso para eliminar datos</p>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-outline" data-dismiss="modal">Ok</button>
+                  </div>
+                </div><!-- /.modal-content -->
+              </div><!-- /.modal-dialog -->
+            </div><!-- /.modal -->
+
         </section><!-- /.content -->
       </div><!-- /.content-wrapper -->
 
@@ -220,9 +191,7 @@
     <script src='<?=base_url()?>assets/plugins/fastclick/fastclick.min.js'></script>
     <!-- AdminLTE App -->
     <script src="<?=base_url()?>assets/dist/js/app.min.js" type="text/javascript"></script>
-	
-	<script src="<?=base_url()?>assets/js/datepicker-es.js" type="text/javascript"></script>
-	
+
 	  <!-- all -->
     <script src="<?=base_url()?>assets/js/scripts.js" type="text/javascript"></script>
 
@@ -230,18 +199,10 @@
     <script type="text/javascript">
 	
       $(document).ready(function () {
-		
-		<?php if($this->session->flashdata('cita_modificada') != ''): ?>		
-		window.onload = function() {
-			$( "#pac-body" ).load( "<?= base_url(); ?>citas/ver/<?= $this->session->flashdata('cita_modificada'); ?>" );
-			$('#modalPacDialog').modal();
-			
-		};
-		<?php endif;?>
-	 
-        $("#citas_table").dataTable({});
+		  
+        $("#pacientes_table").dataTable({});
 
-		 oTable = $('#citas_table').dataTable();
+		 oTable = $('#pacientes_table').dataTable();
 		 
 		 $('#buscar_table').keyup(function(){ oTable.fnFilter( $(this).val() )});
 
@@ -252,22 +213,16 @@
 		$('[data-rel=tooltip]').tooltip();
 		$('[data-rel=popover]').popover({html:true});
 				
-      });	
-	 
+      });				
 
-		function cita_paciente(id){
-			$('#mnj_cambio').empty();
-			$( "#pac-body" ).load( "<?= base_url(); ?>citas/ver/"+id );
-			$('#modalPacDialog').modal();
-		}				
-
-
+		function buscar_citas(){
+			
+			$( "#citas-body" ).load( "<?= base_url(); ?>citas/hoy");
+			$('#modalEsperaDialog').modal();
+		}	
+		
 		function eliminar_permiso(){ 			
 			$('#warning_modal').modal('show');			
-		};	
-
-		function editar_permiso(){ 			
-			$('#warning_edit_modal').modal('show');			
 		};	
 		
 		function eliminar(id, url_delete){
@@ -283,31 +238,38 @@
 					   })
 			}); 
 		}
-		
-		function editar_cita(cita){ 
 
-		location.href='<?= base_url(); ?>citas/editar/'+cita;
-		
-		}
-		
-		<!--Funcion que buscar citas por fecha y doctor-->
-		function agenda_cita(fecha, doctor){ 
+			
+			function cambiar_status(cita) {  
+								
+				var status 		= document.getElementById('value_status'+cita).value;
+				var oldStatus 	= document.getElementById('value_status'+cita).value;
+
+				if(status == 1){
+					status = 2;
+				}else{
+					status = 1;
+				}
 				
-					var parametros = {
-							"doctor" : doctor,
-							"fecha" : fecha
-						};
-							
-							$.ajax({
-									data: parametros,
-									url:   '<?= base_url(); ?>citas/citas_doctor',
-									type:  'post',
-									success:  function (response) {
-											$("#citas_load").html(response);
-									}
-							});
-   
-			 } 		
+				$.ajax({ 
+				   url:'<?= base_url(); ?>sala_espera/cambiar_status_consulta',
+				   type: "GET",
+				   data: { id: cita, status: status },		   
+				   success: function(response){ 
+						if(response == true){
+						if(oldStatus==1){
+									document.getElementById('value_status'+cita).value = 2;
+									$('#label_status'+cita).html('<span class="text-green">Atendido</span>');
+								}
+								else{
+									document.getElementById('value_status'+cita).value = 1;
+									$('#label_status'+cita).html('<span class="text-red">En espera</span>');
+								} 		
+						 }	
+					} 
+				})
+				
+			};				
     </script>
 	
   </body>

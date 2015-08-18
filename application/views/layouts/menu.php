@@ -2,6 +2,7 @@
 	  <?php $permisos_pac 	= $this->crud_model->get_permisos($this->session->userdata('rol'),2); ?>
 	  <?php $permisos_doc 	= $this->crud_model->get_permisos($this->session->userdata('rol'),3); ?>
 	  <?php $permisos_cit 	= $this->crud_model->get_permisos($this->session->userdata('rol'),4); ?>
+	  <?php $permisos_esp 	= $this->crud_model->get_permisos($this->session->userdata('rol'),5); ?>
 	   
 	  <!-- Left side column. contains the sidebar -->
       <aside class="main-sidebar">
@@ -144,18 +145,20 @@
               <?php } ?>
 			  </ul>
             </li>
-			<?php } ?>	
+			<?php } ?>
 			
-			<li>
+			<?php	if ($permisos_esp[1]['status'] == 1 ){ ?>
+			<li>			 
               <a href="../widgets.html">
                 <i class="fa fa-group"></i> <span>Sala de Espera</span>
               </a>
 			   <ul class="treeview-menu">
-                <li><a href="#"><i class="fa fa-circle-o"></i>Ver</a></li>
-                <li><a href="#"><i class="fa fa-circle-o"></i>Registrar</a></li>
+                <li><a href="<?= base_url();?>sala_espera/consultas"><i class="fa fa-wheelchair"></i>Consultas</a></li>
+                <li><a href="#"><i class="fa fa-medkit"></i>Terapias</a></li>
               </ul>
             </li>
-
+			<?php } ?>	
+			
 			<li>
               <a href="../widgets.html">
                 <i class="fa fa-stethoscope"></i> <span>Consulta Médica</span>

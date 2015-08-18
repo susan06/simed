@@ -58,6 +58,27 @@ class Citas extends CI_Controller {
 		$this->load->view('citas/programar', $data);
 
 	}
+
+	public function programar_cita(){	
+		
+		date_default_timezone_set('America/Caracas');
+		
+		$data['page_title'] = 'Citas';
+		$data['system_title'] = 'Programar';		
+		
+		$this->load->model('doctores_model');
+		
+		$doctores = $this->doctores_model->get_lista_doctores();
+
+		if($doctores){
+			$data['doctores'] =  $doctores;
+		}else{
+			$data['doctores'] =  NULL;
+		}
+		
+		$this->load->view('citas/programar_sin_cita', $data);
+
+	}
 	
 	public function agenda($doctor){	
 
@@ -66,6 +87,10 @@ class Citas extends CI_Controller {
 		$data['permisos'] = $this->permisos();
 		$data['borrar'] = 3;
 		$data['editar'] = 2;
+		
+		$this->load->model('doctores_model');
+		
+		$data['doctor'] = $this->doctores_model->get_datos_doctor($doctor);	
 		
 		$citas = $this->citas_model->get_citas_doc($doctor);
 
@@ -149,6 +174,20 @@ class Citas extends CI_Controller {
 		return $this->load->view('citas/ver', $data);		
     }
 	
+	//ver citas hoy en modal
+	public function hoy() 
+	{		
+
+		$citas = $this->citas_model->get_citas();
+		if($citas){
+			$data['citas'] =  $citas;
+		}else{
+			$data['citas'] =  NULL;
+		}
+		
+		return $this->load->view('citas/hoy', $data);		
+    }
+	
 	public function guardar(){		
 
 		 $data['pacientes_id']= $this->input->post('pacientes_id');
@@ -160,6 +199,20 @@ class Citas extends CI_Controller {
 		 $data['hora_id']= $this->input->post('hora_id');
 		 	
 		$this->citas_model->guardar($data);
+	}
+	
+	public function guardar_cita(){		
+
+		 $data['pacientes_id']= $this->input->post('pacientes_id');
+		 $data['fecha']= date("Y-m-d",strtotime($this->input->post('fecha')));
+		 $data['turno']= $this->input->post('turno');
+		 $data['status']= 1;
+		 $data['doctores_id']= $this->input->post('doctores_id');
+		 $data['especialidades_id']= $this->input->post('especialidades_id');
+		 
+		 $espera['hora_llegada']= $this->input->post('hora');
+		 	
+		$this->citas_model->guardar_cita($data,$espera);
 	}
 	
 	public function editar($id,$type='') 

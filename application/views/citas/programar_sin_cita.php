@@ -42,18 +42,15 @@
               <!-- general form elements disabled -->
               <div class="box box-warning">
                 <div class="box-body">
-                  <form method="post" name="form_cita" id="form_cita" action="<?php echo base_url(); ?>citas/guardar">  
-                    
-					<div class="row">
+                  <form method="post" name="form_cita" id="form_cita" action="<?php echo base_url(); ?>citas/guardar_cita">  
+				  
+				  <div class="row">
+                    <!-- text input -->
                     <div class="form-group col-xs-8">
                       <label>Paciente</label>
-					<div class="row">	
-					  <div class="col-xs-12">
                       <input type="text" class="form-control" id="pacientes" placeholder="Escriba aqui para buscar"/>
 					  <input type="hidden" class="form-control" name="pacientes_id" id="pacientes_id" required />
-                    </div> 
-					</div> 
-					</div>
+                    </div>
 					 <div class="form-group col-xs-4">
 						<label>Cédula</label>
 						<div class="row">				 
@@ -62,13 +59,14 @@
 						</div> 
 						</div>
 					</div> 
-					</div>
+					</div> 
 					
-	                 <div class="form-group">
+					<div class="row">
+	                 <div class="form-group col-xs-6">
                       <label>Doctor</label>
 					  <div class="row">	
-					  <div class="col-xs-6">
-						<select class="form-control" name="doctores_id" id="doctor" required onChange="cargar_lista_especialidad(this.value); hora_cita($('#turno').val(), this.value, $('#fecha').val())">
+					  <div class="col-xs-12">
+						<select class="form-control" name="doctores_id" id="doctor" required onChange="cargar_lista_especialidad(this.value);">
 								  <option value="">Seleccione doctor</option>
 						<?php if(is_array($doctores) && count($doctores) ){
 						foreach($doctores as $row){ ?>		  
@@ -80,52 +78,60 @@
 						</div>
 						</div>
                     </div>  
-					 <div class="form-group">
+					</div> 
+					
+					<div class="row">
+					 <div class="form-group col-xs-6">
                       <label>Especialidad</label>
                       <div class="row">	
-					  <div class="col-xs-6">
+					  <div class="col-xs-12">
 						<select class="form-control" name="especialidades_id" required id="especialidades_id">
 							<option value="">Seleccione primero el doctor</option>
 						</select>
 						</div>
 						</div>
                     </div> 
+					</div> 
 					
-					<div class="form-group">
+					<div class="row">
+					<div class="form-group col-xs-4">
 						<label>Fecha</label>
 						<div class="row">				 
-						<div class="col-xs-4">
-						  <input type="text" name="fecha" class="form-control" id="fecha" onblur="hora_cita( $('#turno').val(), $('#doctor').val(), $('#fecha').val() )"/>
+						<div class="col-xs-10">
+						  <input type="text" name="fecha" class="form-control" id="fecha" value="<?= date('d-m-Y'); ?>" readonly />
 						</div> 
 						</div>
-					</div> 
-					<div class="form-group">
+					</div>
+					<div class="form-group col-xs-4">
                       <label>Turno</label>
                       	<div class="row">	
-							<div class="col-xs-4">
-							<select class="form-control" name="turno" required id="turno" onChange="hora_cita(this.value, $('#doctor').val(), $('#fecha').val())">
-								<option value="">Seleccione turno</option>
-								<option value="1">Mañana</option>
-								<option value="2">Tarde</option>
+							<div class="col-xs-10">
+							<select class="form-control" name="turno" required id="turno">
+								<?Php if(date('a') =='am'){; ?>
+								<option value="1" selected>Mañana</option>
+								<?Php }else{ ?>
+								<option value="2" selected >Tarde</option>
+								<?Php } ?>
 							</select>
 							</div>
 						</div>
-                    </div> 
-					
-					 <div class="form-group">
-                      <label>Hora pautada</label>
+                    </div> 		
+					 <div class="form-group col-xs-4">
+                      <label>Hora de llegada</label>
                      	<div class="row">	
-							<div class="col-xs-7">
-							<select class="form-control" name="hora_id" required id="hora_id">
-								<option value="">Seleccione primero el turno</option>
+							<div class="col-xs-10">
+							<select class="form-control" name="hora" required id="hora_id">
+								<option value="<?= date('h:i a'); ?>" selected><?= date('h:i a'); ?></option>
 							</select>
 							</div>
 						</div>
                     </div> 
+					</div> 
+					
 				</div><!-- /.box-body -->
 				   <div class="box-footer">
                     <button type="submit" class="btn btn-success pull-right">Guardar cita</button>
-					<button type="reset" class="btn btn-warning pull-left">Borra datos</button>
+					<button type="reset" class="btn btn-warning pull-left" onclick="location.href='<?= base_url(); ?>sala_espera/consultas'">Volver a sala de espera</button>
                   </div>
 				  </form>
               </div><!-- /.box -->
@@ -182,8 +188,6 @@
 
 	<script src="<?=base_url()?>assets/js/scripts.js" type="text/javascript"></script>
 	
-	<script src="<?=base_url()?>assets/js/datepicker-es.js" type="text/javascript"></script>
-	
 	   <!-- Form -->
     <script src='<?=base_url()?>assets/plugins/jQuery_validate/lib/jquery.form.js'></script>
 	<script src='<?=base_url()?>assets/plugins/jQuery_validate/dist/jquery.validate.js'></script>
@@ -197,12 +201,6 @@
 		
 		$(document).ready(function(){					
 		
-		<?php if($this->session->flashdata('resumen') != ''): ?>		
-		window.onload = function() {
-			$( "#pac-body" ).load("<?= base_url(); ?>citas/ver/<?= $this->session->flashdata('resumen'); ?>" );
-			$('#modalPacDialog').modal();
-		};
-		<?php endif;?>
 	
 			$("#pacientes").autocomplete({
 					source: '<?= base_url(); ?>pacientes/autocomplete',
@@ -233,33 +231,7 @@
    
 			 } 
 			   
-					
-			<!--Funcion que llena un select de horas disponibles para cita-->
-			function hora_cita(turno, doctor, fecha){ 
-			
-			if(doctor && fecha){
-				$.get("<?= base_url(); ?>citas/horas",
-					{ turno:turno, doctor:doctor, fecha:fecha },
-					function(data) {
-						$('#hora_id').empty();
-						$('#hora_id').append($('<option></option>').text('Seleccione hora disponibles').val('')); 
-						$.each(data, function(i) {
-							$('#hora_id').append("<option value='" + data[i].id + "'>" + data[i].hora + "</option>");
-						});
-				}, "json");
-			}else{
-				$('#hora_id').empty();
-				$('#hora_id').append($('<option></option>').text('Seleccione hora disponibles').val(''));
-					if(!doctor){
-					$('#hora_id').append($('<option></option>').text('Debe seleccionar un DOCTOR para mostras horas').val('')); 
-					}	
-					if(!fecha){
-					$('#hora_id').append($('<option></option>').text('Debe seleccionar una FECHA para mostras horas').val('')); 
-					}
-			}
-			
-			}
-			   
+		
 		</script>	
 
   </body>
