@@ -94,6 +94,7 @@
 				  <div class="input-group">
 					<input type="password" class="form-control" placeholder="contraseña" name="clave">
 					<div class="input-group-btn">
+					<?= $this->session->userdata('sexo'); ?>
 					  <button class="btn"><i class="fa fa-arrow-right text-muted"></i></button>
 					</div>
 				  </div>

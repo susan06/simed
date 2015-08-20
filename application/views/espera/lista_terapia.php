@@ -10,7 +10,7 @@
         <!-- Content Header (Page header) -->
         <section class="content-header">
           <h1>
-          Sala de espera<small> - Consulta</small>
+          Sala de espera<small> - Terapias</small>
           </h1>
         </section>
 
@@ -47,14 +47,15 @@
 		
 			  <div class="box">
                 <div class="box-header">
-                  <h3 class="box-title">Pacientes para consulta - hoy: <?= date('d-m-Y') ?> </h3>
+                  <h3 class="box-title">Pacientes para terapia - hoy: <?= date('d-m-Y') ?> </h3>
 				  <input type="text" id="buscar_table" class="form-control input-sm pull-right" style="width: 200px;" placeholder="Buscar">
                 </div><!-- /.box-header -->
               
 				<div class="box-header">
-						<button type="button" class="btn btn-sm btn-success" onClick="buscar_citas()">Buscar citas para hoy</button>
-						<button type="button" class="btn btn-sm btn-info" onclick="location.href='<?= base_url(); ?>citas/programar_cita'">Paciente sin cita</button>
-						<button type="button" class="btn btn-sm btn-warning pull-right" onclick="location.href='<?= base_url(); ?>sala_espera/borrar_lista_consultas'">Borrar lista de espera</button>
+				        <h3 class="box-title col-md-5"><input type="text" class="form-control" id="pacientes" placeholder="Escriba aqui para buscar al paciente"/></h3>
+						<button type="button" class="btn btn-sm btn-success" onclick="agregar_pac_terapia($('#pacientes_id').val())">Agregar a sala de espera</button>
+						<input type="hidden" class="form-control" id="pacientes_id"/>
+						<button type="button" class="btn btn-sm btn-warning pull-right" onclick="location.href='<?= base_url(); ?>sala_espera/borrar_lista_terapias'">Borrar lista de espera</button>
 				</div>
 				
 				<div class="box-body">			
@@ -65,23 +66,19 @@
 						<th>#</th>
 						<th>Hora llegada</th>
 						<th>Paciente</th>
-						<th>Doctor</th>
-						<th>Especialidad</th>
 						<th>Estado</th>
 						<th width="15%">Opciones</th>
                       </tr>
                     </thead>
                     <tbody>
-					  <?php if(is_array($pac_consultas) && count($pac_consultas) ){
+					  <?php if(is_array($pac_terapias) && count($pac_terapias) ){
 						$numero=1;
-						foreach($pac_consultas as $row){ ?>
+						foreach($pac_terapias as $row){ ?>
 							<tr>
 		  
 						  <td><?=  $numero++ ?></td>
 						  <td><?= $row['hora_llegada']; ?></td>
 						  <td><?= $row['pnombre'] ?> <?= $row['papellido'] ?> <?Php if($row['cedula']){ echo 'C.I. '.$row['cedula']; }  ?></td>
-						  <td><?=  $row['nombre_doc']; ?> <?=  $row['apellido_doc']; ?></td>
-						  <td><?= $row['nombre'] ?></td>
 						  <td>
 						  <span id="label_status<?= $row['id'];?>">
 						  <?Php if($row['estado'] == 1){ echo '<span class="text-red">En espera</span>'; }else{ echo '<span class="text-green">Atendido</span>';} ?>
@@ -96,7 +93,7 @@
 							if ($permisos[$borrar]['status'] == 1 ){ 
 							?>
 							
-							<i title="Eliminar" data-rel="tooltip" data-placement="top"  style="cursor:pointer" class="fa fa-trash-o" onclick="eliminar(<?= $row['id'];?>, '<?= base_url(); ?>sala_espera/eliminar_consulta')"></i>
+							<i title="Eliminar" data-rel="tooltip" data-placement="top"  style="cursor:pointer" class="fa fa-trash-o" onclick="eliminar(<?= $row['id'];?>, '<?= base_url(); ?>sala_espera/eliminar_terapia')"></i>
 
 							<?php	
 								}else{
@@ -119,8 +116,6 @@
 						<th>#</th>
 						<th>Hora llegada</th>
 						<th>Paciente</th>
-						<th>Doctor</th>
-						<th>Especialidad</th>
 						<th>Estado</th>
 						<th>Opciones</th>
                       </tr>
@@ -206,20 +201,24 @@
 		 
 		 $('#buscar_table').keyup(function(){ oTable.fnFilter( $(this).val() )});
 
-		$('body').on('hidden.bs.modal', '.modal', function (e) {
-			$(e.target).removeData("bs.modal").find(".modal-body").empty(); 
-		});		 
-		
 		$('[data-rel=tooltip]').tooltip();
 		$('[data-rel=popover]').popover({html:true});
+		
+		$("#pacientes").autocomplete({
+						
+					source: '<?= base_url(); ?>pacientes/autocomplete',
+					minlength:2,
+					html:true,
+					select: function(event, ui) {								
+								event.preventDefault();
+								$(this).val(ui.item.label);
+								$("#pacientes_id").val(ui.item.id);
+								$("#cedula").val(ui.item.ci);
+							}
+		});	
 				
       });				
 
-		function buscar_citas(){
-			
-			$( "#citas-body" ).load( "<?= base_url(); ?>citas/hoy");
-			$('#modalEsperaDialog').modal();
-		}	
 		
 		function eliminar_permiso(){ 			
 			$('#warning_modal').modal('show');			
@@ -240,7 +239,7 @@
 		}
 
 			
-			function cambiar_status(cita) {  
+		function cambiar_status(cita) {  
 								
 				var status 		= document.getElementById('value_status'+cita).value;
 				var oldStatus 	= document.getElementById('value_status'+cita).value;
@@ -252,7 +251,7 @@
 				}
 				
 				$.ajax({ 
-				   url:'<?= base_url(); ?>sala_espera/cambiar_status_consulta',
+				   url:'<?= base_url(); ?>sala_espera/cambiar_status_terapia',
 				   type: "GET",
 				   data: { id: cita, status: status },		   
 				   success: function(response){ 
@@ -269,7 +268,24 @@
 					} 
 				})
 				
-			};				
+		};		
+
+		function agregar_pac_terapia(paciente) {  
+				
+				if(paciente){
+					$.ajax({ 
+				   url:'<?= base_url(); ?>sala_espera/agregar_terapia',
+				   type: "POST",
+				   data: { pacientes_id: paciente },		   
+				   success: function(response){ 
+						location.reload();
+						} 
+					})
+				}else{
+					bootbox.alert("Seleccione un paciente que este registrado");
+				}
+				
+		};				
     </script>
 	
   </body>

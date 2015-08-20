@@ -154,31 +154,26 @@
               </a>
 			   <ul class="treeview-menu">
                 <li><a href="<?= base_url();?>sala_espera/consultas"><i class="fa fa-wheelchair"></i>Consultas</a></li>
-                <li><a href="#"><i class="fa fa-medkit"></i>Terapias</a></li>
+                <li><a href="<?= base_url();?>sala_espera/terapias"><i class="fa fa-medkit"></i>Terapias</a></li>
               </ul>
             </li>
 			<?php } ?>	
-			
+			<?Php if($this->session->userdata('rol') == 3): ?>
 			<li>
-              <a href="../widgets.html">
+              <a href="<?= base_url();?>consulta/sala_espera">
                 <i class="fa fa-stethoscope"></i> <span>Consulta Médica</span>
               </a>
-			   <ul class="treeview-menu">
-                <li><a href="#"><i class="fa fa-circle-o"></i>Ver</a></li>
-                <li><a href="#"><i class="fa fa-circle-o"></i>Registrar</a></li>
-              </ul>
             </li>
-
+			<?Php endif ?>
+			
+			<?Php if($this->session->userdata('rol') == 2 || $this->session->userdata('rol') == 3 || $this->session->userdata('rol') == 4 ): ?>			
 			<li>
-              <a href="../widgets.html">
+              <a href="<?= base_url();?>expediente/pacientes">
                 <i class="fa fa-folder-open-o"></i> <span>Expediente Médico</span>
               </a>
-			   <ul class="treeview-menu">
-                <li><a href="#"><i class="fa fa-circle-o"></i>Ver</a></li>
-                <li><a href="#"><i class="fa fa-circle-o"></i>Registrar</a></li>
-              </ul>
             </li>
-
+			<?Php endif ?>
+			
 			<li>
               <a href="../widgets.html">
                 <i class="fa fa-medkit"></i> <span>Terapias</span>

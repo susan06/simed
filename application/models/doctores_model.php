@@ -63,7 +63,7 @@ class Doctores_model extends CI_Model {
 	
 	$mes_pasado=date('m', strtotime('now - 2 month'));
 	
-	$this->db->where("DATE_FORMAT(start, '%m')",$mes_pasado);
+	$this->db->where("DATE_FORMAT(start, '%m') = $mes_pasado");
 	$this->db->delete('eventos');
 	
 		$this->db->select('*');
@@ -87,7 +87,8 @@ class Doctores_model extends CI_Model {
 	}
 	
     function get_eventos(){	
-	
+		date_default_timezone_set('America/Caracas');
+		
 		$mes_pasado=date('m', strtotime('now - 2 month'));
 	
 		$this->db->where("DATE_FORMAT(start, '%m') = $mes_pasado");

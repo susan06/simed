@@ -27,8 +27,17 @@ class Pacientes_model extends CI_Model {
 	}
 	
     function guardar($data){
-  
+		
+		date_default_timezone_set('America/Caracas');
+		
 		$insertSQL= $this->db->insert('pacientes', $data);
+		
+		$paciente = $this->db->insert_id();
+		
+		$exp['pacientes_id'] = $paciente;
+		$exp['fecha']  = date('Y-m-d');
+		
+		$this->db->insert('expediente_medico', $exp);
 		
 		if($insertSQL) {
 					$this->session->set_flashdata('info', 'El Paciente '.$data['pnombre'].' '.$data['papellido'].' fue registrado con éxito!');

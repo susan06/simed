@@ -24,6 +24,34 @@ class Espera_model extends CI_Model {
 		$query = $this->db->get();	
 		return $query->result_array();							
 	}
+
+	function get_lista_consulta_doc($doctor){
+		
+		date_default_timezone_set('America/Caracas');
+		
+		$this->db->select("*, espera_consulta.id as id, cita_medica.id as cita_id, pacientes.pnombre as pnombre, pacientes.papellido as papellido, doctores.pnombre as nombre_doc, doctores.papellido as apellido_doc, pacientes.id as paciente_id, doctores.id as doctor_id, especialidades.id as especialidad_id");
+		$this->db->from('espera_consulta');
+		$this->db->join('cita_medica','espera_consulta.citas_id=cita_medica.id','left');
+		$this->db->join('especialidades','cita_medica.especialidades_id=especialidades.id','left');
+		$this->db->join('pacientes','cita_medica.pacientes_id=pacientes.id','left');
+		$this->db->join('doctores','cita_medica.doctores_id=doctores.id','left');
+		$this->db->where('cita_medica.doctores_id',$doctor);
+		$this->db->order_by('espera_consulta.id', 'ASC');			
+		$query = $this->db->get();	
+		return $query->result_array();							
+	}
+	
+	function get_lista_terapia(){	
+		date_default_timezone_set('America/Caracas');
+		
+		$this->db->select("*, pacientes.id as paciente_id, espera_tratamiento.id as id");
+		$this->db->from('espera_tratamiento');
+		$this->db->join('pacientes','espera_tratamiento.pacientes_id=pacientes.id','left');
+		$this->db->order_by('espera_tratamiento.id', 'ASC');			
+		$query = $this->db->get();	
+		return $query->result_array();							
+	}
+	
 	
 	function borrar_lista_consultas(){	
 	
@@ -44,10 +72,10 @@ class Espera_model extends CI_Model {
 		
 		if($deleteSQL) {
 					$this->session->set_flashdata('info', 'La lista de sala de espera por terapias fue borrada con éxito');
-					redirect(base_url() . 'sala_espera/consultas', 'refresh');		 
+					redirect(base_url() . 'sala_espera/terapias', 'refresh');		 
 		}else{
 					$this->session->set_flashdata('error', 'Ocurrió un error, intentelo de nuevo');
-					redirect(base_url() . 'sala_espera/consultas', 'refresh');	
+					redirect(base_url() . 'sala_espera/terapias', 'refresh');	
 		}
 	}	
 	
@@ -98,27 +126,9 @@ class Espera_model extends CI_Model {
 	
 	
 	
-	function get_lista_terapia(){	
-		$this->db->select("pacientes.primer_nom_pac, pacientes.primer_apell_pac, espera_tratamiento.cod_espera_tratam, espera_tratamiento.estado");
-		$this->db->from('espera_tratamiento');
-		$this->db->join('pacientes','pacientes.num_pac=espera_tratamiento.num_pac','left');
-		$this->db->order_by('espera_tratamiento.cod_espera_tratam', 'ASC');			
-		$query = $this->db->get();	
-		return $query->result_array();							
-	}
+
 	
-	
-	function get_cita($cita){
-		$this->db->select("cita_medica.cod_cita, cita_medica.turno_cita, cita_medica.estado, doctor.nom_doc, doctor.apell_doc, pacientes.primer_nom_pac, pacientes.primer_apell_pac, especialidad.descripcion_espec, hora_consulta.hora_media");
-		$this->db->from('cita_medica');
-		$this->db->join('hora_consulta','cita_medica.hora=hora_consulta.cod_hora','left');
-		$this->db->join('doctor','cita_medica.id_doctor=doctor.id_doctor','left');
-		$this->db->join('pacientes','pacientes.num_pac=cita_medica.num_pac','left');
-		$this->db->join('especialidad','cita_medica.cod_especialidad=especialidad.cod_especialidad','left');
-		$this->db->where('cita_medica.cod_cita', $cita);		
-		$query = $this->db->get();	
-		return $query->result_array();			
-	}
+
 	
    function lista_espera($cita,$estado,$hora,$turno){  
 		$datos_cita = array(

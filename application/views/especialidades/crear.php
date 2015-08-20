@@ -50,7 +50,7 @@
                   </div><!-- /.box-body -->
 
                   <div class="box-footer">
-                    <button type="submit" class="btn btn-success pull-right" id="boton_submit">Guardar</button>
+                    <button type="submit" class="btn btn-success pull-right">Guardar</button>
                   </div>
 
 				</form>

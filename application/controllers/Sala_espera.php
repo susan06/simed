@@ -126,89 +126,46 @@ class Sala_espera extends CI_Controller {
 		 	
 	}	
 	
-	
-	
-	
-	
-	
-	public function espera_terapias(){	
+	public function terapias(){
+
+		$data['page_title'] = 'Sala de espera';
+		$data['system_title'] = 'Consultas';		
+		$data['permisos'] = $this->permisos();
+		$data['borrar'] = 3;
+		
 		$query = $this->espera_model->get_lista_terapia();
 		if($query){
 			$data['pac_terapias'] =  $query;
 		}else{
 			$data['pac_terapias'] =  NULL;
 		}
-		return $this->load->view('espera/pacientes_terapia', $data);	
-	}
-	
-    public function borrar_pac_consulta(){	
-		 $lista = $this->input->post('id');
-		 $this->espera_model->borrar_pac_consulta($lista);		
-	}
-
-	public function borrar_pac_terapia(){	
-		 $lista = $this->input->post('id');
-		 $this->espera_model->borrar_pac_terapia($lista);		
-	}
-	
-	public function citas_programadas(){	
-		$query = $this->espera_model->citas_programadas();
-		if($query){
-			$data['citas_programadas'] =  $query;
-		}else{
-			$data['citas_programadas'] =  NULL;
-		}
-		return $this->load->view('espera/citas_programadas', $data);	
-	}
-	
-	public function agregar_cita(){
-		$cita = $this->input->get('id');
-		$query = $this->espera_model->get_cita($cita);
-		if($query){
-			$data['datos_cita'] =  $query;
-		}else{
-			$data['datos_cita'] =  NULL;
-		}
-		return $this->load->view('espera/datos_cita', $data);
-	}
-	
-	public function agregar_lista_consulta(){
-		$turno= ($this->input->post('turno_cita'));
-		$cita= ($this->input->post('cod_cita'));
-		$estado= ($this->input->post('estado'));
-		$hora= ($this->input->post('hora_llegada'));
-		$this->espera_model->lista_espera($cita,$estado,$hora,$turno);
-	}
-
-	public function autocomplete_pac(){	
-		if(isset($_GET['term'])){	
-		 $paciente = strtolower($_GET['term']);
-		 $this->espera_model->autocompletar_paciente($paciente);
-		}
-	}
-
-	public function nueva_cita(){					   
-		$paciente= ($this->input->post('num_pac'));
-		$doctor= ($this->input->post('id_doctor'));
-		$fecha= ($this->input->post('fecha_cita'));
-		$especialidad= ($this->input->post('cod_especialidad'));
-		$turno= ($this->input->post('turno_cita'));
-		$estado= ($this->input->post('estado'));
-		$hora= ($this->input->post('hora_llegada'));
-		$this->espera_model->nueva_cita($paciente,$doctor,$fecha,$especialidad,$turno,$estado,$hora);		
+		
+		$this->load->view('espera/lista_terapia', $data);	
 	}	
 	
-	public function agregar_pac_terapia(){					   
-		$paciente= ($this->input->post('num_pac'));
-		$fecha= ($this->input->post('fecha_actual'));
-		$estado= ($this->input->post('estado'));
-		$this->espera_model->agregar_pac_terapia($paciente,$fecha,$estado);		
+	
+	public function agregar_terapia(){	
+
+		date_default_timezone_set('America/Caracas');
+		
+		$hoy = date("Y-m-d H:i:s");
+		
+		$data['pacientes_id']= $this->input->post('pacientes_id');
+		$data['hora_llegada']= date("h:i a",strtotime($hoy));
+		$data['estado']=1;
+		
+		$insertSQL= $this->db->insert('espera_tratamiento', $data);
+		
+		if($insertSQL) {
+					$this->session->set_flashdata('info', 'El Paciente ahora esta en sala de espera');
+					redirect(base_url() . 'sala_espera/terapias', 'refresh');		 
+		}else{
+					$this->session->set_flashdata('error', 'Ocurrió un error, intentelo de nuevo');
+					redirect(base_url() . 'sala_espera/terapias', 'refresh');	
+		}
 	}
 	
-	public function cambiar_estado(){	
-		 $paciente = $this->input->post('id');
-		 $this->espera_model->cambiar_estado($paciente);		
-	}	
+
 }
 
 /* End of file sala_espera.php */

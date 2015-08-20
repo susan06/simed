@@ -97,8 +97,8 @@ class Pacientes extends CI_Controller {
 		 $data['email']= $this->input->post('email');
 		 $data['tlf']= $this->input->post('tlf');
 		 $data['rlegal']= ucwords($this->input->post('rlegal'));
-		 $data['p_rlegal']= ucwords($this->input->post('p_rlegal'));
-		
+		 $data['p_rlegal']= ucwords($this->input->post('p_rlegal'));		 
+		 
 		$this->pacientes_model->guardar($data);
 	}
 	

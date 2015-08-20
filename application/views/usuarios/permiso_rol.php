@@ -358,9 +358,9 @@
 						  </td>
                     </tr>
 					<tr>
-                      <td>Expediente médico <?php if($rol == 3 || $rol == 2){echo '<span class="badge bg-green">100%</span>';} ?></td>
+                      <td>Expediente médico <?php if($rol == 3 || $rol == 2 || $rol == 4){echo '<span class="badge bg-green">100%</span>';} ?></td>
 					   <td>
-					     <?php if($rol == 3 || $rol == 2 ){echo '<div class="progress progress-xs progress-striped active"><div class="progress-bar progress-bar-success" style="width: 100%"></div></div>	';} 
+					     <?php if($rol == 3 || $rol == 2 || $rol == 4){echo '<div class="progress progress-xs progress-striped active"><div class="progress-bar progress-bar-success" style="width: 100%"></div></div>	';} 
 					   else{ echo '&nbsp;<input type="checkbox" disabled>Ver	&nbsp; <input type="checkbox" disabled>Crear	&nbsp; <input type="checkbox" disabled>Editar	&nbsp; <input type="checkbox" disabled>Eliminar';}
 					   ?>
 						</td>

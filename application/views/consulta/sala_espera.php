@@ -47,15 +47,13 @@
 		
 			  <div class="box">
                 <div class="box-header">
+				<?Php if(count($pac_consultas) > 0){ ?>
                   <h3 class="box-title">Pacientes para consulta - hoy: <?= date('d-m-Y') ?> </h3>
+				<?Php }else{ ?>
+				 <h3 class="box-title">No hay pacientes en sala de espera</h3>
+				  <?Php } ?>
 				  <input type="text" id="buscar_table" class="form-control input-sm pull-right" style="width: 200px;" placeholder="Buscar">
                 </div><!-- /.box-header -->
-              
-				<div class="box-header">
-						<button type="button" class="btn btn-sm btn-success" onClick="buscar_citas()">Buscar citas para hoy</button>
-						<button type="button" class="btn btn-sm btn-info" onclick="location.href='<?= base_url(); ?>citas/programar_cita'">Paciente sin cita</button>
-						<button type="button" class="btn btn-sm btn-warning pull-right" onclick="location.href='<?= base_url(); ?>sala_espera/borrar_lista_consultas'">Borrar lista de espera</button>
-				</div>
 				
 				<div class="box-body">			
 		
@@ -63,10 +61,8 @@
                     <thead>
                       <tr>
 						<th>#</th>
-						<th>Hora llegada</th>
+						<th width="15%">Hora llegada</th>
 						<th>Paciente</th>
-						<th>Doctor</th>
-						<th>Especialidad</th>
 						<th>Estado</th>
 						<th width="15%">Opciones</th>
                       </tr>
@@ -80,8 +76,6 @@
 						  <td><?=  $numero++ ?></td>
 						  <td><?= $row['hora_llegada']; ?></td>
 						  <td><?= $row['pnombre'] ?> <?= $row['papellido'] ?> <?Php if($row['cedula']){ echo 'C.I. '.$row['cedula']; }  ?></td>
-						  <td><?=  $row['nombre_doc']; ?> <?=  $row['apellido_doc']; ?></td>
-						  <td><?= $row['nombre'] ?></td>
 						  <td>
 						  <span id="label_status<?= $row['id'];?>">
 						  <?Php if($row['estado'] == 1){ echo '<span class="text-red">En espera</span>'; }else{ echo '<span class="text-green">Atendido</span>';} ?>
@@ -90,37 +84,19 @@
 						  </td>
 						  <td>
 							
-							<i class="fa fa-user-md"  title="Cambiar status" style="cursor:pointer" data-rel="tooltip" data-placement="top" onclick="cambiar_status(<?= $row['id'];?>)"></i>
+							<i class="fa fa-user-md"  title="Atender" style="cursor:pointer" data-rel="tooltip" data-placement="top" onclick="location.href='<?= base_url(); ?>consulta/medica/<?= $row['citas_id'];?>'"></i>
 							&nbsp;
-							<?php									
-							if ($permisos[$borrar]['status'] == 1 ){ 
-							?>
-							
-							<i title="Eliminar" data-rel="tooltip" data-placement="top"  style="cursor:pointer" class="fa fa-trash-o" onclick="eliminar(<?= $row['id'];?>, '<?= base_url(); ?>sala_espera/eliminar_consulta')"></i>
-
-							<?php	
-								}else{
-							?>
-							
-							<i class="fa fa-trash-o" title="eliminar" data-rel="tooltip" data-placement="top"  onclick="eliminar_permiso()"></i>
-
-							<?php	
-								}
-							?>				
-		
+							<i class="fa fa-user-md"  title="Cambiar status" style="cursor:pointer" data-rel="tooltip" data-placement="top" onclick="cambiar_status(<?= $row['id'];?>)"></i>	
 						   </td>			
 
 						 </tr>
-									<?php }} ?>
-		
+							<?php }} ?>
                      </tbody>
                     <tfoot>
                       <tr>
 						<th>#</th>
 						<th>Hora llegada</th>
 						<th>Paciente</th>
-						<th>Doctor</th>
-						<th>Especialidad</th>
 						<th>Estado</th>
 						<th>Opciones</th>
                       </tr>
