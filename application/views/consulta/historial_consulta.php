@@ -231,7 +231,12 @@
 			<div class="modal-content">
 			  <div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-					<h4 class="modal-title">Detalles de consulta</h4>
+					<h4 class="modal-title">Detalles de la consulta</h4>
+					<span id="mnj_cambio" class="text-green">
+					<?php if($this->session->flashdata('consulta_modificada') != ''): ?>	
+					 &nbsp;Consulta modificada con éxito 
+					<?php endif;?>
+					</span>
 				</div>
 						<div class="modal-body" id="pac-body">
 						</div>
@@ -272,7 +277,22 @@
     <script type="text/javascript">
 	
       $(document).ready(function () {
-		  
+		
+		<?php if($this->session->flashdata('resumen') != ''): ?>		
+		window.onload = function() {
+			$( "#pac-body" ).load("<?= base_url(); ?>consulta/ver/<?= $this->session->flashdata('resumen'); ?>" );
+			$('#modalPacDialog').modal();
+		};
+		<?php endif;?>
+		
+		<?php if($this->session->flashdata('consulta_modificada') != ''): ?>		
+		window.onload = function() {
+			$( "#pac-body" ).load( "<?= base_url(); ?>consulta/ver/<?= $this->session->flashdata('consulta_modificada'); ?>" );
+			$('#modalPacDialog').modal();
+			
+		};
+		<?php endif;?>
+		
         $("#pacientes_table").dataTable({});
 
 		 oTable = $('#pacientes_table').dataTable();

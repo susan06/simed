@@ -55,7 +55,7 @@
               </a>
             </li>	
 			 <li class="treeview">
-              <a href="<?= base_url();?>home">
+              <a href="<?= base_url();?>consulta/culminar/<?= $cita; ?>">
                 <i class="fa fa-thumbs-o-up"></i> <span>Culminar consulta</span>
               </a>
             </li>	

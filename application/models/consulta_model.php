@@ -117,7 +117,7 @@ class Consulta_model extends CI_Model {
 		if($insertSQL) {
 		
 			$this->db->insert('signos_vitales', $signos);
-				
+			$this->session->set_flashdata('resumen', $id_consulta);	
 			$this->session->set_flashdata('info', 'La informacón de la consulta fue guardada con éxito');
 			redirect(base_url() . 'consulta/historial/'.$cita, 'refresh');	
 			
@@ -142,7 +142,7 @@ class Consulta_model extends CI_Model {
         $update_signo=$this->db->update('signos_vitales', $signos);		
 		
 		if($updateSQL && $update_signo) {
-			
+			$this->session->set_flashdata('consulta_modificada', $consulta);
 			$this->session->set_flashdata('info', 'La consulta fue actualizada con éxito');
 			redirect(base_url() . 'consulta/historial/'.$cita, 'refresh');	
 			
@@ -185,64 +185,6 @@ class Consulta_model extends CI_Model {
 		return $query->result_array();	
 	}
 	
-
-	
-	function get_consulta_fecha($fecha,$paciente,$doctor){		
-		$this->db->select("*");
-		$this->db->from('consulta');
-		$this->db->join('signos_vitales','signos_vitales.cod_consulta=consulta.cod_consulta','left');
-		$this->db->join('diagnostico_cie10','diagnostico_cie10.cod_consulta=consulta.cod_consulta','left');
-		$this->db->join('cie10','cie10.cod_cie_10=diagnostico_cie10.cod_cie_10','left');
-		$this->db->like('consulta.fecha_consul',$fecha);
-		$this->db->where('consulta.num_pac',$paciente);
-		$this->db->where('consulta.id_doctor',$doctor);
-		$query = $this->db->get();				
-		return $query->result_array();				
-	}
-	
-	function get_consulta_pac($consulta){		
-		$this->db->select("*");
-		$this->db->from('consulta');
-		$this->db->where('cod_consulta',$consulta);	
-		$query = $this->db->get();				
-		return $query->result_array();				
-	}
-	
- 
-	
-	function autocompletar_cie($cie){
-		
-		$this->db->distinct();	
-		$this->db->select("descripcion_cie, cod_cie_10");
-		$this->db->like('descripcion_cie',$cie);		
-		$query = $this->db->get('cie10',8);		
-		
-		if($query-> num_rows > 0){
-			
-			foreach($query->result_array() as $row){
-			$resultado[] =  array('id'=>$row['cod_cie_10'],'label'=>utf8_decode($row['descripcion_cie']));
-			}
-		 echo json_encode($resultado);
-		}	
-	} 
-	
-	function autocompletar_motivo($motivo){
-		
-		$this->db->distinct();	
-		$this->db->select("*");
-		$this->db->like('motivo_consul',$motivo);		
-		$query = $this->db->get('consulta',5);		
-		
-		if($query-> num_rows > 0){		
-			foreach($query->result_array() as $row){
-			$resultado[] =  array('id'=>$row['cod_consulta'],'label'=>$row['motivo_consul']);
-			}
-		 echo json_encode($resultado);
-		}	
-	}  
-	
- 
-	
 	function guardar_recipe($doctor,$paciente,$estado,$cita,$fecha_e,$fecha_v,$rp,$indicaciones,$expediente){
 	
 	if($expediente==0){
@@ -284,22 +226,6 @@ class Consulta_model extends CI_Model {
         }
 	}	
 	
-   
-	
-
-
-	function culminar_consulta($espera,$cita){	
-	
-		$datos_espera = array('estado' => 'Atendido',);	
-		
-		$this->db->where('cod_espera_consulta', $espera);
-        $this->db->update('espera_consulta', $datos_espera);	
-
-		$datos_cita = array('estado' => 'Atendido');	
-		
-		$this->db->where('cod_cita', $cita);
-        $this->db->update('cita_medica', $datos_cita);		
-	}
-
+  
 	
 }

@@ -93,12 +93,21 @@ class Espera_model extends CI_Model {
 		
 	}	
 
-	function cambiar_status_consulta($data){	
-			
+	function cambiar_status_consulta($data){
+	
+		$this->db->select("*");
+		$this->db->from('espera_consulta');
+		$this->db->where('id',$data['id']);			
+		$query = $this->db->get();	
+		$espera= $query->result_array();
+		
+		$this->db->where('id', $espera[0]['citas_id']);
+        $updateSQL=$this->db->update('cita_medica', array('status' => $data['estado']));	
+		
 		$this->db->where('id', $data['id']);
-        $updateSQL=$this->db->update('espera_consulta', $data);	
+        $updateSQL2=$this->db->update('espera_consulta', $data);	
 
-		if($updateSQL) {
+		if($updateSQL && $updateSQL2) {
 			echo true;
 		}else{
 			echo false;

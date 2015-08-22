@@ -353,9 +353,9 @@ class Consulta extends CI_Controller {
 		$this->consulta_model->guardar_consulta($cita,$data,$signos);
 	}	
 		
-  public function eliminar(){	
+   public function eliminar(){	
 
-		$consulta = $this->input->get('id');
+		$consulta = $this->input->post('id');
 		$this->consulta_model->borrar_consulta($consulta);
 		 	
 	}		
@@ -413,7 +413,29 @@ class Consulta extends CI_Controller {
 		$this->consulta_model->actualizar_consulta($cita,$consulta,$data,$signos);
 	}	
 	
-	
+	public function culminar($cita){
+		
+		$cita_datos = $this->citas_model->get_datos_cita($cita);
+
+		$this->load->model('pacientes_model');
+		$paciente = $this->pacientes_model->get_datos_paciente($cita_datos[0]['pacientes_id']);
+		
+		$this->db->select("*");
+		$this->db->from('espera_consulta');
+		$this->db->where('citas_id',$cita);			
+		$query = $this->db->get();	
+		$espera= $query->result_array();
+
+		$this->db->where('id', $cita);
+        $updateSQL=$this->db->update('cita_medica', array('status' => 2));	
+
+		$this->db->where('id', $espera[0]['id']);
+        $updateSQL2=$this->db->update('espera_consulta', array('estado' => 2));	
+
+		$this->session->set_flashdata('info', 'Ha culminado la cita con el paciente: '.$paciente[0]['pnombre'].' '.$paciente[0]['papellido']);
+		redirect(base_url() . 'consulta/sala_espera', 'refresh');	
+		
+	}	
 	
 	
 	
@@ -460,10 +482,6 @@ class Consulta extends CI_Controller {
 	/****GESTIONAR RECIPE****/
 	
 	public function crear_recipe(){		
-	$user = $this->session->userdata('user');
-	$permiso=$user['nivel_acceso'];
-	$authorizedUsers = array (1,2);	
-	    if (in_array($permiso, $authorizedUsers ) ){ 
 		
 		$doctorId = $this->input->get('doctorID');
 		$this->load->model('doctores_model');		
@@ -502,15 +520,7 @@ class Consulta extends CI_Controller {
 		$var['consulta'] = $this->load->view('consulta/crear_recipe',$data);
 		$var['footer'] =$this->load->view('templates/footer');
         $this->load->view('layouts/consulta', $var);
-		}else{ 
-			?> 
-				<script language="javascript"> 
-				alert("Nivel de acceso denegado");
-				location.href = '<?php echo base_url(); ?>index.php/consulta';				
-				</script> 
-			<?php 	
-			
-		}
+	
 	}	
 	
 	public function guardar_recipe(){		
@@ -542,57 +552,7 @@ class Consulta extends CI_Controller {
         $this->load->view('consulta/recipe_anterior', $data);
 		
 	}
-	
-	/****FIN gestionar recipe****/
-	
-	/****GESTIONAR CONSULTAS****/
-	public function autocomplete_cie(){	
-		if(isset($_GET['term'])){	
-		 $cie = strtolower($_GET['term']);
-		 $this->consulta_model->autocompletar_cie($cie);
-		}
-	}
-	
-	public function autocomplete_motivo(){	
-		if(isset($_GET['term'])){	
-		 $motivo = strtolower($_GET['term']);
-		 $this->consulta_model->autocompletar_motivo($motivo);
-		}
-	}
-	
-	public function consulta_fecha() {
-		$fecha= ($this->input->get('id'));
-		$paciente= ($this->input->get('paciente'));
-		$doctor= ($this->input->get('doctor'));		
-		$query = $this->consulta_model->get_consulta_fecha($fecha,$paciente,$doctor);
-		if($query){
-			$data['consulta'] =  $query;
-		}else{
-			$data['consulta'] =  NULL;
-		}
-		return $this->load->view('consulta/ver_consulta', $data);	
-    }
-	
-	public function buscar_consulta() {
-		$consulta= ($this->input->get('id'));		
-		$query = $this->consulta_model->get_consulta($consulta);
-		if($query){
-			$data['consulta'] =  $query;
-		}else{
-			$data['consulta'] =  NULL;
-		}
-		return $this->load->view('consulta/ver_consulta', $data);	
-    }	
 
-
-	
-
-	public function culminar_consulta(){		 
-		 $espera = $this->input->get('espera');
-		 $cita = $this->input->get('cita');
-		 $this->consulta_model->culminar_consulta($espera,$cita);
-	}
-	
 
 }
 
