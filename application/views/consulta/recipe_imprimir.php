@@ -1,4 +1,18 @@
-<div class="row">
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Recipe</title>
+		<link href="<?=base_url()?>favicon.ico" rel="shortcut icon" type="image/ico" /> 
+	<style type="text/css" media="print">
+  @page { 
+		size: landscape; 
+		margin: 15px;
+		}
+ body { margin: 10px; } 
+</style>
+  </head>
+  <body onload="window.print();">
 
 <table width="850" align="center">	 
 
@@ -6,7 +20,7 @@
 	foreach($recipe as $row){ ?> 
   <tr>
     <td align="center">
-	<img src="<?=base_url()?>assets/dist/img/logo_recipe.png" class="logo" alt="logo"/><br>
+	<img src="<?=base_url()?>assets/dist/img/logo_impreso.png" class="logo" alt="logo"/><br>
 	<span style="font-weight: bold;">CENTRO M&Eacute;DICO DOCENTE</span><br>
     <span style="font-weight: bold;">LAS COCUIZAS, C.A.</span><br>
     RIF. <?= $clinica[0]['rif']; ?> <br>
@@ -16,7 +30,7 @@
     <td width="10">&nbsp; &nbsp;</td>
     
  <td align="center">
-	<img src="<?=base_url()?>assets/dist/img/logo_recipe.png" class="logo" alt="logo"/><br>
+	<img src="<?=base_url()?>assets/dist/img/logo_impreso.png" class="logo" alt="logo"/><br>
 	<span style="font-weight: bold;">CENTRO M&Eacute;DICO DOCENTE</span><br>
     <span style="font-weight: bold;">LAS COCUIZAS, C.A.</span><br>
     RIF. <?= $clinica[0]['rif']; ?> <br>
@@ -45,12 +59,12 @@
   </tr>
   
   <tr>
-    <td height="350" width="390" valign="top" style="border:1px #666666 solid;"><p>&nbsp;&nbsp;R&eacute;cipe:</p>
+    <td height="340" width="390" valign="top" style="border:1px #666666 solid;"><p>&nbsp;&nbsp;R&eacute;cipe:</p>
      <pre style="border:0"><?= $row['rp']; ?> </pre> </td>
     
     <td width="10">&nbsp;&nbsp;</td>
     
-    <td height="350" width="390" valign="top" style="border:1px #666666 solid;"><p>&nbsp;&nbsp;Indicaciones:</p>
+    <td height="340" width="390" valign="top" style="border:1px #666666 solid;"><p>&nbsp;&nbsp;Indicaciones:</p>
      <pre style="border:0"><?= $row['indicaciones']; ?> </pre> </td>
   </tr>
   
@@ -69,10 +83,7 @@
 	Nombre y Apellido: <?php echo $row['pnombre']; ?> <?php echo $row['papellido']; ?></td>
   </tr>
 </table>
-</div>
+<?php } }  ?>
 
-<?php }}else{ ?>
-	
-	<center>No se encontraron registros de récipes del paciente</center>
-	
-<?php } ?>
+  </body>
+</html>

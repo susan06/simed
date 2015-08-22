@@ -160,9 +160,19 @@ class Consulta_model extends CI_Model {
 		$query = $this->db->get('recipe');		
 		return $query->result_array();	
 	}
- 
+	
+ 	function get_recipe_imprimir($recipe){	
+		$this->db->select("*,doctores.pnombre as nombre_doc, doctores.papellido as apellido_doc, pacientes.cedula as cedula_pac");
+		$this->db->join('doctores','doctores.id=recipe.doctores_id','left');
+		$this->db->join('expediente_medico','expediente_medico.id=recipe.expediente_id','left');
+		$this->db->join('pacientes','pacientes.id=expediente_medico.pacientes_id','left');
+		$this->db->where("recipe.id",$recipe);		
+		$query = $this->db->get('recipe');		
+		return $query->result_array();	
+	} 
+	
 	function get_recipe_anterior($doctor,$expediente){	
-		$this->db->select("*");
+		$this->db->select("*,doctores.pnombre as nombre_doc, doctores.papellido as apellido_doc, pacientes.cedula as cedula_pac");
 		$this->db->join('doctores','doctores.id=recipe.doctores_id','left');
 		$this->db->join('expediente_medico','expediente_medico.id=recipe.expediente_id','left');
 		$this->db->join('pacientes','pacientes.id=expediente_medico.pacientes_id','left');

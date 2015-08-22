@@ -529,6 +529,25 @@ class Consulta extends CI_Controller {
 		$this->consulta_model->guardar_recipe($cita,$data);
 	}	
 	
+	public function recipe_imprimir($recipe){	
+	
+		$recipe = $this->consulta_model->get_recipe_imprimir($recipe);
+		if($recipe){
+				$data['recipe'] =  $recipe;
+			}else{
+				$data['recipe'] =  NULL;
+			}
+			
+		$this->load->model('centro_model');	
+		$query = $this->centro_model->get_clinica();
+			
+		if($query){
+			$data['clinica'] =  $query;
+		}
+			
+        $this->load->view('consulta/recipe_imprimir', $data);
+		
+	}		
 	
 
 }

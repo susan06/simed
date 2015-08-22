@@ -116,7 +116,7 @@
 					<button type="button" class="btn btn-sm btn-warning" onclick="recipe_anterior()">Último récipe</button>
 				<?php if(is_array($recipe) && count($recipe) ){
 					foreach($recipe as $row){ ?>
-						<a href="#" target="_blank" class="btn btn-sm btn-success"><i class="fa fa-print"></i> Imprimir</a>
+						<a href="<?= base_url();?>consulta/recipe_imprimir/<?= $row['id']; ?>" target="_blank" class="btn btn-sm btn-success"><i class="fa fa-print"></i> Imprimir</a>
 						<button type="button" class="btn btn-sm btn-info"> Mandar a secretaria</button>
 				<?php }} ?>			
 				</div>
@@ -134,11 +134,11 @@
 							<div class="row">				   
 								<div class="form-group col-xs-6">
 								  <label>Récipe</label>
-								 <textarea name="rp" rows="15" class="form-control"><?=  $recipe[0]['rp']; ?></textarea>
+								 <textarea name="rp" rows="15" class="form-control"><?= $recipe[0]['rp']; ?></textarea>
 								</div>
 								<div class="form-group col-xs-6">
 								  <label>Indicaciones</label>
-								   <textarea name="indicaciones" rows="15"  class="form-control"><?=  $recipe[0]['indicaciones']; ?></textarea>
+								   <textarea name="indicaciones" rows="15"  class="form-control"><?= $recipe[0]['indicaciones']; ?></textarea>
 								</div>
 							</div>	
 					</div>
@@ -161,7 +161,7 @@
 			<div class="modal-content">
 			  <div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-					<h4 class="modal-title">Récipe anterior</h4>
+					<h4 class="modal-title">Último Récipe</h4>
 				</div>
 						<div class="modal-body" id="pac-body">
 						</div>

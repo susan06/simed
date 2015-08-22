@@ -70,5 +70,15 @@ class Crud_model extends CI_Model {
 			return $row['id'];
 
 	}
+
+   function get_id_doc($usuario){	
+		
+		$query	=	$this->db->get_where('doctores' , array('usuarios_id' => $usuario));
 	
+		$res =	$query->result_array();	
+		
+		foreach($res as $row)
+
+			return $row['id'];		
+	}	
 }

@@ -3,6 +3,7 @@
 	  <?php $permisos_doc 	= $this->crud_model->get_permisos($this->session->userdata('rol'),3); ?>
 	  <?php $permisos_cit 	= $this->crud_model->get_permisos($this->session->userdata('rol'),4); ?>
 	  <?php $permisos_esp 	= $this->crud_model->get_permisos($this->session->userdata('rol'),5); ?>
+	  <?php $id_doctor 		= $this->crud_model->get_id_doc($this->session->userdata('id')); ?>
 	   
 	  <!-- Left side column. contains the sidebar -->
       <aside class="main-sidebar">
@@ -138,7 +139,11 @@
               </a>
 			   <ul class="treeview-menu">
 			    <?php	if ($permisos_cit[1]['status'] == 1 ){ ?>
+				<?Php if($this->session->userdata('rol') != 3){ ?>
                 <li><a href="#" onclick="seleccionar_doctores()"><i class="fa fa-calendar-o"></i>Agenda</a></li>
+				<?Php }else{ ?>
+				<li><a href="<?= base_url(); ?>citas/agenda/<?= $id_doctor;?>"><i class="fa fa-calendar-o"></i>Agenda</a></li>
+				<?php } ?>
                 <?php } ?>
 				<?php	if ($permisos_cit[4]['status'] == 1 ){ ?>
 			   <li><a href="<?= base_url();?>citas/programar"><i class="fa fa-plus-square"></i>Programar</a></li>
