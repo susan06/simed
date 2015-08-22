@@ -62,39 +62,38 @@
                 <?php if($this->session->flashdata('rol') == 1 ){ ?>
                   <img src="<?=base_url()?>assets/dist/img/admin.jpg" alt="User Image"/>
 				<?php } ?>  
-				<?php if($this->session->userdata('rol') == 2 && $this->session->userdata('sexo') == "F"){ ?>
+				<?php if($this->session->flashdata('rol') == 2 && $this->session->flashdata('sexo') == "F"){ ?>
                   <img src="<?=base_url()?>assets/dist/img/enfermera.png" class="img-circle" alt="User Image"/>
 				<?php } ?> 
-				<?php if($this->session->userdata('rol') == 2 && $this->session->userdata('sexo') == "M"){ ?>
+				<?php if($this->session->flashdata('rol') == 2 && $this->session->flashdata('sexo') == "M"){ ?>
                   <img src="<?=base_url()?>assets/dist/img/enfermero.png" class="img-circle" alt="User Image"/>
 				<?php } ?> 
-				<?php if($this->session->userdata('rol') == 3 && $this->session->userdata('sexo') == "F"){ ?>
+				<?php if($this->session->flashdata('rol') == 3 && $this->session->flashdata('sexo') == "F"){ ?>
                   <img src="<?=base_url()?>assets/dist/img/doctora.png" class="img-circle" alt="User Image"/>
 				<?php } ?> 
-				<?php if($this->session->userdata('rol') == 3 && $this->session->userdata('sexo') == "M"){ ?>
+				<?php if($this->session->flashdata('rol') == 3 && $this->session->flashdata('sexo') == "M"){ ?>
                   <img src="<?=base_url()?>assets/dist/img/doctor.png" class="img-circle" alt="User Image"/>
 				<?php } ?> 
-				<?php if($this->session->userdata('rol') == 4 && $this->session->userdata('sexo') == "F"){ ?>
+				<?php if($this->session->flashdata('rol') == 4 && $this->session->flashdata('sexo') == "F"){ ?>
                   <img src="<?=base_url()?>assets/dist/img/terapista.png" class="img-circle" alt="User Image"/>
 				<?php } ?> 
-				<?php if($this->session->userdata('rol') == 4 && $this->session->userdata('sexo') == "M"){ ?>
+				<?php if($this->session->flashdata('rol') == 4 && $this->session->flashdata('sexo') == "M"){ ?>
                   <img src="<?=base_url()?>assets/dist/img/terapeuta.png" class="img-circle" alt="User Image"/>
 				<?php } ?> 
-				<?php if($this->session->userdata('rol') == 5 ){ ?>
+				<?php if($this->session->flashdata('rol') == 5 ){ ?>
                   <img src="<?=base_url()?>assets/dist/img/secretaria.png" class="img-circle" alt="User Image"/>
 				<?php } ?> 
         </div>
         <!-- /.lockscreen-image -->
 
         <!-- lockscreen credentials (contains the form) -->
-        <form class="lockscreen-credentials" action="<?=base_url()?>login/process" method="POST" id="form_login" novalidate>
+        <form class="lockscreen-credentials" action="<?=base_url()?>login/process" method="POST">
 			<input type="hidden" name="token" value="<?php echo $token; ?>">
 			<input type="hidden" name="nick" value="<?= $this->session->flashdata('nick'); ?>">
 			<input type="hidden" name="url_actual" value="<?= $this->session->flashdata('url_actual'); ?>">
 				  <div class="input-group">
 					<input type="password" class="form-control" placeholder="contraseña" name="clave">
 					<div class="input-group-btn">
-					<?= $this->session->userdata('sexo'); ?>
 					  <button class="btn"><i class="fa fa-arrow-right text-muted"></i></button>
 					</div>
 				  </div>

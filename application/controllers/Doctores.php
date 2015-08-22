@@ -46,9 +46,7 @@ class Doctores extends CI_Controller {
 		
 		$data['page_title'] = 'Doctores';
 		$data['system_title'] = 'Ver';		
-		$data['borrar'] = 3;
 		$data['permisos'] = $this->permisos();
-		$permisos = $this->permisos();
 		
 		$doctores = $this->doctores_model->get_lista_doctores();
 

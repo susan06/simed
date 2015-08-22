@@ -48,7 +48,7 @@
 			  <div class="box">
                 <div class="box-header">
 				<?Php if(count($pac_consultas) > 0){ ?>
-                  <h3 class="box-title">Pacientes para consulta - hoy: <?= date('d-m-Y') ?> </h3>
+                  <h3 class="box-title">Pacientes en sala de espera para consulta</h3>
 				<?Php }else{ ?>
 				 <h3 class="box-title">No hay pacientes en sala de espera</h3>
 				  <?Php } ?>
@@ -84,9 +84,9 @@
 						  </td>
 						  <td>
 							
-							<i class="fa fa-user-md"  title="Atender" style="cursor:pointer" data-rel="tooltip" data-placement="top" onclick="location.href='<?= base_url(); ?>consulta/medica/<?= $row['citas_id'];?>'"></i>
-							&nbsp;
-							<i class="fa fa-user-md"  title="Cambiar status" style="cursor:pointer" data-rel="tooltip" data-placement="top" onclick="cambiar_status(<?= $row['id'];?>)"></i>	
+							<i class="fa fa-heartbeat"  title="Atender" style="cursor:pointer" data-rel="tooltip" data-placement="top" onclick="location.href='<?= base_url(); ?>consulta/medica/<?= $row['citas_id'];?>'"></i>
+							&nbsp;&nbsp;&nbsp;
+							<i class="fa fa-check-square"  title="Cambiar status" style="cursor:pointer" data-rel="tooltip" data-placement="top" onclick="cambiar_status(<?= $row['id'];?>)"></i>	
 						   </td>			
 
 						 </tr>

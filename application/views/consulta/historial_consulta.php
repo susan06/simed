@@ -3,21 +3,87 @@
     <div class="wrapper">
 	
 	<?php $this->load->view('layouts/header.php');	 ?>	
-	<?php $this->load->view('layouts/menu.php');	 ?>	
-  
+  <!-- Left side column. contains the sidebar -->
+      <aside class="main-sidebar">
+        <!-- sidebar: style can be found in sidebar.less -->
+        <section class="sidebar">
+          <!-- Sidebar user panel -->
+          <div class="user-panel">
+            <div class="pull-left image">
+				<?php if($this->session->userdata('rol') == 3 && $this->session->userdata('sexo') == "F"){ ?>
+                  <img src="<?=base_url()?>assets/dist/img/doctora.png" class="img-circle" alt="User Image"/>
+				<?php } ?> 
+				<?php if($this->session->userdata('rol') == 3 && $this->session->userdata('sexo') == "M"){ ?>
+                  <img src="<?=base_url()?>assets/dist/img/doctor.png" class="img-circle" alt="User Image"/>
+				<?php } ?> 
+            </div>
+            <div class="pull-left info">
+              <p><?php echo $this->session->userdata('nombre'); ?> <?php echo  $this->session->userdata('apellido'); ?></p>
+
+              <a href="#"><i class="fa fa-circle text-success"></i> <?= $this->crud_model->get_name_rol($this->session->userdata('rol')); ?></a>
+            </div>
+          </div>
+
+          <!-- sidebar menu: : style can be found in sidebar.less -->
+          <ul class="sidebar-menu">
+            <li class="header">PANEL</li>
+			<li class="treeview">
+              <a href="<?= base_url();?>consulta/medica/<?= $cita; ?>">
+                <i class="fa fa-file-text-o"></i> <span>Historia médica</span>
+              </a>
+            </li>
+			 <li class="treeview">
+              <a href="<?= base_url();?>consulta/registrar/<?= $cita; ?>">
+                <i class="fa fa-stethoscope"></i> <span>Consulta</span>
+              </a>
+            </li>
+			 <li class="treeview">
+              <a href="<?= base_url();?>consulta/historial/<?= $cita; ?>">
+                <i class="fa fa-server"></i> <span>Últimas consultas</span>
+              </a>
+            </li>
+			 <li class="treeview">
+              <a href="<?= base_url();?>home">
+                <i class="fa fa-clipboard"></i> <span>Récipe</span>
+              </a>
+            </li>	
+			 <li class="treeview">
+              <a href="<?= base_url();?>home">
+                <i class="fa fa-file-o"></i> <span>Orden de terapia</span>
+              </a>
+            </li>	
+			 <li class="treeview">
+              <a href="<?= base_url();?>home">
+                <i class="fa fa-thumbs-o-up"></i> <span>Culminar consulta</span>
+              </a>
+            </li>	
+			 <li class="treeview">
+              <a href="<?= base_url(); ?>consulta/sala_espera">
+                <i class="fa  fa-rotate-left"></i> <span>Regresar</span>
+              </a>
+            </li>			
+          </ul>
+        </section>
+        <!-- /.sidebar -->
+      </aside>
+	  
+    
       <!-- Content Wrapper. Contains page content -->
       <div class="content-wrapper">
         <!-- Content Header (Page header) -->
         <section class="content-header">
           <h1>
-          Pacientes<small></small>
+           Historial de Consultas <small>- DR. <?= $doctor[0]['pnombre'].' '.$doctor[0]['papellido'];  ?></small>
           </h1>
         </section>
 
         <!-- Main content -->
-        <section class="content">
-		
-			<?php if($this->session->flashdata('warning') != ''): ?>
+        <section class="content">		
+			  
+          <div class='row'>
+            <div class='col-md-12'>
+			
+						<?php if($this->session->flashdata('warning') != ''): ?>
 					  <div class="alert alert-warning alert-dismissable">
 							<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
 							<h4><i class="icon fa fa-warning"></i> Advertencia!</h4>
@@ -40,46 +106,42 @@
 							<?php echo $this->session->flashdata('info'); ?>
 					  </div>
 				<?php endif;?>
-				
-          <div class='row'>
-            <div class='col-md-12'>
+		
+		
 			  <div class="box">
                 <div class="box-header">
-                  <h3 class="box-title">Pacientes registrados</h3>
+				 <h3 class="box-title">Paciente: <?= $paciente[0]['pnombre'].' '.$paciente[0]['papellido'];  ?></h3>
 				  <input type="text" id="buscar_table" class="form-control input-sm pull-right" style="width: 200px;" placeholder="Buscar">
                 </div><!-- /.box-header -->
-                <div class="box-body">
+				
+				<div class="box-body">			
+		
                   <table id="pacientes_table" class="table table-bordered table-striped">
                     <thead>
                       <tr>
 						<th>#</th>
-						<th>Paciente</th>
-						<th>Sexo</th>
-						<th>Edad</th>
+						<th>Fecha</th>
+						<th>Motivo</th>
 						<th width="15%">Opciones</th>
                       </tr>
                     </thead>
                     <tbody>
-					  <?php if(is_array($pacientes) && count($pacientes) ){
+					  <?php if(is_array($historial) && count($historial) ){
 						$numero=1;
-						foreach($pacientes as $row){ ?>
+						foreach($historial as $row){ ?>
 							<tr>
 		  
 						  <td><?=  $numero++ ?></td>
-						  <td><?=  $row['pnombre']; ?> <?php echo $row['papellido']; ?></td>
-						  <td><?=  $row['sexo']; ?></td>
-							<td><?=  $row['edad']; ?></td>
-						  <td>
-							
-							<i class="fa fa-info-circle" data-rel="tooltip" data-placement="top"  title="ver datos" style="cursor:pointer" onclick="ficha_paciente(<?= $row['id'];?>)"></i>
+						  <td><?= date_format(date_create($row['fecha']), 'd/m/Y'); ?></td>
+						  <td><?= substr($row['motivo_consul'],0,30); ?>...</td>
+						  <td>						
+							<i class="fa fa-info-circle"  title="Ver detalles" style="cursor:pointer" data-rel="tooltip" data-placement="top" onclick="consulta_paciente(<?= $row['id'];?>)"></i>
 							&nbsp;
-							<i class="fa fa-calendar-o" title="ver citas" style="cursor:pointer" data-rel="tooltip" data-placement="top" onclick="document.location.href = '<?= base_url(); ?>citas/paciente/<?= $row['id'];?>' "></i>
-						  	&nbsp;
 							<?php									
 							if ($permisos[$editar]['status'] == 1 ){ 
 							?>
 							
-							<i title="Editar" data-rel="tooltip" data-placement="top"  style="cursor:pointer" class="fa fa-edit" data-rel="tooltip" data-placement="top"  onclick="location.href='<?= base_url(); ?>pacientes/editar/<?= $row['id'];?>'"></i>
+							<i title="Editar" data-rel="tooltip" data-placement="top"  style="cursor:pointer" class="fa fa-edit" data-rel="tooltip" data-placement="top"  onclick="location.href='<?= base_url(); ?>consulta/editar/<?= $row['id'];?>/<?= $cita; ?>'"></i>
 							&nbsp;
 							<?php	
 								}else{
@@ -95,7 +157,7 @@
 							if ($permisos[$borrar]['status'] == 1 ){ 
 							?>
 							
-							<i title="Eliminar" data-rel="tooltip" data-placement="top"  style="cursor:pointer" class="fa fa-trash-o" onclick="eliminar(<?= $row['id'];?>, '<?= base_url(); ?>pacientes/eliminar')"></i>
+							<i title="Eliminar" data-rel="tooltip" data-placement="top"  style="cursor:pointer" class="fa fa-trash-o" onclick="eliminar(<?= $row['id'];?>, '<?= base_url(); ?>consulta/eliminar')"></i>
 
 							<?php	
 								}else{
@@ -105,19 +167,17 @@
 
 							<?php	
 								}
-							?>			
+							?>							
 						   </td>			
 
 						 </tr>
-									<?php }} ?>
-		
+							<?php }} ?>
                      </tbody>
                     <tfoot>
                       <tr>
 						<th>#</th>
-						<th>Paciente</th>
-						<th>Sexo</th>
-						<th>Edad</th>
+						<th>Fecha</th>
+						<th>Motivo</th>
 						<th>Opciones</th>
                       </tr>
                     </tfoot>
@@ -127,8 +187,11 @@
 
             </div><!-- /.col-->
           </div><!-- ./row -->
-		  
-	            <div class="modal modal-warning" id="warning_modal" role="dialog">
+
+        </section><!-- /.content -->
+      </div><!-- /.content-wrapper -->
+
+ <div class="modal modal-warning" id="warning_modal" role="dialog">
               <div class="modal-dialog"  role="document">
                 <div class="modal-content">
                   <div class="modal-header">
@@ -136,7 +199,7 @@
                     <h4 class="modal-title">Permisos</h4>
                   </div>
                   <div class="modal-body">
-                    <p>No tiene permiso para eliminar pacientes</p>
+                    <p>No tiene permiso para eliminar consultas</p>
                   </div>
                   <div class="modal-footer">
                     <button type="button" class="btn btn-outline" data-dismiss="modal">Ok</button>
@@ -153,22 +216,22 @@
                     <h4 class="modal-title">Permisos</h4>
                   </div>
                   <div class="modal-body">
-                    <p>No tiene permiso para editar los datos del Paciente</p>
+                    <p>No tiene permiso para editar consultas</p>
                   </div>
                   <div class="modal-footer">
                     <button type="button" class="btn btn-outline" data-dismiss="modal">Ok</button>
                   </div>
                 </div><!-- /.modal-content -->
               </div><!-- /.modal-dialog -->
-            </div><!-- /.modal -->
-	
-
-		<div class="modal" id="modalPacDialog" role="dialog">
-		  <div class="modal-dialog"  role="document" style="width: 65%;">
+            </div><!-- /.modal -->	  
+	  
+	  
+	  	<div class="modal" id="modalPacDialog" role="dialog">
+		  <div class="modal-dialog"  role="document" style="width: 50%;">
 			<div class="modal-content">
 			  <div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-					<h4 class="modal-title">Datos del paciente</h4>
+					<h4 class="modal-title">Detalles de consulta</h4>
 				</div>
 						<div class="modal-body" id="pac-body">
 						</div>
@@ -180,11 +243,6 @@
 		  </div>
 		  <!-- /.modal-dialog --> 
 		</div>	
-		
-	
-        </section><!-- /.content -->
-      </div><!-- /.content-wrapper -->
-
 	  
 	  <?php $this->load->view('layouts/footer.php');	 ?>
  
@@ -228,17 +286,16 @@
 		$('[data-rel=tooltip]').tooltip();
 		$('[data-rel=popover]').popover({html:true});
 				
-      });	
-	 
+      });				
+	
 
-		function ficha_paciente(id){
-			
-			$( "#pac-body" ).load( "<?= base_url(); ?>pacientes/ver/"+id );
+		function consulta_paciente(id){
+			$( "#pac-body" ).load( "<?= base_url(); ?>consulta/ver/"+id );
 			$('#modalPacDialog').modal();
-		}				
+		}	
 
 
-		function eliminar_permiso(){ 			
+	function eliminar_permiso(){ 			
 			$('#warning_modal').modal('show');			
 		};	
 
@@ -259,7 +316,7 @@
 					   })
 			}); 
 		}
-		
+				
     </script>
 	
   </body>

@@ -86,6 +86,74 @@ class Consulta_model extends CI_Model {
 		
 	}
  
+ 	function get_consultas($doctor,$expediente){		
+		$this->db->select("*, consulta.id as id");
+		$this->db->join('signos_vitales','signos_vitales.consulta_id=consulta.id','left');
+		$this->db->where('expediente_id',$expediente);
+		$this->db->where('doctores_id',$doctor);
+		$this->db->order_by('consulta.id', 'DESC');	
+		$query = $this->db->get('consulta',10);				
+		return $query->result_array();				
+	}
+ 
+ 	function get_consulta($consulta){		
+		$this->db->select("*, consulta.id as id");
+		$this->db->from('consulta');
+		$this->db->join('signos_vitales','signos_vitales.consulta_id=consulta.id','left');
+		$this->db->join('expediente_medico','expediente_medico.id=consulta.expediente_id','left');
+		$this->db->join('pacientes','pacientes.id=expediente_medico.pacientes_id','left');
+		$this->db->where('consulta.id',$consulta);
+		$query = $this->db->get();				
+		return $query->result_array();				
+	}
+ 
+	function guardar_consulta($cita,$data,$signos){
+	
+	$insertSQL= $this->db->insert('consulta', $data);
+	$id_consulta=$this->db->insert_id();
+	
+	$signos['consulta_id'] = $id_consulta;
+
+		if($insertSQL) {
+		
+			$this->db->insert('signos_vitales', $signos);
+				
+			$this->session->set_flashdata('info', 'La informacón de la consulta fue guardada con éxito');
+			redirect(base_url() . 'consulta/historial/'.$cita, 'refresh');	
+			
+		}else{
+			$this->session->set_flashdata('error', 'Error al intentar guardar datos, intente de nuevo');
+			redirect(base_url() . 'consulta/historial/'.$cita, 'refresh');	
+        }
+	
+	} 
+ 
+ 	function borrar_consulta($consulta){			
+		$this->db->where('id', $consulta);
+		$this->db->delete('consulta');	
+	}
+	
+   function actualizar_consulta($cita,$consulta,$data,$signos){	
+	
+		$this->db->where('id', $consulta);
+        $updateSQL=$this->db->update('consulta', $data);
+
+		$this->db->where('consulta_id', $consulta);
+        $update_signo=$this->db->update('signos_vitales', $signos);		
+		
+		if($updateSQL && $update_signo) {
+			
+			$this->session->set_flashdata('info', 'La consulta fue actualizada con éxito');
+			redirect(base_url() . 'consulta/historial/'.$cita, 'refresh');	
+			
+        }else{
+			
+			$this->session->set_flashdata('error', 'Error al intentar actualizar la consulta, intente de nuevo');
+			redirect(base_url() . 'consulta/historial/'.$cita, 'refresh');	
+			
+        }		
+	}
+ 
  
  
  
@@ -118,29 +186,6 @@ class Consulta_model extends CI_Model {
 	}
 	
 
-	
-	function get_consultas($doctor,$paciente){		
-		$this->db->select("*");
-		$this->db->join('signos_vitales','signos_vitales.cod_consulta=consulta.cod_consulta','left');
-		$this->db->join('diagnostico_cie10','diagnostico_cie10.cod_consulta=consulta.cod_consulta','left');
-		$this->db->join('cie10','cie10.cod_cie_10=diagnostico_cie10.cod_cie_10','left');
-		$this->db->where('num_pac',$paciente);
-		$this->db->where('id_doctor',$doctor);
-		$this->db->order_by('consulta.cod_consulta', 'DESC');	
-		$query = $this->db->get('consulta',5);				
-		return $query->result_array();				
-	}
-	
-	function get_consulta($consulta){		
-		$this->db->select("*");
-		$this->db->from('consulta');
-		$this->db->join('signos_vitales','signos_vitales.cod_consulta=consulta.cod_consulta','left');
-		$this->db->join('diagnostico_cie10','diagnostico_cie10.cod_consulta=consulta.cod_consulta','left');
-		$this->db->join('cie10','cie10.cod_cie_10=diagnostico_cie10.cod_cie_10','left');
-		$this->db->where('consulta.cod_consulta',$consulta);
-		$query = $this->db->get();				
-		return $query->result_array();				
-	}
 	
 	function get_consulta_fecha($fecha,$paciente,$doctor){		
 		$this->db->select("*");
@@ -196,54 +241,7 @@ class Consulta_model extends CI_Model {
 		}	
 	}  
 	
- 	function guardar_consulta($doctor,$paciente,$estado,$fecha,$motivo,$enfer,$diag,$trat,$obs,$tension,$peso,$temp,$pulso,$resp,$cie,$cita){
-	
-	$datos_consulta = array(
-			'fecha_consul' => $fecha,
-			'motivo_consul' => $motivo,
-			'enfermedad_actual' => $enfer,
-			'diagnostico' => $diag,
-			'tratamiento' => $trat,
-			'observacion_consul' => $obs,
-			'id_doctor' => $doctor,
-			'num_pac' => $paciente
-		);	
-		
-	$insertSQL= $this->db->insert('consulta', $datos_consulta);
-	$id_consulta=$this->db->insert_id();
-	
-	$datos_signos = array(
-			'tension_arteria' => $tension,
-			'peso' => $peso,
-			'temp' => $temp,
-			'pulso' => $pulso,
-			'resp' => $resp,
-			'cod_consulta' => $id_consulta
-		);	
-
-	$datos_cie = array(
-			'cod_cie_10' => $cie,
-			'cod_consulta' => $id_consulta
-		);	
-
-	$insertSQL2= $this->db->insert('signos_vitales', $datos_signos);
-	$this->db->insert('diagnostico_cie10', $datos_cie);
-	
-	if($insertSQL && $insertSQL2) {
-				 ?> 
-							<script language="javascript"> 
-							alert("Datos de consulta guardados exitosamente"); 
-							window.parent.location = '<?php echo base_url(); ?>index.php/consulta/historia_medica?num_pac=<?php echo $paciente; ?>&doctorID=<?php echo $doctor; ?>&estado=<?php echo $estado; ?>&cita=<?php echo $cita; ?>';
-							</script> 							
-				<?php
-        }else{
-				    ?> 
-							<script language="javascript"> 
-							alert("Ha ocurrido un error y no se registraron los datos."); 
-							</script> 
-					<?php 		
-        }
-	}
+ 
 	
 	function guardar_recipe($doctor,$paciente,$estado,$cita,$fecha_e,$fecha_v,$rp,$indicaciones,$expediente){
 	
@@ -286,24 +284,9 @@ class Consulta_model extends CI_Model {
         }
 	}	
 	
-    function actualizar_consulta($consulta,$motivo,$enfer,$diag,$trat,$obs){	
+   
 	
-	$datos_consulta = array(
-			'motivo_consul' => $motivo,
-			'enfermedad_actual' => $enfer,
-			'diagnostico' => $diag,
-			'tratamiento' => $trat,
-			'observacion_consul' => $obs
-		);	
-		
-		$this->db->where('cod_consulta', $consulta);
-        $updateSQL=$this->db->update('consulta', $datos_consulta);			
-	}
-	
-	function borrar_consulta($consulta){			
-		$this->db->where('cod_consulta', $consulta);
-		$this->db->delete('consulta');	
-	}
+
 
 	function culminar_consulta($espera,$cita){	
 	

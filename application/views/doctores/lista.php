@@ -57,7 +57,6 @@
 						<th>Doctor</th>
 						<th>RIF</th>
 						<th>MPPS</th>
-						<th width="15%">Opciones</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -70,25 +69,6 @@
 						  <td><?=  $row['pnombre']; ?> <?php echo $row['papellido']; ?></td>
 						  <td><?=  $row['rif']; ?></td>
 						  <td><?=  $row['mpps']; ?></td>
-						  <td>								
-							
-							<?php									
-							if ($permisos[$borrar]['status'] == 1 ){ 
-							?>
-							
-							<i title="Eliminar" style="cursor:pointer" class="fa fa-trash-o" onclick="eliminar(<?= $row['id'];?>, '<?= base_url(); ?>doctores/eliminar')"></i>
-
-							<?php	
-								}else{
-							?>
-							
-							<i class="fa fa-trash-o" onclick="eliminar_permiso()"></i>
-
-							<?php	
-								}
-							?>			
-						   </td>			
-
 						 </tr>
 									<?php }} ?>
 		
@@ -99,7 +79,6 @@
 						<th>Doctor</th>
 						<th>RIF</th>
 						<th>MPPS</th>
-						<th>Opciones</th>
                       </tr>
                     </tfoot>
                   </table>

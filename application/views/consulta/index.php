@@ -35,8 +35,13 @@
               </a>
             </li>
 			 <li class="treeview">
-              <a href="<?= base_url();?>home">
+              <a href="<?= base_url();?>consulta/registrar/<?= $cita; ?>">
                 <i class="fa fa-stethoscope"></i> <span>Consulta</span>
+              </a>
+            </li>
+			 <li class="treeview">
+              <a href="<?= base_url();?>consulta/historial/<?= $cita; ?>">
+                <i class="fa fa-server"></i> <span>Últimas consultas</span>
               </a>
             </li>
 			 <li class="treeview">
