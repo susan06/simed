@@ -45,12 +45,12 @@
               </a>
             </li>
 			 <li class="treeview">
-              <a href="<?= base_url();?>home">
+              <a href="<?= base_url();?>consulta/recipe/<?= $cita; ?>">
                 <i class="fa fa-clipboard"></i> <span>Récipe</span>
               </a>
             </li>	
 			 <li class="treeview">
-              <a href="<?= base_url();?>home">
+              <a href="<?= base_url();?>consulta/orden_terapia/<?= $cita; ?>">
                 <i class="fa fa-file-o"></i> <span>Orden de terapia</span>
               </a>
             </li>	

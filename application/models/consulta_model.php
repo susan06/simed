@@ -153,77 +153,45 @@ class Consulta_model extends CI_Model {
 			
         }		
 	}
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
-	function get_recipe_anterior($doctor,$paciente){	
+	
+ 	function get_recipe($cita){	
 		$this->db->select("*");
-		$this->db->join('centro_medico','centro_medico.id=recipe.centro_medico','left');
-		$this->db->join('doctor','doctor.id_doctor=recipe.id_doctor','left');
-		$this->db->join('pacientes','pacientes.num_pac=recipe.num_pac','left');
-		$this->db->where("recipe.num_pac",$paciente);
-		$this->db->where("recipe.id_doctor",$doctor);	
-		$this->db->order_by('recipe.cod_recipe', 'DESC');		
-		$query = $this->db->get('recipe',1);		
+		$this->db->where("citas_id",$cita);		
+		$query = $this->db->get('recipe');		
 		return $query->result_array();	
 	}
+ 
+	function get_recipe_anterior($doctor,$expediente){	
+		$this->db->select("*");
+		$this->db->join('doctores','doctores.id=recipe.doctores_id','left');
+		$this->db->join('expediente_medico','expediente_medico.id=recipe.expediente_id','left');
+		$this->db->join('pacientes','pacientes.id=expediente_medico.pacientes_id','left');
+		$this->db->where("recipe.expediente_id",$expediente);
+		$this->db->where("recipe.doctores_id",$doctor);	
+		$this->db->order_by('recipe.id', 'DESC');		
+		$query = $this->db->get('recipe',1);		
+		return $query->result_array();	
+	} 
+ 
+
+	function guardar_recipe($cita,$data){
 	
-	function guardar_recipe($doctor,$paciente,$estado,$cita,$fecha_e,$fecha_v,$rp,$indicaciones,$expediente){
-	
-	if($expediente==0){
-	
-	$datos_expediente = array(
-			'num_pac' => $paciente,
-			'fecha' => $fecha_e
-		);
-		
-	$insertSQL= $this->db->insert('expediente_medico', $datos_expediente);
-	$expediente=$this->db->insert_id();
-	}
-	
-	$datos_recipe = array(
-			'cod_exp_med' => $expediente,
-			'fecha_emision' => $fecha_e,
-			'fecha_expiracion' => $fecha_v,
-			'num_pac' => $paciente,
-			'id_doctor' => $doctor,
-			'rp' => nl2br($rp),
-			'indicaciones' => nl2br($indicaciones)
-		);	
-		
-	$insertSQL2= $this->db->insert('recipe', $datos_recipe);
-	
-	if($insertSQL2) {
-				 ?> 
-							<script language="javascript"> 
-							alert("Datos del recipe guardados exitosamente"); 
-							window.parent.location = '<?php echo base_url(); ?>index.php/consulta/historia_medica?num_pac=<?php echo $paciente; ?>&doctorID=<?php echo $doctor; ?>&estado=<?php echo $estado; ?>&cita=<?php echo $cita; ?>';
-							</script> 							
-				<?php
-        }else{
-				    ?> 
-							<script language="javascript"> 
-							alert("Ha ocurrido un error y no se registraron los datos."); 
-							</script> 
-					<?php 		
-        }
+		if($data['id']==NULL){
+			
+			$this->db->insert('recipe', $data);
+			
+			$this->session->set_flashdata('info', 'La informacón del récipe fue guardada con éxito');
+			redirect(base_url() . 'consulta/recipe/'.$cita, 'refresh');
+			
+		}else{
+			
+			$this->db->where('id', $data['id']);
+            $this->db->update('recipe', $data);
+			
+			$this->session->set_flashdata('info', 'El récipe fue actualizado con éxito');
+			redirect(base_url() . 'consulta/recipe/'.$cita, 'refresh');	
+		}
+
 	}	
 	
   

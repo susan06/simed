@@ -270,7 +270,6 @@ class Consulta extends CI_Controller {
 		
 	}	
 
-
 	public function historial($cita) {
 		
 		$data['page_title'] = 'Consulta';
@@ -437,111 +436,52 @@ class Consulta extends CI_Controller {
 		
 	}	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	/****GESTIONAR RECIPE****/
-	
-	public function crear_recipe(){		
+	public function recipe($cita) {
 		
-		$doctorId = $this->input->get('doctorID');
-		$this->load->model('doctores_model');		
-		$query = $this->doctores_model->get_datos_doctor($doctorId);
-		if($query){
-			$data['datos_doctor'] =  $query;
-		}else{
-			$data['datos_doctor'] =  NULL;
-		}
+		date_default_timezone_set('America/Caracas');
 		
-		$paciente = $this->input->get('num_pac');
-		$this->load->model('pacientes_model');
-		$query2 = $this->pacientes_model->get_datos_paciente($paciente);
-		if($query2){
-			$data['datos_paciente'] =  $query2;
-		}else{
-			$data['datos_paciente'] =  NULL;
-		}
-		
-		$sala_espera= $this->input->get('estado');
-		$cita= $this->input->get('cita');
+		$data['page_title'] = 'Recipe';
+		$data['system_title'] = 'Datos';
 		$data['cita'] =  $cita;
-		$data['num_espera'] =  $sala_espera;
-		$data['doctor'] =  $doctorId;
-		$data['paciente'] =  $paciente;
 		
-		$data['expediente'] =  0;
-		$this->load->model('expediente_model');
-		$expediente = $this->expediente_model->expediente($paciente);
-
-		if($expediente){
-			$data['expediente'] =  $expediente;
+		$cita_datos = $this->citas_model->get_datos_cita($cita);
+	
+		$this->load->model('doctores_model');		
+		$doctor = $this->doctores_model->get_datos_doctor($cita_datos[0]['doctores_id']);
+		if($doctor){
+			$data['doctor'] =  $doctor;
+		}else{
+			$data['doctor'] =  NULL;
 		}
 		
-		$var['header'] =$this->load->view('templates/header');
-		$var['consulta'] = $this->load->view('consulta/crear_recipe',$data);
-		$var['footer'] =$this->load->view('templates/footer');
-        $this->load->view('layouts/consulta', $var);
+		$this->load->model('pacientes_model');
+		$paciente = $this->pacientes_model->get_datos_paciente($cita_datos[0]['pacientes_id']);
+		if($paciente){
+			$data['paciente'] =  $paciente;
+		}else{
+			$data['paciente'] =  NULL;
+		}
+		
+		$this->load->model('expediente_model');
+		
+		$data['expediente']  = $this->expediente_model->expediente($cita_datos[0]['pacientes_id']);
+		
+		$recipe = $this->consulta_model->get_recipe($cita);
+		if($recipe){
+			$data['recipe'] =  $recipe;
+		}else{
+			$data['recipe'] =  NULL;
+		}		
+
+		$this->load->view('consulta/recipe', $data);
+    }	
 	
-	}	
+	public function recipe_anterior(){	
 	
-	public function guardar_recipe(){		
-		$doctor= ($this->input->post('id_doctor'));
-		$paciente= ($this->input->post('num_pac'));
-		$estado= ($this->input->post('estado'));
-		$cita= ($this->input->post('cita'));
-		$fecha_e= ($this->input->post('fecha_emision'));
-		$fecha_v= ($this->input->post('fecha_expiracion'));
-		$rp= ($this->input->post('rp'));
-		$indicaciones= ($this->input->post('indicaciones'));
-		$expediente= ($this->input->post('expediente'));
+		$doctor= $this->input->post('doctor');
+		$expediente= $this->input->post('expediente');
 						   
-		$this->consulta_model->guardar_recipe($doctor,$paciente,$estado,$cita,$fecha_e,$fecha_v,$rp,$indicaciones,$expediente);
-	}
-	
-	public function recipe_anterior(){		
-		$doctor= ($this->input->get('doc'));
-		$paciente= ($this->input->get('pac'));
-						   
-		$recipe=$this->consulta_model->get_recipe_anterior($doctor,$paciente);
+		$recipe=$this->consulta_model->get_recipe_anterior($doctor,$expediente);
 		
 		if($recipe){
 				$data['recipe'] =  $recipe;
@@ -549,10 +489,47 @@ class Consulta extends CI_Controller {
 				$data['recipe'] =  NULL;
 			}
 			
+		$this->load->model('centro_model');	
+		$query = $this->centro_model->get_clinica();
+			
+		if($query){
+			$data['clinica'] =  $query;
+		}
+			
         $this->load->view('consulta/recipe_anterior', $data);
 		
-	}
-
+	}	
+	
+	public function guardar_recipe($cita){	
+	
+		date_default_timezone_set('America/Caracas');
+		
+		$cita_datos = $this->citas_model->get_datos_cita($cita);
+		
+		$this->load->model('expediente_model');
+		
+		$expediente = $this->expediente_model->expediente($cita_datos[0]['pacientes_id']);
+		
+		$recipe = $this->consulta_model->get_recipe($cita);
+		
+		if($recipe){
+			$data['id'] =  $recipe[0]['id'];
+		}else{
+			$data['id'] =  NULL;
+		}
+		
+		$data['expediente_id']= $expediente[0]['id'];
+		$data['doctores_id']= $cita_datos[0]['doctores_id'];
+		$data['fecha_emision']= date('Y-m-d');
+		$data['citas_id']= $cita;
+		$data['fecha_expiracion']= date("Y-m-d",strtotime($this->input->post('fecha_expiracion')));
+		$data['rp']= $this->input->post('rp');
+		$data['indicaciones']= $this->input->post('indicaciones');
+						   
+		$this->consulta_model->guardar_recipe($cita,$data);
+	}	
+	
+	
 
 }
 
