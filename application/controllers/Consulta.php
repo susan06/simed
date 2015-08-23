@@ -559,8 +559,13 @@ class Consulta extends CI_Controller {
 			$data['ruta']	= "consulta/recipe_imprimir/".$data['doc_id'];
 			$nombre_doc ="el Récipe";			
 		}else{
+			if($data['tipo'] == 2){
 			$data['ruta']	= "consulta/orden_imprimir/".$data['doc_id'];
-			$nombre_doc ="la Orden de Terapia";				
+			$nombre_doc ="la Orden de Terapia";	
+			}else{
+				$data['ruta']	= "consulta/historia_imprimir/".$data['doc_id'];
+				$nombre_doc ="la Historia médica";	
+			}			
 		}
 		
 		
@@ -643,24 +648,52 @@ class Consulta extends CI_Controller {
 
 		if($orden){
 			$data['id'] =  $orden[0]['id'];
-			$data['fecha']= date("Y-m-d");
-			$data['rp']= $this->input->post('rp');
-			$data['indicaciones']= $this->input->post('indicaciones');
+			$data['obs']= $this->input->post('obs');
+			$data['frecuencia']= $this->input->post('frecuencia');
+			
+			if(!$data['frecuencia']){
+				$data['frecuencia']="1/semana";
+			}
+			
+			$data['terapias']="";
+			if($this->input->post('terapias')){
+			$data['terapias']=implode(',',$this->input->post('terapias'));
+			$terapias= $this->input->post('terapias');			
+			}
+
+			$aplicacion="";
+			if($this->input->post('aplicacion')){
+			$aplicacion= $this->input->post('aplicacion');			
+			}	
+			
+            $data['aplicaciones']=json_encode(array_combine($terapias,$aplicacion));
+
 		}else{
 			$data['id'] =  NULL;
 			$data['expediente_id']= $expediente[0]['id'];
-			$data['doctores_id']= $cita_datos[0]['doctores_id'];
-			$data['fecha']= date('Y-m-d');
 			$data['citas_id']= $cita;
-			$data['obs']= $this->input->post('rp');
+			$data['fecha']= date("Y-m-d");
+			$data['doctores_id']= $cita_datos[0]['doctores_id'];		
+			$data['obs']= $this->input->post('obs');
+			$data['frecuencia']= $this->input->post('frecuencia');
+			
+			if(!$data['frecuencia']){
+				$data['frecuencia']="1/semana";
+			}
+						
 			$data['terapias']="";
 			if($this->input->post('terapias')){
-			$data['terapias']= implode(",",$this->input->post('terapias'));			
+			$data['terapias']=implode(',',$this->input->post('terapias'));
+			$terapias= $this->input->post('terapias');			
 			}
-			$data['aplicacion']="";
-			if($this->input->post('aplicacion')){			
-				$data['aplicacion']= implode(",",$this->input->post('aplicacion'));
-			}
+
+			$aplicacion="";
+			if($this->input->post('aplicacion')){
+			$aplicacion= $this->input->post('aplicacion');			
+			}	
+			
+            $data['aplicaciones']=json_encode(array_combine($terapias,$aplicacion));
+			
 		}
 
 		$this->consulta_model->guardar_orden($cita,$data);

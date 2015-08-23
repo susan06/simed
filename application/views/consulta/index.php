@@ -83,7 +83,18 @@
 		
         <!-- Main content -->
         <section class="content">
-		
+					<div class="alert alert-warning alert-dismissable" style="display:none" id="alert_warning">
+							<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+							<h4><i class="icon fa fa-warning"></i> Advertencia!</h4>
+							<span id="span_warning"></span>
+					  </div>
+					  
+					  <div class="alert alert-info alert-dismissable" style="display:none" id="alert_info">
+							<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+							<h4><i class="icon fa fa-info"></i> Información!</h4>
+							<span id="span_info"></span>
+					  </div>
+					  
 				<?php if($this->session->flashdata('error') != ''): ?>
 					  <div class="alert alert-danger alert-dismissable">
 							<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
@@ -114,6 +125,15 @@
 		<?php if ($historia_medica > 0) {  ?>	
 		
     <div class="box box-success">	
+
+			  <?php if(is_array($historia_medica) && count($historia_medica) ){
+					foreach($historia_medica as $row){ ?>	
+				<div class="box-header">
+						<a href="<?= base_url();?>consulta/historia_imprimir/<?= $row['id']; ?>" target="_blank" class="btn btn-sm btn-success"><i class="fa fa-print"></i> Imprimir</a>
+						&nbsp;&nbsp;
+						<button type="button" class="btn btn-sm btn-info" onclick="mandar_doc(<?= $row['id']; ?>,3)"> Mandar a secretaria</button>
+				</div>
+				<?php }} ?>	
 	
                 <div class="box-header">
                   <center><h3 style="font-size:bold">Historia Médica</h3></center>
@@ -559,9 +579,37 @@
 
 	<script src="<?=base_url()?>assets/js/scripts.js" type="text/javascript"></script>
 
-	<script>
+    <script type="text/javascript">	
 
-</script>
+		function mandar_doc(id,tipo){
+
+			$.ajax({ 
+							url: '<?=base_url()?>consulta/mandar_doc',
+							type:'POST',
+							data:{id:id,tipo: tipo},
+							dataType : 'json',
+							success: function(data){
+								if(data.exist == 1){
+									$('#span_warning').html(data.mnj);
+									$('#alert_warning').show();
+									$('#alert_info').hide();
+									setTimeout(function() {
+									$(".alert").fadeOut(1000);
+									},4000);
+								}else{
+									$('#span_info').html(data.mnj);
+									$('#alert_info').show();
+									$('#alert_warning').hide();
+									setTimeout(function() {
+									$(".alert").fadeOut(1000);
+									},4000);
+								}
+							}
+			})	
+			
+		}	
+		
+    </script>
 
   </body>
 </html>

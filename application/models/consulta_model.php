@@ -162,7 +162,8 @@ class Consulta_model extends CI_Model {
 	}
 	
 	function get_orden($cita){	
-		$this->db->select("*");
+		$this->db->select("*, orden_terapia.id as id, doctores.pnombre as nombre_doc, doctores.papellido as apellido_doc");
+		$this->db->join('doctores','doctores.id=orden_terapia.doctores_id','left');
 		$this->db->where("citas_id",$cita);		
 		$query = $this->db->get('orden_terapia');		
 		return $query->result_array();	
@@ -219,6 +220,25 @@ class Consulta_model extends CI_Model {
 
 	}	
 	
-  
+ 	function guardar_orden($cita,$data){
+	
+		if($data['id']==NULL){
+			
+			$this->db->insert('orden_terapia', $data);
+			
+			$this->session->set_flashdata('info', 'La informacón de la orden de terapia fue guardada con éxito');
+			redirect(base_url() . 'consulta/orden_terapia/'.$cita, 'refresh');
+			
+		}else{
+			
+			$this->db->where('id', $data['id']);
+            $this->db->update('orden_terapia', $data);
+			
+			$this->session->set_flashdata('info', 'La orden de terapia fue actualizada con éxito');
+			redirect(base_url() . 'consulta/orden_terapia/'.$cita, 'refresh');	
+		}
+
+	}	
+	 
 	
 }

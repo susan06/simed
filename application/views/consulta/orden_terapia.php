@@ -121,11 +121,20 @@
 		
 		
 			  <div class="box">
-				
+
+			  <?php if(is_array($orden) && count($orden) ){
+					foreach($orden as $row){ ?>	
+				<div class="box-header">
+						<a href="<?= base_url();?>consulta/orden_imprimir/<?= $row['id']; ?>" target="_blank" class="btn btn-sm btn-success"><i class="fa fa-print"></i> Imprimir</a>
+						&nbsp;&nbsp;
+						<button type="button" class="btn btn-sm btn-info" onclick="mandar_doc(<?= $row['id']; ?>,2)"> Mandar a secretaria</button>
+				</div>
+				<?php }} ?>	
+			  
 				<div class="box-header">
                   <center><h3 style="font-size:bold">Orden de terapia</h3></center>
-                </div><!-- /.box-header -->
-				
+				</div><!-- /.box-header -->  
+
                 <div class="box-header">
 				 <h3 class="box-title">Paciente: <?= $paciente[0]['pnombre'].' '.$paciente[0]['papellido'];  ?></h3>
                 </div><!-- /.box-header -->
@@ -133,10 +142,19 @@
 				
 				<?php if(is_array($orden) && count($orden) ){
 					foreach($orden as $row){ ?>
-				<div class="box-header">	
-						<a href="<?= base_url();?>consulta/orden_imprimir/<?= $row['id']; ?>" target="_blank" class="btn btn-sm btn-success"><i class="fa fa-print"></i> Imprimir</a>
-						<button type="button" class="btn btn-sm btn-info" onclick="mandar_doc(<?= $row['id']; ?>,2)"> Mandar a secretaria</button>
-				</div>
+				
+				<div class="box-header">				   
+						<div class="form-group col-xs-10">
+						  <label>Fecha:</label> <?= date_format(date_create($row['fecha']), 'd/m/Y'); ?> <br>
+						  <label>Dr.:</label> <?= $row['nombre_doc'].' '.$row['apellido_doc'];  ?>
+						</div>		
+
+						<div class="form-group col-xs-2">
+						  <label>N° Orden:</label> <?= $row['id']; ?> <br>
+						  <label>N° expediente:</label> <?= $row['expediente_id']; ?>
+						</div>							
+			   </div>
+				
 				<?php }} ?>			
 				
 				
@@ -152,22 +170,22 @@
 						  <!-- radio -->
 						   <div class="form-group col-xs-3">
 							<label>
-							  <input type="radio" name="frecuencia" value="1/semana" class="minimal-red" checked/> Una vez a la semana
+							  <input type="radio" name="frecuencia" value="1/semana" class="minimal-red" <?php if (!(strcmp($orden[0]['frecuencia'],"1/semana"))) {echo "checked=\"checked\"";} ?> /> Una vez a la semana
 							</label>
 							</div> 
 							<div class="form-group col-xs-3">
 							<label>
-							  <input type="radio" name="frecuencia" value="2/semana" class="minimal-red"/> Dos veces por semana
+							  <input type="radio" name="frecuencia" value="2/semana" class="minimal-red" <?php if (!(strcmp($orden[0]['frecuencia'],"2/semana"))) {echo "checked=\"checked\"";} ?>  /> Dos veces por semana
 							</label>
 							</div> 
 							<div class="form-group col-xs-3">
 							<label>
-							  <input type="radio" name="frecuencia" value="3/semana" class="minimal-red"/> Tres veces a la semana
+							  <input type="radio" name="frecuencia" value="3/semana" class="minimal-red" <?php if (!(strcmp($orden[0]['frecuencia'],"3/semana"))) {echo "checked=\"checked\"";} ?>  /> Tres veces a la semana
 							</label>
 							</div> 
 							<div class="form-group col-xs-3">
 							<label>
-							  <input type="radio" name="frecuencia" value="diario" class="minimal-red"/>  Diario
+							  <input type="radio" name="frecuencia" value="diario" class="minimal-red" <?php if (!(strcmp($orden[0]['frecuencia'],"diario"))) {echo "checked=\"checked\"";} ?>  />  Diario
 							</label>
 							</div>				  
 					</div>
@@ -175,7 +193,7 @@
 		</div>	
 		
 	<h4 style="font-size:bold">Lista de terapias</h4>
-		 
+	
 		 <div class="box">
              <br>   			
 					<div class="row">				   
@@ -190,14 +208,17 @@
 									$m=1;
 									$l=1;
 									if(is_array($terapias) && count($terapias) ) { foreach($terapias as $row_basico){  ?> 
-									  <?php if($row_basico['tipo'] == 1){  ?>
+									  <?php if($row_basico['tipo'] == 1){  
+									   $terapias_check = explode(',', $orden[0]['terapias']);
+									   $aplicaciones = json_decode($orden[0]['aplicaciones']);
+									  ?>
 									  <tr>								  
 										<td nowrap>
-										<input type="checkbox" class="minimal-red" name="terapias[]" id="<?php echo $j++ ?>" value="<?php echo $row_basico['descripcion']; ?>">
+										<input type="checkbox" class="minimal-red" name="terapias[]" id="<?php echo $j++ ?>" value="<?php echo $row_basico['descripcion']; ?>"  <?php echo((in_array("".$row_basico["descripcion"]."", $terapias_check ))?"checked":"");?>  >
 										<?php echo $row_basico['descripcion']; ?>
 										</td>
 										<td align="center">
-										<input type="text" name="aplicacion[]" id="text<?php echo $l++ ?>" size="4" disabled>
+										<input type="text" name="aplicacion[]" <?php echo((in_array("".$row_basico["descripcion"]."", $terapias_check ))?"value='".$aplicaciones->{$row_basico['descripcion']}."'":"disabled");?> id="text<?php echo $l++ ?>" size="4">
 										</td>										
 									  </tr>
 									   <?php } }  } ?>
@@ -210,14 +231,17 @@
 									</tr>
 									<?php 		
 									if(is_array($terapias) && count($terapias) ) { foreach($terapias as $row_terapias){  ?> 
-									  <?php if($row_terapias['tipo'] == 3){  ?>
+									  <?php if($row_terapias['tipo'] == 3){  
+									   $terapias_check = explode(',', $orden[0]['terapias']);
+									   $aplicaciones = json_decode($orden[0]['aplicaciones']);
+									  ?>
 									  <tr>								  
 										<td nowrap>
-										<input type="checkbox" class="minimal-red" name="terapias[]" id="<?php echo $j++ ?>" value="<?php echo $row_terapias['descripcion']; ?>">
+										<input type="checkbox" class="minimal-red" name="terapias[]" id="<?php echo $j++ ?>" value="<?php echo $row_terapias['descripcion']; ?>"  <?php echo((in_array("".$row_terapias["descripcion"]."", $terapias_check ))?"checked=checked":"");?>  >
 										<?php echo $row_terapias['descripcion']; ?>
 										</td>
 										<td align="center">
-										<input type="text" name="aplicacion[]" id="text<?php echo $l++ ?>" size="4" disabled>
+										<input type="text" name="aplicacion[]" id="text<?php echo $l++ ?>" size="4" <?php echo((in_array("".$row_terapias["descripcion"]."", $terapias_check ))?"value='".$aplicaciones->{$row_terapias['descripcion']}."'":"disabled");?>>
 										</td>										
 									  </tr>
 									   <?php } }  } ?>
@@ -230,14 +254,17 @@
 									</tr>
 									<?php 		
 									if(is_array($terapias) && count($terapias) ) { foreach($terapias as $row_sueros){  ?> 
-									  <?php if($row_sueros['tipo'] == 2){  ?>
+									  <?php if($row_sueros['tipo'] == 2){  
+									   $terapias_check = explode(',', $orden[0]['terapias']);
+									   $aplicaciones = json_decode($orden[0]['aplicaciones']);
+									  ?>
 									  <tr>								  
 										<td nowrap>
-										<input type="checkbox" class="minimal-red" name="terapias[]" id="<?php echo $j++ ?>" value="<?php echo $row_sueros['descripcion']; ?>">
+										<input type="checkbox" class="minimal-red" name="terapias[]" id="<?php echo $j++ ?>" value="<?php echo $row_sueros['descripcion']; ?>"  <?php echo((in_array("".$row_sueros["descripcion"]."", $terapias_check ))?"checked=checked":"");?>  >
 										<?php echo $row_sueros['descripcion']; ?>
 										</td>
 										<td align="center">
-										<input type="text" name="aplicacion[]" id="text<?php echo $l++ ?>" size="4" disabled>
+										<input type="text" name="aplicacion[]" id="text<?php echo $l++ ?>" size="4" <?php echo((in_array("".$row_sueros["descripcion"]."", $terapias_check ))?"value='".$aplicaciones->{$row_sueros['descripcion']}."'":"disabled");?> >
 										</td>										
 									  </tr>
 									   <?php } }  } ?>
@@ -246,7 +273,7 @@
 					</div>
 					
 		</div>	
-
+			
 <h4 style="font-size:bold"></h4>
 		 
 		 <div class="box">
@@ -254,7 +281,7 @@
 					<div class="row">				   
 						<div class="form-group col-xs-6">
 						  <label>Observaciones</label>
-						 <textarea  name="obs"  class="form-control"></textarea>
+						 <textarea  name="obs"  class="form-control"><?= $orden[0]['obs']; ?> </textarea>
 						</div>
 					</div>
 			</div>	
@@ -308,11 +335,11 @@
           radioClass: 'iradio_minimal-red'
         });
 
-		$('input[type="checkbox"].minimal-red').on('ifChecked', function(event){
+		$('input[type="checkbox"].minimal-red').on('ifChanged', function(event){
 			if (document.getElementById(this.id).checked==true){document.getElementById('text'+this.id).disabled=false} 
 			if (document.getElementById(this.id).checked==false){document.getElementById('text'+this.id).disabled=true} 
 		});
-
+		
 		function mandar_doc(id,tipo){
 
 			$.ajax({ 
