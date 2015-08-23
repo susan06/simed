@@ -161,6 +161,21 @@ class Consulta_model extends CI_Model {
 		return $query->result_array();	
 	}
 	
+	function get_orden($cita){	
+		$this->db->select("*");
+		$this->db->where("citas_id",$cita);		
+		$query = $this->db->get('orden_terapia');		
+		return $query->result_array();	
+	}
+	
+ 	function get_imprimir($tipo,$doc_id){	
+		$this->db->select("*");
+		$this->db->where("doc_id",$doc_id);	
+		$this->db->where("tipo",$tipo);		
+		$query = $this->db->get('impresiones');		
+		return $query->result_array();	
+	}
+	
  	function get_recipe_imprimir($recipe){	
 		$this->db->select("*,doctores.pnombre as nombre_doc, doctores.papellido as apellido_doc, pacientes.cedula as cedula_pac");
 		$this->db->join('doctores','doctores.id=recipe.doctores_id','left');

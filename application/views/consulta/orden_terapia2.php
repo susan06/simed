@@ -73,7 +73,7 @@
         <!-- Content Header (Page header) -->
         <section class="content-header">
           <h1>
-           Récipe <small>- DR. <?= $doctor[0]['pnombre'].' '.$doctor[0]['papellido'];  ?></small>
+           Orden de Terapia <small>- DR. <?= $doctor[0]['pnombre'].' '.$doctor[0]['papellido'];  ?></small>
           </h1>
         </section>
 
@@ -121,41 +121,145 @@
 		
 		
 			  <div class="box">
+				
+				<div class="box-header">
+                  <center><h3 style="font-size:bold">Orden de terapia</h3></center>
+                </div><!-- /.box-header -->
+				
                 <div class="box-header">
 				 <h3 class="box-title">Paciente: <?= $paciente[0]['pnombre'].' '.$paciente[0]['papellido'];  ?></h3>
                 </div><!-- /.box-header -->
-				<div class="box-header">
-					<button type="button" class="btn btn-sm btn-warning" onclick="recipe_anterior()">Último récipe</button>
-				<?php if(is_array($recipe) && count($recipe) ){
-					foreach($recipe as $row){ ?>
-						<a href="<?= base_url();?>consulta/recipe_imprimir/<?= $row['id']; ?>" target="_blank" class="btn btn-sm btn-success"><i class="fa fa-print"></i> Imprimir</a>
-						<button type="button" class="btn btn-sm btn-info" onclick="mandar_doc(<?= $row['id']; ?>,1)"> Mandar a secretaria</button>
-				<?php }} ?>			
-				</div>
 				
-	<form method="post" name="datos_recipe" action="<?= base_url(); ?>consulta/guardar_recipe/<?= $cita ?>">	 
-				<div class="box-body">			
+				
+				<?php if(is_array($orden) && count($orden) ){
+					foreach($orden as $row){ ?>
+				<div class="box-header">	
+						<a href="<?= base_url();?>consulta/orden_imprimir/<?= $row['id']; ?>" target="_blank" class="btn btn-sm btn-success"><i class="fa fa-print"></i> Imprimir</a>
+						<button type="button" class="btn btn-sm btn-info" onclick="mandar_doc(<?= $row['id']; ?>,2)"> Mandar a secretaria</button>
+				</div>
+				<?php }} ?>			
+				
+				
+	<form method="post" name="datos_orden" action="<?= base_url(); ?>consulta/guardar_orden/<?= $cita ?>">	 
+	
+	<div class="box-body">			
+
+	<h4 style="font-size:bold">Frecuencia con que debe acudir a tratamiento</h4>
+		 
+		 <div class="box">
+             <br>   			
 					<div class="row">				   
-								<div class="form-group col-xs-10">
-								  <label>Fecha de émisión:</label> <?= date('d/m/Y'); ?> <br>
-								  <label>Fecha de expiración: </label> <input type="text" name="fecha_expiracion" id="fecha" value=" <?= date_format(date_create($recipe[0]['fecha_expiracion']), 'd-m-Y'); ?>"/>
-								</div>								
-					  </div>
-					<div class="box">
-					 <br>     		
-							<div class="row">				   
-								<div class="form-group col-xs-6">
-								  <label>Récipe</label>
-								 <textarea name="rp" rows="15" class="form-control"><?= $recipe[0]['rp']; ?></textarea>
-								</div>
-								<div class="form-group col-xs-6">
-								  <label>Indicaciones</label>
-								   <textarea name="indicaciones" rows="15"  class="form-control"><?= $recipe[0]['indicaciones']; ?></textarea>
-								</div>
-							</div>	
+						  <!-- radio -->
+						   <div class="form-group col-xs-3">
+							<label>
+							  <input type="radio" name="frecuencia" value="1/semana" class="minimal-red" checked/> Una vez a la semana
+							</label>
+							</div> 
+							<div class="form-group col-xs-3">
+							<label>
+							  <input type="radio" name="frecuencia" value="2/semana" class="minimal-red"/> Dos veces por semana
+							</label>
+							</div> 
+							<div class="form-group col-xs-3">
+							<label>
+							  <input type="radio" name="frecuencia" value="3/semana" class="minimal-red"/> Tres veces a la semana
+							</label>
+							</div> 
+							<div class="form-group col-xs-3">
+							<label>
+							  <input type="radio" name="frecuencia" value="diario" class="minimal-red"/>  Diario
+							</label>
+							</div>				  
 					</div>
+					
+		</div>	
+		
+	<h4 style="font-size:bold">Lista de terapias</h4>
+		 
+		 <div class="box">
+             <br>   			
+					<div class="row">				   
+						  <!-- radio -->
+						   <div class="form-group col-xs-3">
+								 <table align="center">
+									<tr>
+									  <td><label>Sueros Básicos:</label></td><td><label>N° veces</label></td>
+									</tr>
+									<?php 		
+									$j=1;
+									$m=1;
+									$l=1;
+									if(is_array($terapias) && count($terapias) ) { foreach($terapias as $row_basico){  ?> 
+									  <?php if($row_basico['tipo'] == 1){  ?>
+									  <tr>								  
+										<td nowrap>
+										<input type="checkbox" class="minimal-red" name="terapias[]" id="<?php echo $j++ ?>" value="<?php echo $row_basico['descripcion']; ?>">
+										<?php echo $row_basico['descripcion']; ?>
+										</td>
+										<td align="center">
+										<input type="text" name="aplicacion[]" id="text<?php echo $l++ ?>" size="4" disabled>
+										</td>										
+									  </tr>
+									   <?php } }  } ?>
+								  </table>
+							</div> 
+							<div class="form-group col-xs-4">
+							 <table align="center">
+									<tr>
+									  <td><label>Terapias Complemetarias:</label></td><td><label>N° veces</label></td>
+									</tr>
+									<?php 		
+									if(is_array($terapias) && count($terapias) ) { foreach($terapias as $row_terapias){  ?> 
+									  <?php if($row_terapias['tipo'] == 3){  ?>
+									  <tr>								  
+										<td nowrap>
+										<input type="checkbox" class="minimal-red" name="terapias[]" id="<?php echo $j++ ?>" value="<?php echo $row_terapias['descripcion']; ?>">
+										<?php echo $row_terapias['descripcion']; ?>
+										</td>
+										<td align="center">
+										<input type="text" name="aplicacion[]" id="text<?php echo $l++ ?>" size="4" disabled>
+										</td>										
+									  </tr>
+									   <?php } }  } ?>
+								  </table>
+							</div> 
+							<div class="form-group col-xs-5">
+							 <table align="center">
+									<tr>
+									  <td><label>Sueros Expecíficos:</label></td><td><label>N° veces</label></td>
+									</tr>
+									<?php 		
+									if(is_array($terapias) && count($terapias) ) { foreach($terapias as $row_sueros){  ?> 
+									  <?php if($row_sueros['tipo'] == 2){  ?>
+									  <tr>								  
+										<td nowrap>
+										<input type="checkbox" class="minimal-red" name="terapias[]" id="<?php echo $j++ ?>" value="<?php echo $row_sueros['descripcion']; ?>">
+										<?php echo $row_sueros['descripcion']; ?>
+										</td>
+										<td align="center">
+										<input type="text" name="aplicacion[]" id="text<?php echo $l++ ?>" size="4" disabled>
+										</td>										
+									  </tr>
+									   <?php } }  } ?>
+								  </table>
+							</div> 			  
+					</div>
+					
+		</div>	
+
+<h4 style="font-size:bold"></h4>
+		 
+		 <div class="box">
+             <br>   			
+					<div class="row">				   
+						<div class="form-group col-xs-6">
+						  <label>Observaciones</label>
+						 <textarea  name="obs"  class="form-control"></textarea>
+						</div>
+					</div>
+			</div>	
 			
-				</div><!-- /.box-body -->
+	</div><!-- /.box-body -->
 				
 					 <div class="box-footer">					 
 					   <button type="submit" class="btn btn-success pull-right">Guardar</button>
@@ -167,25 +271,6 @@
 
             </div><!-- /.col-->
           </div><!-- ./row -->
-
-		<div class="modal" id="modalPacDialog" role="dialog">
-		  <div class="modal-dialog"  role="document" style="width: 65%;">
-			<div class="modal-content">
-			  <div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-					<h4 class="modal-title">Último Récipe</h4>
-				</div>
-						<div class="modal-body" id="pac-body">
-						</div>
-				 <div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">Ok</button>
-				  </div>
-			</div>
-			<!-- /.modal-content --> 
-		  </div>
-		  <!-- /.modal-dialog --> 
-		</div>	
-				  
 		  
 		  
         </section><!-- /.content -->
@@ -209,25 +294,24 @@
     <script src='<?=base_url()?>assets/plugins/fastclick/fastclick.min.js'></script>
     <!-- AdminLTE App -->
     <script src="<?=base_url()?>assets/dist/js/app.min.js" type="text/javascript"></script>
-	
-	<script src="<?=base_url()?>assets/js/datepicker-es.js" type="text/javascript"></script>
+ <!-- iCheck 1.0.1 -->
+    <script src="<?=base_url()?>assets/plugins/iCheck/icheck.min.js" type="text/javascript"></script>
+
 	  <!-- all -->
     <script src="<?=base_url()?>assets/js/scripts.js" type="text/javascript"></script>
 	<!-- page script -->
-    <script type="text/javascript">
+    <script type="text/javascript">	
 	
-		function recipe_anterior(){
-			$.ajax({ 
-							url: '<?=base_url()?>consulta/recipe_anterior',
-							type:'POST',
-							data:{doctor: <?= $doctor[0]['id']; ?> ,expediente: <?= $expediente[0]['id']; ?>},
-							success: function(data){
-							 $( "#pac-body" ).html(data);
-							$('#modalPacDialog').modal();
-							}
-			})	
-			
-		}				
+        //Red color scheme for iCheck
+        $('input[type="checkbox"].minimal-red, input[type="radio"].minimal-red').iCheck({
+          checkboxClass: 'icheckbox_minimal-red',
+          radioClass: 'iradio_minimal-red'
+        });
+
+		$('input[type="checkbox"].minimal-red').on('ifChecked', function(event){
+			if (document.getElementById(this.id).checked==true){document.getElementById('text'+this.id).disabled=false} 
+			if (document.getElementById(this.id).checked==false){document.getElementById('text'+this.id).disabled=true} 
+		});
 
 		function mandar_doc(id,tipo){
 

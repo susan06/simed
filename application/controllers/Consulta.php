@@ -514,18 +514,20 @@ class Consulta extends CI_Controller {
 		
 		if($recipe){
 			$data['id'] =  $recipe[0]['id'];
+			$data['fecha_expiracion']= date("Y-m-d",strtotime($this->input->post('fecha_expiracion')));
+			$data['rp']= $this->input->post('rp');
+			$data['indicaciones']= $this->input->post('indicaciones');
 		}else{
 			$data['id'] =  NULL;
+			$data['expediente_id']= $expediente[0]['id'];
+			$data['doctores_id']= $cita_datos[0]['doctores_id'];
+			$data['fecha_emision']= date('Y-m-d');
+			$data['citas_id']= $cita;
+			$data['fecha_expiracion']= date("Y-m-d",strtotime($this->input->post('fecha_expiracion')));
+			$data['rp']= $this->input->post('rp');
+			$data['indicaciones']= $this->input->post('indicaciones');
 		}
 		
-		$data['expediente_id']= $expediente[0]['id'];
-		$data['doctores_id']= $cita_datos[0]['doctores_id'];
-		$data['fecha_emision']= date('Y-m-d');
-		$data['citas_id']= $cita;
-		$data['fecha_expiracion']= date("Y-m-d",strtotime($this->input->post('fecha_expiracion')));
-		$data['rp']= $this->input->post('rp');
-		$data['indicaciones']= $this->input->post('indicaciones');
-						   
 		$this->consulta_model->guardar_recipe($cita,$data);
 	}	
 	
@@ -548,8 +550,122 @@ class Consulta extends CI_Controller {
         $this->load->view('consulta/recipe_imprimir', $data);
 		
 	}		
-	
 
+	public function mandar_doc(){	
+		//$doc_id = id del documento
+		$data['doc_id'] = $this->input->post('id');
+		$data['tipo'] 	= $this->input->post('tipo');
+		if($data['tipo'] == 1){
+			$data['ruta']	= "consulta/recipe_imprimir/".$data['doc_id'];
+			$nombre_doc ="el Récipe";			
+		}else{
+			$data['ruta']	= "consulta/orden_imprimir/".$data['doc_id'];
+			$nombre_doc ="la Orden de Terapia";				
+		}
+		
+		
+		$doc = $this->consulta_model->get_imprimir($data['tipo'],$data['doc_id']);
+		
+		if($doc){
+				$rsp['exist'] = 1;
+				$rsp['mnj'] =  "Ya fue enviado ".$nombre_doc." a la secretaria";
+			}else{
+				$insertSQL=$this->db->insert('impresiones', $data);
+				if($insertSQL){
+					$rsp['exist'] = 0;
+					$rsp['mnj'] =  "Ha sido enviado ".$nombre_doc." a la secretaria";
+				}
+			}			
+		
+		echo json_encode($rsp);
+	}	
+
+		public function orden_terapia($cita) {
+		
+		date_default_timezone_set('America/Caracas');
+		
+		$data['page_title'] = 'Orden de terapia';
+		$data['system_title'] = 'Datos';
+		$data['cita'] =  $cita;
+		
+		$cita_datos = $this->citas_model->get_datos_cita($cita);
+	
+		$this->load->model('doctores_model');		
+		$doctor = $this->doctores_model->get_datos_doctor($cita_datos[0]['doctores_id']);
+		if($doctor){
+			$data['doctor'] =  $doctor;
+		}else{
+			$data['doctor'] =  NULL;
+		}
+		
+		$this->load->model('pacientes_model');
+		$paciente = $this->pacientes_model->get_datos_paciente($cita_datos[0]['pacientes_id']);
+		if($paciente){
+			$data['paciente'] =  $paciente;
+		}else{
+			$data['paciente'] =  NULL;
+		}
+		
+		$this->load->model('expediente_model');
+		
+		$data['expediente']  = $this->expediente_model->expediente($cita_datos[0]['pacientes_id']);
+		
+		$orden = $this->consulta_model->get_orden($cita);
+		if($orden){
+			$data['orden'] =  $orden;
+		}else{
+			$data['orden'] =  NULL;
+		}	
+		
+		$this->load->model('terapias_model');
+		$terapias = $this->terapias_model->get_terapias();
+			
+			if($terapias){
+				$data['terapias'] =  $terapias;
+			}else{
+				$data['terapias'] =  NULL;
+			}
+			
+		$this->load->view('consulta/orden_terapia', $data);
+    }	
+
+	public function guardar_orden($cita){	
+	
+		date_default_timezone_set('America/Caracas');
+		
+		$cita_datos = $this->citas_model->get_datos_cita($cita);
+		
+		$this->load->model('expediente_model');
+		
+		$expediente = $this->expediente_model->expediente($cita_datos[0]['pacientes_id']);
+		
+		$orden = $this->consulta_model->get_orden($cita);
+
+		if($orden){
+			$data['id'] =  $orden[0]['id'];
+			$data['fecha']= date("Y-m-d");
+			$data['rp']= $this->input->post('rp');
+			$data['indicaciones']= $this->input->post('indicaciones');
+		}else{
+			$data['id'] =  NULL;
+			$data['expediente_id']= $expediente[0]['id'];
+			$data['doctores_id']= $cita_datos[0]['doctores_id'];
+			$data['fecha']= date('Y-m-d');
+			$data['citas_id']= $cita;
+			$data['obs']= $this->input->post('rp');
+			$data['terapias']="";
+			if($this->input->post('terapias')){
+			$data['terapias']= implode(",",$this->input->post('terapias'));			
+			}
+			$data['aplicacion']="";
+			if($this->input->post('aplicacion')){			
+				$data['aplicacion']= implode(",",$this->input->post('aplicacion'));
+			}
+		}
+
+		$this->consulta_model->guardar_orden($cita,$data);
+	}	
+		
 }
 
 /* End of file consulta.php */
