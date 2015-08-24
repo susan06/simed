@@ -51,7 +51,7 @@
   </tr>
   
   <tr>
-    <td align="left">Fecha de Emisi&oacute;n: <?php echo date_format(date_create($row['fecha_emision']), 'd/m/Y'); ?> &nbsp;&nbsp; Fecha de Expiraci&oacute;n: <?php if($row['fecha_expiracion']){ echo date_format(date_create($row['fecha_expiracion']), 'd/m/Y');}?> </td>
+    <td align="left">Fecha: <?php echo date_format(date_create($row['fecha_emision']), 'd/m/Y'); ?> &nbsp;&nbsp; Fecha de Expiraci&oacute;n: <?php if($row['fecha_expiracion']){ echo date_format(date_create($row['fecha_expiracion']), 'd/m/Y');}?> </td>
     
     <td width="10">&nbsp;&nbsp;</td>
     

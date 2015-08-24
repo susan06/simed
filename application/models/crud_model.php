@@ -81,4 +81,18 @@ class Crud_model extends CI_Model {
 
 			return $row['id'];		
 	}	
+
+	function get_imprimir(){	
+		$this->db->select("*, impresiones.id as id");
+		$this->db->join('pacientes','impresiones.pacientes_id=pacientes.id','left');
+		$this->db->from('impresiones');			
+		$query = $this->db->get();		
+		return $query->result_array();			
+	}		
+
+	function eliminar_doc($id_documento){
+			
+		$this->db->where('id', $id_documento);
+		$this->db->delete('impresiones');	
+	}	
 }

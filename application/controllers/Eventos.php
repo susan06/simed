@@ -72,5 +72,30 @@ class Eventos extends CI_Controller {
 					redirect(base_url() . 'doctores/calendario', 'refresh');	
 		}
 	}
+
+	public function imprimir(){	
 		
+		$ver = 1;
+		
+		$data['page_title'] = 'Imprimir';
+		$data['system_title'] = 'Documentos';		
+		
+		$imprimir = $this->crud_model->get_imprimir();
+
+		if($imprimir){
+			$data['imprimir'] =  $imprimir;
+		}else{
+			$data['imprimir'] =  NULL;
+		}
+			
+		$this->load->view('eventos/lista_imprimir', $data);
+
+	}	
+	
+	public function eliminar_doc(){	
+		
+		 $id_documento = $this->input->post('id');
+		 $this->crud_model->eliminar_doc($id_documento);
+		 	
+	}
 }

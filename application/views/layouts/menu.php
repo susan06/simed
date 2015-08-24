@@ -189,6 +189,14 @@
               </ul>
             </li>
 			
+			<?Php if($this->session->userdata('rol') == 5): ?>
+            <li class="treeview">
+              <a href="<?= base_url();?>eventos/imprimir">
+                <i class="fa fa-print"></i> <span>Impresiones</span> 
+              </a>
+            </li>
+			<?Php endif ?>
+			
           </ul>
         </section>
         <!-- /.sidebar -->
