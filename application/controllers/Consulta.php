@@ -241,7 +241,27 @@ class Consulta extends CI_Controller {
 		$this->consulta_model->actualizar_historia($cita,$historia,$gine,$fam,$fun,$alim,$psico);
 		
 	}	
-
+	
+	public function historia_imprimir($historia){	
+	
+		$historia_medica = $this->consulta_model->get_historia_imprimir($historia);
+		if($historia_medica){
+				$data['historia'] =  $historia_medica;
+			}else{
+				$data['historia'] =  NULL;
+			}
+			
+		$this->load->model('centro_model');	
+		$query = $this->centro_model->get_clinica();
+			
+		if($query){
+			$data['clinica'] =  $query;
+		}
+		
+        $this->load->view('consulta/historia_imprimir', $data);
+		
+	}	
+	
 	public function registrar($cita){	
 	
 		$data['page_title'] = 'Consulta';
@@ -555,6 +575,7 @@ class Consulta extends CI_Controller {
 		//$doc_id = id del documento
 		$data['doc_id'] = $this->input->post('id');
 		$data['tipo'] 	= $this->input->post('tipo');
+		$data['expediente_id'] 	= $this->input->post('expediente');
 		if($data['tipo'] == 1){
 			$data['ruta']	= "consulta/recipe_imprimir/".$data['doc_id'];
 			$nombre_doc ="el Récipe";			
@@ -698,7 +719,35 @@ class Consulta extends CI_Controller {
 
 		$this->consulta_model->guardar_orden($cita,$data);
 	}	
+	
+	public function orden_imprimir($orden){	
+	
+		$orden_terapia = $this->consulta_model->get_orden_imprimir($orden);
+		if($orden_terapia){
+				$data['orden'] =  $orden_terapia;
+			}else{
+				$data['orden'] =  NULL;
+			}
+			
+		$this->load->model('centro_model');	
+		$query = $this->centro_model->get_clinica();
+			
+		if($query){
+			$data['clinica'] =  $query;
+		}
 		
+		$this->load->model('terapias_model');
+		$terapias = $this->terapias_model->get_terapias();
+			
+			if($terapias){
+				$data['terapias'] =  $terapias;
+			}else{
+				$data['terapias'] =  NULL;
+			}
+			
+        $this->load->view('consulta/orden_imprimir', $data);
+		
+	}			
 }
 
 /* End of file consulta.php */

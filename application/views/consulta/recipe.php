@@ -129,7 +129,7 @@
 				<?php if(is_array($recipe) && count($recipe) ){
 					foreach($recipe as $row){ ?>
 						<a href="<?= base_url();?>consulta/recipe_imprimir/<?= $row['id']; ?>" target="_blank" class="btn btn-sm btn-success"><i class="fa fa-print"></i> Imprimir</a>
-						<button type="button" class="btn btn-sm btn-info" onclick="mandar_doc(<?= $row['id']; ?>,1)"> Mandar a secretaria</button>
+						<button type="button" class="btn btn-sm btn-info" onclick="mandar_doc(<?= $row['id']; ?>,1,<?= $row['expediente_id']; ?>)"> Mandar a secretaria</button>
 				<?php }} ?>			
 				</div>
 				
@@ -229,12 +229,12 @@
 			
 		}				
 
-		function mandar_doc(id,tipo){
+		function mandar_doc(id,tipo,expediente){
 
 			$.ajax({ 
 							url: '<?=base_url()?>consulta/mandar_doc',
 							type:'POST',
-							data:{id:id,tipo: tipo},
+							data:{id:id,tipo: tipo, expediente:expediente},
 							dataType : 'json',
 							success: function(data){
 								if(data.exist == 1){

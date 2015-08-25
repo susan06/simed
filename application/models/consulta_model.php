@@ -86,6 +86,22 @@ class Consulta_model extends CI_Model {
 		
 	}
  
+  	function get_historia_imprimir($historia){		
+		$this->db->select("*, historia_medica.id as id, doctores.pnombre as nombre_doc, doctores.papellido as apellido_doc");
+		$this->db->from('historia_medica');
+		$this->db->join('antec_gineco_obstetro','antec_gineco_obstetro.cod_hm=historia_medica.id','left');
+		$this->db->join('antec_personales','antec_personales.cod_hm=historia_medica.id','left');
+		$this->db->join('examen_funcional','examen_funcional.cod_hm=historia_medica.id','left');
+		$this->db->join('hab_psicobiologicos','hab_psicobiologicos.cod_hm=historia_medica.id','left');
+		$this->db->join('hab_alimenticios','hab_alimenticios.cod_hm=historia_medica.id','left');
+		$this->db->join('doctores','doctores.id=historia_medica.doctores_id','left');
+		$this->db->join('expediente_medico','expediente_medico.id=historia_medica.expediente_id','left');
+		$this->db->join('pacientes','pacientes.id=expediente_medico.pacientes_id','left');
+		$this->db->where('historia_medica.id',$historia);			
+		$query = $this->db->get();		
+		return $query->result_array();				
+	}
+	
  	function get_consultas($doctor,$expediente){		
 		$this->db->select("*, consulta.id as id");
 		$this->db->join('signos_vitales','signos_vitales.consulta_id=consulta.id','left');
@@ -176,9 +192,10 @@ class Consulta_model extends CI_Model {
 		$query = $this->db->get('impresiones');		
 		return $query->result_array();	
 	}
+
 	
  	function get_recipe_imprimir($recipe){	
-		$this->db->select("*,doctores.pnombre as nombre_doc, doctores.papellido as apellido_doc, pacientes.cedula as cedula_pac");
+		$this->db->select("*, recipe.id as id, doctores.pnombre as nombre_doc, doctores.papellido as apellido_doc, pacientes.cedula as cedula_pac");
 		$this->db->join('doctores','doctores.id=recipe.doctores_id','left');
 		$this->db->join('expediente_medico','expediente_medico.id=recipe.expediente_id','left');
 		$this->db->join('pacientes','pacientes.id=expediente_medico.pacientes_id','left');
@@ -240,5 +257,13 @@ class Consulta_model extends CI_Model {
 
 	}	
 	 
-	
+ 	function get_orden_imprimir($orden){	
+		$this->db->select("*, orden_terapia.id as id, doctores.pnombre as nombre_doc, doctores.papellido as apellido_doc, pacientes.cedula as cedula_pac");
+		$this->db->join('doctores','doctores.id=orden_terapia.doctores_id','left');
+		$this->db->join('expediente_medico','expediente_medico.id=orden_terapia.expediente_id','left');
+		$this->db->join('pacientes','pacientes.id=expediente_medico.pacientes_id','left');
+		$this->db->where("orden_terapia.id",$orden);		
+		$query = $this->db->get('orden_terapia');		
+		return $query->result_array();	
+	} 	
 }

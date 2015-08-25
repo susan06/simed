@@ -127,7 +127,7 @@
 				<div class="box-header">
 						<a href="<?= base_url();?>consulta/orden_imprimir/<?= $row['id']; ?>" target="_blank" class="btn btn-sm btn-success"><i class="fa fa-print"></i> Imprimir</a>
 						&nbsp;&nbsp;
-						<button type="button" class="btn btn-sm btn-info" onclick="mandar_doc(<?= $row['id']; ?>,2)"> Mandar a secretaria</button>
+						<button type="button" class="btn btn-sm btn-info" onclick="mandar_doc(<?= $row['id']; ?>,2,<?= $row['expediente_id']; ?>)"> Mandar a secretaria</button>
 				</div>
 				<?php }} ?>	
 			  
@@ -340,12 +340,12 @@
 			if (document.getElementById(this.id).checked==false){document.getElementById('text'+this.id).disabled=true} 
 		});
 		
-		function mandar_doc(id,tipo){
+		function mandar_doc(id,tipo,expediente){
 
 			$.ajax({ 
 							url: '<?=base_url()?>consulta/mandar_doc',
 							type:'POST',
-							data:{id:id,tipo: tipo},
+							data:{id:id,tipo: tipo,expediente:expediente},
 							dataType : 'json',
 							success: function(data){
 								if(data.exist == 1){
