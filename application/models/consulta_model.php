@@ -243,7 +243,7 @@ class Consulta_model extends CI_Model {
 			
 			$this->db->insert('orden_terapia', $data);
 			
-			$this->session->set_flashdata('info', 'La informacón de la orden de terapia fue guardada con éxito');
+			$this->session->set_flashdata('info', 'La información de la orden de terapia fue guardada con éxito');
 			redirect(base_url() . 'consulta/orden_terapia/'.$cita, 'refresh');
 			
 		}else{

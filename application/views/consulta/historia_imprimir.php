@@ -9,14 +9,14 @@
     <link href="<?=base_url()?>assets/dist/css/AdminLTE.min.css" rel="stylesheet" type="text/css" />
 </head>  
 <style type='text/css'>
-	@page { margin:25px; }
+	@page { margin:28px; }
 	body { 
 	margint-top:20px;
 	margin-left:15px;
 	margin-right:15px;
 	 }
 </style>
-<body >
+<body onload="window.print();">
 
 <div style="height:60px; margin-bottom:2%; width:95%">
  
@@ -81,12 +81,12 @@
 		 <div class="box">
   				
 				   <div class="row">
-				   
+				   <br>
 						<div class="col-xs-5">
 						  <label>Paciente:</label>
 						  <?= $row['pnombre']; ?> <?= $row['snombre']; ?> <?= $row['papellido']; ?> <?= $row['sapellido']; ?>
 						</div>	
-				 	  <div class="col-xs-4">
+				 	  <div class="col-xs-3">
 						  <label>Cédula:</label>
 						   <?= $row['cedula']; ?>
 						</div>
@@ -142,24 +142,24 @@
 	
  <h4 style="font-size:bold">Antecedentes Personales y Familiares</h4>
 		 
-		 <div class="box">
+		 <div class="box"><br>
 					<div class="row">				   
-						<div class="form-group col-xs-6">
+						<div class="col-xs-6">
 						  <label>Médicos</label>
 						 <textarea name="med_cabecera" class="form-control"><?= $row['med_cabecera']; ?></textarea>
 						</div>
-						<div class="form-group col-xs-6">
+						<div class="col-xs-6">
 						  <label>Alergias</label>
 						   <textarea name="alergias" class="form-control"><?= $row['alergias']; ?></textarea>
 						</div>
 					</div>	
 					
 					<div class="row">
-						<div class="form-group col-xs-6">
+						<div class="col-xs-6">
 						  <label>Qx</label>
 						   <textarea name="qx"  class="form-control"><?= $row['qx']; ?></textarea>
 						</div>
-						<div class="form-group col-xs-6">
+						<div class="col-xs-6">
 						  <label>Ant. familiares</label>
 						   <textarea  name="antec_flia" class="form-control"><?= $row['antec_flia']; ?></textarea>
 						</div>									 
@@ -168,35 +168,35 @@
 			
  <h4 style="font-size:bold">Antecedentes Gineco-obstétricos</h4>
 		 
-		 <div class="box">		
+		 <div class="box"><br>		
 					<div class="row">				   
-						<div class="form-group col-xs-4">
+						<div class="col-xs-4">
 						  <label>Menarquia</label>
 						  <input type="text" class="form-control" name="menarquia" value="<?= $row['menarquia']; ?>">
 						</div>
-						<div class="form-group col-xs-4">
+						<div class="col-xs-4">
 						  <label>Mentruación</label>
 						  <input type="text" class="form-control" name="menstruacion" value="<?= $row['menstruacion']; ?>">
 						</div>
-					<div class="form-group col-xs-4">
+					<div class="col-xs-4">
 						  <label>Regularidad</label>
 						  <input type="text" class="form-control" name="regularidad_menst" value="<?= $row['regularidad_menst']; ?>">
 						</div>
 					</div>
 					<div class="row">				   
-						<div class="form-group col-xs-3">
+						<div class="col-xs-3">
 						  <label>Embarazos</label>
 						  <input type="text" class="form-control" name="embarazos" value="<?= $row['embarazos']; ?>">
 						</div>
-						<div class="form-group col-xs-3">
+						<div class="col-xs-3">
 						  <label>Partos</label>
 						  <input type="text" class="form-control" name="partos" value="<?= $row['partos']; ?>">
 						</div>
-					<div class="form-group col-xs-3">
+					<div class="col-xs-3">
 						  <label>Cesareas</label>
 						  <input type="text" class="form-control" name="cesarias" value="<?= $row['cesarias']; ?>">
 						</div>
-						<div class="form-group col-xs-3">
+						<div class="col-xs-3">
 						  <label>Abortos</label>
 						  <input type="text" class="form-control" name="abortos" value="<?= $row['abortos']; ?>">
 						</div>
@@ -205,7 +205,7 @@
 			
 <h4 style="font-size:bold">Hábitos Alimenticios</h4>
 		 
-		 <div class="box">
+		 <div class="box"><br>
 					<div class="row">				   
 						<div class="col-xs-2">
 						<?= $row['leche']; ?><label>/7 Leche</label>						 
@@ -244,10 +244,11 @@
 						</div>						
 					</div>						
 		 </div>	
-
+<br><br><br><br>
 <h4 style="font-size:bold">Hábitos Psicobiológicos</h4>
 		 
-		 <div class="box">			
+		 <div class="box">
+		 <br>			
 					<div class="row">				   
 						<div class="col-xs-4">
 						  <label>Alcohol</label>
@@ -262,6 +263,7 @@
 						  <input type="text" class="form-control" name="cafeicos" value="<?= $row['cafeicos']; ?>">
 						</div>
 					</div>
+					<br>
 					<div class="row">				   
 						<div class="col-xs-6">
 						  <label>Medicamentos</label>
@@ -276,7 +278,7 @@
 			
 <h4 style="font-size:bold">Examen Funcional</h4>
 		 
-		 <div class="box">  			
+		 <div class="box"> <br> 			
 					<div class="row">				   
 						<div class="col-xs-6">
 						  <label>Evaciaciones</label>
@@ -294,7 +296,41 @@
 						</div>
 					</div>
 			</div>		
-	
+ <div style="height:50px; width:95%">
+       
+  <div style="font-size:15px; width:50%; float:left" >
+        
+  <table align="left" width="50%">
+          
+     <tr valign="baseline">
+      <td nowrap align="left">N&deg; Historia M&eacute;dica: <?php echo $row['id']; ?></td>
+     </tr>
+             
+   <tr valign="baseline">
+    <td nowrap align="left">N&deg; Expediente M&eacute;dico: <?php echo $row['expediente_id']; ?></td>
+   </tr>
+
+  </table>
+  
+  </div>
+  
+   <div style="font-size:15px; width:50%; float:right" >  
+    
+   <table align="right" width="50%">
+                
+    <tr valign="baseline">
+     <td nowrap align="right">Doctor(a): <span> <?php echo $row['nombre_doc']; ?> <?php echo $row['apellido_doc']; ?></span></td>
+  </tr>
+                
+   <tr valign="baseline">
+    <td nowrap align="right">Fecha de Apertura: <?php echo date_format($date = date_create($row['fecha']), 'd/m/Y'); ?></td>
+    </tr>
+             
+   </table>
+    
+      </div>
+         
+  </div>	
   <?php } } ?>
 </body>
 </html>

@@ -47,20 +47,17 @@
 		
 			  <div class="box">
                 <div class="box-header">
-                  <h3 class="box-title">Pacientes para terapia </h3>
+				<?Php if(count($pac_terapias) > 0){ ?>
+                  <h3 class="box-title">Pacientes en sala de espera para terapias</h3>
+				<?Php }else{ ?>
+				 <h3 class="box-title">No hay pacientes en sala de espera</h3>
+				  <?Php } ?>
 				  <input type="text" id="buscar_table" class="form-control input-sm pull-right" style="width: 200px;" placeholder="Buscar">
                 </div><!-- /.box-header -->
-              
-				<div class="box-header">
-				        <h3 class="box-title col-md-5"><input type="text" class="form-control" id="pacientes" placeholder="Escriba aqui para buscar al paciente"/></h3>
-						<button type="button" class="btn btn-sm btn-success" onclick="agregar_pac_terapia($('#pacientes_id').val())">Agregar a sala de espera</button>
-						<input type="hidden" class="form-control" id="pacientes_id"/>
-						<button type="button" class="btn btn-sm btn-warning pull-right" onclick="location.href='<?= base_url(); ?>sala_espera/borrar_lista_terapias'">Borrar lista de espera</button>
-				</div>
 				
 				<div class="box-body">			
 		
-                  <table id="pacientes_table" class="table table-bordered table-striped">
+  <table id="pacientes_table" class="table table-bordered table-striped">
                     <thead>
                       <tr>
 						<th>#</th>
@@ -88,23 +85,9 @@
 						  <td>
 							
 							<i class="fa fa-user-md"  title="Cambiar status" style="cursor:pointer" data-rel="tooltip" data-placement="top" onclick="cambiar_status(<?= $row['id'];?>)"></i>
+							&nbsp;&nbsp;&nbsp;			
+							<i class="fa fa-file-o"  title="Buscar Orden" style="cursor:pointer" data-rel="tooltip" data-placement="top" onclick="buscar_orden(<?= $row['pacientes_id'];?>)"></i>
 							&nbsp;
-							<?php									
-							if ($permisos[$borrar]['status'] == 1 ){ 
-							?>
-							
-							<i title="Eliminar" data-rel="tooltip" data-placement="top"  style="cursor:pointer" class="fa fa-trash-o" onclick="eliminar(<?= $row['id'];?>, '<?= base_url(); ?>sala_espera/eliminar_terapia')"></i>
-
-							<?php	
-								}else{
-							?>
-							
-							<i class="fa fa-trash-o" title="eliminar" data-rel="tooltip" data-placement="top"  onclick="eliminar_permiso()"></i>
-
-							<?php	
-								}
-							?>				
-		
 						   </td>			
 
 						 </tr>
@@ -121,31 +104,13 @@
                       </tr>
                     </tfoot>
                   </table>
-                
-				</div><!-- /.box-body -->
+                                
+			   </div><!-- /.box-body -->
               </div><!-- /.box -->
 
             </div><!-- /.col-->
           </div><!-- ./row -->
 		  
-		<div class="modal" id="modalEsperaDialog" role="dialog">
-		  <div class="modal-dialog"  role="document" style="width: 70%;">
-			<div class="modal-content">
-			  <div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-					<h4 class="modal-title">Citas médicas para hoy</h4>
-				</div>
-						<div class="modal-body" id="citas-body">
-						</div>
-			 <div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-			  </div>
-			</div>
-			<!-- /.modal-content --> 
-		  </div>
-		  <!-- /.modal-dialog --> 
-		</div>		        
-			
 			<div class="modal modal-warning" id="warning_modal" role="dialog">
               <div class="modal-dialog"  role="document">
                 <div class="modal-content">
@@ -166,7 +131,24 @@
         </section><!-- /.content -->
       </div><!-- /.content-wrapper -->
 
-	  
+		<div class="modal" id="modalOrdenDialog" role="dialog">
+		  <div class="modal-dialog"  role="document" style="width: 40%;">
+			<div class="modal-content">
+			  <div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title">Seleccione La orden de terapia del paciente</h4>
+				</div>
+				<div class="modal-body" id="orden-body">
+				</div>
+			 <div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+			  </div>
+			</div>
+			<!-- /.modal-content --> 
+		  </div>
+		  <!-- /.modal-dialog --> 
+		</div>	
+		
 	  <?php $this->load->view('layouts/footer.php');	 ?>
  
     </div><!-- ./wrapper -->
@@ -202,24 +184,14 @@
 		 
 		 $('#buscar_table').keyup(function(){ oTable.fnFilter( $(this).val() )});
 
+		$('body').on('hidden.bs.modal', '.modal', function (e) {
+			$(e.target).removeData("bs.modal").find(".modal-body").empty(); 
+		});		 
+		
 		$('[data-rel=tooltip]').tooltip();
 		$('[data-rel=popover]').popover({html:true});
-		
-		$("#pacientes").autocomplete({
-						
-					source: '<?= base_url(); ?>pacientes/autocomplete',
-					minlength:2,
-					html:true,
-					select: function(event, ui) {								
-								event.preventDefault();
-								$(this).val(ui.item.label);
-								$("#pacientes_id").val(ui.item.id);
-								$("#cedula").val(ui.item.ci);
-							}
-		});	
 				
       });				
-
 		
 		function eliminar_permiso(){ 			
 			$('#warning_modal').modal('show');			
@@ -240,7 +212,7 @@
 		}
 
 			
-		function cambiar_status(cita) {  
+	function cambiar_status(cita) {  
 								
 				var status 		= document.getElementById('value_status'+cita).value;
 				var oldStatus 	= document.getElementById('value_status'+cita).value;
@@ -269,24 +241,14 @@
 					} 
 				})
 				
-		};		
+		};	
 
-		function agregar_pac_terapia(paciente) {  
-				
-				if(paciente){
-					$.ajax({ 
-				   url:'<?= base_url(); ?>sala_espera/agregar_terapia',
-				   type: "POST",
-				   data: { pacientes_id: paciente },		   
-				   success: function(response){ 
-						location.reload();
-						} 
-					})
-				}else{
-					bootbox.alert("Seleccione un paciente que este registrado");
-				}
-				
-		};				
+	function buscar_orden(paciente){
+
+			$( "#orden-body" ).load("<?= base_url(); ?>terapias/ver_ordenes/"+paciente);
+			$('#modalOrdenDialog').modal();
+	}
+   	
     </script>
 	
   </body>

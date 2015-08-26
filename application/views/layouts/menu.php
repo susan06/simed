@@ -3,6 +3,7 @@
 	  <?php $permisos_doc 	= $this->crud_model->get_permisos($this->session->userdata('rol'),3); ?>
 	  <?php $permisos_cit 	= $this->crud_model->get_permisos($this->session->userdata('rol'),4); ?>
 	  <?php $permisos_esp 	= $this->crud_model->get_permisos($this->session->userdata('rol'),5); ?>
+	  <?php $permisos_ter 	= $this->crud_model->get_permisos($this->session->userdata('rol'),8); ?>
 	  <?php $id_doctor 		= $this->crud_model->get_id_doc($this->session->userdata('id')); ?>
 	   
 	  <!-- Left side column. contains the sidebar -->
@@ -184,8 +185,14 @@
                 <i class="fa fa-medkit"></i> <span>Terapias</span>
               </a>
 			   <ul class="treeview-menu">
-                <li><a href="#"><i class="fa fa-circle-o"></i>Ver</a></li>
-                <li><a href="#"><i class="fa fa-circle-o"></i>Registrar</a></li>
+			   <li><a href="<?= base_url();?>terapias/sala_espera"><i class="fa fa-wheelchair"></i>En espera</a></li>
+			    <?php	if ($permisos_ter[1]['status'] == 1 ){ ?>
+                <li><a href="<?= base_url();?>terapias/agenda"><i class="fa fa-calendar-o"></i>Agenda</a></li>
+				<?Php } ?>
+				<?php	if ($permisos_ter[4]['status'] == 1 ){ ?>
+                <li><a href="<?= base_url();?>terapias/crear_orden"><i class="fa fa-plus-square"></i>Crear orden</a></li>
+				<?Php } ?>
+				<li><a href="#"><i class="fa fa-search"></i>Buscar orden</a></li>
               </ul>
             </li>
 			
@@ -198,6 +205,7 @@
 			<?Php endif ?>
 			
           </ul>
+		  <br><br><br><br><br>
         </section>
         <!-- /.sidebar -->
       </aside>

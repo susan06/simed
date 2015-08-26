@@ -483,5 +483,34 @@
 					element.closest('.form-group').removeClass('has-error').addClass('has-success');
 				}
                 
+            });		
+
+		$("#form_orden").validate({
+                // Rules for form validation
+				ignore:'',
+                rules: {
+					pacientes_id: {
+                        required: true
+                    },
+					doctores_id: {
+                        required: true
+                    }
+                },
+                // Messages for form validation
+                messages: {
+                    pacientes_id: {
+                        required: 'Seleccione un paciente registrado en el sistema'
+                    },
+                    doctores_id: {
+                        required: 'Seleccione un doctor'
+                    }
+                },
+				highlight: function (element) {
+					$(element).closest('.form-group').removeClass('has-success').addClass('has-error');
+				},
+				success: function (element) {
+					element.closest('.form-group').removeClass('has-error').addClass('has-success');
+				}
+                
             });				
 });

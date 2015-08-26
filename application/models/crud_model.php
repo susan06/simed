@@ -84,7 +84,8 @@ class Crud_model extends CI_Model {
 
 	function get_imprimir(){	
 		$this->db->select("*, impresiones.id as id");
-		$this->db->join('pacientes','impresiones.pacientes_id=pacientes.id','left');
+		$this->db->join('expediente_medico','expediente_medico.id=impresiones.expediente_id','left');
+		$this->db->join('pacientes','pacientes.id=expediente_medico.pacientes_id','left');
 		$this->db->from('impresiones');			
 		$query = $this->db->get();		
 		return $query->result_array();			
