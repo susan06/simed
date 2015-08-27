@@ -179,15 +179,92 @@ class Terapias extends CI_Controller {
 				$data['terapias'] =  NULL;
 			}
 			
-		$aplicaciones = $this->terapias_model->get_aplicaciones($orden_terapia[0]['id']);
+		$aplicacion1 = $this->terapias_model->aplicaciones1($orden);
 			
-			if($terapias){
-				$data['aplicaciones'] =  $aplicaciones;
+			if($aplicacion1){
+				$data['aplicacion1'] =  $aplicacion1;
 			}else{
-				$data['aplicaciones'] =  NULL;
+				$data['aplicacion1'] =  NULL;
+			}
+			
+		$aplicacion2 = $this->terapias_model->aplicaciones2($orden);
+			
+			if($aplicacion2){
+				$data['aplicacion2'] =  $aplicacion2;
+			}else{
+				$data['aplicacion2'] =  NULL;
 			}
 			
         $this->load->view('terapias/ver_orden_terapia', $data);
     }
+	
+	public function actualizar_orden($orden){	
+	
+			$data['id'] =  $orden;
+			$data['obs']= $this->input->post('obs');
+			$data['frecuencia']= $this->input->post('frecuencia');
+			
+			if(!$data['frecuencia']){
+				$data['frecuencia']="1/semana";
+			}
+			
+			$data['terapias']="";
+			if($this->input->post('terapias')){
+			$data['terapias']=implode(',',$this->input->post('terapias'));
+			$terapias= $this->input->post('terapias');			
+			}
+
+			$aplicacion="";
+			if($this->input->post('aplicacion')){
+			$aplicacion= $this->input->post('aplicacion');			
+			}	
+			
+            $data['aplicaciones']=json_encode(array_combine($terapias,$aplicacion));
+
+		
+		$this->terapias_model->actualizar_orden($data);
+	}
+	
+	public function count_ordenes(){	
+		
+		$paciente = $this->input->get('paciente');
+		
+		$this->load->model('expediente_model');
+		
+		$expediente = $this->expediente_model->expediente($paciente);
+		
+		$ordenes = $this->terapias_model->get_ordenes_pac($expediente[0]['id']);
+
+		if(count($ordenes) > 1 ){
+				$rsp['orden'] = null;
+				$rsp['mnj'] =  true;
+			}else{
+				$rsp['orden'] = $ordenes[0]['id'];
+				$rsp['mnj'] =  false;
+			}			
+		
+		echo json_encode($rsp);
+	}
+
+	public function agenda(){	
+		
+		date_default_timezone_set('America/Caracas');
+		
+		$data['page_title'] = 'Agenda';
+		$data['system_title'] = 'Terapias';	
+		
+		$fecha = date('Y-m-d');
+		
+		$aplicacion = $this->terapias_model->aplicaciones_terapias($fecha);
+			
+			if($aplicacion){
+				$data['aplicacion'] =  $aplicacion;
+			}else{
+				$data['aplicacion'] =  NULL;
+			}
+			
+		$this->load->view('terapias/agenda', $data);
+
+	}
 	
 }

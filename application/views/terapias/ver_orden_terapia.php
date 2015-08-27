@@ -1,5 +1,9 @@
 	<?php $this->load->view('layouts/doctype.php');	 ?>	
-	
+<style type='text/css'>
+	 .separador{ 
+	 border-left:2px solid #9C9C9C;
+	 }
+</style>	
     <div class="wrapper">
 	
 	<?php $this->load->view('layouts/header.php');	 ?>	
@@ -201,7 +205,7 @@
 					</div>
 					
 		</div>	
-			
+		
 <h4 style="font-size:bold"></h4>
 		 
 		 <div class="box">
@@ -212,40 +216,70 @@
 						 <textarea  name="obs"  class="form-control"><?= $row['obs']; ?> </textarea>
 						</div>
 					</div>
-			</div>	
+			</div>
 			
+	<?php 	
+	if( count($aplicacion1) > 0 ) { 
+	?>	
+				
 		 <div class="box">
-             <br>   			
-			<table>
+             <br>
+			<div style="width:50%; float:left">				 
+			<table width="100%" border="1" style="border:1px solid #999; border-collapse:collapse" cellpadding="0" cellspacing="0">
               <tr align="center" style="font-weight:bold">
-                <td>fecha</td>
-                <td>Terapia</td>
-                <td>terapeuta</td>
-				<td>fecha</td>
-                <td>Terapia</td>
-                <td>terapeuta</td>
+                <td width="10%">fecha</td>
+                <td width="25%">Terapia</td>
+                <td width="15%">terapeuta</td>
+              </tr>			  
+				<?php 		
+				if(is_array($aplicacion1) && count($aplicacion1) ) { 					
+				foreach($aplicacion1 as $row_apli1){ 				
+				?>
+				<tr align="center">
+				<td nowrap><?= date_format(date_create($row_apli1['fecha']), 'd/m/Y'); ?></td>
+				<td nowrap><?= $row_apli1['descrip_aplic']; ?></td>
+				<td align="center" nowrap><?= $row_apli1['terapista']; ?></td>
+				</tr>	
+				<?php } 
+				for ( $i=count($aplicacion1) ; $i < 14 ; $i ++) { 
+				?>				
+				<tr align="center">
+				<td nowrap>&nbsp;</td>
+				<td nowrap>&nbsp;</td>
+				<td nowrap>&nbsp;</td>
+				</tr>	
+				<?php } } ?>
+			</table>
+			</div>
+			<div style="width:50%; float:right">			
+			<table width="100%" border="1" style="border:1px solid #999; border-collapse:collapse" cellpadding="0" cellspacing="0">
+              <tr align="center" style="font-weight:bold">
+				<td width="10%" class="separador">fecha</td>
+                <td width="25%">Terapia</td>
+                <td width="15%">terapeuta</td>
               </tr>
 				<?php 		
-				if(is_array($aplicaciones) && count($aplicaciones) ) { 
-				
-				$filas = 1;
-				
-				foreach($aplicaciones as $row){ 
-				$filas++;
+				if(is_array($aplicacion2) && count($aplicacion2) ) { 					
+				foreach($aplicacion2 as $row_apli2){ 				
 				?>
-				<tr>
-				<td nowrap><?= date_format(date_create($row['fecha']), 'd/m/Y'); ?></td>
-				<td nowrap><?php echo $row['descrip_aplic']; ?></td>
-				<td align="center" nowrap><?php echo $row['terapista']; ?></td>
-				<td></td>
-				<td></td>
-				<td></td>
+				<tr align="center">
+				<td nowrap class="separador"><?= date_format(date_create($row_apli2['fecha']), 'd/m/Y'); ?></td>
+				<td nowrap><?= $row_apli2['descrip_aplic']; ?></td>
+				<td align="center" nowrap><?= $row_apli2['terapista']; ?></td>
 				</tr>
-				<?php  }} ?>				 
+				<?php } 
+				for ( $i=count($aplicacion2) ; $i < 14 ; $i ++) { 
+				?>				
+				<tr align="center">
+				<td nowrap class="separador">&nbsp;</td>
+				<td nowrap>&nbsp;</td>
+				<td nowrap>&nbsp;</td>
+				</tr>	
+				<?php } } ?>				
             </table>
-
+			</div>
  		</div>
-			
+		<?php } ?>		
 	</div><!-- /.box-body -->
  			
 	 <?php } } ?>	

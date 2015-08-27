@@ -244,9 +244,25 @@
 		};	
 
 	function buscar_orden(paciente){
-
-			$( "#orden-body" ).load("<?= base_url(); ?>terapias/ver_ordenes/"+paciente);
-			$('#modalOrdenDialog').modal();
+			
+			$.ajax({ 
+				   url:'<?= base_url(); ?>terapias/count_ordenes',
+				   type: "GET",
+				   data: { paciente:paciente },
+				   dataType : 'json',				   
+				   success: function(response){ 
+						if(response.mnj == true){
+									$( "#orden-body" ).load("<?= base_url(); ?>terapias/ver_ordenes/"+paciente);
+									$('#modalOrdenDialog').modal();
+								}
+								else
+								{
+									window.location.href='<?= base_url(); ?>terapias/ver_orden_terapia/'+response.orden;
+								} 		
+					}	 
+				})
+				
+			
 	}
    	
     </script>

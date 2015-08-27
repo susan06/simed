@@ -88,7 +88,7 @@
 						</div>							
 			   </div>
 				
-	<form method="post" name="datos_orden" action="<?= base_url(); ?>consulta/actualizar_orden/<?= $row['id']; ?>">	 
+	<form method="post" name="datos_orden" action="<?= base_url(); ?>terapias/actualizar_orden/<?= $row['id']; ?>">	 
 	
 	<div class="box-body">			
 
