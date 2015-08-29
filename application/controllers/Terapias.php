@@ -225,6 +225,49 @@ class Terapias extends CI_Controller {
 		$this->terapias_model->actualizar_orden($data);
 	}
 	
+	public function orden_imprimir($orden) {
+		
+		$orden_terapia = $this->terapias_model->get_orden_terapia($orden);
+		if($orden_terapia){
+				$data['orden'] =  $orden_terapia;
+			}else{
+				$data['orden'] =  NULL;
+			}
+			
+		$this->load->model('centro_model');	
+		$query = $this->centro_model->get_clinica();
+			
+		if($query){
+			$data['clinica'] =  $query;
+		}
+					
+		$terapias = $this->terapias_model->get_terapias();
+			
+			if($terapias){
+				$data['terapias'] =  $terapias;
+			}else{
+				$data['terapias'] =  NULL;
+			}
+			
+		$aplicacion1 = $this->terapias_model->aplicaciones1($orden);
+			
+			if($aplicacion1){
+				$data['aplicacion1'] =  $aplicacion1;
+			}else{
+				$data['aplicacion1'] =  NULL;
+			}
+			
+		$aplicacion2 = $this->terapias_model->aplicaciones2($orden);
+			
+			if($aplicacion2){
+				$data['aplicacion2'] =  $aplicacion2;
+			}else{
+				$data['aplicacion2'] =  NULL;
+			}
+			
+        $this->load->view('terapias/orden_imprimir', $data);
+    }
+	
 	public function count_ordenes(){	
 		
 		$paciente = $this->input->get('paciente');
@@ -266,5 +309,29 @@ class Terapias extends CI_Controller {
 		$this->load->view('terapias/agenda', $data);
 
 	}
-	
+
+	public function mandar_doc(){	
+		//$doc_id = id del documento
+		$data['doc_id'] = $this->input->post('id');
+		$data['tipo'] 	= $this->input->post('tipo');
+		$data['expediente_id'] 	= $this->input->post('expediente');
+		$data['ruta']	= "terapias/orden_imprimir/".$data['doc_id'];
+		$nombre_doc ="la Orden de Terapia";	
+		
+		$this->load->model('consulta_model');
+		$doc = $this->consulta_model->get_imprimir($data['tipo'],$data['doc_id']);
+		
+		if($doc){
+				$rsp['exist'] = 1;
+				$rsp['mnj'] =  "Ya fue enviado ".$nombre_doc." a la secretaria";
+			}else{
+				$insertSQL=$this->db->insert('impresiones', $data);
+				if($insertSQL){
+					$rsp['exist'] = 0;
+					$rsp['mnj'] =  "Ha sido enviado ".$nombre_doc." a la secretaria";
+				}
+			}			
+		
+		echo json_encode($rsp);		
+	}	
 }

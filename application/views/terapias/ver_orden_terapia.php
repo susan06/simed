@@ -67,9 +67,12 @@
 		foreach($orden as $row){ ?>	
 					
 				<div class="box-header">
-						<a href="<?= base_url();?>terapia/orden_imprimir/<?= $row['id']; ?>" target="_blank" class="btn btn-sm btn-success"><i class="fa fa-print"></i> Imprimir</a>
+						<a href="<?= base_url();?>terapias/orden_imprimir/<?= $row['id']; ?>" target="_blank" class="btn btn-sm btn-success"><i class="fa fa-print"></i> Imprimir</a>
 						&nbsp;&nbsp;
 						<button type="button" class="btn btn-sm btn-info" onclick="mandar_doc(<?= $row['id']; ?>,2,<?= $row['expediente_id']; ?>)"> Mandar a secretaria</button>
+						&nbsp;&nbsp;
+						<a href="<?= base_url();?>terapias/orden_aplicacion/<?= $row['id']; ?>" class="btn btn-sm btn-warning">Actualizar tratamientos</a>
+						&nbsp;&nbsp;		
 				</div>
 			  
 				<div class="box-header">
@@ -146,11 +149,11 @@
 									  ?>
 									  <tr>								  
 										<td nowrap>
-										<input type="checkbox" class="minimal-red" name="terapias[]" id="<?php echo $j++ ?>" value="<?php echo $row_basico['descripcion']; ?>"  <?php echo((in_array("".$row_basico["descripcion"]."", $terapias_check ))?"checked":"");?>  >
+										<input type="checkbox" class="minimal-red" name="terapias[]" id="<?php echo $j++ ?>"  <?php echo((in_array("".$row_basico["id"]."", $terapias_check ))?"checked":"");?>  >
 										<?php echo $row_basico['descripcion']; ?>
 										</td>
 										<td align="center">
-										<input type="text" name="aplicacion[]" <?php echo((in_array("".$row_basico["descripcion"]."", $terapias_check ))?"value='".$aplicaciones->{$row_basico['descripcion']}."'":"disabled");?> id="text<?php echo $l++ ?>" size="4">
+										<input type="text" name="aplicacion[]" <?php echo((in_array("".$row_basico["id"]."", $terapias_check ))?"value='".$aplicaciones->{$row_basico['id']}."'":"disabled");?> id="text<?php echo $l++ ?>" size="4">
 										</td>										
 									  </tr>
 									   <?php } }  } ?>
@@ -169,11 +172,11 @@
 									  ?>
 									  <tr>								  
 										<td nowrap>
-										<input type="checkbox" class="minimal-red" name="terapias[]" id="<?php echo $j++ ?>" value="<?php echo $row_terapias['descripcion']; ?>"  <?php echo((in_array("".$row_terapias["descripcion"]."", $terapias_check ))?"checked=checked":"");?>  >
+										<input type="checkbox" class="minimal-red" name="terapias[]" id="<?php echo $j++ ?>"  <?php echo((in_array("".$row_terapias["id"]."", $terapias_check ))?"checked=checked":"");?>  >
 										<?php echo $row_terapias['descripcion']; ?>
 										</td>
 										<td align="center">
-										<input type="text" name="aplicacion[]" id="text<?php echo $l++ ?>" size="4" <?php echo((in_array("".$row_terapias["descripcion"]."", $terapias_check ))?"value='".$aplicaciones->{$row_terapias['descripcion']}."'":"disabled");?>>
+										<input type="text" name="aplicacion[]" id="text<?php echo $l++ ?>" size="4" <?php echo((in_array("".$row_terapias["id"]."", $terapias_check ))?"value='".$aplicaciones->{$row_terapias['id']}."'":"disabled");?>>
 										</td>										
 									  </tr>
 									   <?php } }  } ?>
@@ -192,11 +195,11 @@
 									  ?>
 									  <tr>								  
 										<td nowrap>
-										<input type="checkbox" class="minimal-red" name="terapias[]" id="<?php echo $j++ ?>" value="<?php echo $row_sueros['descripcion']; ?>"  <?php echo((in_array("".$row_sueros["descripcion"]."", $terapias_check ))?"checked=checked":"");?>  >
+										<input type="checkbox" class="minimal-red" name="terapias[]" id="<?php echo $j++ ?>" <?php echo((in_array("".$row_sueros["id"]."", $terapias_check ))?"checked=checked":"");?>  >
 										<?php echo $row_sueros['descripcion']; ?>
 										</td>
 										<td align="center">
-										<input type="text" name="aplicacion[]" id="text<?php echo $l++ ?>" size="4" <?php echo((in_array("".$row_sueros["descripcion"]."", $terapias_check ))?"value='".$aplicaciones->{$row_sueros['descripcion']}."'":"disabled");?> >
+										<input type="text" name="aplicacion[]" id="text<?php echo $l++ ?>" size="4" <?php echo((in_array("".$row_sueros["id"]."", $terapias_check ))?"value='".$aplicaciones->{$row_sueros['id']}."'":"disabled");?> >
 										</td>										
 									  </tr>
 									   <?php } }  } ?>
@@ -333,7 +336,7 @@
 		function mandar_doc(id,tipo,expediente){
 
 			$.ajax({ 
-							url: '<?=base_url()?>consulta/mandar_doc',
+							url: '<?=base_url()?>terapias/mandar_doc',
 							type:'POST',
 							data:{id:id,tipo: tipo,expediente:expediente},
 							dataType : 'json',

@@ -131,7 +131,7 @@
 									  ?>
 									  <tr>								  
 										<td nowrap>
-										<input type="checkbox" class="minimal-red" name="terapias[]" id="<?php echo $j++ ?>" value="<?php echo $row_basico['descripcion']; ?>" >
+										<input type="checkbox" class="minimal-red" name="terapias[]" id="<?php echo $j++ ?>" value="<?php echo $row_basico['id']; ?>" >
 										<?php echo $row_basico['descripcion']; ?>
 										</td>
 										<td align="center">
@@ -152,7 +152,7 @@
 									  ?>
 									  <tr>								  
 										<td nowrap>
-										<input type="checkbox" class="minimal-red" name="terapias[]" id="<?php echo $j++ ?>" value="<?php echo $row_terapias['descripcion']; ?>" >
+										<input type="checkbox" class="minimal-red" name="terapias[]" id="<?php echo $j++ ?>" value="<?php echo $row_terapias['id']; ?>" >
 										<?php echo $row_terapias['descripcion']; ?>
 										</td>
 										<td align="center">
@@ -173,7 +173,7 @@
 									  ?>
 									  <tr>								  
 										<td nowrap>
-										<input type="checkbox" class="minimal-red" name="terapias[]" id="<?php echo $j++ ?>" value="<?php echo $row_sueros['descripcion']; ?>" >
+										<input type="checkbox" class="minimal-red" name="terapias[]" id="<?php echo $j++ ?>" value="<?php echo $row_sueros['id']; ?>" >
 										<?php echo $row_sueros['descripcion']; ?>
 										</td>
 										<td align="center">

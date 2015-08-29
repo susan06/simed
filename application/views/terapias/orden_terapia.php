@@ -66,6 +66,9 @@
 						<a href="<?= base_url();?>consulta/orden_imprimir/<?= $row['id']; ?>" target="_blank" class="btn btn-sm btn-success"><i class="fa fa-print"></i> Imprimir</a>
 						&nbsp;&nbsp;
 						<button type="button" class="btn btn-sm btn-info" onclick="mandar_doc(<?= $row['id']; ?>,2,<?= $row['expediente_id']; ?>)"> Mandar a secretaria</button>
+						&nbsp;&nbsp;
+						<a href="<?= base_url();?>terapias/orden_aplicacion/<?= $row['id']; ?>" class="btn btn-sm btn-warning">Actualizar tratamientos</a>
+						&nbsp;&nbsp;		
 				</div>
 			  
 				<div class="box-header">
@@ -144,11 +147,11 @@
 									  ?>
 									  <tr>								  
 										<td nowrap>
-										<input type="checkbox" class="minimal-red" name="terapias[]" id="<?php echo $j++ ?>" value="<?php echo $row_basico['descripcion']; ?>"  <?php echo((in_array("".$row_basico["descripcion"]."", $terapias_check ))?"checked":"");?>  >
+										<input type="checkbox" class="minimal-red" name="terapias[]" value="<?php echo $row_basico['id']; ?>" id="<?php echo $j++ ?>" <?php echo((in_array("".$row_basico["id"]."", $terapias_check ))?"checked":"");?>  >
 										<?php echo $row_basico['descripcion']; ?>
 										</td>
 										<td align="center">
-										<input type="text" name="aplicacion[]" <?php echo((in_array("".$row_basico["descripcion"]."", $terapias_check ))?"value='".$aplicaciones->{$row_basico['descripcion']}."'":"disabled");?> id="text<?php echo $l++ ?>" size="4">
+										<input type="text" name="aplicacion[]" <?php echo((in_array("".$row_basico["id"]."", $terapias_check ))?"value='".$aplicaciones->{$row_basico['id']}."'":"disabled");?> id="text<?php echo $l++ ?>" size="4">
 										</td>										
 									  </tr>
 									   <?php } }  } ?>
@@ -167,11 +170,11 @@
 									  ?>
 									  <tr>								  
 										<td nowrap>
-										<input type="checkbox" class="minimal-red" name="terapias[]" id="<?php echo $j++ ?>" value="<?php echo $row_terapias['descripcion']; ?>"  <?php echo((in_array("".$row_terapias["descripcion"]."", $terapias_check ))?"checked=checked":"");?>  >
+										<input type="checkbox" class="minimal-red" name="terapias[]" value="<?php echo $row_terapias['id']; ?>" id="<?php echo $j++ ?>" <?php echo((in_array("".$row_terapias["id"]."", $terapias_check ))?"checked=checked":"");?>  >
 										<?php echo $row_terapias['descripcion']; ?>
 										</td>
 										<td align="center">
-										<input type="text" name="aplicacion[]" id="text<?php echo $l++ ?>" size="4" <?php echo((in_array("".$row_terapias["descripcion"]."", $terapias_check ))?"value='".$aplicaciones->{$row_terapias['descripcion']}."'":"disabled");?>>
+										<input type="text" name="aplicacion[]" id="text<?php echo $l++ ?>" size="4" <?php echo((in_array("".$row_terapias["id"]."", $terapias_check ))?"value='".$aplicaciones->{$row_terapias['id']}."'":"disabled");?>>
 										</td>										
 									  </tr>
 									   <?php } }  } ?>
@@ -190,11 +193,11 @@
 									  ?>
 									  <tr>								  
 										<td nowrap>
-										<input type="checkbox" class="minimal-red" name="terapias[]" id="<?php echo $j++ ?>" value="<?php echo $row_sueros['descripcion']; ?>"  <?php echo((in_array("".$row_sueros["descripcion"]."", $terapias_check ))?"checked=checked":"");?>  >
+										<input type="checkbox" class="minimal-red" name="terapias[]" id="<?php echo $j++ ?>" value="<?php echo $row_sueros['id']; ?>"  <?php echo((in_array("".$row_sueros["id"]."", $terapias_check ))?"checked=checked":"");?>  >
 										<?php echo $row_sueros['descripcion']; ?>
 										</td>
 										<td align="center">
-										<input type="text" name="aplicacion[]" id="text<?php echo $l++ ?>" size="4" <?php echo((in_array("".$row_sueros["descripcion"]."", $terapias_check ))?"value='".$aplicaciones->{$row_sueros['descripcion']}."'":"disabled");?> >
+										<input type="text" name="aplicacion[]" id="text<?php echo $l++ ?>" size="4" <?php echo((in_array("".$row_sueros["id"]."", $terapias_check ))?"value='".$aplicaciones->{$row_sueros['id']}."'":"disabled");?> >
 										</td>										
 									  </tr>
 									   <?php } }  } ?>

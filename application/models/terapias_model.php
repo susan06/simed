@@ -69,7 +69,7 @@ class Terapias_model extends CI_Model {
 		$this->db->select("*");
 		$this->db->from('aplicacion_terapia');
 		$this->db->where("orden_id",$orden);
-		$this->db->limit(14);		
+		$this->db->limit(16);		
 		$query = $this->db->get();			
 		return $query->result_array();	
 	}
@@ -78,7 +78,7 @@ class Terapias_model extends CI_Model {
 		$this->db->select("*");
 		$this->db->from('aplicacion_terapia');
 		$this->db->where("orden_id",$orden);
-		$this->db->limit(14,14);			
+		$this->db->limit(16,16);			
 		$query = $this->db->get();			
 		return $query->result_array();	
 	}

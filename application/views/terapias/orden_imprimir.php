@@ -206,144 +206,60 @@
      </div>
      
   <div align="center" style="width:100%">
-         <table width="100%" border="1" style="border:1px solid #999; border-collapse:collapse" cellpadding="0" cellspacing="0">
-          <tr align="center">
-            <td>Fecha</td>
-            <td>Terapia</td>
-            <td>Terapeuta</td>
-            <td class="separador">Fecha</td>
-            <td>Terapia</td>
-            <td>Terapeuta</td>
-          </tr>
-          <tr>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-            <td class="separador">&nbsp;</td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-         </tr>
-          <tr>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-            <td class="separador">&nbsp;</td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-         </tr>
-          <tr>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-            <td class="separador">&nbsp;</td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-         </tr>
-          <tr>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-            <td class="separador">&nbsp;</td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-         </tr>
-          <tr>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-            <td class="separador">&nbsp;</td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-         </tr>
-          <tr>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-            <td class="separador">&nbsp;</td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-         </tr>
-          <tr>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-            <td class="separador">&nbsp;</td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-         </tr>
-          <tr>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-            <td class="separador">&nbsp;</td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-         </tr>
-          <tr>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-            <td class="separador">&nbsp;</td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-         </tr>
-          <tr>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-            <td class="separador">&nbsp;</td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-         </tr>
-          <tr>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-            <td class="separador">&nbsp;</td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-         </tr>
-          <tr>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-            <td class="separador">&nbsp;</td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-         </tr>
-          <tr>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-            <td class="separador">&nbsp;</td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-         </tr>
-          <tr>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-            <td class="separador">&nbsp;</td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-         </tr>	
-          <tr>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-            <td class="separador">&nbsp;</td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-         </tr>
-          <tr>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-            <td class="separador">&nbsp;</td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-         </tr>			 
-        </table>
+			<div style="width:50%; float:left">				 
+			<table width="100%" border="1" style="border:1px solid #999; border-collapse:collapse" cellpadding="0" cellspacing="0">
+              <tr align="center" style="font-weight:bold">
+                <td width="10%">fecha</td>
+                <td width="25%">Terapia</td>
+                <td width="15%">terapeuta</td>
+              </tr>			  
+				<?php 		
+				if(is_array($aplicacion1) && count($aplicacion1) ) { 					
+				foreach($aplicacion1 as $row_apli1){ 				
+				?>
+				<tr align="center">
+				<td nowrap><?= date_format(date_create($row_apli1['fecha']), 'd/m/Y'); ?></td>
+				<td nowrap><?= $row_apli1['descrip_aplic']; ?></td>
+				<td align="center" nowrap><?= $row_apli1['terapista']; ?></td>
+				</tr>	
+				<?php } }
+				for ( $i=count($aplicacion1) ; $i < 16 ; $i ++) { 
+				?>				
+				<tr align="center">
+				<td nowrap>&nbsp;</td>
+				<td nowrap>&nbsp;</td>
+				<td nowrap>&nbsp;</td>
+				</tr>	
+				<?php }  ?>
+			</table>
+			</div>
+			<div style="width:50%; float:right">			
+			<table width="100%" border="1" style="border:1px solid #999; border-collapse:collapse" cellpadding="0" cellspacing="0">
+              <tr align="center" style="font-weight:bold">
+				<td width="10%" class="separador">fecha</td>
+                <td width="25%">Terapia</td>
+                <td width="15%">terapeuta</td>
+              </tr>
+				<?php 		
+				if(is_array($aplicacion2) && count($aplicacion2) ) { 					
+				foreach($aplicacion2 as $row_apli2){ 				
+				?>
+				<tr align="center">
+				<td nowrap class="separador"><?= date_format(date_create($row_apli2['fecha']), 'd/m/Y'); ?></td>
+				<td nowrap><?= $row_apli2['descrip_aplic']; ?></td>
+				<td align="center" nowrap><?= $row_apli2['terapista']; ?></td>
+				</tr>
+				<?php } }
+				for ( $i=count($aplicacion2) ; $i < 16 ; $i ++) { 
+				?>				
+				<tr align="center">
+				<td nowrap class="separador">&nbsp;</td>
+				<td nowrap>&nbsp;</td>
+				<td nowrap>&nbsp;</td>
+				</tr>	
+				<?php }  ?>				
+            </table>
+			</div>
 	</div>
      
 <?php } }  ?>
