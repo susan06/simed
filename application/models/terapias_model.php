@@ -32,6 +32,19 @@ class Terapias_model extends CI_Model {
 
 	}
 	
+	function guardar_aplicacion($data){
+			
+		$insertSQL=$this->db->insert('aplicacion_terapia', $data);
+	
+		if($insertSQL) {
+					$this->session->set_flashdata('info', 'La orden de terapia fue actualizada con éxito');
+					redirect(base_url() .'terapias/orden_aplicacion/'.$data['orden_id'], 'refresh');		 
+		}else{
+					$this->session->set_flashdata('error', 'Intente guardar los datos de nuevo');
+					redirect(base_url() . 'terapias/orden_aplicacion/'.$data['orden_id'], 'refresh');	
+		}
+
+	}	
 	function actualizar_orden($data){
 				
 		$this->db->where('id', $data['id']);
@@ -64,9 +77,32 @@ class Terapias_model extends CI_Model {
 		$query = $this->db->get('orden_terapia',5);			
 		return $query->result_array();	
 	}
+
+	function aplicacion($orden){	
+		$this->db->select("terapias_id");
+		$this->db->from('aplicacion_terapia');
+		$this->db->where("orden_id",$orden);		
+		$query = $this->db->get();			
+		$res	=	$query->result_array();	
+		
+		if($query->num_rows() > 0){
+			
+			foreach($res as $row){
+
+				 $aplicaciones[] = $row['terapias_id'];
+				
+			}
+		}else{
+			 $aplicaciones[] = null;
+		}
+		
+		return $aplicaciones;
+		
+	}
 	
 	function aplicaciones1($orden){	
 		$this->db->select("*");
+		$this->db->join('terapias','terapias.id=aplicacion_terapia.terapias_id','left');
 		$this->db->from('aplicacion_terapia');
 		$this->db->where("orden_id",$orden);
 		$this->db->limit(16);		
@@ -76,6 +112,7 @@ class Terapias_model extends CI_Model {
 	
 	function aplicaciones2($orden){	
 		$this->db->select("*");
+		$this->db->join('terapias','terapias.id=aplicacion_terapia.terapias_id','left');
 		$this->db->from('aplicacion_terapia');
 		$this->db->where("orden_id",$orden);
 		$this->db->limit(16,16);			

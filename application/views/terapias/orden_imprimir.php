@@ -11,7 +11,7 @@
 	margin-right:15px;
 	 }
 	 	.separador{ 
-	 border-left:2px solid #000;
+	 border-left:2px solid #9C9C9C;
 	 }
 </style>
 </head> 
@@ -219,10 +219,10 @@
 				?>
 				<tr align="center">
 				<td nowrap><?= date_format(date_create($row_apli1['fecha']), 'd/m/Y'); ?></td>
-				<td nowrap><?= $row_apli1['descrip_aplic']; ?></td>
+				<td nowrap><?= $row_apli1['descripcion']; ?></td>
 				<td align="center" nowrap><?= $row_apli1['terapista']; ?></td>
 				</tr>	
-				<?php } }
+				<?php } 
 				for ( $i=count($aplicacion1) ; $i < 16 ; $i ++) { 
 				?>				
 				<tr align="center">
@@ -230,8 +230,16 @@
 				<td nowrap>&nbsp;</td>
 				<td nowrap>&nbsp;</td>
 				</tr>	
-				<?php }  ?>
-			</table>
+				<?php } }else{ 
+				for ( $i= 0 ; $i < 16 ; $i ++) { 
+				?>				
+				<tr align="center">
+				<td nowrap class="separador">&nbsp;</td>
+				<td nowrap>&nbsp;</td>
+				<td nowrap>&nbsp;</td>
+				</tr>
+				<?php } } ?>	
+			</table>			
 			</div>
 			<div style="width:50%; float:right">			
 			<table width="100%" border="1" style="border:1px solid #999; border-collapse:collapse" cellpadding="0" cellspacing="0">
@@ -246,10 +254,10 @@
 				?>
 				<tr align="center">
 				<td nowrap class="separador"><?= date_format(date_create($row_apli2['fecha']), 'd/m/Y'); ?></td>
-				<td nowrap><?= $row_apli2['descrip_aplic']; ?></td>
+				<td nowrap><?= $row_apli2['descripcion']; ?></td>
 				<td align="center" nowrap><?= $row_apli2['terapista']; ?></td>
 				</tr>
-				<?php } }
+				<?php } 
 				for ( $i=count($aplicacion2) ; $i < 16 ; $i ++) { 
 				?>				
 				<tr align="center">
@@ -257,7 +265,15 @@
 				<td nowrap>&nbsp;</td>
 				<td nowrap>&nbsp;</td>
 				</tr>	
-				<?php }  ?>				
+				<?php } }else{ 
+				for ( $i=0 ; $i < 16 ; $i ++) { 
+				?>				
+				<tr align="center">
+				<td nowrap class="separador">&nbsp;</td>
+				<td nowrap>&nbsp;</td>
+				<td nowrap>&nbsp;</td>
+				</tr>
+				<?php } } ?>					
             </table>
 			</div>
 	</div>

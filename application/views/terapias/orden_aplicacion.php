@@ -67,12 +67,7 @@
 		foreach($orden as $row){ ?>	
 					
 				<div class="box-header">
-						<a href="<?= base_url();?>terapias/orden_imprimir/<?= $row['id']; ?>" target="_blank" class="btn btn-sm btn-success"><i class="fa fa-print"></i> Imprimir</a>
-						&nbsp;&nbsp;
-						<button type="button" class="btn btn-sm btn-info" onclick="mandar_doc(<?= $row['id']; ?>,2,<?= $row['expediente_id']; ?>)"> Mandar a secretaria</button>
-						&nbsp;&nbsp;
-						<a href="<?= base_url();?>terapias/orden_aplicacion/<?= $row['id']; ?>" class="btn btn-sm btn-warning">Actualizar tratamientos</a>
-						&nbsp;&nbsp;		
+						<a href="<?= base_url();?>terapias/orden_imprimir/<?= $row['id']; ?>" target="_blank" class="btn btn-sm btn-success"><i class="fa fa-print"></i> Imprimir</a>		
 				</div>
 			  
 				<div class="box-header">
@@ -133,90 +128,102 @@
              <br>   			
 					<div class="row">				   
 						  <!-- radio -->
-						   <div class="form-group col-xs-3">
-								 <table align="center">
+						   <div class="form-group col-xs-12">
+								 <table align="center" width="90%">
 									<tr>
-									  <td><label>Sueros Básicos:</label></td><td><label>N° veces</label></td>
+									  <td width="25%"><label>Terapia:</label></td><td width="10%"><label>N° veces</label></td><td width="65%"><label>Aplicaciones</label></td>
 									</tr>
 									<?php 		
-									$j=1;
-									$m=1;
-									$l=1;
 									if(is_array($terapias) && count($terapias) ) { foreach($terapias as $row_basico){  ?> 
-									  <?php if($row_basico['tipo'] == 1){  
+									  <?php 
 									   $terapias_check = explode(',', $row['terapias']);
 									   $aplicaciones = json_decode($row['aplicaciones']);
 									  ?>
 									  <tr>								  
 										<td nowrap>
-										<input type="checkbox" class="minimal-red" name="terapias[]" id="<?php echo $j++ ?>"  <?php echo((in_array("".$row_basico["id"]."", $terapias_check ))?"checked":"");?>  >
-										<?php echo $row_basico['descripcion']; ?>
+										<?php echo((in_array("".$row_basico["id"]."", $terapias_check ))?"".$row_basico['descripcion']."":"");?>
 										</td>
-										<td align="center">
-										<input type="text" name="aplicacion[]" <?php echo((in_array("".$row_basico["id"]."", $terapias_check ))?"value='".$aplicaciones->{$row_basico['id']}."'":"disabled");?> id="text<?php echo $l++ ?>" size="4">
+										<td>
+										<?php echo((in_array("".$row_basico["id"]."", $terapias_check ))?"".$tabla_apl = $aplicaciones->{$row_basico['id']}."":"");?>
+										</td>
+										<td>
+										<?php if(in_array("".$row_basico["id"]."", $terapias_check )){ ?>
+										
+										<?Php 
+										if($aplicacion != null){
+
+										if(in_array("".$row_basico["id"]."", $aplicacion )){
+										$countValues = array_count_values($aplicacion);
+										$countValues[$row_basico["id"]];
+										}else{
+										$countValues=0;	
+										}
+										for ( $i=1 ; $i <= $tabla_apl ; $i ++) {  ?>
+										
+										 <input readonly type="checkbox" class="minimal-red" <?Php if($i <= $countValues[$row_basico["id"]]){ echo "checked"; } ?> >
+										
+										<?php } 
+										
+	
+										 }else{
+											
+										for ( $i=1 ; $i <= $tabla_apl ; $i ++) { ?>
+										
+										 <input readonly type="checkbox" class="minimal-red">
+										 
+										 <?php } } } ?>
 										</td>										
 									  </tr>
-									   <?php } }  } ?>
+									   <?php } }  ?>
 								  </table>
-							</div> 
-							<div class="form-group col-xs-4">
-							 <table align="center">
-									<tr>
-									  <td><label>Terapias Complemetarias:</label></td><td><label>N° veces</label></td>
-									</tr>
-									<?php 		
-									if(is_array($terapias) && count($terapias) ) { foreach($terapias as $row_terapias){  ?> 
-									  <?php if($row_terapias['tipo'] == 3){  
-									   $terapias_check = explode(',', $row['terapias']);
-									   $aplicaciones = json_decode($row['aplicaciones']);
-									  ?>
-									  <tr>								  
-										<td nowrap>
-										<input type="checkbox" class="minimal-red" name="terapias[]" id="<?php echo $j++ ?>"  <?php echo((in_array("".$row_terapias["id"]."", $terapias_check ))?"checked=checked":"");?>  >
-										<?php echo $row_terapias['descripcion']; ?>
-										</td>
-										<td align="center">
-										<input type="text" name="aplicacion[]" id="text<?php echo $l++ ?>" size="4" <?php echo((in_array("".$row_terapias["id"]."", $terapias_check ))?"value='".$aplicaciones->{$row_terapias['id']}."'":"disabled");?>>
-										</td>										
-									  </tr>
-									   <?php } }  } ?>
-								  </table>
-							</div> 
-							<div class="form-group col-xs-5">
-							 <table align="center">
-									<tr>
-									  <td><label>Sueros Expecíficos:</label></td><td><label>N° veces</label></td>
-									</tr>
-									<?php 		
-									if(is_array($terapias) && count($terapias) ) { foreach($terapias as $row_sueros){  ?> 
-									  <?php if($row_sueros['tipo'] == 2){  
-									   $terapias_check = explode(',', $row['terapias']);
-									   $aplicaciones = json_decode($row['aplicaciones']);
-									  ?>
-									  <tr>								  
-										<td nowrap>
-										<input type="checkbox" class="minimal-red" name="terapias[]" id="<?php echo $j++ ?>" <?php echo((in_array("".$row_sueros["id"]."", $terapias_check ))?"checked=checked":"");?>  >
-										<?php echo $row_sueros['descripcion']; ?>
-										</td>
-										<td align="center">
-										<input type="text" name="aplicacion[]" id="text<?php echo $l++ ?>" size="4" <?php echo((in_array("".$row_sueros["id"]."", $terapias_check ))?"value='".$aplicaciones->{$row_sueros['id']}."'":"disabled");?> >
-										</td>										
-									  </tr>
-									   <?php } }  } ?>
-								  </table>
-							</div> 			  
+							</div> 		  
 					</div>
 					
 		</div>	
-		
+
+<h4 style="font-size:bold">Registro de aplicaciones</h4>
+		 
+		 <div class="box">
+             <br>   			
+				   <div class="row">
+ <form method="post"  id="form_aplicacion" action="<?php echo base_url(); ?>terapias/guardar_aplicacion/<?= $row['id']; ?>" novalidate>  
+									   
+						<div class="form-group col-xs-5">
+						  <label>Terapia</label>
+						  <select class="form-control" name="terapias_id" required>
+								  <option value="">Seleccione la terapia</option>
+								  <?php 		
+									if(is_array($terapias) && count($terapias) ) { foreach($terapias as $row_t){  ?> 
+									  <?php 
+									   $terapias_check = explode(',', $row['terapias']);
+									  if(in_array($row_t["id"], $terapias_check )){
+									  ?>
+									<option value="<?= $row_t["id"] ?>"><?= $row_t["descripcion"]  ?></option>
+										<?php } } } ?>
+								</select>
+						</div>
+						<div class="form-group col-xs-3">
+						  <label>Terapista</label>
+						  <input type="text" class="form-control" name="terapista" placeholder="Nombre de la terapista">
+						</div>
+						
+					</div>
+				
+				<div class="box-footer">
+                    <button type="submit" class="btn btn-success pull-right">Registrar aplicación</button>
+                  </div>
+
+				</form>
+			</div>
+			
 <h4 style="font-size:bold"></h4>
 		 
 		 <div class="box">
              <br>   			
 					<div class="row">				   
 						<div class="form-group col-xs-6">
-						  <label>Observaciones</label>
-						 <textarea  name="obs"  class="form-control"><?= $row['obs']; ?> </textarea>
+						  <label>Observaciones:</label>
+						 <textarea  name="obs"  class="form-control" readonly><?= $row['obs']; ?> </textarea>
 						</div>
 					</div>
 			</div>
@@ -344,39 +351,7 @@
           radioClass: 'iradio_minimal-red'
         });
 
-		$('input[type="checkbox"].minimal-red').on('ifChanged', function(event){
-			if (document.getElementById(this.id).checked==true){document.getElementById('text'+this.id).disabled=false} 
-			if (document.getElementById(this.id).checked==false){document.getElementById('text'+this.id).disabled=true} 
-		});
-		
-		function mandar_doc(id,tipo,expediente){
-
-			$.ajax({ 
-							url: '<?=base_url()?>terapias/mandar_doc',
-							type:'POST',
-							data:{id:id,tipo: tipo,expediente:expediente},
-							dataType : 'json',
-							success: function(data){
-								if(data.exist == 1){
-									$('#span_warning').html(data.mnj);
-									$('#alert_warning').show();
-									$('#alert_info').hide();
-									setTimeout(function() {
-									$(".alert").fadeOut(1000);
-									},4000);
-								}else{
-									$('#span_info').html(data.mnj);
-									$('#alert_info').show();
-									$('#alert_warning').hide();
-									setTimeout(function() {
-									$(".alert").fadeOut(1000);
-									},4000);
-								}
-							}
-			})	
-			
-		}	
-		
+				
     </script>
   </body>
 </html>

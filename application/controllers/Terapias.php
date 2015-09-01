@@ -117,6 +117,18 @@ class Terapias extends CI_Controller {
 
 		$this->terapias_model->guardar_orden($data);
 	}		
+
+	public function guardar_aplicacion($orden){	
+	
+		date_default_timezone_set('America/Caracas');		
+		
+		$data['orden_id']= $orden;
+		$data['fecha']= date("Y-m-d");
+		$data['terapias_id']= $this->input->post('terapias_id');
+		$data['terapista']= $this->input->post('terapista');
+
+		$this->terapias_model->guardar_aplicacion($data);
+	}	
 	
 	public function orden_terapia($orden) {
 
@@ -196,6 +208,53 @@ class Terapias extends CI_Controller {
 			}
 			
         $this->load->view('terapias/ver_orden_terapia', $data);
+    }
+	
+	public function orden_aplicacion($orden) {
+
+		$data['page_title'] = 'Orden de terapia';
+		$data['system_title'] = 'Tratamiento';
+		
+		$orden_terapia = $this->terapias_model->get_orden_terapia($orden);
+		if($orden_terapia){
+				$data['orden'] =  $orden_terapia;
+			}else{
+				$data['orden'] =  NULL;
+			}
+			
+		$terapias = $this->terapias_model->get_terapias();
+			
+			if($terapias){
+				$data['terapias'] =  $terapias;
+			}else{
+				$data['terapias'] =  NULL;
+			}
+
+		$aplicacion = $this->terapias_model->aplicacion($orden);
+			
+			if($aplicacion){
+				$data['aplicacion'] =  $aplicacion;
+			}else{
+				$data['aplicacion'] =  NULL;
+			}
+			
+		$aplicacion1 = $this->terapias_model->aplicaciones1($orden);
+			
+			if($aplicacion1){
+				$data['aplicacion1'] =  $aplicacion1;
+			}else{
+				$data['aplicacion1'] =  NULL;
+			}
+			
+		$aplicacion2 = $this->terapias_model->aplicaciones2($orden);
+			
+			if($aplicacion2){
+				$data['aplicacion2'] =  $aplicacion2;
+			}else{
+				$data['aplicacion2'] =  NULL;
+			}
+			
+        $this->load->view('terapias/orden_aplicacion', $data);
     }
 	
 	public function actualizar_orden($orden){	
