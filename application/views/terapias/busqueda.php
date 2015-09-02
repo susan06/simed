@@ -10,7 +10,7 @@
         <!-- Content Header (Page header) -->
         <section class="content-header">
           <h1>
-         Agenda de terapias<small></small>
+         Búsqueda de orden de terapia<small></small>
           </h1>
         </section>
 
@@ -44,52 +44,23 @@
           <div class='row'>
             <div class='col-md-12'>
 			  <div class="box">
-                <div class="box-header">
-                  <h3 class="box-title">Agenda de terapias</h3>				 
-				<input type="text" id="buscar_table" class="form-control input-sm pull-right" style="width: 200px;" placeholder="Buscar">
-				</div><!-- /.box-header -->
-				
-				 <div class="box-header">
-                  <h3 class="box-title"><input type="text" class="form-control" name="fecha" id="fecha" value="<?= date('d-m-Y'); ?>"/></h3>				 
-				 <button type="button" class="btn btn-success" onclick="agenda_terapia( $('#fecha').val())">Buscar</button>
+			  
+				<div class="box-header">
+                  <h3 class="box-title col-xs-2"><input type="text" class="form-control" id="orden" placeholder="N° de orden"/></h3>				 
+				 <button type="button" class="btn btn-success" onclick="orden( $('#orden').val())">Buscar</button>
 				</div>
 
+				<div class="box-header">
+                  <h3 class="box-title col-xs-5"><input type="text" class="form-control" id="pacientes" placeholder="Escriba aqui para buscar paciente"/></h3>				 
+				  <h3 class="box-title col-xs-2"><input type="text" class="form-control" id="cedula" placeholder="Cédula" readonly /></h3>
+				  <input type="hidden" id="expediente_id" />
+				<button type="button" class="btn btn-success" onclick="orden_paciente( $('#expediente_id').val())">Buscar</button>
+				</div>
+				
                 <div class="box-body" id="terapias_load">
 
-                  <table id="terapias_table" class="table table-bordered table-striped">
-                    <thead>
-                      <tr>
-						<th>#</th>
-						<th>Paciente - Cédula </th>
-						<th>Terapia</th>
-						<th>Terapista</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-					  <?php if(is_array($aplicacion) && count($aplicacion) ){
-						$numero=1;
-						foreach($aplicacion as $row){ ?>
-							<tr>
-		  
-						  <td><?=  $numero++ ?></td>
-						  <td><?= $row['pnombre'] ?> <?= $row['papellido'] ?> - <?= $row['cedula'] ?></td>
-						  <td><?=  $row['descripcion']; ?></td>
-						  <td><?=  $row['terapista']; ?></td>		
-
-						 </tr>
-						<?php }} ?>
-		
-                     </tbody>
-                    <tfoot>
-                      <tr>
-						<th>#</th>
-						<th>Paciente - Cédula </th>
-						<th>Terapia</th>
-						<th>Terapista</th>
-                      </tr>
-                    </tfoot>
-                  </table>
-                </div><!-- /.box-body -->
+                  
+			   </div><!-- /.box-body -->
               </div><!-- /.box -->
 
             </div><!-- /.col-->
@@ -144,16 +115,28 @@
 		
 		$('[data-rel=tooltip]').tooltip();
 		$('[data-rel=popover]').popover({html:true});
-				
+
+		$("#pacientes").autocomplete({
+					source: '<?= base_url(); ?>pacientes/autocomplete_exp',
+					minlength:2,
+					html:true,
+					select: function(event, ui) {								
+								event.preventDefault();
+								$(this).val(ui.item.label);
+								$("#expediente_id").val(ui.item.id);
+								$("#cedula").val(ui.item.ci);
+							}
+		});			
       });	
 	 
-		
-		<!--Funcion que buscar citas por fecha y doctor-->
-		function agenda_terapia(fecha){ 
-
+		function orden(orden){ 
+            $("#pacientes").val("");
+			$("#cedula").val("");
+			$("#expediente_id").val("");
+			
 							$.ajax({
-									data: {fecha:fecha},
-									url:   '<?= base_url(); ?>terapias/agenda_fecha',
+									data: {orden:orden},
+									url:   '<?= base_url(); ?>terapias/orden_busqueda',
 									type:  'post',
 									success:  function (response) {
 											$("#terapias_load").html(response);
@@ -161,7 +144,20 @@
 							});
    
 		} 	
-		
+
+		function orden_paciente(expediente){ 
+			$("#orden").val("");
+			
+							$.ajax({
+									data: {expediente:expediente},
+									url:   '<?= base_url(); ?>terapias/ordenes_busqueda',
+									type:  'post',
+									success:  function (response) {
+											$("#terapias_load").html(response);
+									}
+							});
+   
+		} 			
     </script>
 	
   </body>

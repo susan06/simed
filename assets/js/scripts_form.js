@@ -512,5 +512,34 @@
 					element.closest('.form-group').removeClass('has-error').addClass('has-success');
 				}
                 
+            });	
+
+	$("#form_aplicacion").validate({
+                // Rules for form validation
+				ignore:'',
+                rules: {
+					terapias_id: {
+                        required: true
+                    },
+					terapista: {
+                        required: true
+                    }
+                },
+                // Messages for form validation
+                messages: {
+                    terapias_id: {
+                        required: 'Seleccione una terapia.'
+                    },
+                   terapista: {
+                        required: 'Escriba el nombre del terapista.'
+                    }
+                },
+				highlight: function (element) {
+					$(element).closest('.form-group').removeClass('has-success').addClass('has-error');
+				},
+				success: function (element) {
+					element.closest('.form-group').removeClass('has-error').addClass('has-success');
+				}
+                
             });				
 });

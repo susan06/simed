@@ -41,7 +41,7 @@
                   <h3 class="box-title">Informaci&oacute;n del Usuario</h3>
                 </div><!-- /.box-header -->
                 <!-- form start -->
-                 <form method="post" name="form_clinica" id="form_clinica" onsubmit="return checkSubmit()" action="<?php echo base_url(); ?>centro_medico/actualizar">  
+                 <form method="post" name="form_clinica" id="form_clinica" action="<?php echo base_url(); ?>centro_medico/actualizar">  
 				 
 				<?php if(is_array($clinica) && count($clinica) ) {
 						foreach($clinica as $row){ ?>	

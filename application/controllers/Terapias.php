@@ -369,6 +369,21 @@ class Terapias extends CI_Controller {
 
 	}
 
+	public function agenda_fecha(){
+		
+		$fecha= date("Y-m-d",strtotime($this->input->post('fecha')));
+		
+		$aplicacion = $this->terapias_model->aplicaciones_terapias($fecha);
+			
+			if($aplicacion){
+				$data['aplicacion'] =  $aplicacion;
+			}else{
+				$data['aplicacion'] =  NULL;
+			}	
+		
+       return $this->load->view('terapias/agenda_load', $data);	
+	}
+	
 	public function mandar_doc(){	
 		//$doc_id = id del documento
 		$data['doc_id'] = $this->input->post('id');
@@ -393,4 +408,43 @@ class Terapias extends CI_Controller {
 		
 		echo json_encode($rsp);		
 	}	
+	
+	public function busqueda(){		
+		
+		$data['page_title'] = 'Terapias';
+		$data['system_title'] = 'Búsqueda';	
+		
+		$this->load->view('terapias/busqueda', $data);
+
+	}
+
+	public function orden_busqueda() 
+	{		
+		$orden= $this->input->post('orden');
+		
+		$ordenes = $this->terapias_model->get_orden_terapia($orden);
+
+		if($ordenes){
+			$data['ordenes'] =  $ordenes;
+		}else{
+			$data['ordenes'] =  NULL;
+		}
+		
+		return $this->load->view('terapias/busqueda_ordenes', $data);		
+    }
+	
+	public function ordenes_busqueda() 
+	{		
+		$expediente= $this->input->post('expediente');
+		
+		$ordenes = $this->terapias_model->get_ordenes_pac($expediente);
+
+		if($ordenes){
+			$data['ordenes'] =  $ordenes;
+		}else{
+			$data['ordenes'] =  NULL;
+		}
+		
+		return $this->load->view('terapias/busqueda_ordenes', $data);		
+    }		
 }

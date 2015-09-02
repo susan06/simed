@@ -122,8 +122,12 @@ class Terapias_model extends CI_Model {
 	
 	function aplicaciones_terapias($fecha){	
 		$this->db->select("*");
+		$this->db->join('terapias','terapias.id=aplicacion_terapia.terapias_id','left');
+		$this->db->join('orden_terapia','aplicacion_terapia.orden_id=orden_terapia.id','left');
+		$this->db->join('expediente_medico','expediente_medico.id=orden_terapia.expediente_id','left');
+		$this->db->join('pacientes','pacientes.id=expediente_medico.pacientes_id','left');
 		$this->db->from('aplicacion_terapia');
-		$this->db->where("fecha",$fecha);
+		$this->db->where("aplicacion_terapia.fecha",$fecha);
 		$query = $this->db->get();			
 		return $query->result_array();	
 	}

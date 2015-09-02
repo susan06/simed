@@ -216,7 +216,7 @@
 					<div class="row">				   
 						<div class="form-group col-xs-6">
 						  <label>Observaciones</label>
-						 <textarea  name="obs"  class="form-control"><?= $row['obs']; ?> </textarea>
+						 <textarea  name="obs"  class="form-control" readonly ><?= $row['obs']; ?> </textarea>
 						</div>
 					</div>
 			</div>

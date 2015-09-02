@@ -340,8 +340,15 @@
  <!-- iCheck 1.0.1 -->
     <script src="<?=base_url()?>assets/plugins/iCheck/icheck.min.js" type="text/javascript"></script>
 
-	  <!-- all -->
-    <script src="<?=base_url()?>assets/js/scripts.js" type="text/javascript"></script>
+	   <!-- Form -->
+    <script src='<?=base_url()?>assets/plugins/jQuery_validate/lib/jquery.form.js'></script>
+	<script src='<?=base_url()?>assets/plugins/jQuery_validate/dist/jquery.validate.js'></script>
+	<script src='<?=base_url()?>assets/plugins/jQuery_validate/dist/additional-methods.js'></script>
+	<script src='<?=base_url()?>assets/plugins/jQuery_validate/dist/localization/messages_es.js'></script>
+	
+	<script src="<?=base_url()?>assets/js/scripts.js" type="text/javascript"></script>
+	<script src="<?=base_url()?>assets/js/scripts_form.js" type="text/javascript"></script>
+	
 	<!-- page script -->
     <script type="text/javascript">	
 	

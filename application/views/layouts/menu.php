@@ -192,7 +192,7 @@
 				<?php	if ($permisos_ter[4]['status'] == 1 ){ ?>
                 <li><a href="<?= base_url();?>terapias/crear_orden"><i class="fa fa-plus-square"></i>Crear orden</a></li>
 				<?Php } ?>
-				<li><a href="#"><i class="fa fa-search"></i>Buscar orden</a></li>
+				<li><a href="<?= base_url();?>terapias/busqueda"><i class="fa fa-search"></i>Buscar orden</a></li>
               </ul>
             </li>
 			

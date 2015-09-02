@@ -16,7 +16,8 @@ class Home extends CI_Controller {
 				$this->load->library( 'session_php' );
 				$this->load->helper(array('url','form','html','date')); 								
 				$this->load->database('default');
-				$this->load->model('crud_model');	 				
+				$this->load->model('crud_model');
+				$this->load->model('home_model');				
 				$this->removeCache();
 	
 				$nick = $this->session_php->get();
@@ -44,44 +45,22 @@ class Home extends CI_Controller {
 	}
 	
 	public function index(){
-	
-			
-			$data['page_title'] = 'Home';
-			$data['system_title'] = 'Bienvenido';		
-	
-			$this->load->view('home', $data);
+		
+		$data['page_title'] = 'Home';
+		$data['system_title'] = 'Bienvenido';		
+		
+		$data['pacientes'] = count($this->home_model->get_pacientes());
+		
+		$data['doctores'] = count($this->home_model->get_doctores());
+		
+		$data['terapistas'] = count($this->home_model->get_terapistas());
+		
+		$data['enfermeras'] = count($this->home_model->get_enfermeras());
+		
+		$this->load->view('home', $data);
 		
     }
 	
-	public function centro_medico(){	
-		$authorizedUsers = array (1);
-		$user = $this->session->userdata('user');
-		$permiso=$user['nivel_acceso'];		
-		if (in_array($permiso, $authorizedUsers ) ){		
-			$this->load->model('usuarios_model');
-			$query = $this->usuarios_model->get_clinica();
-			if($query){
-				$data['clinica'] =  $query;
-			}
-			$var['header'] =$this->load->view('templates/header');
-			$var['clinica'] = $this->load->view('administrador/clinica', $data);
-			$var['footer'] =$this->load->view('templates/footer');
-			$this->load->view('layouts/clinica_default', $var);		
-		}		
-    }
-	
-	public function actualizar_clinica(){	   
-		$nombre= ($this->input->post('nombre_cm'));
-		$rif= ($this->input->post('rif_cm'));
-		$tlf= ($this->input->post('tlf_cm'));
-		$ciudad= ($this->input->post('ciudad_cm'));
-		$estado= ($this->input->post('estado_cm'));
-		$postal= ($this->input->post('zona_postal_cm'));
-		$direccion= ($this->input->post('direccion_cm')); 
-		$lema= ($this->input->post('lema_cm'));
-		$this->load->model('usuarios_model');
-		$this->usuarios_model->actualizar_clinica($nombre,$rif,$tlf,$ciudad,$estado,$postal,$direccion,$lema);	
-	}
 }
 
 /* file home.php 
