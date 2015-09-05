@@ -4,6 +4,8 @@
 	  <?php $permisos_cit 	= $this->crud_model->get_permisos($this->session->userdata('rol'),4); ?>
 	  <?php $permisos_esp 	= $this->crud_model->get_permisos($this->session->userdata('rol'),5); ?>
 	  <?php $permisos_ter 	= $this->crud_model->get_permisos($this->session->userdata('rol'),8); ?>
+	  <?php $permisos_pro 	= $this->crud_model->get_permisos($this->session->userdata('rol'),12); ?>
+	  <?php $permisos_exa 	= $this->crud_model->get_permisos($this->session->userdata('rol'),13); ?>
 	  <?php $id_doctor 		= $this->crud_model->get_id_doc($this->session->userdata('id')); ?>
 	   
 	  <!-- Left side column. contains the sidebar -->
@@ -195,7 +197,39 @@
 				<li><a href="<?= base_url();?>terapias/busqueda"><i class="fa fa-search"></i>Buscar orden</a></li>
               </ul>
             </li>
-			
+
+			<?php	if($permisos_pro[1]['status'] == 1 || $permisos_pro[4]['status'] == 1 ){ ?>			
+			<li>			 
+              <a href="../widgets.html">
+                <i class="fa fa-arrow-circle-right"></i> <span>Procedimientos</span>
+              </a>
+			   <ul class="treeview-menu">
+			   <?php	if ($permisos_pro[1]['status'] == 1 ){ ?>
+                <li><a href="<?= base_url();?>procedimientos/registrar"><i class="fa fa-plus-square"></i>Registrar</a></li>
+                <?php } ?>
+				<?php	if ($permisos_pro[4]['status'] == 1 ){ ?>				
+				<li><a href="<?= base_url();?>procedimientos/buscar"><i class="fa fa-search"></i>Buscar</a></li>
+                <?php } ?>	
+			  </ul>
+            </li>			
+			 <?php } ?>	
+
+			<?php	if($permisos_exa[1]['status'] == 1 || $permisos_exa[4]['status'] == 1 ){ ?>			
+			<li>			 
+              <a href="../widgets.html">
+                <i class="fa fa-file-text-o"></i> <span>Exámenes</span>
+              </a>
+			   <ul class="treeview-menu">
+			   <?php	if ($permisos_exa[1]['status'] == 1 ){ ?>
+                <li><a href="<?= base_url();?>examenes/registrar"><i class="fa fa-plus-square"></i>Registrar</a></li>
+                <?php } ?>
+				<?php	if ($permisos_exa[4]['status'] == 1 ){ ?>				
+				<li><a href="<?= base_url();?>examenes/buscar"><i class="fa fa-search"></i>Buscar</a></li>
+                <?php } ?>	
+			  </ul>
+            </li>			
+			 <?php } ?>	
+			 
 			<?Php if($this->session->userdata('rol') == 5): ?>
             <li class="treeview">
               <a href="<?= base_url();?>eventos/imprimir">

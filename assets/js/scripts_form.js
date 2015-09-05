@@ -541,5 +541,75 @@
 					element.closest('.form-group').removeClass('has-error').addClass('has-success');
 				}
                 
+            });	
+		
+		$("#form_procedimiento").validate({
+                // Rules for form validation
+				ignore:'',
+                rules: {
+					expediente_id: {
+                        required: true
+                    },
+					fecha: {
+                        required: true
+                    },
+					descrip: {
+                        required: true
+                    }
+                },
+                // Messages for form validation
+                messages: {
+                    expediente_id: {
+                        required: 'Seleccione un paciente registrado en el sistema.'
+                    },
+                   fecha: {
+                        required: 'Seleccione una fecha.'
+                    },
+                    descrip: {
+                        required: 'Escriba el nombre del procedimiento.'
+                    }
+                },
+				highlight: function (element) {
+					$(element).closest('.form-group').removeClass('has-success').addClass('has-error');
+				},
+				success: function (element) {
+					element.closest('.form-group').removeClass('has-error').addClass('has-success');
+				}
+                
+            });	
+			
+	$("#form_examen").validate({
+                // Rules for form validation
+				ignore:'',
+                rules: {
+					expediente_id: {
+                        required: true
+                    },
+					fecha: {
+                        required: true
+                    },
+					tipo: {
+                        required: true
+                    }
+                },
+                // Messages for form validation
+                messages: {
+                    expediente_id: {
+                        required: 'Seleccione un paciente registrado en el sistema.'
+                    },
+                   fecha: {
+                        required: 'Seleccione una fecha.'
+                    },
+                    tipo: {
+                        required: 'Escriba el tipo de exámen.'
+                    }
+                },
+				highlight: function (element) {
+					$(element).closest('.form-group').removeClass('has-success').addClass('has-error');
+				},
+				success: function (element) {
+					element.closest('.form-group').removeClass('has-error').addClass('has-success');
+				}
+                
             });				
 });
