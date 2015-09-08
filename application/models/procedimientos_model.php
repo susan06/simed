@@ -52,5 +52,11 @@ class Procedimientos_model extends CI_Model {
 		$query = $this->db->get('procedimientos');			
 		return $query->result_array();	
 	}
-	
+
+	function get_procedimiento($id){	
+		$this->db->select("*, procedimientos.id as id");
+		$this->db->where("id",$id);		
+		$query = $this->db->get('procedimientos');			
+		return $query->result_array();	
+	}	
 }

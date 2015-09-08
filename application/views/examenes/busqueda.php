@@ -97,7 +97,7 @@
 	
 
 		<div class="modal" id="modalPacDialog" role="dialog">
-		  <div class="modal-dialog"  role="document" style="width: 65%;">
+		  <div class="modal-dialog"  role="document" style="width: 50%;">
 			<div class="modal-content">
 			  <div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -113,7 +113,7 @@
 		  </div>
 		  <!-- /.modal-dialog --> 
 		</div>		
-	
+			
         </section><!-- /.content -->
       </div><!-- /.content-wrapper -->
 
@@ -147,21 +147,8 @@
 	<!-- page script -->
     <script type="text/javascript">
 	
-      $(document).ready(function () {		
-	 
-        $("#examenes_table").dataTable({});
-
-		 oTable = $('#examenes_table').dataTable();
-		 
-		 $('#buscar_table').keyup(function(){ oTable.fnFilter( $(this).val() )});
-
-		$('body').on('hidden.bs.modal', '.modal', function (e) {
-			$(e.target).removeData("bs.modal").find(".modal-body").empty(); 
-		});		 
-		
-		$('[data-rel=tooltip]').tooltip();
-		$('[data-rel=popover]').popover({html:true});
-
+	$(document).ready(function () {	
+	
 		$("#pacientes").autocomplete({
 					source: '<?= base_url(); ?>pacientes/autocomplete_exp',
 					minlength:2,
@@ -172,8 +159,9 @@
 								$("#expediente_id").val(ui.item.id);
 								$("#cedula").val(ui.item.ci);
 							}
-		});			
-      });	
+		});	
+		
+     });	
 
 		function examenes_paciente(expediente){ 
 
@@ -186,7 +174,40 @@
 									}
 							});
    
-		} 			
+		} 
+
+		function ver_examen(id){
+			
+			$( "#pac-body" ).load( "<?= base_url(); ?>examenes/ver/"+id );
+			$('#modalPacDialog').modal();
+		}	
+		
+		function editar_examenes(id){ 
+		location.href='<?= base_url(); ?>examenes/editar/'+id;		
+		}	
+		
+		function eliminar_permiso(){ 			
+			$('#warning_modal').modal('show');			
+		};	
+
+		function editar_permiso(){ 			
+			$('#warning_edit_modal').modal('show');			
+		};	
+		
+		function eliminar(id, expediente, url_delete){
+		
+			bootbox.confirm("Estas seguro de eliminar el registro?", function(result) {
+			  $.ajax({ 
+							url: url_delete,
+							type:'POST',
+							data:'id='+id,
+							success: function(){
+							 examenes_paciente(expediente);
+							}
+					   })
+			}); 
+		} 
+				
     </script>
 	
   </body>

@@ -79,34 +79,6 @@
 		
       });	
 
-	  
-		function ver_examen(id){
-			
-			$( "#pac-body" ).load( "<?= base_url(); ?>examenes/ver/"+id );
-			$('#modalPacDialog').modal();
-		}				
-
-
-		function eliminar_permiso(){ 			
-			$('#warning_modal').modal('show');			
-		};	
-
-		function editar_permiso(){ 			
-			$('#warning_edit_modal').modal('show');			
-		};	
-		
-		function eliminar(id, expediente, url_delete){
-		
-			bootbox.confirm("Estas seguro de eliminar el registro?", function(result) {
-			  $.ajax({ 
-							url: url_delete,
-							type:'POST',
-							data:'id='+id,
-							success: function(){
-							 location.reload();
-							}
-					   })
-			}); 
-		}	  
+		  
     </script>
 

@@ -42,7 +42,7 @@ class Examenes_model extends CI_Model {
 	function eliminar($id){
 			
 		$this->db->where('id', $id);
-		$this->db->delete('procedimientos');	
+		$this->db->delete('examenes');	
 	}
 
 	function get_examenes_pac($expediente){	
@@ -52,5 +52,11 @@ class Examenes_model extends CI_Model {
 		$query = $this->db->get('examenes');			
 		return $query->result_array();	
 	}	
-	
+
+	function get_examen($id){	
+		$this->db->select("*, examenes.id as id");
+		$this->db->where("id",$id);		
+		$query = $this->db->get('examenes');			
+		return $query->result_array();	
+	}		
 }

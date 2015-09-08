@@ -81,6 +81,22 @@
 						</div>
 					</div> 
 					<div class="form-group">
+						<label>Resultados</label>
+						<div class="row">				 
+						<div class="col-xs-8">
+						  <textarea name="resultado" class="form-control"></textarea>
+						</div> 
+						</div>
+					</div>
+					<div class="form-group">
+						<label>tratamiento</label>
+						<div class="row">				 
+						<div class="col-xs-8">
+						  <textarea name="tratamiento" class="form-control"></textarea>
+						</div> 
+						</div>
+					</div>
+					<div class="form-group">
 						<label>Obeservaciones</label>
 						<div class="row">				 
 						<div class="col-xs-8">

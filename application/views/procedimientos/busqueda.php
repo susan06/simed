@@ -97,7 +97,7 @@
 	
 
 		<div class="modal" id="modalPacDialog" role="dialog">
-		  <div class="modal-dialog"  role="document" style="width: 65%;">
+		  <div class="modal-dialog"  role="document" style="width: 50%;">
 			<div class="modal-content">
 			  <div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -148,19 +148,6 @@
     <script type="text/javascript">
 	
       $(document).ready(function () {		
-	 
-        $("#procedimientos_table").dataTable({});
-
-		 oTable = $('#procedimientos_table').dataTable();
-		 
-		 $('#buscar_table').keyup(function(){ oTable.fnFilter( $(this).val() )});
-
-		$('body').on('hidden.bs.modal', '.modal', function (e) {
-			$(e.target).removeData("bs.modal").find(".modal-body").empty(); 
-		});		 
-		
-		$('[data-rel=tooltip]').tooltip();
-		$('[data-rel=popover]').popover({html:true});
 
 		$("#pacientes").autocomplete({
 					source: '<?= base_url(); ?>pacientes/autocomplete_exp',
@@ -186,7 +173,41 @@
 									}
 							});
    
-		} 			
+		} 
+
+		function ver_procedimiento(id){
+			
+			$( "#pac-body" ).load( "<?= base_url(); ?>procedimientos/ver/"+id );
+			$('#modalPacDialog').modal();
+		}				
+
+		function editar_procedimiento(id){ 
+
+		location.href='<?= base_url(); ?>procedimientos/editar/'+id;
+		
+		}
+		
+		function eliminar_permiso(){ 			
+			$('#warning_modal').modal('show');			
+		};	
+
+		function editar_permiso(){ 			
+			$('#warning_edit_modal').modal('show');			
+		};	
+		
+		function eliminar(id, expediente, url_delete){
+		
+			bootbox.confirm("Estas seguro de eliminar el registro?", function(result) {
+			  $.ajax({ 
+							url: url_delete,
+							type:'POST',
+							data:'id='+id,
+							success: function(){
+							procedimientos_paciente(expediente);
+							}
+					   })
+			}); 
+		}			
     </script>
 	
   </body>

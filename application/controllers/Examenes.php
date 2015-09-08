@@ -63,7 +63,9 @@ class Examenes extends CI_Controller {
 		 $data['expediente_id']= $this->input->post('expediente_id');
 		 $data['fecha_exam']= date("Y-m-d",strtotime($this->input->post('fecha')));
 		 $data['tipo_exam']= ucwords($this->input->post('tipo'));	
-		 $data['obs_exam']= $this->input->post('obs_exam');			 
+		 $data['resultado']= $this->input->post('resultado');	
+		 $data['tratamiento']= $this->input->post('tratamiento');	
+		 $data['obs_exam']= $this->input->post('obs_exam');	 
 		 
 		$this->examenes_model->guardar($data);
 	}
@@ -95,6 +97,27 @@ class Examenes extends CI_Controller {
 		
 		return $this->load->view('examenes/busqueda_examenes', $data);		
     }
+	
+	 public function eliminar(){	
+		
+		 $id = $this->input->post('id');
+		 $this->examenes_model->eliminar($id);
+		 	
+	}
+
+	public function ver($id) 
+	{		
+
+		$examenes = $this->examenes_model->get_examen($id);
+		if($examenes){
+			$data['examenes'] =  $examenes;
+		}else{
+			$data['examenes'] =  NULL;
+		}
+		
+		return $this->load->view('examenes/ver', $data);		
+    }
+	
 }
 
 
