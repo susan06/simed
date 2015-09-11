@@ -96,8 +96,7 @@
 			
 			<?php } ?>
 			
-			<?php	if($permisos_pac[1]['status'] == 1 || $permisos_pac[4]['status'] == 1 ){ ?>
-			
+			<?php	if($permisos_pac[1]['status'] == 1 || $permisos_pac[4]['status'] == 1 ){ ?>			
             <li>
               <a href="#">
                 <i class="fa fa-wheelchair"></i> <span>Pacientes</span>
@@ -110,12 +109,16 @@
                 <li><a href="<?= base_url();?>pacientes/registrar"><i class="fa fa-user-plus"></i>Registrar</a></li>
 				<?php } ?>
               </ul>
-            </li> 
-			
+            </li> 			
 			<?php } ?>
 			
-			<?php	if($permisos_doc[1]['status'] == 1 ){ ?>
+			<li>			 
+              <a href="<?= base_url();?>historias/buscar">
+                <i class="fa  fa-heartbeat"></i> <span>Historias médicas</span>
+              </a>
+			</li>
 			
+			<?php	if($permisos_doc[1]['status'] == 1 ){ ?>			
 			<li>
               <a href="#">
                 <i class="fa fa-user-md"></i> <span>Doctores</span>
@@ -204,10 +207,10 @@
                 <i class="fa fa-arrow-circle-right"></i> <span>Procedimientos</span>
               </a>
 			   <ul class="treeview-menu">
-			   <?php	if ($permisos_pro[1]['status'] == 1 ){ ?>
+			   <?php	if ($permisos_pro[4]['status'] == 1 ){ ?>
                 <li><a href="<?= base_url();?>procedimientos/registrar"><i class="fa fa-plus-square"></i>Registrar</a></li>
                 <?php } ?>
-				<?php	if ($permisos_pro[4]['status'] == 1 ){ ?>				
+				<?php	if ($permisos_pro[1]['status'] == 1 ){ ?>				
 				<li><a href="<?= base_url();?>procedimientos/buscar"><i class="fa fa-search"></i>Buscar</a></li>
                 <?php } ?>	
 			  </ul>
@@ -220,10 +223,10 @@
                 <i class="fa fa-file-text-o"></i> <span>Exámenes</span>
               </a>
 			   <ul class="treeview-menu">
-			   <?php	if ($permisos_exa[1]['status'] == 1 ){ ?>
+			   <?php	if ($permisos_exa[4]['status'] == 1 ){ ?>
                 <li><a href="<?= base_url();?>examenes/registrar"><i class="fa fa-plus-square"></i>Registrar</a></li>
                 <?php } ?>
-				<?php	if ($permisos_exa[4]['status'] == 1 ){ ?>				
+				<?php	if ($permisos_exa[1]['status'] == 1 ){ ?>				
 				<li><a href="<?= base_url();?>examenes/buscar"><i class="fa fa-search"></i>Buscar</a></li>
                 <?php } ?>	
 			  </ul>

@@ -71,7 +71,6 @@
 						  <td><div class='col-md-6'>
 								 <select class="form-control" onChange="rol(this.value,<?= $row['id']?>)">
 									<option value="<?= $row['roles_id'] ?>"> <?= $this->crud_model->get_name_rol($row['roles_id']); ?></option>	
-									<?php if($row['roles_id'] != 1){ echo	'<option value="1">Administrador</option>';	  }?>
 									<?php if($row['roles_id'] != 2){ echo	'<option value="2">Enfermera</option>';	  }?>								
 									<?php if($row['roles_id'] != 4){ echo	'<option value="4">Terapista</option>';	  }?>
 									<?php if($row['roles_id'] != 5){ echo	'<option value="5">Secretaria</option>';	  }?>																

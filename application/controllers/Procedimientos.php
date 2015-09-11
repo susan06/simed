@@ -116,6 +116,28 @@ class Procedimientos extends CI_Controller {
 		
 		return $this->load->view('procedimientos/ver', $data);		
     }	
+	
+	public function editar($id) 
+	{		
+
+		$procedimiento = $this->procedimientos_model->get_procedimiento($id);
+		if($procedimiento){
+			$data['procedimiento'] =  $procedimiento;
+		}else{
+			$data['procedimiento'] =  NULL;
+		}
+		
+		return $this->load->view('procedimientos/editar', $data);		
+    }
+
+	public function actualizar(){		
+
+		 $data['id']= $this->input->post('id');
+		 $data['descrip_proced']= ucwords($this->input->post('descrip'));	
+		 $data['obs_proced']= $this->input->post('obs_proced');			 
+		 
+		$this->procedimientos_model->actualizar($data);
+	}	
 }
 
 

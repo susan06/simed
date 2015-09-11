@@ -10,7 +10,7 @@
         <!-- Content Header (Page header) -->
         <section class="content-header">
           <h1>
-         Búsqueda de procedimientos<small></small>
+         Búsqueda de historias médicas<small></small>
           </h1>
         </section>
 
@@ -27,7 +27,7 @@
 							<h4><i class="icon fa fa-info"></i> Información!</h4>
 							<span id="span_info"></span>
 					  </div>
-					  		
+					  
 			<?php if($this->session->flashdata('warning') != ''): ?>
 					  <div class="alert alert-warning alert-dismissable">
 							<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
@@ -60,10 +60,10 @@
                   <h3 class="box-title col-xs-5"><input type="text" class="form-control" id="pacientes" placeholder="Escriba aqui para buscar paciente"/></h3>				 
 				  <h3 class="box-title col-xs-2"><input type="text" class="form-control" id="cedula" placeholder="Cédula" readonly /></h3>
 				  <input type="hidden" id="expediente_id" />
-				<button type="button" class="btn btn-success" onclick="procedimientos_paciente( $('#expediente_id').val())">Buscar</button>
+				<button type="button" class="btn btn-success" onclick="historias_paciente( $('#expediente_id').val())">Buscar</button>
 				</div>
 				
-                <div class="box-body" id="procedimientos_load">
+                <div class="box-body" id="historias_load">
 
                   
 			   </div><!-- /.box-body -->
@@ -71,65 +71,13 @@
 
             </div><!-- /.col-->
           </div><!-- ./row -->
-		  
-	            <div class="modal modal-warning" id="warning_modal" role="dialog">
-              <div class="modal-dialog"  role="document">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title">Permisos</h4>
-                  </div>
-                  <div class="modal-body">
-                    <p>No tiene permiso para eliminar procedimientos</p>
-                  </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-outline" data-dismiss="modal">Ok</button>
-                  </div>
-                </div><!-- /.modal-content -->
-              </div><!-- /.modal-dialog -->
-            </div><!-- /.modal -->	
-	
-	     <div class="modal modal-warning" id="warning_edit_modal" role="dialog">
-              <div class="modal-dialog"  role="document">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title">Permisos</h4>
-                  </div>
-                  <div class="modal-body">
-                    <p>No tiene permiso para editar los procedimientos del Paciente</p>
-                  </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-outline" data-dismiss="modal">Ok</button>
-                  </div>
-                </div><!-- /.modal-content -->
-              </div><!-- /.modal-dialog -->
-            </div><!-- /.modal -->
-	
 
-		<div class="modal" id="modalPacDialog" role="dialog">
+		<div class="modal" id="modalEditDialog" role="dialog">
 		  <div class="modal-dialog"  role="document" style="width: 50%;">
 			<div class="modal-content">
 			  <div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-					<h4 class="modal-title">Datos del procedimiento</h4>
-				</div>
-						<div class="modal-body" id="pac-body">
-						</div>
-			 <div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal">Ok</button>
-			  </div>
-			</div>
-			<!-- /.modal-content --> 
-		  </div>
-		  <!-- /.modal-dialog --> 
-		</div>		
-	<div class="modal" id="modalEditDialog" role="dialog">
-		  <div class="modal-dialog"  role="document" style="width: 50%;">
-			<div class="modal-content">
-			  <div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-					<h4 class="modal-title">Editar datos del procedimiento</h4>
+					<h4 class="modal-title">Ubicación de la historia médica</h4>
 				</div>
 						<div class="modal-body" id="edit-body">
 						</div>
@@ -138,6 +86,7 @@
 		  </div>
 		  <!-- /.modal-dialog --> 
 		</div>	
+		
         </section><!-- /.content -->
       </div><!-- /.content-wrapper -->
 
@@ -171,8 +120,8 @@
 	<!-- page script -->
     <script type="text/javascript">
 	
-      $(document).ready(function () {		
-
+	$(document).ready(function () {	
+	
 		$("#pacientes").autocomplete({
 					source: '<?= base_url(); ?>pacientes/autocomplete_exp',
 					minlength:2,
@@ -183,56 +132,30 @@
 								$("#expediente_id").val(ui.item.id);
 								$("#cedula").val(ui.item.ci);
 							}
-		});			
-      });	
+		});	
+		
+     });	
 
-		function procedimientos_paciente(expediente){ 
+		function historias_paciente(expediente){ 
 
 							$.ajax({
 									data: {expediente:expediente},
-									url:   '<?= base_url(); ?>procedimientos/procedimientos_busqueda',
+									url:   '<?= base_url(); ?>historias/historias_busqueda',
 									type:  'post',
 									success:  function (response) {
-											$("#procedimientos_load").html(response);
+											$("#historias_load").html(response);
 									}
 							});
    
 		} 
-
-		function ver_procedimiento(id){
-			
-			$( "#pac-body" ).load( "<?= base_url(); ?>procedimientos/ver/"+id );
-			$('#modalPacDialog').modal();
-		}				
-
-		function editar_procedimiento(id){ 
-
-		 $( "#edit-body" ).load( "<?= base_url(); ?>procedimientos/editar/"+id );
-			$('#modalEditDialog').modal();	
+	
 		
+		function editar_historia(id){ 
+		    $( "#edit-body" ).load( "<?= base_url(); ?>historias/ubicacion/"+id );
+			$('#modalEditDialog').modal();	
 		}	
 		
-		function eliminar_permiso(){ 			
-			$('#warning_modal').modal('show');			
-		};	
-
-		function editar_permiso(){ 			
-			$('#warning_edit_modal').modal('show');			
-		};	
-		
-		function eliminar(id, expediente, url_delete){
-		
-			bootbox.confirm("Estas seguro de eliminar el registro?", function(result) {
-			  $.ajax({ 
-							url: url_delete,
-							type:'POST',
-							data:'id='+id,
-							success: function(){
-							procedimientos_paciente(expediente);
-							}
-					   })
-			}); 
-		}			
+				
     </script>
 	
   </body>

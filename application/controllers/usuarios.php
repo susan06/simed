@@ -90,9 +90,14 @@ class Usuarios extends CI_Controller {
 		//por defecto el administrador
 		//permisos para el modulo de doctores
 		$data['admin_3'] = $this->crud_model->get_permisos(1,3);
-		
+		//permisos para el modulo de expediente
+		$data['admin_7']	= $this->crud_model->get_permisos(1,7);
 		//permisos para el modulo de terapias
 		$data['admin_8']	= $this->crud_model->get_permisos(1,8);
+		//permisos para el modulo de terapias
+		$data['admin_12']	= $this->crud_model->get_permisos(1,12);
+		//permisos para el modulo de terapias
+		$data['admin_13']	= $this->crud_model->get_permisos(1,13);
 		
 		$data['page_title'] = 'Usuarios';
 		$data['system_title'] = 'Permisos';			
@@ -130,6 +135,30 @@ class Usuarios extends CI_Controller {
 				$this->db->where('id', $terapias[$i] );
 				$this->db->update('rol_permiso', array('status'=> $status_ter[$i] ));			
 		}
+
+		$expediente= $this->input->post('expediente'); 
+		$status_exp= $this->input->post('status_exp');
+		
+		for ($i = 1; $i <= 4; $i++) {
+				$this->db->where('id', $expediente[$i] );
+				$this->db->update('rol_permiso', array('status'=> $status_exp[$i] ));			
+		}
+
+		$procedimientos= $this->input->post('procedimientos'); 
+		$status_proce= $this->input->post('status_proce');
+		
+		for ($i = 1; $i <= 4; $i++) {
+				$this->db->where('id', $procedimientos[$i] );
+				$this->db->update('rol_permiso', array('status'=> $status_proce[$i] ));			
+		}
+		
+		$examenes= $this->input->post('examenes'); 
+		$status_exam= $this->input->post('status_exam');
+		
+		for ($i = 1; $i <= 4; $i++) {
+				$this->db->where('id', $examenes[$i] );
+				$this->db->update('rol_permiso', array('status'=> $status_exam[$i] ));			
+		}	
 		
 		$this->session->set_flashdata('info', 'Cambios realizados con éxito');
 		redirect(base_url() . 'usuarios/permisos_rol', 'refresh');	
@@ -150,6 +179,8 @@ class Usuarios extends CI_Controller {
 			$data['mod_8'] = $this->crud_model->get_permisos(2,8);
 			$data['mod_10'] = $this->crud_model->get_permisos(2,10);
 			$data['mod_11'] = $this->crud_model->get_permisos(2,11);
+			$data['mod_12'] = $this->crud_model->get_permisos(2,12);
+			$data['mod_13'] = $this->crud_model->get_permisos(2,13);
 		}
 		if($rol == 3){
 			$data['rol_name']='Doctor';
@@ -163,6 +194,8 @@ class Usuarios extends CI_Controller {
 			$data['mod_8'] = $this->crud_model->get_permisos(3,8);
 			$data['mod_10'] = $this->crud_model->get_permisos(3,10);
 			$data['mod_11'] = $this->crud_model->get_permisos(3,11);
+			$data['mod_12'] = $this->crud_model->get_permisos(3,12);
+			$data['mod_13'] = $this->crud_model->get_permisos(3,13);
 		}
 		if($rol == 4){
 			$data['rol_name']='Terapista';
@@ -176,6 +209,8 @@ class Usuarios extends CI_Controller {
 			$data['mod_8'] = $this->crud_model->get_permisos(4,8);
 			$data['mod_10'] = $this->crud_model->get_permisos(4,10);
 			$data['mod_11'] = $this->crud_model->get_permisos(4,11);
+			$data['mod_12'] = $this->crud_model->get_permisos(4,12);
+			$data['mod_13'] = $this->crud_model->get_permisos(4,13);
 		}
 		if($rol == 5){
 			$data['rol_name']='Secretaria';
@@ -189,6 +224,8 @@ class Usuarios extends CI_Controller {
 			$data['mod_8'] = $this->crud_model->get_permisos(5,8);
 			$data['mod_10'] = $this->crud_model->get_permisos(5,10);
 			$data['mod_11'] = $this->crud_model->get_permisos(5,11);
+			$data['mod_12'] = $this->crud_model->get_permisos(5,12);
+			$data['mod_13'] = $this->crud_model->get_permisos(5,13);
 		}
 		
 		return $this->load->view('usuarios/permiso_rol', $data);	

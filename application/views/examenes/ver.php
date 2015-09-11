@@ -21,7 +21,7 @@
 					</div>
 					<div class="row">				   
 						<div class="form-group col-xs-12">
-						  <label>Especialidad: </label>
+						  <label>Tratamiento: </label>
 						  <?=  $row['tratamiento']; ?>
 						</div>					 
 					</div>

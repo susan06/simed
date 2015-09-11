@@ -117,6 +117,31 @@ class Examenes extends CI_Controller {
 		
 		return $this->load->view('examenes/ver', $data);		
     }
+
+
+	public function editar($id) 
+	{		
+
+		$examenes = $this->examenes_model->get_examen($id);
+		if($examenes){
+			$data['examenes'] =  $examenes;
+		}else{
+			$data['examenes'] =  NULL;
+		}
+		
+		return $this->load->view('examenes/editar', $data);		
+    }
+
+	public function actualizar(){		
+
+		 $data['id']= $this->input->post('id');
+		 $data['tipo_exam']= ucwords($this->input->post('tipo'));	
+		 $data['resultado']= $this->input->post('resultado');	
+		 $data['tratamiento']= $this->input->post('tratamiento');	
+		 $data['obs_exam']= $this->input->post('obs_exam');	 
+		 
+		$this->examenes_model->actualizar($data);
+	}
 	
 }
 

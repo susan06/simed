@@ -24,21 +24,24 @@ class Procedimientos_model extends CI_Model {
 						
 	}
 	
-    function actualizar($data){	
+   function actualizar($data){	
 
 		$this->db->where('id', $data['id']);
-        $updateSQL=$this->db->update('pacientes', $data);	
-		
-		if($updateSQL) {								
-			$this->session->set_flashdata('info', 'Se realizaron los cambios con éxito');
-			redirect(base_url() . 'pacientes/editar/'.$data['id'], 'refresh');	
+        $updateSQL=$this->db->update('procedimientos', $data);	
+
+		if($updateSQL){
+				$rsp['rsp'] = 1;
+				$rsp['mnj'] =  "El procedimiento fue editado con éxito.";
 		}else{
-			$this->session->set_flashdata('error', 'Intente actualizar los datos de nuevo');
-			redirect(base_url() . 'pacientes/editar/'.$data['id'], 'refresh');	
-		}
+				$rsp['rsp'] = 0;
+				$rsp['mnj'] =  "Ocurrio un error, intente de nuevo.";
+
+		}			
 		
-	}
-    
+		echo json_encode($rsp);
+		
+	} 
+	
 	function eliminar($id){
 			
 		$this->db->where('id', $id);

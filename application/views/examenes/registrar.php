@@ -97,7 +97,7 @@
 						</div>
 					</div>
 					<div class="form-group">
-						<label>Obeservaciones</label>
+						<label>Observaciones</label>
 						<div class="row">				 
 						<div class="col-xs-8">
 						  <textarea name="obs_exam" class="form-control"></textarea>

@@ -16,7 +16,18 @@
 
         <!-- Main content -->
         <section class="content">
-		
+					<div class="alert alert-warning alert-dismissable" style="display:none" id="alert_warning">
+							<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+							<h4><i class="icon fa fa-warning"></i> Advertencia!</h4>
+							<span id="span_warning"></span>
+					  </div>
+					  
+					  <div class="alert alert-info alert-dismissable" style="display:none" id="alert_info">
+							<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+							<h4><i class="icon fa fa-info"></i> Información!</h4>
+							<span id="span_info"></span>
+					  </div>
+					  
 			<?php if($this->session->flashdata('warning') != ''): ?>
 					  <div class="alert alert-warning alert-dismissable">
 							<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
@@ -113,7 +124,22 @@
 		  </div>
 		  <!-- /.modal-dialog --> 
 		</div>		
-			
+
+		<div class="modal" id="modalEditDialog" role="dialog">
+		  <div class="modal-dialog"  role="document" style="width: 50%;">
+			<div class="modal-content">
+			  <div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title">Editar datos del exámen</h4>
+				</div>
+						<div class="modal-body" id="edit-body">
+						</div>
+			</div>
+			<!-- /.modal-content --> 
+		  </div>
+		  <!-- /.modal-dialog --> 
+		</div>	
+		
         </section><!-- /.content -->
       </div><!-- /.content-wrapper -->
 
@@ -182,8 +208,9 @@
 			$('#modalPacDialog').modal();
 		}	
 		
-		function editar_examenes(id){ 
-		location.href='<?= base_url(); ?>examenes/editar/'+id;		
+		function editar_examen(id){ 
+		    $( "#edit-body" ).load( "<?= base_url(); ?>examenes/editar/"+id );
+			$('#modalEditDialog').modal();	
 		}	
 		
 		function eliminar_permiso(){ 			
