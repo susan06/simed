@@ -3,6 +3,7 @@
 	  <?php $permisos_doc 	= $this->crud_model->get_permisos($this->session->userdata('rol'),3); ?>
 	  <?php $permisos_cit 	= $this->crud_model->get_permisos($this->session->userdata('rol'),4); ?>
 	  <?php $permisos_esp 	= $this->crud_model->get_permisos($this->session->userdata('rol'),5); ?>
+	  <?php $permisos_exp 	= $this->crud_model->get_permisos($this->session->userdata('rol'),7); ?>
 	  <?php $permisos_ter 	= $this->crud_model->get_permisos($this->session->userdata('rol'),8); ?>
 	  <?php $permisos_pro 	= $this->crud_model->get_permisos($this->session->userdata('rol'),12); ?>
 	  <?php $permisos_exa 	= $this->crud_model->get_permisos($this->session->userdata('rol'),13); ?>
@@ -177,14 +178,6 @@
             </li>
 			<?Php endif ?>
 			
-			<?Php if($this->session->userdata('rol') == 2 || $this->session->userdata('rol') == 3 || $this->session->userdata('rol') == 4 ): ?>			
-			<li>
-              <a href="<?= base_url();?>expediente/pacientes">
-                <i class="fa fa-folder-open-o"></i> <span>Expediente Médico</span>
-              </a>
-            </li>
-			<?Php endif ?>
-			
 			<li>
               <a href="../widgets.html">
                 <i class="fa fa-medkit"></i> <span>Terapias</span>
@@ -201,6 +194,7 @@
               </ul>
             </li>
 
+			
 			<?php	if($permisos_pro[1]['status'] == 1 || $permisos_pro[4]['status'] == 1 ){ ?>			
 			<li>			 
               <a href="../widgets.html">
@@ -232,7 +226,15 @@
 			  </ul>
             </li>			
 			 <?php } ?>	
-			 
+
+			<?php	if ($permisos_exp[1]['status'] == 1 ){ ?>
+			<li>
+              <a href="<?= base_url();?>expedientes/buscar">
+                <i class="fa fa-folder-open"></i> <span>Expediente Médico</span>
+              </a>
+            </li>
+			<?Php } ?>
+			
 			<?Php if($this->session->userdata('rol') == 5): ?>
             <li class="treeview">
               <a href="<?= base_url();?>eventos/imprimir">

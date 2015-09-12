@@ -24,8 +24,7 @@
 						  <td><?=  $row['ubicacion']; ?></td>
 						  <td align="center">
 						    <i title="Ubicación de archivo" data-rel="tooltip" data-placement="top"  style="cursor:pointer" class="fa  fa-file-archive-o" data-rel="tooltip" data-placement="top"  onclick="editar_historia(<?= $row['id'];?>)"></i>									
-						   </td>						  
-						  </td>		
+						  </td>						  	
 						 </tr>
 						<?php }} ?>
 		

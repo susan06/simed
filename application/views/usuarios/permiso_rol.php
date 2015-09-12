@@ -415,11 +415,7 @@
 							   &nbsp;<input type="checkbox" id="check<?= $mod_7[4]['id'] ?>" onclick="check(<?= $mod_7[4]['id'] ?>)"><span>Crear</span>
 								  <input type="hidden" name="expediente[4]" value="<?= $mod_7[4]['id'] ?>" >
 								 <input type="hidden" name="status_exp[4]" value="<?= $mod_7[4]['status'] ?>" id="<?= $mod_7[4]['id'] ?>" >
-							  <?Php } 	
-						}
-					   ?>
-
-					   <?php } ?>
+							  <?Php }  ?>
 					   
 						</td>
                     </tr>
@@ -446,123 +442,119 @@
 					   <td> 					   
 						<?php if($mod_12[1]['status']==1){ ?>
 								  
-								  &nbsp;<input type="checkbox" id="check<?= $mod_[1]['id'] ?>" onclick="check(<?= $mod_[1]['id'] ?>)" checked><span class="text-green">Ver</span>
-								  <input type="hidden" name="terapias[1]" value="<?= $mod_[1]['id'] ?>" >
-								  <input type="hidden" name="status_ter[1]" value="<?= $mod_[1]['status'] ?>" id="<?= $mod_[1]['id'] ?>" >
+								  &nbsp;<input type="checkbox" id="check<?= $mod_12[1]['id'] ?>" onclick="check(<?= $mod_12[1]['id'] ?>)" checked><span class="text-green">Ver</span>
+								  <input type="hidden" name="procedimientos[1]" value="<?= $mod_12[1]['id'] ?>" >
+								  <input type="hidden" name="status_pro[1]" value="<?= $mod_12[1]['status'] ?>" id="<?= $mod_12[1]['id'] ?>" >
 								  
 							  <?Php  }else{  ?>
 							   
-							   &nbsp;<input type="checkbox" id="check<?= $mod_[1]['id'] ?>" onclick="check(<?= $mod_[1]['id'] ?>)"><span>Ver</span>
-								  <input type="hidden" name="terapias[1]" value="<?= $mod_[1]['id'] ?>">
-								 <input type="hidden" name="status_ter[1]" value="<?= $mod_[1]['status'] ?>" id="<?= $mod_[1]['id'] ?>" >
+							   &nbsp;<input type="checkbox" id="check<?= $mod_12[1]['id'] ?>" onclick="check(<?= $mod_12[1]['id'] ?>)"><span>Ver</span>
+								  <input type="hidden" name="procedimientos[1]" value="<?= $mod_12[1]['id'] ?>">
+								 <input type="hidden" name="status_pro[1]" value="<?= $mod_12[1]['status'] ?>" id="<?= $mod_12[1]['id'] ?>" >
 								<?Php
 								} ?> 	
 
 									   <?Php 
-							   if($mod_[2]['status']==1){ ?>
+							   if($mod_12[2]['status']==1){ ?>
 								  
-								  &nbsp;<input type="checkbox" id="check<?= $mod_[2]['id'] ?>" onclick="check(<?= $mod_[2]['id'] ?>)" checked><span class="text-green">Editar</span>
-								  <input type="hidden" name="terapias[2]" value="<?= $mod_[2]['id'] ?>" >
-								  <input type="hidden" name="status_ter[2]" value="<?= $mod_[2]['status'] ?>" id="<?= $mod_[2]['id'] ?>" >
+								  &nbsp;<input type="checkbox" id="check<?= $mod_12[2]['id'] ?>" onclick="check(<?= $mod_12[2]['id'] ?>)" checked><span class="text-green">Editar</span>
+								  <input type="hidden" name="procedimientos[2]" value="<?= $mod_12[2]['id'] ?>" >
+								  <input type="hidden" name="status_pro[2]" value="<?= $mod_12[2]['status'] ?>" id="<?= $mod_12[2]['id'] ?>" >
 								  
 							  <?Php  }else{  ?>
 							   
-							   &nbsp;<input type="checkbox" id="check<?= $mod_[2]['id'] ?>" onclick="check(<?= $mod_[2]['id'] ?>)"><span>Editar</span>
-								  <input type="hidden" name="terapias[2]" value="<?= $mod_[2]['id'] ?>">
-								 <input type="hidden" name="status_ter[2]" value="<?= $mod_[2]['status'] ?>" id="<?= $mod_[2]['id'] ?>" >
+							   &nbsp;<input type="checkbox" id="check<?= $mod_12[2]['id'] ?>" onclick="check(<?= $mod_12[2]['id'] ?>)"><span>Editar</span>
+								  <input type="hidden" name="procedimientos[2]" value="<?= $mod_12[2]['id'] ?>">
+								 <input type="hidden" name="status_pro[2]" value="<?= $mod_12[2]['status'] ?>" id="<?= $mod_12[2]['id'] ?>" >
 							  <?Php } ?>
 							  
 							  <?Php 
-							   if($mod_[3]['status']==1){ ?>
+							   if($mod_12[3]['status']==1){ ?>
 								  
-								  &nbsp;<input type="checkbox" id="check<?= $mod_[3]['id'] ?>" onclick="check(<?= $mod_[3]['id'] ?>)" checked><span class="text-green">Eliminar</span>
-								  <input type="hidden" name="terapias[3]" value="<?= $mod_[3]['id'] ?>" >
-								   <input type="hidden" name="status_ter[3]" value="<?= $mod_[3]['status'] ?>" id="<?= $mod_[3]['id'] ?>" >
+								  &nbsp;<input type="checkbox" id="check<?= $mod_12[3]['id'] ?>" onclick="check(<?= $mod_12[3]['id'] ?>)" checked><span class="text-green">Eliminar</span>
+								  <input type="hidden" name="procedimientos[3]" value="<?= $mod_12[3]['id'] ?>" >
+								   <input type="hidden" name="status_pro[3]" value="<?= $mod_12[3]['status'] ?>" id="<?= $mod_12[3]['id'] ?>" >
 								   
 							  <?Php  }else{  ?>
 							   
-							   &nbsp;<input type="checkbox" id="check<?= $mod_[3]['id'] ?>" onclick="check(<?= $mod_[3]['id'] ?>)"><span>Eliminar</span>
-								  <input type="hidden" name="terapias[3]" value="<?= $mod_[3]['id'] ?>" >
-								 <input type="hidden" name="status_ter[3]" value="<?= $mod_[3]['status'] ?>" id="<?= $mod_[3]['id'] ?>" >
+							   &nbsp;<input type="checkbox" id="check<?= $mod_12[3]['id'] ?>" onclick="check(<?= $mod_12[3]['id'] ?>)"><span>Eliminar</span>
+								  <input type="hidden" name="procedimientos[3]" value="<?= $mod_12[3]['id'] ?>" >
+								 <input type="hidden" name="status_pro[3]" value="<?= $mod_12[3]['status'] ?>" id="<?= $mod_12[3]['id'] ?>" >
 							  <?Php } ?> 
 							  
 							  <?Php 
-							   if($mod_[4]['status']==1){ ?>
+							   if($mod_12[4]['status']==1){ ?>
 								  
-								  &nbsp;<input type="checkbox" id="check<?= $mod_[4]['id'] ?>" onclick="check(<?= $mod_[4]['id'] ?>)" checked><span class="text-green">Crear</span>
-								  <input type="hidden" name="terapias[4]" value="<?= $mod_[4]['id'] ?>" >
-								   <input type="hidden" name="status_ter[4]" value="<?= $mod_[4]['status'] ?>" id="<?= $mod_[4]['id'] ?>" >
+								  &nbsp;<input type="checkbox" id="check<?= $mod_12[4]['id'] ?>" onclick="check(<?= $mod_12[4]['id'] ?>)" checked><span class="text-green">Crear</span>
+								  <input type="hidden" name="procedimientos[4]" value="<?= $mod_12[4]['id'] ?>" >
+								   <input type="hidden" name="status_pro[4]" value="<?= $mod_12[4]['status'] ?>" id="<?= $mod_12[4]['id'] ?>" >
 								   
 							  <?Php  }else{  ?>
 							   
-							   &nbsp;<input type="checkbox" id="check<?= $mod_[4]['id'] ?>" onclick="check(<?= $mod_[4]['id'] ?>)"><span>Crear</span>
-								  <input type="hidden" name="terapias[4]" value="<?= $mod_[4]['id'] ?>" >
-								 <input type="hidden" name="status_ter[4]" value="<?= $mod_[4]['status'] ?>" id="<?= $mod_[4]['id'] ?>" >
-							  <?Php } 	
-						}
-					   ?>
+							   &nbsp;<input type="checkbox" id="check<?= $mod_12[4]['id'] ?>" onclick="check(<?= $mod_12[4]['id'] ?>)"><span>Crear</span>
+								  <input type="hidden" name="procedimientos[4]" value="<?= $mod_12[4]['id'] ?>" >
+								 <input type="hidden" name="status_pro[4]" value="<?= $mod_12[4]['status'] ?>" id="<?= $mod_12[4]['id'] ?>" >
+							  <?Php } 	 ?>
 						</td>
                     </tr>
 					<tr>
                       <td>Exámenes</td>
 					   <td> 					   
-						<?php if($mod_12[1]['status']==1){ ?>
+						<?php if($mod_13[1]['status']==1){ ?>
 								  
-								  &nbsp;<input type="checkbox" id="check<?= $mod_[1]['id'] ?>" onclick="check(<?= $mod_[1]['id'] ?>)" checked><span class="text-green">Ver</span>
-								  <input type="hidden" name="terapias[1]" value="<?= $mod_[1]['id'] ?>" >
-								  <input type="hidden" name="status_ter[1]" value="<?= $mod_[1]['status'] ?>" id="<?= $mod_[1]['id'] ?>" >
+								  &nbsp;<input type="checkbox" id="check<?= $mod_13[1]['id'] ?>" onclick="check(<?= $mod_13[1]['id'] ?>)" checked><span class="text-green">Ver</span>
+								  <input type="hidden" name="examenes[1]" value="<?= $mod_13[1]['id'] ?>" >
+								  <input type="hidden" name="status_exam[1]" value="<?= $mod_13[1]['status'] ?>" id="<?= $mod_13[1]['id'] ?>" >
 								  
 							  <?Php  }else{  ?>
 							   
-							   &nbsp;<input type="checkbox" id="check<?= $mod_[1]['id'] ?>" onclick="check(<?= $mod_[1]['id'] ?>)"><span>Ver</span>
-								  <input type="hidden" name="terapias[1]" value="<?= $mod_[1]['id'] ?>">
-								 <input type="hidden" name="status_ter[1]" value="<?= $mod_[1]['status'] ?>" id="<?= $mod_[1]['id'] ?>" >
+							   &nbsp;<input type="checkbox" id="check<?= $mod_13[1]['id'] ?>" onclick="check(<?= $mod_13[1]['id'] ?>)"><span>Ver</span>
+								  <input type="hidden" name="examenes[1]" value="<?= $mod_13[1]['id'] ?>">
+								 <input type="hidden" name="status_exam[1]" value="<?= $mod_13[1]['status'] ?>" id="<?= $mod_13[1]['id'] ?>" >
 								<?Php
 								} ?> 	
 
 									   <?Php 
-							   if($mod_[2]['status']==1){ ?>
+							   if($mod_13[2]['status']==1){ ?>
 								  
-								  &nbsp;<input type="checkbox" id="check<?= $mod_[2]['id'] ?>" onclick="check(<?= $mod_[2]['id'] ?>)" checked><span class="text-green">Editar</span>
-								  <input type="hidden" name="terapias[2]" value="<?= $mod_[2]['id'] ?>" >
-								  <input type="hidden" name="status_ter[2]" value="<?= $mod_[2]['status'] ?>" id="<?= $mod_[2]['id'] ?>" >
+								  &nbsp;<input type="checkbox" id="check<?= $mod_13[2]['id'] ?>" onclick="check(<?= $mod_13[2]['id'] ?>)" checked><span class="text-green">Editar</span>
+								  <input type="hidden" name="examenes[2]" value="<?= $mod_13[2]['id'] ?>" >
+								  <input type="hidden" name="status_exam[2]" value="<?= $mod_13[2]['status'] ?>" id="<?= $mod_13[2]['id'] ?>" >
 								  
 							  <?Php  }else{  ?>
 							   
-							   &nbsp;<input type="checkbox" id="check<?= $mod_[2]['id'] ?>" onclick="check(<?= $mod_[2]['id'] ?>)"><span>Editar</span>
-								  <input type="hidden" name="terapias[2]" value="<?= $mod_[2]['id'] ?>">
-								 <input type="hidden" name="status_ter[2]" value="<?= $mod_[2]['status'] ?>" id="<?= $mod_[2]['id'] ?>" >
+							   &nbsp;<input type="checkbox" id="check<?= $mod_13[2]['id'] ?>" onclick="check(<?= $mod_13[2]['id'] ?>)"><span>Editar</span>
+								  <input type="hidden" name="examenes[2]" value="<?= $mod_13[2]['id'] ?>">
+								 <input type="hidden" name="status_exam[2]" value="<?= $mod_13[2]['status'] ?>" id="<?= $mod_13[2]['id'] ?>" >
 							  <?Php } ?>
 							  
 							  <?Php 
-							   if($mod_[3]['status']==1){ ?>
+							   if($mod_13[3]['status']==1){ ?>
 								  
-								  &nbsp;<input type="checkbox" id="check<?= $mod_[3]['id'] ?>" onclick="check(<?= $mod_[3]['id'] ?>)" checked><span class="text-green">Eliminar</span>
-								  <input type="hidden" name="terapias[3]" value="<?= $mod_[3]['id'] ?>" >
-								   <input type="hidden" name="status_ter[3]" value="<?= $mod_[3]['status'] ?>" id="<?= $mod_[3]['id'] ?>" >
+								  &nbsp;<input type="checkbox" id="check<?= $mod_13[3]['id'] ?>" onclick="check(<?= $mod_13[3]['id'] ?>)" checked><span class="text-green">Eliminar</span>
+								  <input type="hidden" name="examenes[3]" value="<?= $mod_13[3]['id'] ?>" >
+								   <input type="hidden" name="status_exam[3]" value="<?= $mod_13[3]['status'] ?>" id="<?= $mod_13[3]['id'] ?>" >
 								   
 							  <?Php  }else{  ?>
 							   
-							   &nbsp;<input type="checkbox" id="check<?= $mod_[3]['id'] ?>" onclick="check(<?= $mod_[3]['id'] ?>)"><span>Eliminar</span>
-								  <input type="hidden" name="terapias[3]" value="<?= $mod_[3]['id'] ?>" >
-								 <input type="hidden" name="status_ter[3]" value="<?= $mod_[3]['status'] ?>" id="<?= $mod_[3]['id'] ?>" >
+							   &nbsp;<input type="checkbox" id="check<?= $mod_13[3]['id'] ?>" onclick="check(<?= $mod_13[3]['id'] ?>)"><span>Eliminar</span>
+								  <input type="hidden" name="examenes[3]" value="<?= $mod_13[3]['id'] ?>" >
+								 <input type="hidden" name="status_exam[3]" value="<?= $mod_13[3]['status'] ?>" id="<?= $mod_13[3]['id'] ?>" >
 							  <?Php } ?> 
 							  
 							  <?Php 
-							   if($mod_[4]['status']==1){ ?>
+							   if($mod_13[4]['status']==1){ ?>
 								  
-								  &nbsp;<input type="checkbox" id="check<?= $mod_[4]['id'] ?>" onclick="check(<?= $mod_[4]['id'] ?>)" checked><span class="text-green">Crear</span>
-								  <input type="hidden" name="terapias[4]" value="<?= $mod_[4]['id'] ?>" >
-								   <input type="hidden" name="status_ter[4]" value="<?= $mod_[4]['status'] ?>" id="<?= $mod_[4]['id'] ?>" >
+								  &nbsp;<input type="checkbox" id="check<?= $mod_13[4]['id'] ?>" onclick="check(<?= $mod_13[4]['id'] ?>)" checked><span class="text-green">Crear</span>
+								  <input type="hidden" name="examenes[4]" value="<?= $mod_13[4]['id'] ?>" >
+								   <input type="hidden" name="status_exam[4]" value="<?= $mod_13[4]['status'] ?>" id="<?= $mod_13[4]['id'] ?>" >
 								   
 							  <?Php  }else{  ?>
 							   
-							   &nbsp;<input type="checkbox" id="check<?= $mod_[4]['id'] ?>" onclick="check(<?= $mod_[4]['id'] ?>)"><span>Crear</span>
-								  <input type="hidden" name="terapias[4]" value="<?= $mod_[4]['id'] ?>" >
-								 <input type="hidden" name="status_ter[4]" value="<?= $mod_[4]['status'] ?>" id="<?= $mod_[4]['id'] ?>" >
-							  <?Php } 	
-						}
-					   ?>
+							   &nbsp;<input type="checkbox" id="check<?= $mod_13[4]['id'] ?>" onclick="check(<?= $mod_13[4]['id'] ?>)"><span>Crear</span>
+								  <input type="hidden" name="examenes[4]" value="<?= $mod_13[4]['id'] ?>" >
+								 <input type="hidden" name="status_exam[4]" value="<?= $mod_13[4]['status'] ?>" id="<?= $mod_13[4]['id'] ?>" >
+							  <?Php }  ?>
 						</td>
                     </tr>					
                   </table>

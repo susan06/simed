@@ -252,6 +252,30 @@ class Usuarios extends CI_Controller {
 					$this->db->update('rol_permiso', array('status'=> $status_espec[$i] ));			
 			}
 
+			$expediente= $this->input->post('expediente'); 
+			$status_exp= $this->input->post('status_exp');
+			
+			for ($i = 1; $i <= 4; $i++) {
+					$this->db->where('id', $expediente[$i] );
+					$this->db->update('rol_permiso', array('status'=> $status_exp[$i] ));			
+			}
+			
+			$procedimientos= $this->input->post('procedimientos'); 
+			$status_pro= $this->input->post('status_pro');
+			
+			for ($i = 1; $i <= 4; $i++) {
+					$this->db->where('id', $procedimientos[$i] );
+					$this->db->update('rol_permiso', array('status'=> $status_pro[$i] ));			
+			}
+
+			$examenes= $this->input->post('examenes'); 
+			$status_exam= $this->input->post('status_exam');
+			
+			for ($i = 1; $i <= 4; $i++) {
+					$this->db->where('id', $examenes[$i] );
+					$this->db->update('rol_permiso', array('status'=> $status_exam[$i] ));			
+			}
+			
 			$clinica= $this->input->post('clinica'); 
 			$status_cli= $this->input->post('status_cli');
 			
@@ -310,6 +334,30 @@ class Usuarios extends CI_Controller {
 			
 			$clinica= $this->input->post('clinica'); 
 			$status_cli= $this->input->post('status_cli');
+
+			$expediente= $this->input->post('expediente'); 
+			$status_exp= $this->input->post('status_exp');
+			
+			for ($i = 1; $i <= 4; $i++) {
+					$this->db->where('id', $expediente[$i] );
+					$this->db->update('rol_permiso', array('status'=> $status_exp[$i] ));			
+			}
+			
+			$procedimientos= $this->input->post('procedimientos'); 
+			$status_pro= $this->input->post('status_pro');
+			
+			for ($i = 1; $i <= 4; $i++) {
+					$this->db->where('id', $procedimientos[$i] );
+					$this->db->update('rol_permiso', array('status'=> $status_pro[$i] ));			
+			}
+
+			$examenes= $this->input->post('examenes'); 
+			$status_exam= $this->input->post('status_exam');
+			
+			for ($i = 1; $i <= 4; $i++) {
+					$this->db->where('id', $examenes[$i] );
+					$this->db->update('rol_permiso', array('status'=> $status_exam[$i] ));			
+			}
 			
 			for ($i = 2; $i <= 2; $i++) {
 					$this->db->where('id', $clinica[$i] );
@@ -334,7 +382,30 @@ class Usuarios extends CI_Controller {
 
 			$clinica= $this->input->post('clinica'); 
 			$status_cli= $this->input->post('status_cli');
+
+			$expediente= $this->input->post('expediente'); 
+			$status_exp= $this->input->post('status_exp');
 			
+			for ($i = 1; $i <= 4; $i++) {
+					$this->db->where('id', $expediente[$i] );
+					$this->db->update('rol_permiso', array('status'=> $status_exp[$i] ));			
+			}
+			
+			$procedimientos= $this->input->post('procedimientos'); 
+			$status_pro= $this->input->post('status_pro');
+			
+			for ($i = 1; $i <= 4; $i++) {
+					$this->db->where('id', $procedimientos[$i] );
+					$this->db->update('rol_permiso', array('status'=> $status_pro[$i] ));			
+			}
+
+			$examenes= $this->input->post('examenes'); 
+			$status_exam= $this->input->post('status_exam');
+			
+			for ($i = 1; $i <= 4; $i++) {
+					$this->db->where('id', $examenes[$i] );
+					$this->db->update('rol_permiso', array('status'=> $status_exam[$i] ));			
+			}			
 			for ($i = 2; $i <= 2; $i++) {
 					$this->db->where('id', $clinica[$i] );
 					$this->db->update('rol_permiso', array('status'=> $status_cli[$i] ));			
@@ -375,6 +446,30 @@ class Usuarios extends CI_Controller {
 			
 			$clinica= $this->input->post('clinica'); 
 			$status_cli= $this->input->post('status_cli');
+
+			$expediente= $this->input->post('expediente'); 
+			$status_exp= $this->input->post('status_exp');
+			
+			for ($i = 1; $i <= 4; $i++) {
+					$this->db->where('id', $expediente[$i] );
+					$this->db->update('rol_permiso', array('status'=> $status_exp[$i] ));			
+			}
+			
+			$procedimientos= $this->input->post('procedimientos'); 
+			$status_pro= $this->input->post('status_pro');
+			
+			for ($i = 1; $i <= 4; $i++) {
+					$this->db->where('id', $procedimientos[$i] );
+					$this->db->update('rol_permiso', array('status'=> $status_pro[$i] ));			
+			}
+
+			$examenes= $this->input->post('examenes'); 
+			$status_exam= $this->input->post('status_exam');
+			
+			for ($i = 1; $i <= 4; $i++) {
+					$this->db->where('id', $examenes[$i] );
+					$this->db->update('rol_permiso', array('status'=> $status_exam[$i] ));			
+			}
 			
 			for ($i = 2; $i <= 2; $i++) {
 					$this->db->where('id', $clinica[$i] );
