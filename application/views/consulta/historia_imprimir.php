@@ -50,7 +50,7 @@
      </tr>
              
    <tr valign="baseline">
-    <td nowrap align="left">N&deg; Expediente M&eacute;dico: <?php echo $row['expediente_id']; ?></td>
+    <td nowrap align="left">N&deg; Archivo: <?php echo $row['ubicacion']; ?> </td>
    </tr>
 
   </table>

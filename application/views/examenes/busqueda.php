@@ -224,6 +224,7 @@
 		function eliminar(id, expediente, url_delete){
 		
 			bootbox.confirm("Estas seguro de eliminar el registro?", function(result) {
+			if(result){
 			  $.ajax({ 
 							url: url_delete,
 							type:'POST',
@@ -232,7 +233,9 @@
 							 examenes_paciente(expediente);
 							}
 					   })
+			}
 			}); 
+			
 		} 
 				
     </script>

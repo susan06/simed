@@ -168,6 +168,116 @@ class Expedientes extends CI_Controller {
 				
 		return $this->load->view('expedientes/examenes', $data);		
     }	
+	
+	public function ver_orden_terapia($orden) {
+		
+		$this->load->model('terapias_model');
+		
+		$orden_terapia = $this->terapias_model->get_orden_terapia($orden);
+		if($orden_terapia){
+				$data['orden'] =  $orden_terapia;
+			}else{
+				$data['orden'] =  NULL;
+			}
+			
+		$terapias = $this->terapias_model->get_terapias();
+			
+			if($terapias){
+				$data['terapias'] =  $terapias;
+			}else{
+				$data['terapias'] =  NULL;
+			}
+			
+		$aplicacion1 = $this->terapias_model->aplicaciones1($orden);
+			
+			if($aplicacion1){
+				$data['aplicacion1'] =  $aplicacion1;
+			}else{
+				$data['aplicacion1'] =  NULL;
+			}
+			
+		$aplicacion2 = $this->terapias_model->aplicaciones2($orden);
+			
+			if($aplicacion2){
+				$data['aplicacion2'] =  $aplicacion2;
+			}else{
+				$data['aplicacion2'] =  NULL;
+			}
+			
+        $this->load->view('expedientes/ver_orden_terapia', $data);
+    }
+
+	public function ver_recipe($recipe){	
+	
+		$this->load->model('consulta_model');
+	
+		$recipe = $this->consulta_model->get_recipe_imprimir($recipe);
+		if($recipe){
+				$data['recipe'] =  $recipe;
+			}else{
+				$data['recipe'] =  NULL;
+			}
+			
+		$this->load->model('centro_model');	
+		$query = $this->centro_model->get_clinica();
+			
+		if($query){
+			$data['clinica'] =  $query;
+		}
+			
+        return $this->load->view('expedientes/ver_recipe', $data);
+		
+	}	
+
+	public function ver_historia($id){		
+							
+		$datos=$this->expediente_model->pac_historia($id);
+		
+		$this->load->model('pacientes_model');
+		$paciente = $this->pacientes_model->get_datos_paciente($datos[0]['paciente_id']);
+		if($paciente){
+			$data['paciente'] =  $paciente;
+		}else{
+			$data['paciente'] =  NULL;
+		}
+		
+		$historia_medica = $this->expediente_model->historia_medica($id);
+			
+		if($historia_medica){
+			$data['historia_medica'] =  $historia_medica;
+		}	
+		
+        return $this->load->view('expedientes/ver_historia', $data);
+
+	}	
+	
+	public function eliminar_orden(){	
+		
+		 $id = $this->input->post('id');
+		 $this->expediente_model->eliminar_orden($id);
+		 	
+	}
+	
+	public function eliminar_historia(){	
+		
+		 $id = $this->input->post('id');
+		 $this->expediente_model->eliminar_historia($id);
+		 	
+	}
+	
+	public function eliminar_recipe(){	
+		
+		 $id = $this->input->post('id');
+		 $this->expediente_model->eliminar_recipe($id);
+		 	
+	}
+	
+	public function eliminar_consulta(){	
+		
+		 $id = $this->input->post('id');
+		 $this->expediente_model->eliminar_consulta($id);
+		 	
+	}
 }
 
 

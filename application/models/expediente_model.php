@@ -79,5 +79,51 @@ class Expediente_model extends CI_Model {
 		$query = $this->db->get('examenes');			
 		return $query->result_array();	
 	}		
-	
+
+  	function historia_medica($id){		
+		$this->db->select("*, historia_medica.id as id");
+		$this->db->from('historia_medica');
+		$this->db->join('antec_gineco_obstetro','antec_gineco_obstetro.cod_hm=historia_medica.id','left');
+		$this->db->join('antec_personales','antec_personales.cod_hm=historia_medica.id','left');
+		$this->db->join('examen_funcional','examen_funcional.cod_hm=historia_medica.id','left');
+		$this->db->join('hab_psicobiologicos','hab_psicobiologicos.cod_hm=historia_medica.id','left');
+		$this->db->join('hab_alimenticios','hab_alimenticios.cod_hm=historia_medica.id','left');
+		$this->db->join('doctores','doctores.id=historia_medica.doctores_id','left');
+		$this->db->where('historia_medica.id',$id);			
+		$query = $this->db->get();		
+		return $query->result_array();				
+	}
+
+	function pac_historia($historia){		
+		$this->db->select("*, historia_medica.id as id, pacientes.id as paciente_id");
+		$this->db->from('historia_medica');
+		$this->db->join('expediente_medico','expediente_medico.id=historia_medica.expediente_id','left');
+		$this->db->join('pacientes','pacientes.id=expediente_medico.pacientes_id','left');
+		$this->db->where('historia_medica.id',$historia);			
+		$query = $this->db->get();		
+		return $query->result_array();				
+	}	
+	function eliminar_orden($id){
+			
+		$this->db->where('id', $id);
+		$this->db->delete('orden_terapia');	
+	}
+
+	function eliminar_historia($id){
+			
+		$this->db->where('id', $id);
+		$this->db->delete('historia_medica');	
+	}	
+
+	function eliminar_recipe($id){
+			
+		$this->db->where('id', $id);
+		$this->db->delete('recipe');	
+	}
+
+	function eliminar_consulta($id){
+			
+		$this->db->where('id', $id);
+		$this->db->delete('consulta');	
+	}	
 }

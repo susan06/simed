@@ -98,7 +98,7 @@
         <!-- Content Header (Page header) -->
         <section class="content-header">
           <h1>
-          Exámenes<small></small>
+         Expediente Médico - Exámenes<small></small>
           </h1>
         </section>
 
@@ -143,7 +143,7 @@
 						<th>#</th>
 						<th>Fecha</th>
 						<th>Tipo de exámen</th>
-						<th width="15%">Opciones</th>
+						<th width="15%"><center>Opciones</center></th>
                       </tr>
                     </thead>
                     <tbody>
@@ -156,7 +156,9 @@
 						  <td>
 						   <?=  $row['tipo_exam']; ?> 
 						  </td>	
-						  <td>												
+						  <td align="center">
+						<i title="Ver detalles" data-rel="tooltip" data-placement="top"  style="cursor:pointer" class="fa fa-search" data-rel="tooltip" data-placement="top"  onclick="ver_examen(<?= $row['id'];?>)"></i>		
+						  	&nbsp;						  
 						  </td>			
 						 </tr>
 							<?php }} ?>
@@ -176,7 +178,23 @@
             </div><!-- /.col-->
           </div><!-- ./row -->
 		  
-	
+		<div class="modal" id="modalPacDialog" role="dialog">
+		  <div class="modal-dialog"  role="document" style="width: 50%;">
+			<div class="modal-content">
+			  <div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title">Datos del exámen</h4>
+				</div>
+						<div class="modal-body" id="pac-body">
+						</div>
+			 <div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Ok</button>
+			  </div>
+			</div>
+			<!-- /.modal-content --> 
+		  </div>
+		  <!-- /.modal-dialog --> 
+		</div>		
 	
         </section><!-- /.content -->
       </div><!-- /.content-wrapper -->
@@ -221,6 +239,12 @@
 		$('[data-rel=popover]').popover({html:true});	
 		
       });	
+
+		function ver_examen(id){
+			
+			$( "#pac-body" ).load( "<?= base_url(); ?>examenes/ver/"+id );
+			$('#modalPacDialog').modal();
+		}	
 		
     </script>
 	

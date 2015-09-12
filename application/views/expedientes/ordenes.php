@@ -98,7 +98,7 @@
         <!-- Content Header (Page header) -->
         <section class="content-header">
           <h1>
-          Ordenes de terapia<small></small>
+          Expediente Médico - Ordenes de terapia<small></small>
           </h1>
         </section>
 
@@ -144,7 +144,7 @@
 						<th>N°</th>
 						<th>Fecha</th>
 						<th>Doctor</th>
-						<th width="15%">Opciones</th>
+						<th width="15%"><center>Opciones</center></th>
                       </tr>
                     </thead>
                     <tbody>
@@ -158,7 +158,13 @@
 						  <td>
 						   <?=  $row['nombre_doc']; ?> <?=  $row['apellido_doc']; ?>
 						  </td>	
-						  <td>												
+						  <td align="center">
+							<i title="Ver detalles" data-rel="tooltip" data-placement="top"  style="cursor:pointer" class="fa fa-search" data-rel="tooltip" data-placement="top"  onclick="ver_orden(<?= $row['id'];?>)"></i>		
+						  	&nbsp;
+							<a href="<?= base_url();?>terapias/orden_imprimir/<?= $row['id']; ?>" target="_blank"><i class="fa fa-print"></i></a>		
+						  	&nbsp;
+							<i title="Eliminar" data-rel="tooltip" data-placement="top"  style="cursor:pointer;color:red" class="fa fa-trash-o" onclick="eliminar(<?= $row['id'];?>, '<?= base_url(); ?>expedientes/eliminar_orden')"></i>
+							&nbsp;							
 						  </td>			
 						 </tr>
 							<?php }} ?>
@@ -179,7 +185,23 @@
             </div><!-- /.col-->
           </div><!-- ./row -->
 		  
-	
+	<div class="modal" id="modalPacDialog" role="dialog">
+		  <div class="modal-dialog"  role="document" style="width: 80%;">
+			<div class="modal-content">
+			  <div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title">Detalles de orden de terapia</h4>
+				</div>
+						<div class="modal-body" id="pac-body">
+						</div>
+			 <div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Ok</button>
+			  </div>
+			</div>
+			<!-- /.modal-content --> 
+		  </div>
+		  <!-- /.modal-dialog --> 
+		</div>		
 	
         </section><!-- /.content -->
       </div><!-- /.content-wrapper -->
@@ -205,7 +227,8 @@
     <script src='<?=base_url()?>assets/plugins/fastclick/fastclick.min.js'></script>
     <!-- AdminLTE App -->
     <script src="<?=base_url()?>assets/dist/js/app.min.js" type="text/javascript"></script>
-
+	<!-- iCheck 1.0.1 -->
+    <script src="<?=base_url()?>assets/plugins/iCheck/icheck.min.js" type="text/javascript"></script>
 	  <!-- all -->
     <script src="<?=base_url()?>assets/js/scripts.js" type="text/javascript"></script>
 
@@ -224,7 +247,29 @@
 		$('[data-rel=popover]').popover({html:true});	
 		
       });	
+	
+	function ver_orden(id){
+			
+			$( "#pac-body" ).load( "<?= base_url(); ?>expedientes/ver_orden_terapia/"+id );
+			$('#modalPacDialog').modal();
+		}
+
+	function eliminar(id, url_delete){
 		
+			bootbox.confirm("Estas seguro de eliminar el registro?", function(result) {
+			if(result){
+			  $.ajax({ 
+							url: url_delete,
+							type:'POST',
+							data:'id='+id,
+							success: function(){
+							 location.reload();
+							}
+						   })
+			}
+			}); 
+	}
+	
     </script>
 	
   </body>

@@ -228,6 +228,7 @@
 		function eliminar(id, url_delete){
 		
 			bootbox.confirm("Estas seguro de eliminar el registro?", function(result) {
+			if(result){
 			  $.ajax({ 
 							url: url_delete,
 							type:'POST',
@@ -235,7 +236,8 @@
 							success: function(){
 							 location.reload();
 							}
-					   })
+					   });
+			}
 			}); 
 		}
 

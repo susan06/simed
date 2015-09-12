@@ -98,7 +98,7 @@
         <!-- Content Header (Page header) -->
         <section class="content-header">
           <h1>
-          Historias médicas<small></small>
+            Expediente Médico - Historias médicas<small></small>
           </h1>
         </section>
 
@@ -158,7 +158,13 @@
 						  <td><?=  date_format(date_create($row['fecha']), 'd/m/Y'); ?></td>
 						  <td><?=  $row['nombre_doc']; ?> <?=  $row['apellido_doc']; ?></td>
 						  <td><?=  $row['ubicacion']; ?></td>
-						  <td align="center">						 
+						  <td align="center">
+							<i title="Ver detalles" data-rel="tooltip" data-placement="top"  style="cursor:pointer" class="fa fa-search" data-rel="tooltip" data-placement="top"  onclick="ver_historia(<?= $row['id'];?>)"></i>		
+						  	&nbsp;
+							<a href="<?= base_url();?>consulta/historia_imprimir/<?= $row['id']; ?>" target="_blank"><i class="fa fa-print"></i></a>		
+						  	&nbsp;
+							<i title="Eliminar" data-rel="tooltip" data-placement="top"  style="cursor:pointer;color:red" class="fa fa-trash-o" onclick="eliminar(<?= $row['id'];?>, '<?= base_url(); ?>expedientes/eliminar_historia')"></i>
+							&nbsp;							
 						  </td>						  		
 						 </tr>
 						<?php }} ?>
@@ -181,6 +187,23 @@
             </div><!-- /.col-->
           </div><!-- ./row -->
 		  
+	<div class="modal" id="modalPacDialog" role="dialog">
+		  <div class="modal-dialog"  role="document" style="width: 80%;">
+			<div class="modal-content">
+			  <div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title">Detalles de orden de terapia</h4>
+				</div>
+						<div class="modal-body" id="pac-body">
+						</div>
+			 <div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Ok</button>
+			  </div>
+			</div>
+			<!-- /.modal-content --> 
+		  </div>
+		  <!-- /.modal-dialog --> 
+		</div>		
 	
 	
         </section><!-- /.content -->
@@ -226,7 +249,29 @@
 		$('[data-rel=popover]').popover({html:true});	
 		
       });	
+
+	function ver_historia(id){
+			
+			$( "#pac-body" ).load( "<?= base_url(); ?>expedientes/ver_historia/"+id );
+			$('#modalPacDialog').modal();
+		}
+
+	function eliminar(id, url_delete){
 		
+			bootbox.confirm("Estas seguro de eliminar el registro?", function(result) {
+			if(result){
+			  $.ajax({ 
+							url: url_delete,
+							type:'POST',
+							data:'id='+id,
+							success: function(){
+							 location.reload();
+							}
+						   })
+			}
+			}); 
+	}
+	  
     </script>
 	
   </body>
