@@ -1,6 +1,5 @@
 	<?php $this->load->view('layouts/doctype.php');	 ?>	
 	
-  <body class="skin-green-light sidebar-mini">
     <div class="wrapper">
 	
 	<?php $this->load->view('layouts/header.php');	 ?>	
@@ -74,8 +73,11 @@
       <div class="content-wrapper">
         <!-- Content Header (Page header) -->
         <section class="content-header">
-          <h1>
-            Consulta <small>- DR. <?= $doctor[0]['pnombre'].' '.$doctor[0]['papellido'];  ?></small>
+          <h1 class="pull-left">
+            Historia médica <small>- DR. <?= $doctor[0]['pnombre'].' '.$doctor[0]['papellido'];  ?></small>
+          </h1>
+		  <h1 class="pull-right">
+            Especialidad <small>- <?= $especialidad[0]['nombre'];  ?></small>
           </h1>
         </section>
 		

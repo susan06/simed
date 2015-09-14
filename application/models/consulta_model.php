@@ -105,10 +105,11 @@ class Consulta_model extends CI_Model {
  	function get_consultas($doctor,$expediente){		
 		$this->db->select("*, consulta.id as id");
 		$this->db->join('signos_vitales','signos_vitales.consulta_id=consulta.id','left');
+		$this->db->join('especialidades','especialidades.id = consulta.especialidades_id');
 		$this->db->where('expediente_id',$expediente);
 		$this->db->where('doctores_id',$doctor);
 		$this->db->order_by('consulta.id', 'DESC');	
-		$query = $this->db->get('consulta',10);				
+		$query = $this->db->get('consulta',20);				
 		return $query->result_array();				
 	}
  

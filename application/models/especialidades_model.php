@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
@@ -17,7 +17,15 @@ class Especialidades_model extends CI_Model {
 		$query = $this->db->get();		
 		return $query->result_array();			
 	}
-  
+	
+	function get_especialidad($id){	
+		$this->db->select("id,nombre");
+		$this->db->from('especialidades');	
+		$this->db->where('id', $id);
+		$query = $this->db->get();		
+		return $query->result_array();			
+	}
+	
    function guardar($data){
   
 		$insertSQL= $this->db->insert('especialidades', $data);

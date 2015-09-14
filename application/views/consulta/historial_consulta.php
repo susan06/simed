@@ -1,4 +1,4 @@
-	<?php $this->load->view('layouts/doctype.php');	 ?>	
+<?php $this->load->view('layouts/doctype.php');	?>	
 	
     <div class="wrapper">
 	
@@ -72,8 +72,11 @@
       <div class="content-wrapper">
         <!-- Content Header (Page header) -->
         <section class="content-header">
-          <h1>
-           Historial de Consultas <small>- DR. <?= $doctor[0]['pnombre'].' '.$doctor[0]['papellido'];  ?></small>
+         <h1 class="pull-left">
+            Consulta <small>- DR. <?= $doctor[0]['pnombre'].' '.$doctor[0]['papellido'];  ?></small>
+          </h1>
+		  <h1 class="pull-right">
+            Especialidad <small>- <?= $especialidad[0]['nombre'];  ?></small>
           </h1>
         </section>
 
@@ -121,6 +124,7 @@
                       <tr>
 						<th>#</th>
 						<th>Fecha</th>
+						<th>Especialidad</th>
 						<th>Motivo</th>
 						<th width="15%">Opciones</th>
                       </tr>
@@ -133,6 +137,7 @@
 		  
 						  <td><?=  $numero++ ?></td>
 						  <td><?= date_format(date_create($row['fecha']), 'd/m/Y'); ?></td>
+						  <td><?= $row['nombre']; ?></td>
 						  <td><?= substr($row['motivo_consul'],0,30); ?>...</td>
 						  <td>						
 							<i class="fa fa-info-circle"  title="Ver detalles" style="cursor:pointer" data-rel="tooltip" data-placement="top" onclick="consulta_paciente(<?= $row['id'];?>)"></i>
@@ -177,6 +182,7 @@
                       <tr>
 						<th>#</th>
 						<th>Fecha</th>
+						<th>Especialidad</th>
 						<th>Motivo</th>
 						<th>Opciones</th>
                       </tr>
@@ -249,7 +255,7 @@
 		  <!-- /.modal-dialog --> 
 		</div>	
 	  
-	  <?php $this->load->view('layouts/footer.php');	 ?>
+	  <?php $this->load->view('layouts/footer.php'); ?>
  
     </div><!-- ./wrapper -->
 

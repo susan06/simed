@@ -1,6 +1,5 @@
 	<?php $this->load->view('layouts/doctype.php');	 ?>	
-	
-  <body class="skin-green-light sidebar-mini">
+
     <div class="wrapper">
 	
 	<?php $this->load->view('layouts/header.php');	 ?>	
@@ -44,8 +43,11 @@
       <div class="content-wrapper">
         <!-- Content Header (Page header) -->
         <section class="content-header">
-          <h1>
+          <h1 class="pull-left">
             Consulta <small>- DR. <?= $doctor[0]['pnombre'].' '.$doctor[0]['papellido'];  ?></small>
+          </h1>
+		  <h1 class="pull-right">
+            Especialidad <small>- <?= $especialidad[0]['nombre'];  ?></small>
           </h1>
         </section>
 		
@@ -143,7 +145,7 @@
              <br>     		
 					<div class="row">				   
 						<div class="form-group col-xs-6">
-						  <label>Diagnóstico</label>
+						  <label>DiagnÃƒÂ³stico</label>
 						 <textarea name="diagnostico" class="form-control"></textarea>
 						</div>
 						<div class="form-group col-xs-6">
@@ -164,6 +166,7 @@
      
 	 
 	 <div class="box-footer">
+		<input type="hidden" class="form-control" name="especialidades_id" value="<?= $especialidad[0]['id']; ?>">
        <button type="submit" class="btn btn-success pull-right">Guardar</button>
      </div>
 </form>	 

@@ -63,6 +63,7 @@
 						<th>#</th>
 						<th width="15%">Hora llegada</th>
 						<th>Paciente</th>
+						<th>Especialidad</th>
 						<th>Estado</th>
 						<th width="15%">Opciones</th>
                       </tr>
@@ -76,6 +77,7 @@
 						  <td><?=  $numero++ ?></td>
 						  <td><?= $row['hora_llegada']; ?></td>
 						  <td><?= $row['pnombre'] ?> <?= $row['papellido'] ?> <?Php if($row['cedula']){ echo 'C.I. '.$row['cedula']; }  ?></td>
+						   <td><?= $row['nombre'] ?></td>
 						  <td>
 						  <span id="label_status<?= $row['id'];?>">
 						  <?Php if($row['estado'] == 1){ echo '<span class="text-red">En espera</span>'; }else{ echo '<span class="text-green">Atendido</span>';} ?>
@@ -97,6 +99,7 @@
 						<th>#</th>
 						<th>Hora llegada</th>
 						<th>Paciente</th>
+						<th>Especialidad</th>
 						<th>Estado</th>
 						<th>Opciones</th>
                       </tr>

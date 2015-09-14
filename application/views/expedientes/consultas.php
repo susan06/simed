@@ -143,6 +143,7 @@
 						<th>#</th>
 						<th>Fecha</th>
 						<th>Doctor</th>
+						<th>Especialidad</th>
 						<th>Motivo</th>
 						<th width="15%">Opciones</th>
                       </tr>
@@ -157,8 +158,11 @@
 						  <td>
 						   <?=  $row['nombre_doc']; ?> <?=  $row['apellido_doc']; ?>
 						  </td>	
+						   <td><?= $row['nombre']; ?></td>
 						  <td><?= substr($row['motivo_consul'],0,30); ?>...</td>
-						  <td>												
+						  <td>
+							<i class="fa fa-info-circle"  title="Ver detalles" style="cursor:pointer" data-rel="tooltip" data-placement="top" onclick="consulta_paciente(<?= $row['id'];?>)"></i>
+							&nbsp;						  
 						  </td>			
 						 </tr>
 							<?php }} ?>
@@ -168,6 +172,7 @@
 						<th>#</th>
 						<th>Fecha</th>
 						<th>Doctor</th>
+						<th>Especialidad</th>
 						<th>Motivo</th>
 						<th>Opciones</th>
                       </tr>
@@ -179,7 +184,29 @@
             </div><!-- /.col-->
           </div><!-- ./row -->
 		  
-	
+		<div class="modal" id="modalPacDialog" role="dialog">
+		  <div class="modal-dialog"  role="document" style="width: 50%;">
+			<div class="modal-content">
+			  <div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title">Detalles de la consulta</h4>
+					<span id="mnj_cambio" class="text-green">
+					<?php if($this->session->flashdata('consulta_modificada') != ''): ?>	
+					 &nbsp;Consulta modificada con éxito 
+					<?php endif;?>
+					</span>
+				</div>
+						<div class="modal-body" id="pac-body">
+						</div>
+			 <div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Ok</button>
+			  </div>
+			</div>
+			<!-- /.modal-content --> 
+		  </div>
+		  <!-- /.modal-dialog --> 
+		</div>	
+	  
 	
         </section><!-- /.content -->
       </div><!-- /.content-wrapper -->
@@ -224,7 +251,11 @@
 		$('[data-rel=popover]').popover({html:true});	
 		
       });	
-		
+
+	  	function consulta_paciente(id){
+			$( "#pac-body" ).load( "<?= base_url(); ?>consulta/ver/"+id );
+			$('#modalPacDialog').modal();
+		}	
     </script>
 	
   </body>

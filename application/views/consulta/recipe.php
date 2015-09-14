@@ -72,8 +72,11 @@
       <div class="content-wrapper">
         <!-- Content Header (Page header) -->
         <section class="content-header">
-          <h1>
-           Récipe <small>- DR. <?= $doctor[0]['pnombre'].' '.$doctor[0]['papellido'];  ?></small>
+      <h1 class="pull-left">
+            Récipe <small>- DR. <?= $doctor[0]['pnombre'].' '.$doctor[0]['papellido'];  ?></small>
+          </h1>
+		  <h1 class="pull-right">
+            Especialidad <small>- <?= $especialidad[0]['nombre'];  ?></small>
           </h1>
         </section>
 

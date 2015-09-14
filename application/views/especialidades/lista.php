@@ -88,21 +88,7 @@
 								}
 							?>	
 							
-							<?php									
-							if ($permisos[$borrar]['status'] == 1 ){ 
-							?>
-							
-							&nbsp;&nbsp;<i title="Eliminar" style="cursor:pointer" class="fa fa-trash-o" onclick="eliminar(<?= $row['id'];?>, '<?= base_url(); ?>especialidades/eliminar')"></i>
-
-							<?php	
-								}else{
-							?>
-							
-							&nbsp;&nbsp;<i class="fa fa-trash-o" onclick="eliminar_permiso()"></i>
-
-							<?php	
-								}
-							?>													
+																		
 						   </td>			
 
 						 </tr>

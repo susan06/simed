@@ -85,6 +85,9 @@ class Consulta extends CI_Controller {
 							
 		$cita_datos = $this->citas_model->get_datos_cita($cita);
 		
+		$this->load->model('especialidades_model');	
+		$data['especialidad'] = $this->especialidades_model->get_especialidad($cita_datos[0]['especialidades_id']);	
+		
 		$this->load->model('doctores_model');		
 		$doctor = $this->doctores_model->get_datos_doctor($cita_datos[0]['doctores_id']);
 		if($doctor){
@@ -267,8 +270,11 @@ class Consulta extends CI_Controller {
 		$data['page_title'] = 'Consulta';
 		$data['system_title'] = 'Datos';
 		$data['cita'] =  $cita;
-		
+				 
 		$cita_datos = $this->citas_model->get_datos_cita($cita);
+		
+		$this->load->model('especialidades_model');	
+		$data['especialidad'] = $this->especialidades_model->get_especialidad($cita_datos[0]['especialidades_id']);
 	
 		$this->load->model('doctores_model');		
 		$doctor = $this->doctores_model->get_datos_doctor($cita_datos[0]['doctores_id']);
@@ -300,7 +306,10 @@ class Consulta extends CI_Controller {
 		$data['permisos'] = $this->permisos();
 		
 		$cita_datos = $this->citas_model->get_datos_cita($cita);
-	
+		
+		$this->load->model('especialidades_model');	
+		$data['especialidad'] = $this->especialidades_model->get_especialidad($cita_datos[0]['especialidades_id']);	
+		
 		$this->load->model('doctores_model');		
 		$doctor = $this->doctores_model->get_datos_doctor($cita_datos[0]['doctores_id']);
 		if($doctor){
@@ -357,6 +366,7 @@ class Consulta extends CI_Controller {
 		$data['expediente_id']= $expediente[0]['id'];
 		$data['doctores_id']= $cita_datos[0]['doctores_id'];
 		$data['fecha']= date('Y-m-d');
+		$data['especialidades_id']= $this->input->post('especialidades_id');
 		$data['motivo_consul']= $this->input->post('motivo_consul');
 		$data['enfermedad_actual']= $this->input->post('enfermedad_actual');
 		$data['diagnostico']= $this->input->post('diagnostico');
@@ -465,7 +475,10 @@ class Consulta extends CI_Controller {
 		$data['cita'] =  $cita;
 		
 		$cita_datos = $this->citas_model->get_datos_cita($cita);
-	
+
+		$this->load->model('especialidades_model');	
+		$data['especialidad'] = $this->especialidades_model->get_especialidad($cita_datos[0]['especialidades_id']);	
+		
 		$this->load->model('doctores_model');		
 		$doctor = $this->doctores_model->get_datos_doctor($cita_datos[0]['doctores_id']);
 		if($doctor){

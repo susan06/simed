@@ -29,6 +29,7 @@ class Expediente_model extends CI_Model {
 	function get_consultas($expediente){		
 		$this->db->select("*, consulta.id as id, doctores.pnombre as nombre_doc, doctores.papellido as apellido_doc");
 		$this->db->join('signos_vitales','signos_vitales.consulta_id=consulta.id','left');
+		$this->db->join('especialidades','especialidades.id = consulta.especialidades_id');
 		$this->db->join('doctores','doctores.id=consulta.doctores_id','left');
 		$this->db->join('expediente_medico','expediente_medico.id=consulta.expediente_id','left');
 		$this->db->join('pacientes','pacientes.id=expediente_medico.pacientes_id','left');

@@ -130,9 +130,9 @@
 				<li><a href="<?= base_url();?>doctores/calendario_doctores"><i class="fa fa-calendar"></i>Calendario-Doctores</a></li>
 				<?php } ?>	
 				<?Php if($this->session->userdata('rol') == 3): ?>
-                <li><a href="<?= base_url();?>doctores/especialidades"><i class="fa fa-certificate"></i>Especialidad</a></li>
+                <li><a href="<?= base_url();?>doctores/especialidades"><i class="fa fa-certificate"></i>Mis Especialidades</a></li>
 				<li><a href="<?= base_url();?>doctores/calendario"><i class="fa fa-calendar-o"></i>Mi calendario</a></li>
-				<li><a href="<?= base_url();?>doctores/datos"><i class="fa fa-file-text"></i>Datos</a></li>
+				<li><a href="<?= base_url();?>doctores/datos"><i class="fa fa-file-text"></i>Mi perfil</a></li>
 				<?Php endif ?>
               </ul>
             </li>   
