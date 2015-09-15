@@ -145,8 +145,15 @@
 			 if ( expr.test(email) ){
 				
 				$('#fromEmail').removeClass('has-error').addClass('has-success');	
-				$('#mnj_email').html(" ").removeClass('text-red').addClass('text-green');	
-
+				$('#mnj_email').html(" ").removeClass('text-red').addClass('text-green');
+				
+				if(email == 'admin@cocuizas.com'){
+					$( "#rs_pass" ).hide();	
+					$('#fromEmail').removeClass('has-success').addClass('has-error');							
+					$('#mnj_email').html("Es una cuenta administrador, no puede cambiar contraseña.").removeClass('text-green').addClass('text-red');	
+					return false;					
+				}
+				
 				$.ajax({ 
 						url:'<?= base_url() ?>cuenta/validar_email',
 						type:'POST',

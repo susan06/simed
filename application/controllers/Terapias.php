@@ -39,6 +39,23 @@ class Terapias extends CI_Controller {
 		$this->output->set_header('Pragma: no-cache');
 	}
 	
+	public function index(){	
+		
+		$data['page_title'] = 'Terapias';
+		$data['system_title'] = 'Ver';		
+
+		$terapias = $this->terapias_model->get_terapias();
+
+		if($terapias){
+			$data['terapias'] =  $terapias;
+		}else{
+			$data['terapias'] =  NULL;
+		}
+					
+		$this->load->view('tratamientos/lista', $data);
+			
+	}
+	
 	public function sala_espera(){		
 		
 		$data['page_title'] = 'Terapias';
@@ -446,5 +463,45 @@ class Terapias extends CI_Controller {
 		}
 		
 		return $this->load->view('terapias/busqueda_ordenes', $data);		
-    }		
+    }
+
+    public function eliminar(){	
+		
+		 $id = $this->input->post('id');
+		 $this->terapias_model->eliminar($id);
+		 	
+	}	
+	
+	public function crear(){	
+		
+		$data['page_title'] = 'Terapias';
+		$data['system_title'] = 'Crear';		
+					
+		$this->load->view('tratamientos/crear', $data);
+			
+	}
+	
+    public function editar_terapia(){	
+		
+		 $id = $this->input->post('pk');
+		 $value = $this->input->post('value');
+		 
+		 $this->db->where('id', $id);
+		 $updateSQL=$this->db->update('terapias', array('descripcion' => $value) );	
+		 
+		if($updateSQL) 
+        echo json_encode(array('id'=>$id));
+		else 
+        echo json_encode(array('id'=>$id));	
+		 	
+	}	
+	
+	public function guardar_terapia(){	
+		 
+		 $data['descripcion']= ucwords($this->input->post('descripcion'));
+		 $data['tipo']= $this->input->post('tipo');
+	  
+		$this->terapias_model->guardar_terapia($data);	
+	}
+			
 }

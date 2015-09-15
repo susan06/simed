@@ -102,11 +102,11 @@ class Especialidades extends CI_Controller {
 	
     public function editar(){	
 		
-		 $id = $this->input->get('pk');
-		 $value = $this->input->get('value');
+		 $id = $this->input->post('pk');
+		 $value = $this->input->post('value');
 		 
 		 $this->db->where('id', $id);
-		 $updateSQL=$this->db->update(	'especialidades', array('nombre' => $value) );	
+		 $updateSQL=$this->db->update('especialidades', array('nombre' => $value) );	
 		 
 		if($updateSQL) 
         echo json_encode(array('id'=>$id));

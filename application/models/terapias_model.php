@@ -11,11 +11,17 @@ class Terapias_model extends CI_Model {
     }
  
 	function get_terapias(){	
-		$this->db->select("*");		
+		$this->db->select("*, terapias.id as id");		
 		$query = $this->db->get('terapias');		
 		return $query->result_array();	
 	}
-	
+ 
+	function eliminar($id){
+			
+		$this->db->where('id', $id);
+		$this->db->delete('terapias');	
+	}
+		
 	function guardar_orden($data){
 			
 		$insertSQL=$this->db->insert('orden_terapia', $data);
@@ -30,6 +36,21 @@ class Terapias_model extends CI_Model {
 					redirect(base_url() . 'terapias/orden_terapia/'.$orden, 'refresh');	
 		}
 
+	}
+
+	function guardar_terapia($data){
+  
+		$insertSQL= $this->db->insert('terapias', $data);
+
+		if($insertSQL) {
+					$this->session->set_flashdata('terapia', $data['descripcion']);
+					$this->session->set_flashdata('info', 'La terapia '.$data['descripcion'].' se guardo con éxito');
+					redirect(base_url() . 'terapias', 'refresh');		 
+		}else{
+					$this->session->set_flashdata('error', 'Intente guardar los datos de nuevo');
+					redirect(base_url() . 'terapias', 'refresh');	
+		}
+						
 	}
 	
 	function guardar_aplicacion($data){

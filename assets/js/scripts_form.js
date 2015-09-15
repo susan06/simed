@@ -270,6 +270,35 @@
                 
             });	
 
+			 $("#form_terapia").validate({
+                // Rules for form validation
+                rules: {
+                    descripcion: {
+                        required: true
+                    },
+					tipo: {
+                        required: true
+                    }
+                },
+
+                // Messages for form validation
+                messages: {
+					descripcion: {
+                        required: 'Ingrese el nombre de la terapia'
+                    },
+					tipo: {
+                        required: 'Seleccione el tipo de terapia'
+                    }
+                },
+				highlight: function (element) {
+					$(element).closest('.form-group').removeClass('has-success').addClass('has-error');
+				},
+				success: function (element) {
+					element.closest('.form-group').removeClass('has-error').addClass('has-success');
+				}
+                
+            });	
+			
 			  $("#form_paciente").validate({
                 // Rules for form validation
                 rules: {

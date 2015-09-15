@@ -180,7 +180,7 @@
 			
 			<li>
               <a href="../widgets.html">
-                <i class="fa fa-medkit"></i> <span>Terapias</span>
+                <i class="fa fa-medkit"></i> <span>Aplicación de Terapias</span>
               </a>
 			   <ul class="treeview-menu">
 			   <li><a href="<?= base_url();?>terapias/sala_espera"><i class="fa fa-wheelchair"></i>En espera</a></li>
@@ -194,6 +194,15 @@
               </ul>
             </li>
 
+			<li class="treeview">
+               <a href="#">
+                <i class="fa fa-certificate"></i> <span>Lista de terapias</span> 
+              </a>
+			    <ul class="treeview-menu">
+                <li><a href="<?= base_url();?>terapias"><i class="fa fa-reorder"></i>Ver</a></li>
+                <li><a href="<?= base_url();?>terapias/crear"><i class="fa fa-plus-square"></i>Crear</a></li>
+              </ul>
+            </li>
 			
 			<?php	if($permisos_pro[1]['status'] == 1 || $permisos_pro[4]['status'] == 1 ){ ?>			
 			<li>			 
