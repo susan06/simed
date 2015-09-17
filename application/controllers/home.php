@@ -57,6 +57,16 @@ class Home extends CI_Controller {
 		
 		$data['enfermeras'] = count($this->home_model->get_enfermeras());
 		
+		$data['sexo'] = $this->home_model->get_sexo();
+		
+		$data['edad'] = $this->home_model->get_edad();
+		
+		$data['data_consulta'] = $this->home_model->get_consulta();
+		
+		$data['data_terapia'] = $this->home_model->get_terapia();
+		
+		$data['terapias'] = $this->home_model->get_terapias();
+		
 		$this->load->view('home', $data);
 		
     }
