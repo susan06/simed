@@ -52,6 +52,14 @@ class Doctores_model extends CI_Model {
     function get_datos_doctor($doctorId){	
 		$this->db->select('*');
 		$this->db->from('doctores');
+		$this->db->where('id',$doctorId);
+		$query = $this->db->get();		
+		return $query->result_array();		
+	}
+	
+	 function get_datos_doctor_user($doctorId){	
+		$this->db->select('*');
+		$this->db->from('doctores');
 		$this->db->where('usuarios_id',$doctorId);
 		$query = $this->db->get();		
 		return $query->result_array();		

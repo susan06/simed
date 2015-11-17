@@ -61,7 +61,7 @@ class Consulta extends CI_Controller {
 		
 		$this->load->model('doctores_model');
 		
-		$doctor = $this->doctores_model->get_datos_doctor($doctor_user);	
+		$doctor = $this->doctores_model->get_datos_doctor_user($doctor_user);	
 		
 		$this->load->model('espera_model');
 		
